@@ -3,36 +3,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
-    public BaseAudioManager baseAudioManager;
-    public UserInterfaceManager userInterface;
-    public ObjectPooling objectPooling;
-    
     private void Awake()
     {
-        instance = this;
-        Initialise();
+        Instance = this;
+    }
+    
+    [ContextMenu("Increment Score")]
+    public void IncrementScore()
+    {
+        ScoreTracker.IncrementScore(0);
+    }
+    
+    [ContextMenu("Start Game")]
+    public void StartGame()
+    {
+        TimeTracker.StartTimer(ProjectManager.Instance);
     }
 
-    private static void Initialise()
+    [ContextMenu("End Game")]
+    public void EndGame()
     {
-        ScoreTracker.Initialise();
-        TimeTracker.Initialise();
-    }
-
-    public void StartGamePlay()
-    {
-        Debugging.DisplayDebugMessage("Game play started.");
-        SceneTransitionManager.LoadMainScene(() =>
-        {
-            userInterface.EnableInGameCanvas(true);
-            TimeTracker.StartTimer();
-        });
-    }
-
-    public static void ReloadGame()
-    {
-        Debugging.DisplayDebugMessage("Game reloading.");
+        TimeTracker.StopTimer();
+        HighScores.SetHighScore(ScoreTracker.Score);
+        ProjectManager.Instance.userInterface.EnableGameOverMenu();
     }
 }

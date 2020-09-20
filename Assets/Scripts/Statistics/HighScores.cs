@@ -13,7 +13,7 @@ namespace Statistics
             {
                 return PlayerPrefs.GetInt(Key);
             }
-            Debug.LogWarning("No previous high score found. This may be the first time the game is played.");
+            Debug.LogWarning("No previous high score found with key: " + Key + ". This may be the first time the game is played.");
             return 0;
         }
 

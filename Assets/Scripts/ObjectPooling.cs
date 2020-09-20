@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 //Objects that are created as part of the game are pooled by this glass and enabled as they are needed.
+//This system reduces the amount of garbage generated from instantiating and destroying objects.
 public class ObjectPooling : MonoBehaviour
 {
     public List<Pool> pools;
     private static readonly Dictionary<int, Queue<GameObject>> PoolDictionary = new Dictionary<int, Queue<GameObject>>();
 
-    private void Awake()
-    {
-        Initialise();
-    }
-    
     public void Initialise()
     {
         ConvertPoolListIntoQueue();
@@ -27,14 +22,14 @@ public class ObjectPooling : MonoBehaviour
 
             for (var i = 0; i < pool.maximumActiveObjects; i++)
             {
-                var temporaryVariable = UnityEngine.Object.Instantiate(pool.prefab);
+                var temporaryVariable = Instantiate(pool.prefab);
                 temporaryVariable.SetActive(false);
                 objectPool.Enqueue(temporaryVariable);
             }
             
             if (PoolDictionary.ContainsKey(pool.index))
             {
-                Debugging.DisplayDebugMessage("Replacing object pool " + pool.index);
+                Debugging.DisplayDebugMessage("Replacing object pool " + pool.index + ". ");
                 PoolDictionary.Remove(pool.index);
             }
             

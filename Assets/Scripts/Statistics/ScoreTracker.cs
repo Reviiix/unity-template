@@ -5,18 +5,23 @@ namespace Statistics
     public static class ScoreTracker
     {
         private static TMP_Text _scoreDisplay;
-        private const string ScoreDisplayPrefix = "SCORE: ";
-        private static readonly int[] IncrementAmounts = {1, 3, 5, 10, 20};
+        private static readonly int[] IncrementAmounts = {1, 2, 3, 5, 10, 20};
+        public const string ScoreDisplayPrefix = "SCORE: ";
         public static int Score
         {
             get;
             private set;
         }
 
-        public static void Initialise()
+        public static void Initialise(TMP_Text scoreDisplay)
         {
-            _scoreDisplay = GameManager.instance.userInterface.ReturnScoreText();
+            ResolveDependencies(scoreDisplay);
             Reset();
+        }
+
+        private static void ResolveDependencies(TMP_Text scoreDisplay)
+        {
+            _scoreDisplay = scoreDisplay;
         }
 
         public static void IncrementScore(int amountIndex)

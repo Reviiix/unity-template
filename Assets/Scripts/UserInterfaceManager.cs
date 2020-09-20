@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using PureFunctions;
 using Statistics;
 using TMPro;
 using UnityEngine;
@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class UserInterfaceManager : MonoBehaviour
 {
-    public static RawImage transitionalFadeImage;
+    public static RawImage TransitionalFadeImage;
+    private static readonly Color[] PlayButtonColorSwaps = {Color.white, Color.green};
     [SerializeField]
     private IntroductionMenu introductionMenu;
     [SerializeField]
@@ -16,42 +17,72 @@ public class UserInterfaceManager : MonoBehaviour
     private PauseMenu pauseMenu;
     [SerializeField]
     private GameOverMenu gameOverMenu;
+    [SerializeField]
+    private SettingsMenu settingsMenu;
 
     private void Start()
     {
         Initialise();
-        introductionMenu.EnableIntroductionCanvas();
+        
+        EnableStartMenu();
     }
-    
+
     private void Initialise()
     {
-        transitionalFadeImage = GetComponent<RawImage>();
-        introductionMenu.Initialise();
-        gameOverMenu.Initialise();
-        inGameMenu.Initialise();
+        ResolveDependencies();
+
+        InitialiseMenus();
     }
 
-
-    public void EnableAllNonPermanentCanvases(bool state)
+    private void InitialiseMenus()
     {
-        introductionMenu.startCanvas.enabled = state;
-        gameOverMenu.gameOverCanvas.enabled = state;
-        pauseMenu.pauseCanvas.enabled = state;
+        introductionMenu.Initialise(()=>EnableAllNonPermanentCanvases(false), PlayButtonColorSwaps);
+        gameOverMenu.Initialise(PlayButtonColorSwaps);
+        pauseMenu.Initialise(PauseButtonPressed);
+        settingsMenu.Initialise(()=> EnablePauseButton(), () => EnablePauseButton(false),()=>EnablePauseMenu());
+    }
+
+    private void ResolveDependencies()
+    {
+        TransitionalFadeImage = GetComponent<RawImage>();
+    }
+
+    public void EnableStartMenu()
+    {
+        introductionMenu.Enable();
+    }
+
+    public void EnableInGameUserInterface(bool state = true)
+    {
+        inGameMenu.Enable(state);
+    }
+
+    private void PauseButtonPressed()
+    {
+        EnablePauseMenu(PauseManager.IsPaused);
+    }
+
+    private void EnablePauseMenu(bool state = true)
+    {
+        pauseMenu.Enable(state);
     }
     
-    public void EnableInGameCanvas(bool state)
+    public void EnableGameOverMenu(bool state = true)
     {
-        inGameMenu.EnableInGameCanvas(state);
-    }
-
-    public void EnablePauseCanvas(bool state)
-    {
-        pauseMenu.EnablePauseCanvas(state);
+        gameOverMenu.Enable(state);
     }
     
-    public void EnablePauseButton(bool state)
+    public void EnablePauseButton(bool state = true)
     {
-        pauseMenu.pauseButtonImage.enabled = false;
+        pauseMenu.EnablePauseButtons(state);
+    }
+    
+    private void EnableAllNonPermanentCanvases(bool state = true)
+    {
+        introductionMenu.display.enabled = state;
+        gameOverMenu.display.enabled = state;
+        pauseMenu.display.enabled = state;
+        settingsMenu.display.enabled = state;
     }
 
     public TMP_Text ReturnScoreText()
@@ -66,83 +97,116 @@ public class UserInterfaceManager : MonoBehaviour
 }
 
 [Serializable]
-public class IntroductionMenu
+public class IntroductionMenu : Menu, IMenu
 {
     [SerializeField]
     private Button startButton;
-    public Canvas startCanvas;
     private TMP_Text _startButtonText;
+    private static Color[] _playButtonColorSwaps;
 
-    public void Initialise()
+    public void Initialise(Action disableAllCanvases, Color[] playButtonColorSwaps)
+    {
+        ResolveDependencies(playButtonColorSwaps, disableAllCanvases);
+        
+        AddButtonEvents();
+    }
+    
+    private void ResolveDependencies(Color[] playButtonColorSwaps, Action disableAllCanvases)
     {
         _startButtonText = startButton.GetComponent<TMP_Text>();
-        
-        startButton.onClick.AddListener(() => EnableIntroductionCanvas(false));
-        
-        startButton.onClick.AddListener(GameManager.instance.StartGamePlay);
-        
-        startButton.onClick.AddListener(GameManager.instance.baseAudioManager.PlayButtonClickSound);
+        _playButtonColorSwaps = playButtonColorSwaps;
+        DisableAllCanvases = disableAllCanvases;
     }
 
-    public void EnableIntroductionCanvas(bool state = true)
+    private void AddButtonEvents()
     {
-        GameManager.instance.userInterface.EnableAllNonPermanentCanvases(false);
+        startButton.onClick.AddListener(() => Enable(false));
+        startButton.onClick.AddListener(ProjectManager.Instance.LoadMainGame);
+        startButton.onClick.AddListener(ProjectManager.Instance.audioManager.PlayButtonClickSound);
+        startButton.onClick.AddListener(SequentiallyChangeTextColour.StopChangeTextColorSequence);
+    }
+
+    public void Enable(bool state = true)
+    {
+        DisableAllCanvases();
+        ProjectManager.Instance.userInterface.EnablePauseButton();
         
-        startCanvas.enabled = state;
+        display.enabled = state;
         
-        SequentiallyChangeTextColour.StartChangeTextColorSequence(_startButtonText, Color.white, Color.black);
+        SequentiallyChangeTextColour.Change(_startButtonText, _playButtonColorSwaps[0], _playButtonColorSwaps[1], ProjectManager.Instance);
     }
 }
 
 [Serializable]
-public struct InGameMenu
+public class InGameMenu : Menu, IMenu
 {
-    [SerializeField]
-    private Canvas inGameCanvas;
-    [SerializeField]
-    private Button pauseButton;
     public TMP_Text timeText;
     public TMP_Text scoreText;
 
-    public void Initialise()
+    public void Enable(bool state = true)
     {
-        pauseButton.onClick.AddListener(PauseManager.PauseButtonPressed);
-        pauseButton.onClick.AddListener(GameManager.instance.baseAudioManager.PlayButtonClickSound);
-    }
-
-    public void EnableInGameCanvas(bool state)
-    {
-        inGameCanvas.enabled = state;
+        display.enabled = state;
     }
 }
 
 [Serializable]
-public class PauseMenu
+public class PauseMenu : Menu, IMenu
 {
     [SerializeField] 
     private Sprite pauseSprite;
     [SerializeField] 
     private Sprite playSprite;
-    public Canvas pauseCanvas;
-    public Image pauseButtonImage;
-    
-    public void EnablePauseCanvas(bool state = true)
+    [SerializeField] 
+    private Image pauseButtonImage;
+    private Button _pauseButton;
+
+    public void Initialise(Action enablePauseCanvas)
     {
-        GameManager.instance.userInterface.EnableAllNonPermanentCanvases(false);
-        
-        pauseCanvas.enabled = state;
-        pauseButtonImage.sprite = ReturnCurrentPauseButtonSprite(PauseManager.isPaused);
+        ResolveDependencies();
+        AddButtonEvents(enablePauseCanvas);
+    }
+    
+    private void ResolveDependencies()
+    {
+        _pauseButton = pauseButtonImage.GetComponent<Button>();
     }
 
-    public Sprite ReturnCurrentPauseButtonSprite(bool state)
+    private void AddButtonEvents(Action enablePauseCanvas)
+    {
+        _pauseButton.onClick.AddListener(PauseManager.PauseButtonPressed);
+        _pauseButton.onClick.AddListener(()=>enablePauseCanvas());
+        _pauseButton.onClick.AddListener(ProjectManager.Instance.audioManager.PlayButtonClickSound);
+    }
+
+    public void EnablePauseButtons(bool state = true)
+    {
+        pauseButtonImage.enabled = state;
+        _pauseButton.enabled = state;
+    }
+
+    public void Enable(bool state = true)
+    {
+        DisableAllCanvases();
+        
+        display.enabled = state;
+        pauseButtonImage.sprite = ReturnCurrentPauseButtonSprite(state);
+    }
+
+    public Sprite ReturnCurrentPauseButtonSprite(bool state = true)
     {
         return state ? playSprite : pauseSprite;
     }
 }
 
 [Serializable]
-public class GameOverMenu
+public class GameOverMenu : Menu, IMenu
 {
+    private static Color[] _restartButtonColorSwaps;
+    private const string FinalScorePrefix = "FINAL " + ScoreTracker.ScoreDisplayPrefix;
+    private const string HighScorePrefix = "HIGH" + ScoreTracker.ScoreDisplayPrefix;
+    private const string FinalTimePrefix = "FINAL " + TimeTracker.TimeDisplayPrefix;
+    private static readonly Color NewHighScoreTextColour = Color.green;
+    private static Color _noHighScoreColor = Color.white;
     [SerializeField]
     private Button restartButton;
     [SerializeField]
@@ -151,46 +215,121 @@ public class GameOverMenu
     private TMP_Text finalScoreText;
     [SerializeField]
     private TMP_Text highScoreText;
-    public Canvas gameOverCanvas;
-    private const string HighScorePrefix = "HIGHSCORE: ";
-    private static readonly Color HighScoreColour = Color.green;
 
-    public void Initialise()
+    public void Initialise(Color[] restartButtonColorSwaps)
     {
-        restartButton.onClick.AddListener(GameManager.ReloadGame);
-        restartButton.onClick.AddListener(GameManager.instance.baseAudioManager.PlayButtonClickSound);
+        SetNoHighScoreColor(restartButtonColorSwaps);
+        AddButtonEvents();
     }
-    
-    [ContextMenu("EnableGameOverCanvas")]
-    public void EnableGameOverCanvas(bool state, string finalScore = "", string finalTime = "")
+
+    private void SetNoHighScoreColor(Color[] restartButtonColorSwaps)
     {
-        GameManager.instance.userInterface.EnableAllNonPermanentCanvases(false);
-        
-        gameOverCanvas.enabled = state;
+        _restartButtonColorSwaps = restartButtonColorSwaps;
+        _noHighScoreColor = highScoreText.color;
+    }
+
+    private void AddButtonEvents()
+    {
+        restartButton.onClick.AddListener(ProjectManager.Instance.LoadMainMenu);
+        restartButton.onClick.AddListener(ProjectManager.Instance.audioManager.PlayButtonClickSound);
+        restartButton.onClick.AddListener(SequentiallyChangeTextColour.StopChangeTextColorSequence);
+    }
+
+    public void Enable(bool state = true)
+    {
+        DisableAllCanvases();
+        ProjectManager.Instance.userInterface.EnableInGameUserInterface(false);
+        display.enabled = state;
 
         if (!state) return;
+        
+        SequentiallyChangeTextColour.Change(restartButton.GetComponent<TMP_Text>(), _restartButtonColorSwaps[0], _restartButtonColorSwaps[1], ProjectManager.Instance);
+        SequentiallyChangeTextColour.Change(restartButton.GetComponent<TMP_Text>(), _restartButtonColorSwaps[0], _restartButtonColorSwaps[1], ProjectManager.Instance);
+        
+        ProjectManager.Instance.userInterface.EnablePauseButton(false);
+        SetFinalStatisticsDisplay();
+    }
 
-        GameManager.instance.userInterface.EnablePauseButton(false);
-        
-        finalScoreText.text = finalScore;
-        finalTimeText.text = finalTime;
-        
+    private void SetFinalStatisticsDisplay()
+    {
+        var score = ScoreTracker.Score;
         var highScore = HighScores.ReturnHighScore();
+        var finalTime = TimeTracker.ReturnCurrentTimeAsFormattedString();
+        
+        finalScoreText.text = FinalScorePrefix + score;
+        finalTimeText.text = FinalTimePrefix + finalTime;
         highScoreText.text = HighScorePrefix + highScore;
 
-        if (ScoreTracker.Score >= highScore)
+        if (score >= highScore)
         {
-            ChangeTextColors(new [] {highScoreText, finalScoreText}, HighScoreColour);
+            SetHighScoreColours();
             return;
         }
-        ChangeTextColors(new [] {highScoreText, finalScoreText}, Color.white);
+        SetHighScoreColours(false);
     }
-    
-    private static void ChangeTextColors(IEnumerable<TMP_Text> textsToChange, Color newColor)
+
+    private void SetHighScoreColours(bool highScoreAchieved = true)
     {
-        foreach (var text in textsToChange)
+        if (highScoreAchieved)
         {
-            text.color = newColor;
+            ChangeTextColors.Change(new [] {highScoreText, finalScoreText}, NewHighScoreTextColour);
+            return;
         }
+        ChangeTextColors.Change(new [] {highScoreText, finalScoreText}, _noHighScoreColor);
     }
+}
+
+[Serializable]
+public class SettingsMenu : Menu, IMenu
+{
+    private Button _settingsButton;
+    [SerializeField]
+    private Button closeButton;
+    [SerializeField]
+    private GameObject settingsButtonObject;
+
+    public void Initialise(Action enablePauseButton, Action disablePauseButton, Action enablePauseMenu)
+    {
+        ResolveDependencies();
+        
+        AddButtonEvents(enablePauseButton, disablePauseButton, enablePauseMenu);
+    }
+
+    private void ResolveDependencies()
+    {
+        _settingsButton = settingsButtonObject.GetComponent<Button>();
+    }
+
+    private void AddButtonEvents(Action enablePauseButton, Action disablePauseButton, Action enablePauseMenu)
+    {
+        closeButton.onClick.AddListener(() => Enable(false));
+        closeButton.onClick.AddListener(() => enablePauseButton());
+        closeButton.onClick.AddListener(() => enablePauseMenu());
+        closeButton.onClick.AddListener(ProjectManager.Instance.audioManager.PlayButtonClickSound);
+        
+        _settingsButton.onClick.AddListener(() => Enable());
+        _settingsButton.onClick.AddListener(() => disablePauseButton());
+        _settingsButton.onClick.AddListener(ProjectManager.Instance.audioManager.PlayButtonClickSound);
+    }
+
+    public void Enable(bool state = true)
+    {
+        DisableAllCanvases();
+        
+        display.enabled = state;
+        
+        settingsButtonObject.SetActive(!state);
+    }
+}
+
+[Serializable]
+public abstract class Menu
+{
+    public Canvas display;
+    protected static Action DisableAllCanvases;
+}
+
+public interface IMenu
+{
+    void Enable(bool state = true);
 }

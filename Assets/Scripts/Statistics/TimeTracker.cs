@@ -7,24 +7,31 @@ namespace Statistics
 {
     public static class TimeTracker
     {
-        private const string TimeDisplayPrefix = "TIME: ";
+        public const string TimeDisplayPrefix = "TIME: ";
+        private const string TimeFormat = @"m\:ss\.ff";
         private static bool _trackTime;
+        private static MonoBehaviour _coRoutineHandler;
         private static TMP_Text _timeText;
         private static Coroutine _timeTracker;
         private static DateTime _gameStartTime;
         private static DateTime _pauseStartTime;
         private static DateTime _pauseEndTime;
         private static TimeSpan _timePaused;
+        private static TimeSpan _currentTime;
 
-        public static void Initialise()
+        public static void Initialise(TMP_Text timeDisplay)
         {
-            _timeText = GameManager.instance.userInterface.ReturnTimeText();
+            ResolveDependencies(timeDisplay);
             Reset();
+        }
+
+        private static void ResolveDependencies(TMP_Text timeDisplay)
+        {
+            _timeText = timeDisplay;
         }
 
         private static void Reset()
         {
-            UpdateTimeDisplay(_timeText, DateTime.Now); //_timeText.text = TimeDisplayPrefix + "0:00.00";
             StopTimer();
 
             _gameStartTime = DateTime.Now;
@@ -32,13 +39,16 @@ namespace Statistics
             _pauseEndTime = DateTime.Now;
             
             _timePaused = TimeSpan.Zero;
+            
+            UpdateTimeDisplay(_timeText, DateTime.Now);
         }
 
-        public static void StartTimer()
+        public static void StartTimer(MonoBehaviour coRoutineHandler)
         {
+            _coRoutineHandler = coRoutineHandler;
             _trackTime = true;
             _gameStartTime = DateTime.Now;
-            _timeTracker = GameManager.instance.StartCoroutine(TrackTime(_gameStartTime));
+            _timeTracker = _coRoutineHandler.StartCoroutine(TrackTime(_gameStartTime));
         }
         
         public static void PauseTimer()
@@ -54,10 +64,9 @@ namespace Statistics
             
             _trackTime = true;
             _gameStartTime += _timePaused;
-            _timeTracker = GameManager.instance.StartCoroutine(TrackTime(_gameStartTime));
+            _timeTracker = _coRoutineHandler.StartCoroutine(TrackTime(_gameStartTime));
         }
         
-    
         public static void StopTimer()
         {
             _trackTime = false;
@@ -82,18 +91,24 @@ namespace Statistics
         {
             if (_timeTracker != null)
             {
-                GameManager.instance.StopCoroutine(_timeTracker);
+                _coRoutineHandler.StopCoroutine(_timeTracker);
             }
         }
 
         private static void UpdateTimeDisplay(TMP_Text display, DateTime startingTime)
         {
-            display.text = TimeDisplayPrefix + TrackTimeFrom(startingTime).ToString(@"m\:ss\.ff");
+            _currentTime = TrackTimeFrom(startingTime);
+            display.text = TimeDisplayPrefix + ReturnCurrentTimeAsFormattedString();
         }
     
         private static TimeSpan TrackTimeFrom(DateTime originalTime)
         {
             return(DateTime.Now - originalTime);
+        }
+
+        public static string ReturnCurrentTimeAsFormattedString()
+        {
+            return _currentTime.ToString(TimeFormat);
         }
     }
 }

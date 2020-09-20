@@ -1,32 +1,36 @@
-﻿using Statistics;
+﻿using Audio;
+using Statistics;
 
 public static class PauseManager
 {
-    public static bool isPaused;
-    private const float NormalAudioVolume = 1;
+    public static bool IsPaused
+    {
+        get;
+        private set;
+    }
+    private static float NormalAudioVolume => ProjectSettings.CurrentVolume;
     private const float PauseAudioVolume = 0.2f;
     
     public static void PauseButtonPressed()
     {
-        isPaused = !isPaused;
-        PauseGame(isPaused);
+        IsPaused = !IsPaused;
+        PauseGame(IsPaused);
     }
 
-    private static void PauseGame(bool state)
+    private static void PauseGame(bool state = true)
     {
-        GameManager.instance.userInterface.EnablePauseCanvas(state);
         EnableGamePlayMethods(!state);
     }
 
-    private static void EnableGamePlayMethods(bool state)
+    private static void EnableGamePlayMethods(bool state = true)
     {
         if (state)
         {
             TimeTracker.ResumeTimer();
-            BaseAudioManager.SetGlobalVolume(NormalAudioVolume);
+            BaseAudioManager.SetGlobalVolumeForPause(NormalAudioVolume);
             return;
         }
         TimeTracker.PauseTimer();
-        BaseAudioManager.SetGlobalVolume(PauseAudioVolume);
+        BaseAudioManager.SetGlobalVolumeForPause(PauseAudioVolume);
     }
 }
