@@ -8,6 +8,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        //Cleanup after a large start up sequence.
+        Debugging.ClearUnusedAssetsAndCollectGarbage();
+    }
+
+    private void Start()
+    {
+        StartGame();
     }
     
     [ContextMenu("Increment Score")]

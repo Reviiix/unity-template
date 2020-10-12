@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class Debugging
 {
@@ -11,5 +12,12 @@ public static class Debugging
         {
             Debug.Log(message);
         }
+    }
+    
+    public static void ClearUnusedAssetsAndCollectGarbage()
+    {
+        Resources.UnloadUnusedAssets();
+        GC.Collect();
+        DisplayDebugMessage("Unused assets have been forcefully unloaded and garbage has been collected manually.");
     }
 }

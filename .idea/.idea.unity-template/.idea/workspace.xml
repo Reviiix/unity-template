@@ -23,33 +23,357 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Audio/Button.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Audio/Button.wav.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/DOTween.XML" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/DOTween.XML.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/DOTween.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/DOTween.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/DOTweenEditor.XML" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/DOTweenEditor.XML.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/DOTweenIcon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/DOTweenIcon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Footer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Footer.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Footer_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Footer_dark.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Header.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Editor/Imgs/Header.jpg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleAudio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleAudio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics2D.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics2D.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleSprite.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleSprite.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUnityVersion.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUnityVersion.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUtils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUtils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTween/readme.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_Advanced.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_Advanced.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_AdvancedSettings.lighting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_AdvancedSettings.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_Basics.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_Basics.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_BasicsSettings.lighting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenAnimation_BasicsSettings.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenPath.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenPath.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenPathSettings.lighting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/DOTweenPathSettings.lighting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/Examples Assets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/Examples Assets/dotweenpro_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro Examples/Examples Assets/dotweenpro_logo.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenAnimation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenDeAudio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenDeAudio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenDeUnityExtended.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenDeUnityExtended.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenPro.XML" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenPro.XML.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenPro.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenPro.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenProShortcuts.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenProShortcuts.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenTextMeshPro.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenTextMeshPro.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenTk2d.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/DOTweenTk2d.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenAnimationInspector.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenAnimationInspector.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenPreviewManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenPreviewManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.XML" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.XML.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/Editor/DOTweenProEditor.zip.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DOTweenPro/readme.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/DemiLib.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/DemiLib.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/DemiLib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/DemiLib.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/DemiEditor.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha10.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha15.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha25.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha50.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha80.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blackSquareAlpha80.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blueSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/blueSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/circle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/circle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/greenSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/greenSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/grid_bright.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/grid_bright.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/grid_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/grid_dark.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alert.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alert.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignB.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBC.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBL.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignBR.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCC.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCL.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignCR.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignHC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignHC.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignL.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignR.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignT.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignT.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTC.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTL.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignTR.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignVC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_alignVC.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_camera.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_camera.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_camera_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_camera_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_cog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_cog.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_cog_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_cog_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_comment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_comment.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_comment_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_comment_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_delete.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_demigiant.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_demigiant.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_distributeHAlignT.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_distributeHAlignT.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_distributeVAlignL.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_distributeVAlignL.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_end.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_end.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_flipV.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_flipV.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_foldout_closed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_foldout_closed.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_foldout_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_foldout_open.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_heart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_heart.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_heart_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_heart_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_light.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_light.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_light_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_light_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_lock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_lock.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_lock_open.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_lock_open.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_nodeArrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_nodeArrow.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ok.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ok.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_optionsDropdown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_optionsDropdown.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_play.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_play.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_play_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_play_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_skull.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_skull.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_skull_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_skull_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_star.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_star.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_star_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_star_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ui.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ui.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ui_border.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_ui_border.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_visibility.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_visibility.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_visibility_off.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/ico_visibility_off.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/orangeSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/orangeSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_atlas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_atlas.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_audio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_audio.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_bundle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_bundle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_cog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_cog.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_cross.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_cross.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_demigiant.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_demigiant.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_folder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_folder.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_fonts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_fonts.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_heart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_heart.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_materials.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_materials.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_models.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_models.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_particles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_particles.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_play.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_play.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_prefab.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_prefab.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_scripts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_scripts.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_shaders.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_shaders.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_skull.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_skull.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_star.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_star.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_terrains.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_terrains.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_textures.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/project/ico_textures.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/purpleSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/purpleSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/redSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/redSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorder.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderAlpha15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderAlpha15.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved02.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved02_darkBorders.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved02_darkBorders.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedAlpha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedAlpha.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmpty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmpty.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmpty02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmpty02.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmptyThick.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurvedEmptyThick.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved_darkBorders.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved_darkBorders.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved_darkBordersAlpha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderCurved_darkBordersAlpha.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty01.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty02.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderEmpty03.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderThickEmpty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderThickEmpty.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderThickerEmpty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareBorderThickerEmpty.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareCorners03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareCorners03.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareCornersEmpty02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/squareCornersEmpty02.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_empty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_empty.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_slanted.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_slanted.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_slanted_alpha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/tileBars_slanted_alpha.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/transparentSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/transparentSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot_darkBorder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot_darkBorder.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot_whiteBorderAlpha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteDot_whiteBorderAlpha.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha10.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha15.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha25.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha50.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha80.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquareAlpha80.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquare_fadeOut_bt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/whiteSquare_fadeOut_bt.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/yellowSquare.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/DemiLib/Core/Editor/Imgs/yellowSquare.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/readme_DOTweenPro.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demigiant/readme_DOTweenPro.txt.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Initialisation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Initialisation.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BaseAudioManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BaseAudioManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FlashSprite.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FlashSprite.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/BaseAudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/BaseAudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Debugging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Debugging.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PersistantObjects.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PersistantObjects.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColors.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColour.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/SequentiallyChangeTextColour.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/SequentiallyChangeTextColour.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Transitions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Transitions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneTransitionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneTransitionManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SequentiallyChangeTextColour.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SequentiallyChangeTextColour.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/HighScores.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/HighScores.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/ScoreTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/ScoreTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/TimeTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/TimeTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Transitions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Transitions.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +385,16 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterfaceManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D496C8E-82AE-4EBD-B5D2-754C57C486CF/4e/b6c62b85/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D496C8E-82AE-4EBD-B5D2-754C57C486CF/bd/7b8a52ae/IJobExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/SettingsMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/PauseMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/Movement/MovementJobs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/GameOverMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInterface/IntroductionMenu.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -71,26 +404,40 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ChangeTextColor.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ChangeTextColors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PersistObjects.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Transitions.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColors.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/FlashSprite.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/FlashGraphic.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Debugging.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Statistics/HighScores.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Settings.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Statistics/TimeTracker.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Statistics/ScoreTracker.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ProjectSettings.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/PersistObjects.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/SequentiallyChangeTextColour.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SceneTransitionManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/FillBar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ChangeTextColour.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Debugging.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Movement/Move.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Movement/MoveToCentre.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Movement/MovementJobs.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterfaceManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Movement/MoveInAndOutOfView.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/GameOverMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/IntroductionMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/PauseMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/SettingsMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/BaseAudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Achievments/Achievements.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterfaceManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Achievements/AchievementManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Transitions.cs" />
       </list>
     </option>
   </component>
@@ -105,6 +452,8 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -116,10 +465,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="698">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="698" />
+      <option name="pid" />
       <option name="selectedOptions">
         <set />
       </option>
@@ -138,6 +487,13 @@
       <workItem from="1599995519091" duration="22034000" />
       <workItem from="1600538833146" duration="13274000" />
       <workItem from="1600594610633" duration="8626000" />
+      <workItem from="1601400016290" duration="40000" />
+      <workItem from="1601400107789" duration="2114000" />
+      <workItem from="1601996962042" duration="8131000" />
+      <workItem from="1602252830690" duration="3732000" />
+      <workItem from="1602439697550" duration="1060000" />
+      <workItem from="1602509802286" duration="13863000" />
+      <workItem from="1602534384190" duration="3735000" />
     </task>
     <servers />
   </component>
@@ -162,77 +518,158 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="286" key="GridCell.Tab.0.bottom" timestamp="1600614495629">
+    <state x="320" y="77" key="#Plugins" timestamp="1601400050578">
       <screen x="0" y="23" width="1440" height="812" />
     </state>
+    <state x="320" y="77" key="#Plugins/0.23.1440.812/-1920.-157.1920.1057@0.23.1440.812" timestamp="1601400050578" />
+    <state width="1398" height="282" key="GridCell.Tab.0.bottom" timestamp="1602534359348">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state width="1398" height="282" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1602534359348" />
     <state width="1398" height="286" key="GridCell.Tab.0.bottom/0.23.1440.812@0.23.1440.812" timestamp="1600614495629" />
-    <state width="1398" height="286" key="GridCell.Tab.0.center" timestamp="1600614495628">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.0.bottom/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.0.bottom/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602902" />
+    <state width="1398" height="282" key="GridCell.Tab.0.center" timestamp="1602534359347">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1602534359347" />
     <state width="1398" height="286" key="GridCell.Tab.0.center/0.23.1440.812@0.23.1440.812" timestamp="1600614495628" />
-    <state width="1398" height="286" key="GridCell.Tab.0.left" timestamp="1600614495627">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.0.center/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.0.center/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602901" />
+    <state width="1398" height="282" key="GridCell.Tab.0.left" timestamp="1602534359347">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1602534359347" />
     <state width="1398" height="286" key="GridCell.Tab.0.left/0.23.1440.812@0.23.1440.812" timestamp="1600614495627" />
-    <state width="1398" height="286" key="GridCell.Tab.0.right" timestamp="1600614495628">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.0.left/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280902" />
+    <state width="1398" height="310" key="GridCell.Tab.0.left/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602901" />
+    <state width="1398" height="282" key="GridCell.Tab.0.right" timestamp="1602534359348">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1602534359348" />
     <state width="1398" height="286" key="GridCell.Tab.0.right/0.23.1440.812@0.23.1440.812" timestamp="1600614495628" />
-    <state width="1398" height="286" key="GridCell.Tab.1.bottom" timestamp="1600614495629">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.0.right/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.0.right/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602901" />
+    <state width="1398" height="282" key="GridCell.Tab.1.bottom" timestamp="1602534359350">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.1.bottom/0.23.1440.808@0.23.1440.808" timestamp="1602534359350" />
     <state width="1398" height="286" key="GridCell.Tab.1.bottom/0.23.1440.812@0.23.1440.812" timestamp="1600614495629" />
-    <state width="1398" height="286" key="GridCell.Tab.1.center" timestamp="1600614495629">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.1.bottom/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280904" />
+    <state width="1398" height="310" key="GridCell.Tab.1.bottom/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602903" />
+    <state width="1398" height="282" key="GridCell.Tab.1.center" timestamp="1602534359349">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.1.center/0.23.1440.808@0.23.1440.808" timestamp="1602534359349" />
     <state width="1398" height="286" key="GridCell.Tab.1.center/0.23.1440.812@0.23.1440.812" timestamp="1600614495629" />
-    <state width="1398" height="286" key="GridCell.Tab.1.left" timestamp="1600614495629">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.1.center/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.1.center/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602902" />
+    <state width="1398" height="282" key="GridCell.Tab.1.left" timestamp="1602534359349">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.1.left/0.23.1440.808@0.23.1440.808" timestamp="1602534359349" />
     <state width="1398" height="286" key="GridCell.Tab.1.left/0.23.1440.812@0.23.1440.812" timestamp="1600614495629" />
-    <state width="1398" height="286" key="GridCell.Tab.1.right" timestamp="1600614495629">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.1.left/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.1.left/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602902" />
+    <state width="1398" height="282" key="GridCell.Tab.1.right" timestamp="1602534359350">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.1.right/0.23.1440.808@0.23.1440.808" timestamp="1602534359350" />
     <state width="1398" height="286" key="GridCell.Tab.1.right/0.23.1440.812@0.23.1440.812" timestamp="1600614495629" />
-    <state width="1398" height="286" key="GridCell.Tab.2.bottom" timestamp="1600614495630">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.1.right/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280903" />
+    <state width="1398" height="310" key="GridCell.Tab.1.right/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602903" />
+    <state width="1398" height="282" key="GridCell.Tab.2.bottom" timestamp="1602534359351">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.2.bottom/0.23.1440.808@0.23.1440.808" timestamp="1602534359351" />
     <state width="1398" height="286" key="GridCell.Tab.2.bottom/0.23.1440.812@0.23.1440.812" timestamp="1600614495630" />
-    <state width="1398" height="286" key="GridCell.Tab.2.center" timestamp="1600614495630">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.2.bottom/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280905" />
+    <state width="1398" height="310" key="GridCell.Tab.2.bottom/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602905" />
+    <state width="1398" height="282" key="GridCell.Tab.2.center" timestamp="1602534359351">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.2.center/0.23.1440.808@0.23.1440.808" timestamp="1602534359351" />
     <state width="1398" height="286" key="GridCell.Tab.2.center/0.23.1440.812@0.23.1440.812" timestamp="1600614495630" />
-    <state width="1398" height="286" key="GridCell.Tab.2.left" timestamp="1600614495630">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.2.center/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280904" />
+    <state width="1398" height="310" key="GridCell.Tab.2.center/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602904" />
+    <state width="1398" height="282" key="GridCell.Tab.2.left" timestamp="1602534359350">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.2.left/0.23.1440.808@0.23.1440.808" timestamp="1602534359350" />
     <state width="1398" height="286" key="GridCell.Tab.2.left/0.23.1440.812@0.23.1440.812" timestamp="1600614495630" />
-    <state width="1398" height="286" key="GridCell.Tab.2.right" timestamp="1600614495630">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.2.left/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280904" />
+    <state width="1398" height="310" key="GridCell.Tab.2.left/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602904" />
+    <state width="1398" height="282" key="GridCell.Tab.2.right" timestamp="1602534359351">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.2.right/0.23.1440.808@0.23.1440.808" timestamp="1602534359351" />
     <state width="1398" height="286" key="GridCell.Tab.2.right/0.23.1440.812@0.23.1440.812" timestamp="1600614495630" />
-    <state width="1398" height="286" key="GridCell.Tab.3.bottom" timestamp="1600614495631">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.2.right/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280904" />
+    <state width="1398" height="310" key="GridCell.Tab.2.right/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602904" />
+    <state width="1398" height="282" key="GridCell.Tab.3.bottom" timestamp="1602534359352">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.3.bottom/0.23.1440.808@0.23.1440.808" timestamp="1602534359352" />
     <state width="1398" height="286" key="GridCell.Tab.3.bottom/0.23.1440.812@0.23.1440.812" timestamp="1600614495631" />
-    <state width="1398" height="286" key="GridCell.Tab.3.center" timestamp="1600614495631">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.3.bottom/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280906" />
+    <state width="1398" height="310" key="GridCell.Tab.3.bottom/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602906" />
+    <state width="1398" height="282" key="GridCell.Tab.3.center" timestamp="1602534359352">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.3.center/0.23.1440.808@0.23.1440.808" timestamp="1602534359352" />
     <state width="1398" height="286" key="GridCell.Tab.3.center/0.23.1440.812@0.23.1440.812" timestamp="1600614495631" />
-    <state width="1398" height="286" key="GridCell.Tab.3.left" timestamp="1600614495630">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.3.center/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280905" />
+    <state width="1398" height="310" key="GridCell.Tab.3.center/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602905" />
+    <state width="1398" height="282" key="GridCell.Tab.3.left" timestamp="1602534359351">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.3.left/0.23.1440.808@0.23.1440.808" timestamp="1602534359351" />
     <state width="1398" height="286" key="GridCell.Tab.3.left/0.23.1440.812@0.23.1440.812" timestamp="1600614495630" />
-    <state width="1398" height="286" key="GridCell.Tab.3.right" timestamp="1600614495631">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state width="1398" height="291" key="GridCell.Tab.3.left/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280905" />
+    <state width="1398" height="310" key="GridCell.Tab.3.left/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602905" />
+    <state width="1398" height="282" key="GridCell.Tab.3.right" timestamp="1602534359352">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
+    <state width="1398" height="282" key="GridCell.Tab.3.right/0.23.1440.808@0.23.1440.808" timestamp="1602534359352" />
     <state width="1398" height="286" key="GridCell.Tab.3.right/0.23.1440.812@0.23.1440.812" timestamp="1600614495631" />
+    <state width="1398" height="291" key="GridCell.Tab.3.right/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1602010280905" />
+    <state width="1398" height="310" key="GridCell.Tab.3.right/0.23.1440.877/-1920.-157.1920.982@0.23.1440.877" timestamp="1602268602906" />
     <state x="429" y="157" key="RollbackChangesDialog" timestamp="1600021031397">
       <screen x="0" y="23" width="1440" height="812" />
     </state>
     <state x="429" y="157" key="RollbackChangesDialog/0.23.1440.812@0.23.1440.812" timestamp="1600021031397" />
-    <state x="354" y="184" width="732" height="490" key="find.popup" timestamp="1600605302124">
-      <screen x="0" y="23" width="1440" height="812" />
+    <state x="260" y="70" width="1121" height="722" key="SettingsEditor" timestamp="1601997129619">
+      <screen x="0" y="23" width="1440" height="827" />
     </state>
+    <state x="260" y="70" width="1121" height="722" key="SettingsEditor/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1601997129619" />
+    <state x="354" y="183" width="732" height="490" key="find.popup" timestamp="1602535699230">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="354" y="183" width="732" height="490" key="find.popup/0.23.1440.808@0.23.1440.808" timestamp="1602535699230" />
     <state x="354" y="184" width="732" height="490" key="find.popup/0.23.1440.812@0.23.1440.812" timestamp="1600605302124" />
+    <state x="354" y="187" width="732" height="500" key="find.popup/0.23.1440.827/-1920.-157.1920.1057@0.23.1440.827" timestamp="1601997933070" />
+    <state x="383" y="152" width="672" height="678" key="search.everywhere.popup" timestamp="1602510055691">
+      <screen x="0" y="23" width="1440" height="808" />
+    </state>
+    <state x="383" y="152" width="672" height="678" key="search.everywhere.popup/0.23.1440.808@0.23.1440.808" timestamp="1602510055691" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UserInterface/SettingsMenu.cs</url>
+          <line>59</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/SettingsMenu.cs" initialLine="60">
+            <startOffsets>
+              <option value="1881" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1899" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

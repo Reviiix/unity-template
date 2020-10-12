@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 //The audio manager will instantiate the maximum amount of audio sources set in the object pool on start up.
@@ -14,12 +13,15 @@ namespace Audio
     [Serializable]
     public class BaseAudioManager : MonoBehaviour
     {
+        private static BaseAudioManager _instance;
         private static readonly HashSet<AudioSource> AudioSources = new HashSet<AudioSource>();
         private static readonly Vector3 AudioSourceStartingLocation = Vector3.zero;
         private const int PoolIndex = 0;
         [SerializeField]
         private AudioClip buttonClick;
-        [FormerlySerializedAs("volumeControlses")] public VolumeControls volumeControls;
+        [SerializeField]
+        private AudioClip menuMovement;
+        public VolumeControls volumeControls;
 
         public void Initialise()
         {
@@ -29,6 +31,8 @@ namespace Audio
 
         private void ResolveDependencies()
         {
+            _instance = this;
+            
             for (var i = 0; i < ProjectManager.Instance.globalObjectPools.pools[PoolIndex].maximumActiveObjects; i++)
             {
                 var audioSource = ObjectPooling.ReturnObjectFromPool(0, AudioSourceStartingLocation, Quaternion.identity).GetComponent<AudioSource>();
@@ -37,16 +41,20 @@ namespace Audio
             }
         }
 
-        public void PlayButtonClickSound()
+        public static void PlayButtonClickSound()
         {
-            PlayClip(buttonClick);
+            PlayClip(_instance.buttonClick);
+        }
+        
+        public static void PlayMenuMovementSound()
+        {
+            PlayClip(_instance.menuMovement);
         }
 
-        protected static void PlayClip(AudioClip clip, bool looping = false)
+        protected static void PlayClip(AudioClip clip)
         {
             var audioSource = ReturnFirstUnusedAudioSource();
             audioSource.clip = clip;
-            audioSource.loop = looping;
             audioSource.Play();
         }
 

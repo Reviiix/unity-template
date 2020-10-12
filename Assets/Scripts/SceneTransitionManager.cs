@@ -2,6 +2,7 @@
 using PureFunctions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UserInterface;
 
 public static class SceneTransitionManager 
 {

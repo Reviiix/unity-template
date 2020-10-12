@@ -3,9 +3,11 @@ using Audio;
 using PureFunctions;
 using Statistics;
 using UnityEngine;
+using UserInterface;
 
 public class ProjectManager : MonoBehaviour
 {
+    private static Camera _activeCamera;
     public static ProjectManager Instance;
     public BaseAudioManager audioManager;
     public UserInterfaceManager userInterface;
@@ -14,10 +16,24 @@ public class ProjectManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != null) return;
+
+        SetActiveCamera();
         
-        ProjectSettings.TimesGameHasBeenOpened++;
+        IncrementOpenAmount();
+        
         Instance = this;
         Initialise();
+    }
+
+    private static void IncrementOpenAmount()
+    {
+        ProjectSettings.TimesGameHasBeenOpened++;
+    }
+
+    private static void SetActiveCamera()
+    {
+        //Camera.main is an expensive invocation, use sparingly.
+        _activeCamera = Camera.main;
     }
 
     private void Initialise()
@@ -30,17 +46,17 @@ public class ProjectManager : MonoBehaviour
         audioManager.Initialise();
         
         //Cleanup after a large start up sequence.
-        ClearUnusedAssetsAndCollectGarbage();
+        Debugging.ClearUnusedAssetsAndCollectGarbage();
     }
 
     [ContextMenu("Load Main Game")]
     public void LoadMainGame()
     {
-        Debugging.DisplayDebugMessage( "Loading main game..");
+        Debugging.DisplayDebugMessage( "Loading main game.");
         SceneTransitionManager.LoadGameScene(() =>
         {
             userInterface.EnableInGameUserInterface();
-            GameManager.Instance.StartGame();
+            SetActiveCamera();
         });
     }
 
@@ -52,14 +68,13 @@ public class ProjectManager : MonoBehaviour
         SceneTransitionManager.LoadInitialisationScene(() =>
         {
             userInterface.EnableStartMenu();
+            SetActiveCamera();
         });
     }
 
-    private static void ClearUnusedAssetsAndCollectGarbage()
+    public static int ReturnScreenWidth()
     {
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
-        Debugging.DisplayDebugMessage("Unused assets have been forcefully unloaded and garbage has been collected manually.");
+        return _activeCamera.pixelWidth;
     }
 }
 

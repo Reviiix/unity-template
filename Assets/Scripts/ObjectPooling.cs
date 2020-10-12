@@ -47,7 +47,7 @@ public class ObjectPooling : MonoBehaviour
         
         var returnObject = PoolDictionary[index].Dequeue();
         
-        returnObject.transform.position = position;
+        returnObject.transform.localPosition = position;
         returnObject.transform.rotation = rotation;
         returnObject.SetActive(setActive);
             
