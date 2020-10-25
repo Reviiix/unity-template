@@ -19,7 +19,7 @@
           <e p="ProjectManager.cs" t="Include" />
           <e p="PureFunctions" t="Include">
             <e p="ChangeTextColour.cs" t="Include" />
-            <e p="FlashGraphic.cs" t="Include" />
+            <e p="FlashObject.cs" t="Include" />
             <e p="Movement" t="Include">
               <e p="MoveInAndOutOfView.cs" t="Include" />
               <e p="MovementJobs.cs" t="Include" />
