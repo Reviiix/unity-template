@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace UserInterface
 {
     [Serializable]
-    public class IntroductionMenu : Menu, IMenu
+    public class IntroductionUserInterface : UserInterface, IUserInterface
     {
         [SerializeField]
         private Button startButton;

@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using Achievements;
 using Audio;
+using Experience;
 using PureFunctions;
 using Statistics;
 using UnityEngine;
@@ -13,9 +15,7 @@ public class ProjectManager : MonoBehaviour
     public BaseAudioManager audioManager;
     public UserInterfaceManager userInterface;
     public ObjectPooling globalObjectPools;
-    [SerializeField]
-    private AchievementManager achievementManager;
-    
+
     private void Awake()
     {
         if (Instance != null) return;
@@ -24,15 +24,17 @@ public class ProjectManager : MonoBehaviour
         
         IncrementOpenAmount();
         
-        Instance = this;
         Initialise();
-        
-        Debug.Log(AchievementManager.Achievements.Last().Index);
+    }
+    
+    private void OnApplicationQuit()
+    {
+        SaveSystem.SavePlayer();
     }
 
     private static void IncrementOpenAmount()
     {
-        ProjectSettings.TimesGameHasBeenOpened++;
+        ProjectStatistics.TimesGameHasBeenOpened++;
     }
 
     private static void SetActiveCamera()
@@ -43,20 +45,21 @@ public class ProjectManager : MonoBehaviour
 
     private void Initialise()
     {
-        Transitions.Initialise(this);
+        Instance = this;
         
+        Transitions.Initialise(this);
+        PlayerInformation.Initialise();
         ScoreTracker.Initialise(userInterface.ReturnScoreText());
         TimeTracker.Initialise(userInterface.ReturnTimeText());
+        ExperienceManager.Initialise();
         
         globalObjectPools.Initialise();
         audioManager.Initialise();
-        achievementManager.Initialise();
-        
-        //Cleanup after a large start up sequence.
-        Debugging.ClearUnusedAssetsAndCollectGarbage();
-    }
 
-    [ContextMenu("Load Main Game")]
+        //Cleanup after a large start up sequence.
+        //Debugging.ClearUnusedAssetsAndCollectGarbage();
+    }
+    
     public void LoadMainGame()
     {
         Debugging.DisplayDebugMessage( "Loading main game.");
@@ -66,8 +69,7 @@ public class ProjectManager : MonoBehaviour
             SetActiveCamera();
         });
     }
-
-    [ContextMenu("Load Main Menu")]
+    
     public void LoadMainMenu()
     {
         Debugging.DisplayDebugMessage("Loading main menu.");
@@ -83,9 +85,27 @@ public class ProjectManager : MonoBehaviour
     {
         return _activeCamera.pixelWidth;
     }
+    
+    public static void Wait(float time, System.Action callBack)
+    {
+        Instance.StartCoroutine(PureFunctions.Wait.WaitThenCallBack(time, callBack));
+    }
+
+    [ContextMenu("Reset Player Information")]
+    public void ResetPlayerInformation()
+    {
+        Debugging.ResetPlayerInformation();
+        SaveSystem.SavePlayer();
+    }
 }
 
 public struct ProjectSettings
+{
+    public static float CurrentVolume => VolumeControls.VolumeLevel;
+    public static bool PersistantObjectsInitialisedPreviously = false;
+}
+
+public struct ProjectStatistics
 {
     #region TimesGameHasBeenOpened
     private const string TimesGameHasBeenOpenedKey = "TimesGameHasBeenOpened";
@@ -107,7 +127,6 @@ public struct ProjectSettings
         }
     }
     #endregion TimesGameHasBeenOpened
-
-    public static float CurrentVolume => VolumeControls.VolumeLevel;
-    public static bool PersistantObjectsInitialisedPreviously = false;
 }
+
+

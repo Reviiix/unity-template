@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace UserInterface
 {
     [Serializable]
-    public class GameOverMenu : Menu, IMenu
+    public class GameOverUserInterface : UserInterface, IUserInterface
     {
         private static Color[] _restartButtonColorSwaps;
         private const string FinalScorePrefix = "FINAL " + ScoreTracker.ScoreDisplayPrefix;

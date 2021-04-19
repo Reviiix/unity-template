@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UserInterface
 {
     [Serializable]
-    public class PauseMenu : Menu, IMenu
+    public class PauseUserInterface : UserInterface, IUserInterface
     {
         [SerializeField] 
         private Sprite pauseSprite;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UserInterface
 {
     [Serializable]
-    public class SettingsMenu : Menu, IMenu
+    public class SettingsUserInterface : UserInterface, IUserInterface
     {
         private Button _settingsButton;
         [SerializeField]

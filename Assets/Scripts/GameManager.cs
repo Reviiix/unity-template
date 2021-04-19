@@ -15,22 +15,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame();
+        StartGameTimer();
     }
     
-    [ContextMenu("Increment Score")]
     public void IncrementScore()
     {
         ScoreTracker.IncrementScore(0);
     }
     
-    [ContextMenu("Start Game")]
-    public void StartGame()
+    public void StartGameTimer()
     {
         TimeTracker.StartTimer(ProjectManager.Instance);
     }
-
-    [ContextMenu("End Game")]
+    
     public void EndGame()
     {
         TimeTracker.StopTimer();

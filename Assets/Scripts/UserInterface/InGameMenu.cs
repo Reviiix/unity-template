@@ -4,7 +4,7 @@ using TMPro;
 namespace UserInterface
 {
     [Serializable]
-    public class InGameMenu : Menu, IMenu
+    public class InGameUserInterface : UserInterface, IUserInterface
     {
         public TMP_Text timeText;
         public TMP_Text scoreText;
