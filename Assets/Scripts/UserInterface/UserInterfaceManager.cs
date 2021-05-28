@@ -1,64 +1,138 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections;
-using Audio;
-using JetBrains.Annotations;
-using PureFunctions.Movement;
-using TMPro;
+﻿using Abstract;
+using PureFunctions;
 using UnityEngine;
 using UnityEngine.UI;
+using UserInterface.ConditionalMenus;
+using UserInterface.InGameMenus;
+using UserInterface.MainMenus;
+using UserInterface.MainMenus.StageSelection;
+using UserInterface.PopUpMenus;
 
 namespace UserInterface
 {
-    public class UserInterfaceManager : MonoBehaviour
+    public class UserInterfaceManager : PrivateSingleton<UserInterfaceManager>
     {
-        public static RawImage TransitionalFadeImage { get; private set; }
-        private static readonly Color[] PlayButtonColorSwaps = {Color.white, Color.black};
-        private const int DefaultMenuMovementSpeed = 7;
-        private const float MenuMovementDistanceTolerance = 1f;
-        private const int ScreenDistanceBuffer = 500;//ScreenDistanceBuffer is intended to get the remaining bit of the object off screen if its centre is placed at the screen edge.
-        private static int ScreenDistance => (ProjectManager.ReturnScreenWidth() * 2) + ScreenDistanceBuffer;
-        [SerializeField] private IntroductionUserInterface introductionUserInterface;
+        public static MonoBehaviour CoRoutineHandler => Instance;
+        public static RawImage TransitionalFadeImage { get; private set; } //This image is attached the user interface game object and is used to achieve a fade effect by modifying the alpha value.
+        [SerializeField] private Canvas background;
+        [SerializeField] private Button returnToMainMenuButton;
+        [Header("Main Menus")]
+        [SerializeField] private MainMenu mainMenu;
+        [SerializeField] private SettingsMenu settingsMenu;
+        [SerializeField] private StageSelectionMenu stageSelectionMenu;
+        [SerializeField] private StatisticsMenu statisticsMenu;
+        [SerializeField] private StoreMenu storeMenu;
+        [Header("Pop Up Menus")]
+        [SerializeField] private FirstOpenPopUpMenu firstOpenPopUpMenu;
+        [SerializeField] private BirthdayPopUp birthdayPopUpMenu;
+        [SerializeField] private DailyLogInPopUp dailyLogInPopUpMenu;
+        [Header("In Game Menus")]
         [SerializeField] private InGameUserInterface inGameUserInterface;
-        [SerializeField] private PauseUserInterface pauseUserInterface;
-        [SerializeField] private GameOverUserInterface gameOverUserInterface;
-        [SerializeField] private SettingsUserInterface settingsUserInterface;
+        [SerializeField] private PauseUserMenu pauseUserMenu;
+        [SerializeField] private GameOverMenu gameOverMenu;
 
-        private void Start()
-        {
-            Initialise();
-        
-            EnableStartMenu();
-        }
-
-        private void Initialise()
+        public void Initialise()
         {
             ResolveDependencies();
-
+            AssignButtonEvents();
             InitialiseMenus();
+            StartUpSequence();
         }
-
-        private void InitialiseMenus()
-        {
-            introductionUserInterface.Initialise(()=>EnableAllNonPermanentCanvases(false), PlayButtonColorSwaps);
-            gameOverUserInterface.Initialise(PlayButtonColorSwaps);
-            pauseUserInterface.Initialise(PauseButtonPressed);
-            settingsUserInterface.Initialise(()=> EnablePauseButton(), () => EnablePauseButton(false),()=>EnablePauseMenu());
-        }
-
+        
         private void ResolveDependencies()
         {
             TransitionalFadeImage = GetComponent<RawImage>();
         }
-
-        public void EnableStartMenu()
+        
+        private void AssignButtonEvents()
         {
-            introductionUserInterface.Enable();
+            returnToMainMenuButton.onClick.AddListener(()=>EnableMainMenu());
         }
 
-        public void EnableInGameUserInterface(bool state = true)
+        private void InitialiseMenus()
         {
-            inGameUserInterface.Enable(state);
+            //Main Menu Sub Pages
+            mainMenu.Initialise(()=>EnableStageSelectionMenu(), ()=>EnableStatisticsMenu(), ()=>EnableSettingsMenu(), ()=>EnableStoreMenu());
+            settingsMenu.Initialise();
+            statisticsMenu.Initialise();
+            storeMenu.Initialise();
+            stageSelectionMenu.Initialise();
+            //In game UI
+            inGameUserInterface.Initialise();
+            gameOverMenu.Initialise();
+            pauseUserMenu.Initialise();
+            //Pop ups
+            firstOpenPopUpMenu.Initialise();
+            birthdayPopUpMenu.Initialise();
+            dailyLogInPopUpMenu.Initialise();
+        }
+        
+        private void StartUpSequence()
+        {
+            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(() =>
+            {
+                EnableMainMenu();
+
+                if (PlayerEngagementManager.TimesGameHasBeenOpened == 1)
+                {
+                    ShowWelcomeMessage();
+                    return;
+                }
+
+                if (HolidayManager.IsUserBirthday) ShowBirthdayMessage();
+
+                if (!PlayerEngagementManager.IsRepeatOpenToday) ShowDailyBonus();
+            }));
+        }
+
+        private void ShowWelcomeMessage(int delayInSeconds = 1)
+        {
+            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>firstOpenPopUpMenu.Enable()));
+        }
+        
+        private void ShowDailyBonus(int delayInSeconds = 1)
+        {
+            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>dailyLogInPopUpMenu.Enable()));
+        }
+
+        private void ShowBirthdayMessage(int delayInSeconds = 1)
+        {
+            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>birthdayPopUpMenu.Enable()));
+        }
+
+        private void EnableMainMenu(bool state = true)
+        {
+            returnToMainMenuButton.interactable = !state;
+            EnableAllNonPermanentCanvases(false);
+            mainMenu.Enable(state);
+        }
+        
+        private void EnableStageSelectionMenu(bool state = true)
+        {
+            EnableAllNonPermanentCanvases(false);
+            returnToMainMenuButton.interactable = state;
+            stageSelectionMenu.Enable(state);
+        }
+        
+        private void EnableStoreMenu(bool state = true)
+        {
+            EnableAllNonPermanentCanvases(false);
+            returnToMainMenuButton.interactable = state;
+            storeMenu.Enable(state);
+        }
+        
+        private void EnableStatisticsMenu(bool state = true)
+        {
+            EnableAllNonPermanentCanvases(false);
+            returnToMainMenuButton.interactable = state;
+            statisticsMenu.Enable(state);
+        }
+        
+        private void EnableSettingsMenu(bool state = true)
+        {
+            EnableAllNonPermanentCanvases(false);
+            returnToMainMenuButton.interactable = state;
+            settingsMenu.Enable(state);
         }
 
         private void PauseButtonPressed()
@@ -68,120 +142,40 @@ namespace UserInterface
 
         private void EnablePauseMenu(bool state = true)
         {
-            pauseUserInterface.Enable(state);
+            pauseUserMenu.Enable(state);
         }
     
-        public void EnableGameOverMenu(bool state = true)
+        public static void EnableGameOverMenu(bool state = true)
         {
-            gameOverUserInterface.Enable(state);
+            var instance = Instance;
+            instance.gameOverMenu.Enable(state);
+            EnableHeadsUpDisplay(false);
         }
-    
-        public void EnablePauseButton(bool state = true)
+        
+        public static void EnableHeadsUpDisplay(bool state = true)
         {
-            pauseUserInterface.EnablePauseButtons(state);
+            Instance.inGameUserInterface.Enable(state);
         }
-    
+        
+        public static void EnableBackground(bool state = true)
+        {
+            Instance.background.enabled = state;
+        }
+        
+        public static void EnableAllNonPermanentCanvasesStaticCall(bool state = true)
+        {
+            Instance.EnableAllNonPermanentCanvases(state);
+        }
+
         private void EnableAllNonPermanentCanvases(bool state = true)
         {
-            introductionUserInterface.display.enabled = state;
-            gameOverUserInterface.display.enabled = state;
-            pauseUserInterface.display.enabled = state;
-            settingsUserInterface.display.enabled = state;
+            mainMenu.display.enabled = state;
+            gameOverMenu.display.enabled = state;
+            pauseUserMenu.display.enabled = state;
+            settingsMenu.display.enabled = state;
+            storeMenu.display.enabled = state;
+            statisticsMenu.display.enabled = state;
+            stageSelectionMenu.display.enabled = state;
         }
-
-        public TMP_Text ReturnScoreText()
-        {
-            return inGameUserInterface.scoreText;
-        }
-    
-        public TMP_Text ReturnTimeText()
-        {
-            return inGameUserInterface.timeText;
-        }
-
-        private static void TransformEnterToScreenCentre(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
-        {
-            ProjectManager.Instance.StartCoroutine(MoveTransformToCentre(transformToMove, speed, ()=>
-            {
-                callBack?.Invoke();
-            }));
-        }
-        
-        private static void TransformExitLeft(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
-        {
-            ProjectManager.Instance.StartCoroutine(MoveTransformToLeft(transformToMove, speed, ()=>
-            {
-                callBack?.Invoke();
-            }));
-        }
-        
-        public static void AppearAnimation(Transform popUpMenu, Action callBack = null)
-        {
-            if (popUpMenu == null)
-            {
-                Debugging.DisplayDebugMessage("There is no pop up menu assigned for this user interface but you are still trying to animate it.");
-                callBack?.Invoke();
-                return;
-            }
-
-            popUpMenu.localPosition = new Vector3(-ScreenDistance,0,0);
-            
-            TransformEnterToScreenCentre(popUpMenu, ()=>
-            {
-                callBack?.Invoke();
-            });
-        }
-        
-        public static void DisappearAnimation(Transform popUpMenu, Action callBack = null)
-        {
-            if (popUpMenu == null)
-            {
-                Debugging.DisplayDebugMessage("There is no pop up menu assigned for this user interface but you are still trying to animate it.");
-                callBack?.Invoke();
-                return;
-            }
-            TransformExitLeft(popUpMenu, ()=>
-            {
-                callBack?.Invoke();
-            });
-        }
-
-        private static IEnumerator MoveTransformToCentre(Transform transformToMove, int speed = DefaultMenuMovementSpeed, Action callBack = null)
-        {
-            BaseAudioManager.PlayMenuMovementSound();
-            while (Vector2.Distance(transformToMove.localPosition, Vector2.zero) >= MenuMovementDistanceTolerance)
-            {
-                MoveInAndOutOfView.MoveToCentre(transformToMove, speed);
-                yield return null;
-            }
-            callBack?.Invoke();
-        }
-        
-        private static IEnumerator MoveTransformToLeft(Transform transformToMove, int speed = DefaultMenuMovementSpeed, Action callBack = null)
-        {
-            var leftPosition = new Vector3(-ScreenDistance, 0 , 0);
-            
-            BaseAudioManager.PlayMenuMovementSound();
-            while (Vector2.Distance(transformToMove.localPosition, leftPosition) >= MenuMovementDistanceTolerance)
-            {
-                MoveInAndOutOfView.MoveToLeft(transformToMove, speed, ScreenDistance);
-                yield return null;
-            }
-            callBack?.Invoke();
-        }
-    }
-
-    [Serializable]
-    public abstract class UserInterface
-    {
-        public Canvas display;
-        protected static Action DisableAllCanvases;
-        [CanBeNull] [SerializeField]
-        protected Transform popUpMenu;
-    }
-
-    public interface IUserInterface
-    { 
-        void Enable(bool state = true);
     }
 }

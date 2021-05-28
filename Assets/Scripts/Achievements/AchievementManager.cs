@@ -1,84 +1,89 @@
 ﻿using System;
-using UnityEditor;
-using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
 
 namespace Achievements
 {
-    //Create the achievement structs in the inspector and they will be converted into actual achievements to ensure they can only be accessed by the appropriate sources.
-    public class AchievementManager : MonoBehaviour
+    public static class AchievementManager
     {
-        public static readonly string AchievementKeyPrefix = PlayerSettings.productName + " Achievement:";
-        [SerializeField]
-        private Achievement[] achievementStructs;
-        public static Achievement[] Achievements { get; private set; }
-
-        public void Initialise()
+        //TODO: weekly achievements abstract this
+        public static Action<Achievement> OnAchievementUnlocked;
+        private const string AchievementGraphicsFolderAssetPath = "Assets/Graphics/Achievements/";
+        private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>
         {
-            CreateAchievementsFromStructs();
+            {Achievement.NumeroUno, new AchievementInformation("Play your first game.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
+            
+            {Achievement.OpenTheAppFiveTimes, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))}
+        };
+        public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
+        public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
+        public static AssetReference ReturnGraphic(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
+        public static bool ReturnUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
+        
+        public static void Initialise()
+        {
+            AchievementTracker.Initialise();
         }
 
-        private void CreateAchievementsFromStructs()
+        public static Achievement[] ReturnAllAchievements()
         {
-            Achievements = new Achievement[achievementStructs.Length];
-            for (var i = 0; i < achievementStructs.Length; i++)
+            var returnVariable = new List<Achievement>();
+            foreach (var achievement in Achievements)
             {
-                Achievements[i] = new Achievement(i, achievementStructs[i].Name, achievementStructs[i].Description, achievementStructs[i].Value, achievementStructs[i].Icon);
+                returnVariable.Add(achievement.Key);
+            }
+            return returnVariable.ToArray();
+        }
+
+        public static void UnlockAchievement(Achievement achievement)
+        {
+            Achievements[achievement].Unlock();
+
+            OnAchievementUnlocked?.Invoke(achievement);
+        }
+
+        private class AchievementInformation
+        {
+            public readonly string Description;
+            public readonly int Reward;
+            public readonly AssetReference SpriteAssetReference;
+            public bool Unlocked { get; private set; }
+
+            public AchievementInformation(string description, int reward, AssetReference sprite, bool unlocked = false)
+            {
+                Description = description;
+                Reward = reward;
+                SpriteAssetReference = sprite;
+                Unlocked = unlocked;
+            }
+
+            public void Unlock()
+            {
+                Unlocked = true;
             }
         }
-    }
 
-    [Serializable]
-    public class Achievement : IAchievement
-    {
-        public int Index { get; private set; }
-        public bool Locked
+        public enum Achievement
         {
-            get
-            {
-                var key = AchievementManager.AchievementKeyPrefix + ". " + Name + " Locked State";
-                
-                if (!PlayerPrefs.HasKey(key)) return false;
-                
-                return PlayerPrefs.GetInt(key) == 1;
-            }
-            private set
-            {
-                var key = AchievementManager.AchievementKeyPrefix + ". " + Name + " Locked State";
-                var intValue = value ? 1 : 0;
-                
-                PlayerPrefs.SetInt(key, intValue);
-            }
+            NumeroUno,
+            
+            PlayForOneHour,
+            PlayForFiveHours, 
+            PlayForTenHours, 
+            PlayForTwentyFiveHours, 
+            PlayForFiftyHours, 
+            PLayForOneHundredHours,
+            
+            OpenTheAppFiveTimes,
+            OpenTheAppTenTimes,
+            OpenTheAppTwentyFiveTimes,
+            OpenTheAppFiftyTimes,
+            OpenTheAppOneHundredTimes,
+            
+            ReachLevelFive,
+            ReachLevelTen,
+            ReachLevelTwentyFive,
+            ReachLevelFifty,
         }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public int Value { get; private set; }
-        public Sprite Icon { get; private set; }
-
-        public Achievement(int index, string name, string description, int value, Sprite icon)
-        {
-            Index = index;
-            Name = name;
-            Description = description;
-            Value = value;
-            Icon = icon;
-        }
-
-        public void Unlock(bool state = true)
-        {
-            Locked = state;
-        }
-    }
-    
-    public struct AchievementStruct
-    {
-        public string Name;
-        public string Description;
-        public int Value;
-        public Sprite Icon;
-    }
-    
-    public interface IAchievement
-    {
-        void Unlock(bool state);
     }
 }

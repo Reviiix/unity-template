@@ -1,132 +1,90 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System;
+using Abstract;
 using Achievements;
 using Audio;
-using Experience;
-using PureFunctions;
+using Credits;
+using Player;
 using Statistics;
+using Statistics.Experience;
 using UnityEngine;
 using UserInterface;
 
-public class ProjectManager : MonoBehaviour
+public class ProjectManager : Singleton<ProjectManager>
 {
-    private static Camera _activeCamera;
-    public static ProjectManager Instance;
-    public BaseAudioManager audioManager;
-    public UserInterfaceManager userInterface;
-    public ObjectPooling globalObjectPools;
+    [SerializeField] private BaseAudioManager audioManager;
+    [SerializeField] private UserInterfaceManager userInterface;
+    [SerializeField] private ObjectPooling objectPool;
+    public static Action OnApplicationOpen;
+    public static bool HasBeenInitialised => ProjectInitializer.Initialised;
 
-    private void Awake()
+    protected override void OnEnable()
     {
-        if (Instance != null) return;
-
-        SetActiveCamera();
-        
-        IncrementOpenAmount();
-        
-        Initialise();
+        base.OnEnable();
+        ProjectInitializer.Initialise(()=>OnApplicationOpen?.Invoke());
     }
-    
+
     private void OnApplicationQuit()
     {
-        SaveSystem.SavePlayer();
+        SaveSystem.Save();
     }
 
-    private static void IncrementOpenAmount()
+    private static class ProjectInitializer
     {
-        ProjectStatistics.TimesGameHasBeenOpened++;
-    }
+        private static bool _initialised;
+        public static bool Initialised
+        {
+            get => _initialised;
+            // ReSharper disable once ValueParameterNotUsed
+            private set => _initialised = true;
+        }
 
-    private static void SetActiveCamera()
-    {
-        //Camera.main is an expensive invocation, use sparingly.
-        _activeCamera = Camera.main;
-    }
+        public static void Initialise(Action callBack)
+        {
+            if (Initialised) return;
 
-    private void Initialise()
-    {
-        Instance = this;
-        
-        Transitions.Initialise(this);
-        PlayerInformation.Initialise();
-        ScoreTracker.Initialise(userInterface.ReturnScoreText());
-        TimeTracker.Initialise(userInterface.ReturnTimeText());
-        ExperienceManager.Initialise();
-        
-        globalObjectPools.Initialise();
-        audioManager.Initialise();
+            InitialiseStaticManagers(() =>
+            {
+                InitialiseSingletons(() =>
+                {
+                    RemoteConfigurationManager.UpdateConfiguration();
+                    SaveSystem.Load();
+                    Initialised = true;
+                    callBack();
+                });
+            });
+        }
 
-        //Cleanup after a large start up sequence.
-        //Debugging.ClearUnusedAssetsAndCollectGarbage();
-    }
+        private static void InitialiseStaticManagers(Action callBack)
+        {
+            RemoteConfigurationManager.Initialise();
+            PlayerInformation.Initialise();
+            GameStatistics.Initialise();
+            HolidayManager.Initialise();
+            ExperienceManager.Initialise();
+            CreditsManager.Initialise();
+            CameraManager.Initialise();
+            PlayerEngagementManager.Initialise();
+            AchievementManager.Initialise();
+            callBack();
+        }
     
-    public void LoadMainGame()
-    {
-        Debugging.DisplayDebugMessage( "Loading main game.");
-        SceneTransitionManager.LoadGameScene(() =>
+        private static void InitialiseSingletons(Action callBack)
         {
-            userInterface.EnableInGameUserInterface();
-            SetActiveCamera();
-        });
-    }
-    
-    public void LoadMainMenu()
-    {
-        Debugging.DisplayDebugMessage("Loading main menu.");
-        userInterface.EnableGameOverMenu(false);
-        SceneTransitionManager.LoadInitialisationScene(() =>
-        {
-            userInterface.EnableStartMenu();
-            SetActiveCamera();
-        });
-    }
-
-    public static int ReturnScreenWidth()
-    {
-        return _activeCamera.pixelWidth;
-    }
-    
-    public static void Wait(float time, System.Action callBack)
-    {
-        Instance.StartCoroutine(PureFunctions.Wait.WaitThenCallBack(time, callBack));
-    }
-
-    [ContextMenu("Reset Player Information")]
-    public void ResetPlayerInformation()
-    {
-        Debugging.ResetPlayerInformation();
-        SaveSystem.SavePlayer();
-    }
-}
-
-public struct ProjectSettings
-{
-    public static float CurrentVolume => VolumeControls.VolumeLevel;
-    public static bool PersistantObjectsInitialisedPreviously = false;
-}
-
-public struct ProjectStatistics
-{
-    #region TimesGameHasBeenOpened
-    private const string TimesGameHasBeenOpenedKey = "TimesGameHasBeenOpened";
-    private static int _timesGameHasBeenOpened;
-    public static int TimesGameHasBeenOpened
-    {
-        get
-        {
-            var v = PlayerPrefs.HasKey(TimesGameHasBeenOpenedKey) ? PlayerPrefs.GetInt(TimesGameHasBeenOpenedKey) : 0;
-            Debugging.DisplayDebugMessage("The game has been opened " + v + " times.");
-            _timesGameHasBeenOpened = v;
-            return v;
-        } 
-        // ReSharper disable once ValueParameterNotUsed
-        set
-        {
-            _timesGameHasBeenOpened++;
-            PlayerPrefs.SetInt(TimesGameHasBeenOpenedKey, _timesGameHasBeenOpened);
+            var instance = Instance;
+            instance.objectPool.Initialise(() => //Some classes are dependant on objects being created by the ObjectPooler class which uses the asynchronous addressable system so we need to wait for that to be done before initialising those classes.
+            {
+                instance.audioManager.Initialise();
+                instance.userInterface.Initialise();
+                callBack();
+            });
         }
     }
-    #endregion TimesGameHasBeenOpened
+
+    public struct ProjectInformation
+    {
+        private const string GitHubURL = "https://github.com/Reviiix/unity-template";
+        private const string DiscordServer = "https://github.com/Reviiix/unity-template";
+    }
 }
 
 

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: Prefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c2887fe746a624166824525b0cd50562
+  m_SerializeEntries:
+  - m_GUID: 1c01c61b8686945b2a7f2188b5e978ce
+    m_Address: Assets/Prefabs/DefaultAudioSource.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c899707527d464171ba45972dfaedff2
+    m_Address: Assets/Prefabs/UserInterface/Achievements/AchievementPopUp.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: da8ded5846185407c8a3965060befb6c
+    m_Address: Assets/Prefabs/UserInterface/LevelDisplayItem.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 051efda1f89be44879a1d75ac262d19c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: df5845d0ee85d4d3fae271f31a032825, type: 2}
+    - {fileID: 11400000, guid: 2b7a27f01043e4894b716755aa672e22, type: 2}

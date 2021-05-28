@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  _rsKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"1526d10a-472e-4be8-9a41-c71151588812\"\n   
+    },\n    \"rs\": {\n      \"key\": \"Configuration\",\n      \"type\": \"json\",\n     
+    \"schemaId\": null,\n      \"value\": {\n        \"ShowAdvertisements\": true,\n       
+    \"Holiday\": \"None\",\n        \"AmountOfExperienceLevels\": 50,\n        \"WeeklyQuests\":
+    {\n          \"highsSore\": 1,\n          \"playTimeInSeconds\": 2,\n         
+    \"levelsComplete\": 3\n        }\n      }\n    }\n  }\n]"
+  _rsLastCachedKeyList: "[\n  {\n    \"metadata\": {\n      \"entityId\": \"1526d10a-472e-4be8-9a41-c71151588812\"\n   
+    },\n    \"rs\": {\n      \"key\": \"Configuration\",\n      \"type\": \"json\",\n     
+    \"schemaId\": null,\n      \"value\": {\n        \"ShowAdvertisements\": true,\n       
+    \"Holiday\": \"None\",\n        \"AmountOfExperienceLevels\": 50,\n        \"WeeklyQuests\":
+    {\n          \"highsSore\": 1,\n          \"playTimeInSeconds\": 2,\n         
+    \"levelsComplete\": 3\n        }\n      }\n    }\n  }\n]"
+  _environments: "[\n  {\n    \"projectId\": \"79fb565a-a54e-4ccd-a446-22b004e0732b\",\n   
+    \"name\": \"Release\",\n    \"id\": \"6e3c0d99-7abe-431e-a5e1-2aa39a93ae1e\",\n   
+    \"createdAt\": \"2021-05-18T09:43:40Z\",\n    \"updatedAt\": \"2021-05-18T10:08:20Z\",\n   
+    \"isDefault\": false\n  },\n  {\n    \"projectId\": \"79fb565a-a54e-4ccd-a446-22b004e0732b\",\n   
+    \"name\": \"Development\",\n    \"id\": \"2b5ce8c0-006a-4335-ac9f-9ba055c1c08e\",\n   
+    \"createdAt\": \"2021-05-18T09:43:40Z\",\n    \"updatedAt\": \"2021-05-18T10:08:20Z\",\n   
+    \"isDefault\": true\n  }\n]"
+  _rulesList: '[]'
+  _lastCachedRulesList: '[]'

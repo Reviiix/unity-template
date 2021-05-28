@@ -1,5 +1,4 @@
 ﻿using Audio;
-using Statistics;
 
 public static class PauseManager
 {
@@ -8,7 +7,8 @@ public static class PauseManager
         get;
         private set;
     }
-    private static float NormalAudioVolume => ProjectSettings.CurrentVolume;
+
+    private const float NormalAudioVolume = AudioManager.VolumeControls.MaximumVolume;
     private const float PauseAudioVolume = 0.2f;
     
     public static void PauseButtonPressed()
@@ -26,11 +26,11 @@ public static class PauseManager
     {
         if (state)
         {
-            TimeTracker.ResumeTimer();
+            GameManager.Instance.GameTime.ResumeTimer();
             BaseAudioManager.SetGlobalVolumeForPause(NormalAudioVolume);
             return;
         }
-        TimeTracker.PauseTimer();
+        GameManager.Instance.GameTime.PauseTimer();
         BaseAudioManager.SetGlobalVolumeForPause(PauseAudioVolume);
     }
 }

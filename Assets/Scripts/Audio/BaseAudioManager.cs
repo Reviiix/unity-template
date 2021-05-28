@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Abstract;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,45 +10,58 @@ using UnityEngine.UI;
 //A drawback of this system is that the developer has to anticipate the amount of sounds that can play at one time.
 namespace Audio
 {
-    [Serializable]
-    public class BaseAudioManager : MonoBehaviour
+    [RequireComponent(typeof(AudioSource))]
+    public abstract class BaseAudioManager : PrivateSingleton<BaseAudioManager>
     {
-        private static BaseAudioManager _instance;
-        private static readonly HashSet<AudioSource> AudioSources = new HashSet<AudioSource>();
-        private static readonly Vector3 AudioSourceStartingLocation = Vector3.zero;
+        private static AudioSource _backGroundAudioSource;
+        private static readonly Queue<AudioSource> AudioSources = new Queue<AudioSource>();
         private const int PoolIndex = 0;
-        [SerializeField]
-        private AudioClip buttonClick;
-        [SerializeField]
-        private AudioClip menuMovement;
-        public VolumeControls volumeControls;
+        [SerializeField] private AudioClip buttonClick;
+        [SerializeField] private AudioClip menuMovement;
+        private readonly VolumeControls _volumeControls = new VolumeControls();
+        public static float CurrentVolume => Instance._volumeControls.VolumeLevel;
 
         public void Initialise()
         {
+            _volumeControls.Initialise();
             ResolveDependencies();
-            volumeControls.Initialise();
+            AssignAllButtonsTheClickClickSound();
         }
 
         private void ResolveDependencies()
         {
-            _instance = this;
+            var maximumNumberOfAudioSources = ObjectPooling.ReturnMaximumActiveObjects(PoolIndex);
+
+            _backGroundAudioSource = GetComponent<AudioSource>();
             
-            for (var i = 0; i < ProjectManager.Instance.globalObjectPools.pools[PoolIndex].maximumActiveObjects; i++)
+            for (var i = 0; i < maximumNumberOfAudioSources; i++)
             {
-                var audioSource = ObjectPooling.ReturnObjectFromPool(0, AudioSourceStartingLocation, Quaternion.identity).GetComponent<AudioSource>();
+                var audioSource = ObjectPooling.ReturnObjectFromPool(0, Vector3.zero, Quaternion.identity).GetComponent<AudioSource>();
                 audioSource.transform.parent = transform;
-                AudioSources.Add(audioSource);
+                AudioSources.Enqueue(audioSource);
             }
         }
 
-        public static void PlayButtonClickSound()
+        private static void AssignAllButtonsTheClickClickSound()
         {
-            PlayClip(_instance.buttonClick);
+            var allButtons = FindObjectsOfType<Button>();
+
+            foreach (var button in allButtons)
+            {
+                button.onClick.RemoveListener(PlayButtonClickSound);
+                
+                button.onClick.AddListener(PlayButtonClickSound);
+            }
+        }
+
+        private static void PlayButtonClickSound()
+        {
+            PlayClip(Instance.buttonClick);
         }
         
         public static void PlayMenuMovementSound()
         {
-            PlayClip(_instance.menuMovement);
+            PlayClip(Instance.menuMovement);
         }
 
         protected static void PlayClip(AudioClip clip)
@@ -60,140 +73,77 @@ namespace Audio
 
         private static AudioSource ReturnFirstUnusedAudioSource()
         {
-            foreach (var audioSource in AudioSources)
-            {
-                if (audioSource.isPlaying)
-                {
-                    continue;
-                }
-                return audioSource;
-            }
-            Debug.LogWarning("There are not enough audio sources to play that many sounds at once, please set a higher maximum amount in the object pool. The first or default audio source has been returned and may have cut of sounds unexpectedly.");
-            return AudioSources.FirstOrDefault();
+            var audioSource = AudioSources.Dequeue();
+            AudioSources.Enqueue(audioSource);
+            return audioSource;
         }
+    
 
         public static void SetGlobalVolumeForPause(float volume)
         {
-            //This method is only to be used for manipulating the volume in a pause screen (So volume controls dont show pause volume).
-            //To manipulate the volume do it through the volume controls class to ensure all appropriate actions are taken.
             AudioListener.volume = volume;
         }
-    }
-
-    [Serializable]
-    public class VolumeControls
-    {
-        #region Volume
-        private static readonly float[] VolumeLevels = {MinimumVolume, 0.3f, 0.6f, MaximumVolume};
-        [Range(0,1)]
-        private const float MinimumVolume = 0;
-        [Range(0,1)]
-        private const float MaximumVolume = 1;
-        private static float _volumeLevel = MaximumVolume;
-        public static float VolumeLevel
+        
+        public class VolumeControls
         {
-            get => _volumeLevel;
-            private set
+            private const float MinimumVolume = 0;
+            public const float MaximumVolume = 1;
+            private float _volumeLevel = MaximumVolume;
+            public float VolumeLevel
             {
-                if (value > MaximumVolume)
+                get => _volumeLevel;
+                private set
                 {
-                    _volumeLevel = MinimumVolume;
-                    return;
-                }
-                if (value < MinimumVolume)
-                {
-                    _volumeLevel = MaximumVolume;
-                    return;
-                }
+                    if (value > MaximumVolume)
+                    {
+                        _volumeLevel = MinimumVolume;
+                        return;
+                    }
+                    if (value < MinimumVolume)
+                    {
+                        _volumeLevel = MaximumVolume;
+                        return;
+                    }
 
-                _volumeLevel = value;
+                    _volumeLevel = value;
+                }
             }
-        }
-        #endregion Volume
-        [SerializeField]
-        private Sprite[] volumeStages;
-        [SerializeField]
-        private Slider volumeSlider;
-        [SerializeField]
-        private Button volumeButton;
-        private Image _volumeImage;
 
-        public void Initialise()
-        {
-            ResolveDependencies();
-            AddButtonEvents();
-        }
-        
-        private void ResolveDependencies()
-        {
-            _volumeImage = volumeButton.GetComponent<Image>();
-        }
-
-        private void AddButtonEvents()
-        {
-            volumeSlider.onValueChanged.AddListener(SetGlobalVolume);
-            volumeButton.onClick.AddListener(IncrementVolume);
-        }
-
-        private void MatchSliderAndGraphic()
-        {
-            SetVolumeSlider();
-            SetVolumeGraphic();
-        }
-
-        private void SetVolumeGraphic()
-        {
-            _volumeImage.sprite = volumeStages[ReturnVolumeLevelAsIndex(VolumeLevel)];
-        }
-        
-        private void SetVolumeSlider()
-        {
-            volumeSlider.value = VolumeLevel;
-        }
-
-        private void IncrementVolume()
-        {
-            for (var i = VolumeLevels.Length - 1; i >= 0; i--)
+            private void SetGlobalVolume(float newVolume)
             {
-                if (VolumeLevel < VolumeLevels[i]) continue;
-                
-                var index = i+1;
-                if (i == VolumeLevels.Length-1)
-                {
-                    index = 0;
-                }
-                    
-                VolumeLevel = VolumeLevels[index];
-                break;
+                VolumeLevel = newVolume;
+                AudioListener.volume = VolumeLevel;
             }
-            SetGlobalVolume(VolumeLevel);
-        }
 
-        private void SetGlobalVolume(float newVolume)
-        {
-            VolumeLevel = newVolume;
-            AudioListener.volume = VolumeLevel;
-            MatchSliderAndGraphic();
-        }
-        
-        private static int ReturnVolumeLevelAsIndex(float volumeLevel)
-        {
-            if (volumeLevel >= VolumeLevels[2])
+            public void Initialise()
             {
-                return 3;
+                SaveSystem.OnSaveDataLoaded += Load;
+                VolumeController.OnMuteButtonPressed += OnMuteButtonPressed;
+                VolumeController.OnSliderValueChanged += OnSliderValueChanged;
+            }
+
+            private void Load(SaveSystem.SaveData saveData)
+            {
+                VolumeLevel = saveData.Volume;
+            }
+
+            private void OnMuteButtonPressed(bool state, float volume)
+            {
+                switch (state)
+                {
+                    case true:
+                        SetGlobalVolume(0);
+                        return;
+                    case false:
+                        SetGlobalVolume(volume);
+                        return;
+                }
             }
             
-            if (volumeLevel >= VolumeLevels[1])
+            private void OnSliderValueChanged(float value)
             {
-                return 2;
+                SetGlobalVolume(value);
             }
-            
-            if (volumeLevel > MinimumVolume)
-            {
-                return 1;
-            }
-            
-            return 0;
         }
     }
 }

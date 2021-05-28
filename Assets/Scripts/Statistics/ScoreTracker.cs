@@ -1,44 +1,24 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 
 namespace Statistics
 {
-    public static class ScoreTracker
+    public class ScoreTracker
     {
-        private static TMP_Text _scoreDisplay;
-        private static readonly int[] IncrementAmounts = {1, 2, 3, 5, 10, 20};
         public const string ScoreDisplayPrefix = "SCORE: ";
-        public static int Score
+        public Action<int, int> OnScoreChanged;
+        
+        public int Score
         {
             get;
             private set;
         }
 
-        public static void Initialise(TMP_Text scoreDisplay)
+        public void IncrementScore(int amount)
         {
-            ResolveDependencies(scoreDisplay);
-            Reset();
-        }
-
-        private static void ResolveDependencies(TMP_Text scoreDisplay)
-        {
-            _scoreDisplay = scoreDisplay;
-        }
-
-        public static void IncrementScore(int amountIndex)
-        {
-            Score += IncrementAmounts[amountIndex];
-            UpdateScoreDisplay();
-        }
-
-        private static void UpdateScoreDisplay()
-        {
-            _scoreDisplay.text = ScoreDisplayPrefix + Score;
-        }
-        
-        private static void Reset()
-        {
-            Score = 0;
-            UpdateScoreDisplay();
+            var originalValue = Score;
+            Score += amount;
+            OnScoreChanged(originalValue, Score);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Audio;
-
-namespace Assets.Scripts.Audio
+﻿namespace Audio
 {
     public class AudioManager : BaseAudioManager
     {

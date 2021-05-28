@@ -1,37 +1,28 @@
-﻿using Statistics;
+﻿using Abstract;
+using Statistics;
 using UnityEngine;
+using UserInterface;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-        
-        //Cleanup after a large start up sequence.
-        Debugging.ClearUnusedAssetsAndCollectGarbage();
-    }
-
+    public TimeTracker GameTime { get; } = new TimeTracker();
+    public ScoreTracker ScoreTracker { get; } = new ScoreTracker();
+    
     private void Start()
     {
-        StartGameTimer();
+        GameTime.StartTimer(this);
     }
     
-    public void IncrementScore()
+    public void IncrementScore(int amount)
     {
-        ScoreTracker.IncrementScore(0);
+        ScoreTracker.IncrementScore(amount);
     }
-    
-    public void StartGameTimer()
-    {
-        TimeTracker.StartTimer(ProjectManager.Instance);
-    }
-    
+
+    [ContextMenu("End Game")]
     public void EndGame()
     {
-        TimeTracker.StopTimer();
+        GameTime.StopTimer();
         HighScores.SetHighScore(ScoreTracker.Score);
-        ProjectManager.Instance.userInterface.EnableGameOverMenu();
+        UserInterfaceManager.EnableGameOverMenu();
     }
 }

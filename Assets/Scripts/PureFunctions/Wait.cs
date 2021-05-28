@@ -11,5 +11,11 @@ namespace PureFunctions
          yield return new WaitForSeconds(seconds);
          callBack();
       }
+      
+      public static IEnumerator WaitForAnyAsynchronousInitialisationToComplete(Action callBack)
+      {
+         yield return new WaitUntil(() => ProjectManager.HasBeenInitialised);
+         callBack();
+      }
    }
 }
