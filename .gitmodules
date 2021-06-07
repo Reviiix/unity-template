@@ -1,0 +1,3 @@
+[submodule "Assets/Scripts/PureFunctions"]
+	path = Assets/Scripts/PureFunctions
+	url = https://github.com/Reviiix/PureFunctions.git
