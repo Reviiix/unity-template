@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MostlyPureFunctions.Effects;
 using Player;
+using PureFunctions.Effects;
 using Statistics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using MostlyPureFunctions.Effects;
+using PureFunctions.Effects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Abstract;
 using Abstract.Interfaces;
-using MostlyPureFunctions;
-using MostlyPureFunctions.Effects;
+using PureFunctions.Effects;
 using TMPro;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace Credits
 
         private void Start()
         {
-            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(() =>
+            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(() =>
             {
                 MonoBehaviour coRoutineHandler = this;
                 credits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.Credits));

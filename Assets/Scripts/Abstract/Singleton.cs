@@ -13,6 +13,7 @@ namespace Abstract
             {
                 Debug.LogWarning("There are 2 " + name + " singletons in the scene. Removing " + gameObject + ".");
                 AssetReferenceLoader.DestroyOrUnload(gameObject);
+                //Destroy(gameObject);
                 return;
             }
             
@@ -36,6 +37,7 @@ namespace Abstract
             {
                 Debug.LogWarning("There are 2 " + name + " singletons in the scene. Removing " + gameObject + ".");
                 AssetReferenceLoader.DestroyOrUnload(gameObject);
+                //Destroy(gameObject);
                 return;
             }
             

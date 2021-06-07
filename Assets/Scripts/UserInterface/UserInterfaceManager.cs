@@ -1,5 +1,4 @@
 ﻿using Abstract;
-using MostlyPureFunctions;
 using Player;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -74,7 +73,7 @@ namespace UserInterface
         
         private void StartUpSequence()
         {
-            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(() =>
+            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(() =>
             {
                 EnableMainMenu();
 

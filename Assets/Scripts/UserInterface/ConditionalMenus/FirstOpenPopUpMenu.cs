@@ -1,5 +1,5 @@
 ﻿using System;
-using MostlyPureFunctions.DateTime;
+using PureFunctions.DateTime;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Abstract;
 using Achievements;
 using Audio;
@@ -15,7 +16,6 @@ public class ProjectManager : Singleton<ProjectManager>
     [SerializeField] private UserInterfaceManager userInterface;
     [SerializeField] private ObjectPooling objectPool;
     public static Action OnApplicationOpen;
-    public static bool HasBeenInitialised => ProjectInitializer.Initialised;
 
     protected override void OnEnable()
     {
@@ -27,6 +27,11 @@ public class ProjectManager : Singleton<ProjectManager>
     {
         SaveSystem.Save();
         DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagementManager.TotalPlayTime);
+    }
+    
+    public static IEnumerator WaitForAnyAsynchronousInitialisationToComplete(Action callBack)
+    {
+        yield return ProjectInitializer.WaitForAnyAsynchronousInitialisation(callBack);
     }
 
     private static class ProjectInitializer
@@ -76,6 +81,12 @@ public class ProjectManager : Singleton<ProjectManager>
                 instance.userInterface.Initialise();
                 callBack();
             });
+        }
+        
+        public static IEnumerator WaitForAnyAsynchronousInitialisation(Action callBack)
+        {
+            yield return new WaitUntil(() => Initialised);
+            callBack();
         }
     }
 

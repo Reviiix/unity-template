@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Abstract;
 using Abstract.Interfaces;
-using MostlyPureFunctions;
 using UnityEngine;
 
 namespace Achievements.Display.PopUp
@@ -22,7 +21,7 @@ namespace Achievements.Display.PopUp
         {
             base.OnEnable();
             AchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
-            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(ResolveDependencies));
+            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(ResolveDependencies));
         }
         
         protected override void OnDisable()

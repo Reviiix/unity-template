@@ -1,6 +1,6 @@
 using System;
 using JetBrains.Annotations;
-using MostlyPureFunctions.Movement;
+using PureFunctions.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 

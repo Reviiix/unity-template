@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using MostlyPureFunctions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -23,7 +22,7 @@ namespace Achievements.Display.ListDisplay
         {
             AchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
             _display = GetComponent<Transform>();
-            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(()=>
+            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(()=>
             {
                 StartCoroutine(CreateDisplayAsynchronously());
             }));

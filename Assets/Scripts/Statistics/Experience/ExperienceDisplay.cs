@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Abstract;
 using Abstract.Interfaces;
-using MostlyPureFunctions;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace Statistics.Experience
         
         private void Start()
         {
-            StartCoroutine(Wait.WaitForAnyAsynchronousInitialisationToComplete(Initialise));
+            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(Initialise));
         }
 
         private void OnEnable()
