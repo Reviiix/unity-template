@@ -5,8 +5,8 @@ namespace Statistics.Experience
 {
     public static class ExperienceManager
     {
-        private static int CurrentLevelID { get; set; }
-        private static long TotalExperience  { get; set; }
+        public static int CurrentLevelID { get; private set; }
+        public static long TotalExperience  { get; private set; }
         private static ExperienceData[] _levels;
         public static Action<long, long> OnExperienceChange;
         public static Action<int> OnLevelChange;
@@ -22,7 +22,7 @@ namespace Statistics.Experience
         {
             if (saveData == null) return;
             
-            CurrentLevelID = saveData.Level - 1;
+            CurrentLevelID = saveData.LevelID;
             TotalExperience = saveData.TotalExperience;
         }
         

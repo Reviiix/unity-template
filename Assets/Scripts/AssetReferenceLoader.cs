@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Object = System.Object;
 
 public static class AssetReferenceLoader 
 {
@@ -25,8 +26,18 @@ public static class AssetReferenceLoader
         };
     }
     
-    public static void UnloadGAmeObjectAssetReference(GameObject gameObjectReference)
+    public static void DestroyOrUnload(GameObject gameObject)
     {
-        Addressables.ReleaseInstance(gameObjectReference);
+        Addressables.ReleaseInstance(gameObject);
+    }
+    
+    public static void UnloadAssetReference(AssetReference reference)
+    {
+        reference.ReleaseAsset();
+    }
+    
+    public static void UnloadAssetReferenceInstance(AssetReference reference, GameObject gameObjectReference)
+    {
+        reference.ReleaseInstance(gameObjectReference);
     }
 }

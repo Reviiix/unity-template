@@ -53,6 +53,7 @@ public class ObjectPooling : PrivateSingleton<ObjectPooling>
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(assetReference, (returnVariable) =>
             {
                 _currentAddressableAsGameObject = returnVariable;
+                AssetReferenceLoader.DestroyOrUnload(returnVariable);
             });
             
             yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
@@ -64,7 +65,6 @@ public class ObjectPooling : PrivateSingleton<ObjectPooling>
                 objectPool.Enqueue(gameObjectCache);
             }
             
-            AssetReferenceLoader.UnloadGAmeObjectAssetReference(_currentAddressableAsGameObject);
             _currentAddressableAsGameObject = null;
 
             if (PoolDictionary.ContainsKey(pool.index))

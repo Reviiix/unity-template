@@ -5,7 +5,7 @@ namespace Statistics
     public static class GameStatistics
     {
         public static KeyValuePair<int, int> FurthestLevelIndex { get; private set; }
-        public static readonly int[] LevelRatings = new int[StageLoadManager.ReturnTotalAmountOfStages()];
+        public static readonly int[] LevelRatings = new int[StageLoadManager.ReturnTotalAmountOfStages];
         public static int ReturnRating(int levelGroup, int level) => LevelRatings[StageLoadManager.ReturnStageIndex(levelGroup, level)];
         
         public static void Initialise()
@@ -16,6 +16,7 @@ namespace Statistics
         private static void LoadLevelRatings(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
+            
             var amountOfLevels = saveData.LevelRatings.Length;
             FurthestLevelIndex = saveData.FurthestLevelIndex;
             for (var i = 0; i < amountOfLevels; i++)

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Abstract;
+using Abstract.Interfaces;
+using MostlyPureFunctions;
 using Player;
-using PureFunctions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,15 +44,16 @@ namespace Statistics.Experience
 
         private void LoadSavedData()
         {
-            _levelIDCache = PlayerInformation.Level - 1;
+            _levelIDCache = ExperienceManager.CurrentLevelID;
             _amountOfExperienceForNextLevelCache = ExperienceManager.ReturnAllExperienceToLevelUp(_levelIDCache);
         }
 
         private void SetInitialDisplayState()
         {
+            var totalExperience = ExperienceManager.TotalExperience;
             levelText.text = (_levelIDCache + 1).ToString();
-            levelBar.fillAmount = ReturnExperienceAsBarValue(PlayerInformation.TotalExperience, _levelIDCache);
-            experienceText.text = PlayerInformation.TotalExperience + "/" + _amountOfExperienceForNextLevelCache;
+            levelBar.fillAmount = ReturnExperienceAsBarValue(totalExperience, _levelIDCache);
+            experienceText.text = totalExperience + "/" + _amountOfExperienceForNextLevelCache;
         }
 
         private void OnExperienceChange(long oldValue, long newValue)

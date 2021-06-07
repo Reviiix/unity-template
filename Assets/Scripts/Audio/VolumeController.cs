@@ -29,6 +29,8 @@ namespace Audio
 
         private void Load(SaveSystem.SaveData saveData)
         {
+            if (saveData == null) return;
+            
             MatchVolumeSliderWithIcon(saveData.Volume);
             MatchVolumeIconWithSlider(saveData.Volume);
         }

@@ -1,5 +1,6 @@
 using System;
-using PureFunctions.Movement;
+using JetBrains.Annotations;
+using MostlyPureFunctions.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,66 +18,66 @@ namespace UserInterface
         void Enable(bool state = true);
     }
     
-    [Serializable]
-    public abstract class PopUpInterface : UserInterface
+    [RequireComponent(typeof(Canvas))]
+    public abstract class PopUpInterface : MonoBehaviour
     {
-        [Header("Pop Up")]
+        protected Canvas Display;
         [SerializeField] protected Transform popUpMenu;
-        [SerializeField] protected Button closeMenu;
+        [SerializeField] [CanBeNull] protected Button closeMenu;
         private const int DefaultMenuMovementSpeed = 7;
         private const int ScreenDistanceBuffer = 500; //ScreenDistanceBuffer is intended to get the remaining bit of the object off screen if its centre is placed at the screen edge.
         private static int ScreenDistance => (CameraManager.ReturnScreenWidth * 2) + ScreenDistanceBuffer;
 
-        public virtual void Initialise()
+        protected virtual void Awake()
         {
-            SetCloseButtonEvent();
+            Display = GetComponent<Canvas>();
+            if (closeMenu != null) closeMenu.onClick.AddListener(CloseButtonPressed);
+            Display.enabled = false;
         }
 
-        private void SetCloseButtonEvent()
+        private void CloseButtonPressed()
         {
-            closeMenu.onClick.AddListener(CloseButtonPressed);
-        }
-
-        protected virtual void CloseButtonPressed()
-        {
-            DisappearAnimation(popUpMenu, () =>
-            {
-                display.enabled = false;
-            });
+            DisappearAnimation(popUpMenu, UnloadSelf);
         }
         
-        private static void TransformEnterToScreenCentre(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
+        private void TransformEnterToScreenCentre(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
         {
-            CoRoutineHandler.StartCoroutine(MoveInAndOutOfView.MoveTransformToCentre(transformToMove, speed, 1,()=>
+            StartCoroutine(MoveInAndOutOfView.MoveTransformToCentre(transformToMove, speed, 1,()=>
             {
                 callBack?.Invoke();
             }));
         }
         
-        private static void TransformExitLeft(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
+        private void TransformExitLeft(Transform transformToMove, Action callBack = null, int speed = DefaultMenuMovementSpeed)
         {
-            CoRoutineHandler.StartCoroutine(MoveInAndOutOfView.MoveTransformToLeft(transformToMove, speed, new Vector3(ScreenDistance,0), 1,()=>
+            StartCoroutine(MoveInAndOutOfView.MoveTransformToLeft(transformToMove, speed, new Vector3(ScreenDistance,0), 1,()=>
             {
                 callBack?.Invoke();
             }));
         }
         
-        protected static void AppearAnimation(Transform popUpMenu, Action callBack = null)
+        protected void AppearAnimation(Transform popUpTransform, Action callBack = null)
         {
-            popUpMenu.localPosition = new Vector3(-ScreenDistance,0,0);
+            popUpTransform.localPosition = new Vector3(-ScreenDistance,0,0);
             
-            TransformEnterToScreenCentre(popUpMenu, ()=>
+            TransformEnterToScreenCentre(popUpTransform, ()=>
             {
                 callBack?.Invoke();
             });
         }
         
-        protected static void DisappearAnimation(Transform popUpMenu, Action callBack = null)
+        protected void DisappearAnimation(Transform popUpTransform, Action callBack = null)
         {
-            TransformExitLeft(popUpMenu, ()=>
+            TransformExitLeft(popUpTransform, ()=>
             {
                 callBack?.Invoke();
             });
+        }
+        
+        protected void UnloadSelf()
+        {
+            AssetReferenceLoader.DestroyOrUnload(gameObject);
+            Destroy(gameObject);
         }
     }
 }

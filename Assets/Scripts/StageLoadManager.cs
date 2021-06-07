@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MostlyPureFunctions.Effects;
 using Player;
-using PureFunctions;
+using Statistics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -11,17 +12,22 @@ using UserInterface;
 
 public static class StageLoadManager
 {
-    private static KeyValuePair<int, int> MostRecentStage = PlayerInformation.FurthestStageIndex;
+    private static KeyValuePair<int, int> _furthestLevelIndex = GameStatistics.FurthestLevelIndex;
     private static MonoBehaviour CoRoutineHandler => ProjectManager.Instance;
     public static int ReturnStageIndex(int stageGroup, int stage) => StageConfiguration.ReturnAssetReferenceIndex(stageGroup, stage);
     private static AssetReference ReturnStageAsAssetReference(int stageGroup, int stage) => StageConfiguration.ReturnAssetReferenceForStage(stageGroup, stage);
-    public static int ReturnTotalAmountOfStages() => StageConfiguration.ReturnAmountOfAssetReferences;
-    public static int ReturnAmountOfStageGroups() => StageConfiguration.ReturnAmountOfGroups();
+    public static int ReturnTotalAmountOfStages => StageConfiguration.ReturnAmountOfAssetReferences;
+    public static int ReturnAmountOfStageGroups => StageConfiguration.ReturnAmountOfGroups();
     public static int ReturnAmountOfStagesIn(int groupIndex) => StageConfiguration.ReturnAmountOfStagesInGroup(groupIndex);
     
     public static void LoadLatestUnlockedStage()
     {
-        LoadSpecificStage(MostRecentStage.Key, MostRecentStage.Value);
+        LoadSpecificStage(_furthestLevelIndex.Key, _furthestLevelIndex.Value);
+    }
+    
+    public static void LoadTutorial()
+    {
+        LoadSpecificStage(0, 0);
     }
     
     public static void LoadSpecificStage(int stageGroup, int stage)
@@ -53,13 +59,13 @@ public static class StageLoadManager
             
         public static IEnumerator LoadStageWithFade(int stageGroup, int stage, Action fadeCompleteCallBack = null, Action completeCallBack = null)
         {
-            yield return CoRoutineHandler.StartCoroutine(Fade.FadeIn(FadeImage, FadeDuration)); 
+            yield return CoRoutineHandler.StartCoroutine(Fade.FadeImageAlphaUp(FadeImage, FadeDuration)); 
             
             fadeCompleteCallBack?.Invoke();
             
             AssetReferenceLoader.LoadScene(ReturnStageAsAssetReference(stageGroup, stage)); //Should i do a wait here or does the fade disquise it??
             
-            yield return CoRoutineHandler.StartCoroutine(Fade.FadeOut(FadeImage, FadeDuration));
+            yield return CoRoutineHandler.StartCoroutine(Fade.FadeImageAlphaDown(FadeImage, FadeDuration));
             
             completeCallBack?.Invoke();
         }

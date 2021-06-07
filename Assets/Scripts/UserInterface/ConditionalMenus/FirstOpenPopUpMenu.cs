@@ -1,59 +1,39 @@
 ﻿using System;
-using Credits;
-using TMPro;
+using MostlyPureFunctions.DateTime;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
 {
-    [Serializable]
     public class FirstOpenPopUpMenu : PopUpInterface, IUserInterface
     {
-        [SerializeField] private TMP_Text rewardDisplay;
-        [SerializeField] private Button claimReward;
-        private const int WelcomeRewardCredits = PlayerEngagementManager.WelcomeRewardCredits;
-        private const int WelcomeRewardPremiumCredits = PlayerEngagementManager.WelcomeRewardPremiumCredits;
+        public static Action<string, DateTime> OnPlayerInformationSubmitted;
+        [SerializeField] private Button continueButton;
+        [SerializeField] private InputField nameInput;
+        [SerializeField] private DatePicker datePicker;
 
-        public override void Initialise()
+        protected override void Awake()
         {
-            if (PlayerEngagementManager.TimesGameHasBeenOpened > 1)
-            {
-                UnityEngine.Object.Destroy(display.gameObject);
-                return;
-            }
-            claimReward.onClick.AddListener(ClaimReward);
-            rewardDisplay.text = "CLAIM " + WelcomeRewardCredits + " CREDITS AND " + WelcomeRewardPremiumCredits + " PREMIUM CREDITS!";
-            base.Initialise();
+            base.Awake();
+            SetButtonEvents();
         }
         
-        public void Enable(bool state = true)
+        private void SetButtonEvents()
         {
-            display.enabled = state;
-
-            switch (state)
-            {
-                case true:
-                    AppearAnimation(popUpMenu);
-                    break;
-                case false:
-                    UnityEngine.Object.Destroy(display.gameObject);
-                    break;
-            }
+            continueButton.onClick.AddListener(ContinuePressed);
         }
 
-        private void ClaimReward()
+        private void ContinuePressed()
         {
-            CreditsManager.ChangeCredits(CreditsManager.Currency.Credits,WelcomeRewardCredits);
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits,WelcomeRewardPremiumCredits);
+            OnPlayerInformationSubmitted?.Invoke(nameInput.text, datePicker.ReturnCurrentDateSelection);
+            StageLoadManager.LoadTutorial();
             Enable(false);
         }
-        
-        protected override void CloseButtonPressed()
+
+        public void Enable(bool state = true)
         {
-            DisappearAnimation(popUpMenu, () =>
-            {
-                Enable(false);
-            });
+            Display.enabled = state;
+            if (!state) DisappearAnimation(popUpMenu, UnloadSelf);
         }
     }
 }

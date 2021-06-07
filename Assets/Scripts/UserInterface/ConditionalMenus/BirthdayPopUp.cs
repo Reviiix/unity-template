@@ -1,22 +1,44 @@
-﻿using System;
-using Object = UnityEngine.Object;
+﻿using Credits;
+using Player;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
 {
-    [Serializable]
     public class BirthdayPopUp : PopUpInterface, IUserInterface
     {
-        private readonly bool Birthday = HolidayManager.IsUserBirthday;
-
-        public override void Initialise()
+        private readonly bool _birthday = HolidayManager.IsUserBirthday;
+        private const int RewardCreditsCredits = PlayerEngagementManager.BirthdayRewardCredits;
+        private const int RewardCreditsPremiumCredits = PlayerEngagementManager.BirthdayRewardPremiumCredits;
+        [SerializeField] private Button claimRewardButton;
+        
+        protected override void Awake()
         {
-            base.Initialise();
-            if (!Birthday) Object.Destroy(display.gameObject);
+            base.Awake();
+            SetButtonEvents();
+            SetDisplay();
         }
-    
+
+        private void SetButtonEvents()
+        {
+            claimRewardButton.onClick.AddListener(ClaimReward);
+            claimRewardButton.onClick.AddListener(()=>Enable(false));
+        }
+        
+        private void SetDisplay()
+        {
+
+        }
+
+        private static void ClaimReward()
+        {
+            CreditsManager.ChangeCredits(CreditsManager.Currency.Credits, RewardCreditsCredits);
+            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, RewardCreditsPremiumCredits);
+        }
+        
         public void Enable(bool state = true)
         {
-            display.enabled = state;
+            Display.enabled = state;
 
             switch (state)
             {
@@ -24,17 +46,10 @@ namespace UserInterface.ConditionalMenus
                     AppearAnimation(popUpMenu);
                     break;
                 case false:
-                    Object.Destroy(display.gameObject);
+                    ClaimReward();
+                    DisappearAnimation(popUpMenu, UnloadSelf);
                     break;
             }
-        }
-        
-        protected override void CloseButtonPressed()
-        {
-            DisappearAnimation(popUpMenu, () =>
-            {
-                Enable(false);
-            });
         }
     }
 }

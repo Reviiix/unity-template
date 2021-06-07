@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Audio;
+using Credits;
 using Player;
 using Statistics;
+using Statistics.Experience;
 using UnityEngine;
 
 public static class SaveSystem
@@ -57,50 +59,46 @@ public static class SaveSystem
     [Serializable]
     public class SaveData
     {
-        #region PlayerInformation
-        public readonly int PlayerID;
-        public readonly int Level = 1;
+        public readonly long PlayerID;
+        public readonly string PlayerName;
+        public readonly int LevelID = 1;
         public readonly long TotalExperience;
         public readonly long Credits;
         public readonly long PremiumCredits;
         public readonly DateTime LastTimeAppWasOpen;
         public readonly int ConsecutiveDailyOpens;
         public readonly TimeSpan TotalPlayTime;
-        #endregion PlayerInformation
-
-        #region ProjectInformation
-        public readonly int TimesGameHasBeenOpenedSave;
-        #endregion ProjectInformation
-
-        #region GameStatistics
+        public readonly DateTime FirstOpen;
+        public readonly DateTime Birthday;
+        public readonly int AmountOfYearsSinceFirstOpen;
+        public readonly int TimesGameHasBeenOpened;
         public readonly KeyValuePair<int, int> FurthestLevelIndex;
         public readonly int[] LevelRatings;
-        #endregion GameStatistics
 
         public readonly float Volume;
 
         public SaveData()
         {
-            #region PlayerInformation
             PlayerID = PlayerInformation.PlayerID;
-            Level = PlayerInformation.Level;
-            TotalExperience = PlayerInformation.TotalExperience;
-            Credits = PlayerInformation.Credits;
-            PremiumCredits = PlayerInformation.PremiumCredits;
+            PlayerName = PlayerInformation.PlayerName;
+            
+            LevelID = ExperienceManager.CurrentLevelID;
+            TotalExperience = ExperienceManager.TotalExperience;
+            
+            Credits = CreditsManager.ReturnCredits(CreditsManager.Currency.Credits);
+            PremiumCredits = CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits);
+            
+            FirstOpen = HolidayManager.FirstOpen;
+            Birthday = HolidayManager.Birthday;
+            AmountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
+            
+            TimesGameHasBeenOpened = PlayerEngagementManager.TimesGameHasBeenOpened;
             LastTimeAppWasOpen = DateTime.Now;
-            ConsecutiveDailyOpens = PlayerInformation.ConsecutiveDailyOpens;
-            TotalPlayTime = PlayerInformation.TotalPlayTime += TimeSpan.FromSeconds(Time.deltaTime);
-            DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time:: " + Time.deltaTime + ", Total Play Time: " + TotalPlayTime);
-            #endregion PlayerInformation
+            ConsecutiveDailyOpens = PlayerEngagementManager.ConsecutiveDailyOpens;
+            TotalPlayTime = PlayerEngagementManager.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
-            #region ProjectInformation
-            TimesGameHasBeenOpenedSave = PlayerEngagementManager.TimesGameHasBeenOpened;
-            #endregion ProjectInformation
-            
-            #region GameStatistics
             FurthestLevelIndex = GameStatistics.FurthestLevelIndex;
             LevelRatings = GameStatistics.LevelRatings;
-            #endregion GameStatistics
 
             Volume = BaseAudioManager.CurrentVolume;
         }

@@ -1,5 +1,5 @@
 ﻿using System;
-using PureFunctions;
+using MostlyPureFunctions.Effects;
 using Statistics;
 using TMPro;
 using UnityEngine;

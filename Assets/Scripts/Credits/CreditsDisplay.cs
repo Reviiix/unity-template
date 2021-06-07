@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Abstract;
-using PureFunctions;
+using Abstract.Interfaces;
+using MostlyPureFunctions;
+using MostlyPureFunctions.Effects;
 using TMPro;
 using UnityEngine;
 

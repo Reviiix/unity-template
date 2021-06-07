@@ -1,42 +1,103 @@
 ﻿using System;
+using System.Collections;
+using Abstract;
+using Credits;
 using Player;
 using UnityEngine;
 
 namespace Achievements
 {
-    public static class AchievementTracker
+    public class AchievementTracker : PrivateSingleton<AchievementTracker>
     {
-        private static TimeSpan TotalPlayTime => PlayerInformation.TotalPlayTime += TimeSpan.FromSeconds(Time.deltaTime);
-
-        public static void Initialise()
+        private static readonly WaitForSeconds ConsecutivePlayTimeAchievementTime = new WaitForSeconds(3600);
+        
+        private static Coroutine _intermittentChecks;
+        private static readonly WaitForSeconds TimeBetweenIntermittentChecks = new WaitForSeconds(3600);
+        
+        protected override void OnEnable()
         {
+            base.OnEnable();
             ProjectManager.OnApplicationOpen += OnApplicationOpen;
+            _intermittentChecks = StartCoroutine(PerformChecksIntermittently());
         }
-
-        // Update is called once per frame
+        
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            ProjectManager.OnApplicationOpen -= OnApplicationOpen;
+            if (_intermittentChecks != null) StopCoroutine(_intermittentChecks);
+        }
+        
         private static void OnApplicationOpen()
         {
+            ProjectManager.OnApplicationOpen -= OnApplicationOpen;
+            
             CheckOpenTimes();
         }
+        
+        // ReSharper disable once FunctionRecursiveOnAllPaths
+        private IEnumerator PerformChecksIntermittently()
+        {
+            PerformChecks();
+            yield return TimeBetweenIntermittentChecks;
+            _intermittentChecks = StartCoroutine(PerformChecksIntermittently());
+        }
 
-        public static void PerformPeriodicalChecks()
+        private static void PerformChecks()
         {
             CheckTotalPlayTime();
+            CheckTotalCredits();
+            CheckTotalPremiumCredits();
         }
 
         private static void CheckOpenTimes()
         {
-            if (PlayerEngagementManager.TimesGameHasBeenOpened == 5) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppFiveTimes);
+            var timesGameHasBeenOpened = PlayerEngagementManager.TimesGameHasBeenOpened;
+            
+            if (timesGameHasBeenOpened == 5) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppFiveTimes);
+            if (timesGameHasBeenOpened == 10) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppTenTimes);
+            if (timesGameHasBeenOpened == 25) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppTwentyFiveTimes);
+            if (timesGameHasBeenOpened == 50) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppFiftyTimes);
+            if (timesGameHasBeenOpened == 100) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppOneHundredTimes);
         }
 
         private static void CheckTotalPlayTime()
         {
-            if (TotalPlayTime.Hours > 1) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForOneHour);
-            if (TotalPlayTime.Hours > 5) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForFiveHours);
-            if (TotalPlayTime.Hours > 10) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForTenHours);
-            if (TotalPlayTime.Hours > 25) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForTwentyFiveHours);
-            if (TotalPlayTime.Hours > 50) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForFiftyHours);
+            var totalPlayTime = PlayerEngagementManager.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
+            if (totalPlayTime.Hours > 1) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForOneHour);
+            if (totalPlayTime.Hours > 5) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForFiveHours);
+            if (totalPlayTime.Hours > 10) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForTenHours);
+            if (totalPlayTime.Hours > 25) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForTwentyFiveHours);
+            if (totalPlayTime.Hours > 50) AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForFiftyHours);
+        }
+        
+        private static void CheckTotalCredits()
+        {
+            var credits = CreditsManager.ReturnCredits(CreditsManager.Currency.Credits);
+            
+            if (credits > 100) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OneHundredCredits);
+            if (credits > 250) AchievementManager.UnlockAchievement(AchievementManager.Achievement.TwoHundredAndFiftyCredits);
+            if (credits > 500) AchievementManager.UnlockAchievement(AchievementManager.Achievement.FiveHundredCredits);
+            if (credits > 1000) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OneThousandCredits);
+            if (credits > 10000) AchievementManager.UnlockAchievement(AchievementManager.Achievement.TenThousandCredits);
+        }
+        
+        private static void CheckTotalPremiumCredits()
+        {
+            var credits = CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits);
+            
+            if (credits > 100) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OneHundredPremiumCredits);
+            if (credits > 250) AchievementManager.UnlockAchievement(AchievementManager.Achievement.TwoHundredAndFiftyPremiumCredits);
+            if (credits > 500) AchievementManager.UnlockAchievement(AchievementManager.Achievement.FiveHundredPremiumCredits);
+            if (credits > 1000) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OneThousandPremiumCredits);
+            if (credits > 10000) AchievementManager.UnlockAchievement(AchievementManager.Achievement.TenThousandPremiumCredits);
+        }
+        
+        private static IEnumerator ConsecutivePlayTimeAchievement()
+        {
+            yield return ConsecutivePlayTimeAchievementTime;
+            AchievementManager.UnlockAchievement(AchievementManager.Achievement.PlayForOneHourConsecutively);
         }
     }
 }

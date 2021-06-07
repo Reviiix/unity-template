@@ -26,6 +26,7 @@ public class ProjectManager : Singleton<ProjectManager>
     private void OnApplicationQuit()
     {
         SaveSystem.Save();
+        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagementManager.TotalPlayTime);
     }
 
     private static class ProjectInitializer
@@ -57,14 +58,12 @@ public class ProjectManager : Singleton<ProjectManager>
         private static void InitialiseStaticManagers(Action callBack)
         {
             RemoteConfigurationManager.Initialise();
-            PlayerInformation.Initialise();
             GameStatistics.Initialise();
             HolidayManager.Initialise();
             ExperienceManager.Initialise();
             CreditsManager.Initialise();
             CameraManager.Initialise();
             PlayerEngagementManager.Initialise();
-            AchievementManager.Initialise();
             callBack();
         }
     

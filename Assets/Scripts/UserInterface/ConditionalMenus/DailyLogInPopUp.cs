@@ -3,6 +3,7 @@ using Credits;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
@@ -10,19 +11,15 @@ namespace UserInterface.ConditionalMenus
     [Serializable]
     public class DailyLogInPopUp : PopUpInterface, IUserInterface
     {
+        [SerializeField] private Button claimRewardButton;
         [SerializeField] private TMP_Text rewardDisplay;
         [SerializeField] private TMP_Text consecutiveOpensDisplay;
-        [SerializeField] private Button claimRewardButton;
-        private static int DailyBonusReward => PlayerEngagementManager.DailyBonusReward;
+        private static int RewardCredits => PlayerEngagementManager.DailyBonusRewardCredits;
+        private static int RewardPremiumCredits => PlayerEngagementManager.DailyBonusRewardCredits;
 
-        public override void Initialise()
+        protected override void Awake()
         {
-            if (PlayerEngagementManager.TimesGameHasBeenOpened <= 1 || PlayerEngagementManager.IsRepeatOpenToday)
-            {
-                UnityEngine.Object.Destroy(display.gameObject);
-                return;
-            }
-            base.Initialise();
+            base.Awake();
             SetButtonEvents();
             SetDisplay();
         }
@@ -30,32 +27,34 @@ namespace UserInterface.ConditionalMenus
         private void SetButtonEvents()
         {
             claimRewardButton.onClick.AddListener(ClaimReward);
+            claimRewardButton.onClick.AddListener(()=>Enable(false));
         }
         
         private void SetDisplay()
         {
             const string claimPrefix = "CLAIM ";
             const string consecutiveOpensPrefix = "CONSECUTIVE BONUS: ";
-            rewardDisplay.text = claimPrefix + DailyBonusReward + "!";
-            consecutiveOpensDisplay.text = consecutiveOpensPrefix + PlayerInformation.ConsecutiveDailyOpens;
+            rewardDisplay.text = claimPrefix + RewardCredits + "!";
+            consecutiveOpensDisplay.text = consecutiveOpensPrefix + PlayerEngagementManager.ConsecutiveDailyOpens;
         }
         
         private static void ClaimReward()
         {
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, DailyBonusReward);
+            CreditsManager.ChangeCredits(CreditsManager.Currency.Credits, RewardCredits);
+            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
         }
 
         public void Enable(bool state = true)
         {
-            display.enabled = state;
-
+            Display.enabled = state;
             switch (state)
             {
                 case true:
                     AppearAnimation(popUpMenu);
                     break;
                 case false:
-                    UnityEngine.Object.Destroy(display.gameObject);
+                    ClaimReward();
+                    DisappearAnimation(popUpMenu, UnloadSelf);
                     break;
             }
         }

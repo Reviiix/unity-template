@@ -124,6 +124,8 @@ namespace Audio
 
             private void Load(SaveSystem.SaveData saveData)
             {
+                if (saveData == null) return;
+                
                 VolumeLevel = saveData.Volume;
             }
 

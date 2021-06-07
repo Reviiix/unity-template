@@ -1,6 +1,8 @@
 ﻿using Abstract;
-using PureFunctions;
+using MostlyPureFunctions;
+using Player;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UserInterface.ConditionalMenus;
 using UserInterface.InGameMenus;
@@ -22,14 +24,21 @@ namespace UserInterface
         [SerializeField] private StageSelectionMenu stageSelectionMenu;
         [SerializeField] private StatisticsMenu statisticsMenu;
         [SerializeField] private StoreMenu storeMenu;
-        [Header("Pop Up Menus")]
-        [SerializeField] private FirstOpenPopUpMenu firstOpenPopUpMenu;
-        [SerializeField] private BirthdayPopUp birthdayPopUpMenu;
-        [SerializeField] private DailyLogInPopUp dailyLogInPopUpMenu;
         [Header("In Game Menus")]
         [SerializeField] private InGameUserInterface inGameUserInterface;
         [SerializeField] private PauseUserMenu pauseUserMenu;
         [SerializeField] private GameOverMenu gameOverMenu;
+        [Header("Pop Up Menus")]
+        public ConfirmationPopUp confirmationScreen;
+        public static ConfirmationPopUp ConfirmationScreen => Instance.confirmationScreen;
+        private const string FirstOpenPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab";
+        private static readonly AssetReference FirstOpenPopUp = new AssetReference(FirstOpenPopUpGuid);
+        private const string BirthdayPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/BirthdayPopUp.prefab";
+        private static readonly AssetReference BirthdayPopUp = new AssetReference(BirthdayPopUpGuid);
+        private const string DailyLogInPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab";
+        private static readonly AssetReference DailyLogInPopUp = new AssetReference(DailyLogInPopUpGuid);
+        private const string AnniversaryPopUpPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/AnniversaryPopUp.prefab";
+        private static readonly AssetReference AnniversaryPopUp = new AssetReference(AnniversaryPopUpPopUpGuid);
 
         public void Initialise()
         {
@@ -51,7 +60,7 @@ namespace UserInterface
 
         private void InitialiseMenus()
         {
-            //Main Menu Sub Pages
+            //Main Menus
             mainMenu.Initialise(()=>EnableStageSelectionMenu(), ()=>EnableStatisticsMenu(), ()=>EnableSettingsMenu(), ()=>EnableStoreMenu());
             settingsMenu.Initialise();
             statisticsMenu.Initialise();
@@ -61,10 +70,6 @@ namespace UserInterface
             inGameUserInterface.Initialise();
             gameOverMenu.Initialise();
             pauseUserMenu.Initialise();
-            //Pop ups
-            firstOpenPopUpMenu.Initialise();
-            birthdayPopUpMenu.Initialise();
-            dailyLogInPopUpMenu.Initialise();
         }
         
         private void StartUpSequence()
@@ -75,31 +80,20 @@ namespace UserInterface
 
                 if (PlayerEngagementManager.TimesGameHasBeenOpened == 1)
                 {
-                    ShowWelcomeMessage();
+                    ShowFirstOpenPopUp();
                     return;
                 }
 
-                if (HolidayManager.IsUserBirthday) ShowBirthdayMessage();
+                if (HolidayManager.IsAnniversary) ShowAnniversaryPopUp();
 
-                if (!PlayerEngagementManager.IsRepeatOpenToday) ShowDailyBonus();
+                if (HolidayManager.IsUserBirthday) ShowBirthdayPopUp();
+
+                if (!PlayerEngagementManager.IsRepeatOpenToday) ShowDailyLogInPopUp();
+                
             }));
         }
 
-        private void ShowWelcomeMessage(int delayInSeconds = 1)
-        {
-            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>firstOpenPopUpMenu.Enable()));
-        }
-        
-        private void ShowDailyBonus(int delayInSeconds = 1)
-        {
-            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>dailyLogInPopUpMenu.Enable()));
-        }
-
-        private void ShowBirthdayMessage(int delayInSeconds = 1)
-        {
-            StartCoroutine(Wait.WaitThenCallBack(delayInSeconds, ()=>birthdayPopUpMenu.Enable()));
-        }
-
+        #region Main Menus
         private void EnableMainMenu(bool state = true)
         {
             returnToMainMenuButton.interactable = !state;
@@ -134,28 +128,6 @@ namespace UserInterface
             returnToMainMenuButton.interactable = state;
             settingsMenu.Enable(state);
         }
-
-        private void PauseButtonPressed()
-        {
-            EnablePauseMenu(PauseManager.IsPaused);
-        }
-
-        private void EnablePauseMenu(bool state = true)
-        {
-            pauseUserMenu.Enable(state);
-        }
-    
-        public static void EnableGameOverMenu(bool state = true)
-        {
-            var instance = Instance;
-            instance.gameOverMenu.Enable(state);
-            EnableHeadsUpDisplay(false);
-        }
-        
-        public static void EnableHeadsUpDisplay(bool state = true)
-        {
-            Instance.inGameUserInterface.Enable(state);
-        }
         
         public static void EnableBackground(bool state = true)
         {
@@ -177,5 +149,56 @@ namespace UserInterface
             statisticsMenu.display.enabled = state;
             stageSelectionMenu.display.enabled = state;
         }
+        #endregion
+        
+        #region Conditional Menus
+        private static void ShowFirstOpenPopUp()
+        {
+            OpenAddressableMenu<FirstOpenPopUpMenu>(FirstOpenPopUp);
+        }
+        private static void ShowDailyLogInPopUp()
+        {
+            OpenAddressableMenu<DailyLogInPopUp>(DailyLogInPopUp);
+        }
+
+        private static void ShowBirthdayPopUp()
+        {
+            OpenAddressableMenu<BirthdayPopUp>(BirthdayPopUp);
+        }
+        
+        private static void ShowAnniversaryPopUp()
+        {
+            OpenAddressableMenu<AnniversaryPopUp>(AnniversaryPopUp);
+        }
+
+        private static void OpenAddressableMenu<T>(IKeyEvaluator menuReference) where T : IUserInterface
+        {
+            AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(menuReference, (returnVariable) =>
+            {
+                var menu = Instantiate(returnVariable).GetComponent<T>();
+                AssetReferenceLoader.DestroyOrUnload(returnVariable);
+                menu.Enable();
+            });
+        }
+        #endregion Conditional Menus
+
+        #region In Game Menus
+        private void EnablePauseMenu(bool state = true)
+        {
+            pauseUserMenu.Enable(state);
+        }
+    
+        public static void EnableGameOverMenu(bool state = true)
+        {
+            var instance = Instance;
+            instance.gameOverMenu.Enable(state);
+            EnableHeadsUpDisplay(false);
+        }
+        
+        public static void EnableHeadsUpDisplay(bool state = true)
+        {
+            Instance.inGameUserInterface.Enable(state);
+        }
+        #endregion In Game Menus
     }
 }

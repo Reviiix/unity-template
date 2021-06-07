@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using PureFunctions;
 using Statistics;
 using TMPro;
 using UnityEngine;
@@ -17,12 +16,12 @@ namespace UserInterface.MainMenus.StageSelection
         [SerializeField] private Button nextLevelGroupButton, previousLevelGroupButton;
         [SerializeField] private Transform levelItemParent;
         [SerializeField] private ScrollRect levelScroller;
-        private static readonly AssetReference DisplayItemPrefab = new AssetReference("Assets/Prefabs/UserInterface/LevelDisplayItem.prefab");
+        private static readonly AssetReference DisplayItemPrefab = new AssetReference("Assets/Prefabs/UserInterface/StageDisplayItem.prefab");
         private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new WaitUntil(() => _addressableAsGameObject != null);
         private static GameObject _addressableAsGameObject;
         private static RectTransform[] _levelGroupDisplays;
         private static LevelItemDisplay[] _levelListItems;
-        private static int _amountOfLevelGroups = StageLoadManager.ReturnAmountOfStageGroups();
+        private static int _amountOfLevelGroups = StageLoadManager.ReturnAmountOfStageGroups;
         private static int _currentLeveGroupDisplayIndex;
         private static int CurrentLeveGroupDisplayIndex
         {
@@ -57,11 +56,12 @@ namespace UserInterface.MainMenus.StageSelection
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(DisplayItemPrefab, (returnVariable) =>
             {
                 _addressableAsGameObject = returnVariable;
+                AssetReferenceLoader.DestroyOrUnload(returnVariable);
             });
             
             yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
             
-            _levelListItems = new LevelItemDisplay[StageLoadManager.ReturnTotalAmountOfStages()];
+            _levelListItems = new LevelItemDisplay[StageLoadManager.ReturnTotalAmountOfStages];
 
             for (var groupIndex = 0; groupIndex < _amountOfLevelGroups; groupIndex++)
             {
@@ -77,8 +77,7 @@ namespace UserInterface.MainMenus.StageSelection
                 }
             }
 
-            Object.Destroy(parentCache.gameObject);
-            AssetReferenceLoader.UnloadGAmeObjectAssetReference(_addressableAsGameObject);
+            AssetReferenceLoader.DestroyOrUnload(parentCache.gameObject);
             levelItemParent = null;
             
             if (_amountOfLevelGroups > 0)
@@ -91,7 +90,7 @@ namespace UserInterface.MainMenus.StageSelection
 
         private void CreateDisplayItemAsynchronously(string description,int levelGroupIndex, int levelIndex, bool locked)
         {
-            var levelItemGameObject = Object.Instantiate(_addressableAsGameObject, levelItemParent).GetComponentInChildren<StageListItemDisplayObject>();
+            var levelItemGameObject = Object.Instantiate(_addressableAsGameObject, levelItemParent).GetComponentInChildren<StageListItem>();
             var levelItemGameTransform = levelItemGameObject.transform;
             levelItemGameTransform.SetParent(levelItemParent);
             levelItemGameTransform.localScale = Vector3.one;

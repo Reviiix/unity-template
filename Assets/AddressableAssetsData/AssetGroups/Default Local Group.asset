@@ -16,13 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: e4e50af02ff0745a18366a0e1478ae27
-  m_SerializeEntries:
-  - m_GUID: 3ec02c7357e58431bab317babd5d54aa
-    m_Address: Assets/Prefabs/UserInterface/Achievements/AchievementListDisplayItem.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 051efda1f89be44879a1d75ac262d19c, type: 2}
   m_SchemaSet:

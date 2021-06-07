@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace DebuggingAid.Cheats
 {
-    [RequireComponent(typeof(Canvas))]
+    [RequireComponent(typeof(GameObject))]
     public class CheatEnabler : MonoBehaviour 
     {
-        private static Canvas _cheatMenu;
         [SerializeField] private GameObject cheats;
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace DebuggingAid.Cheats
             Destroy(GetComponent<CheatEnabler>());
             return;
             #endif
-            Destroy(gameObject);
+            AssetReferenceLoader.DestroyOrUnload(gameObject);
         }
     }
 }

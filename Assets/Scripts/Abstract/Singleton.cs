@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Abstract
 {
@@ -11,7 +12,7 @@ namespace Abstract
             if (Instance != null)
             {
                 Debug.LogWarning("There are 2 " + name + " singletons in the scene. Removing " + gameObject + ".");
-                Destroy(gameObject);
+                AssetReferenceLoader.DestroyOrUnload(gameObject);
                 return;
             }
             
@@ -34,7 +35,7 @@ namespace Abstract
             if (Instance != null)
             {
                 Debug.LogWarning("There are 2 " + name + " singletons in the scene. Removing " + gameObject + ".");
-                Destroy(gameObject);
+                AssetReferenceLoader.DestroyOrUnload(gameObject);
                 return;
             }
             

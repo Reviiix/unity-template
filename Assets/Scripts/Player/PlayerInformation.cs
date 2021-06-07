@@ -1,76 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using Credits;
-using DebuggingAid.Cheats;
-using Statistics.Experience;
-using UnityEngine;
-using UnityEngine.Serialization;
+using UserInterface.ConditionalMenus;
+using UserInterface.MainMenus;
 
 namespace Player
 {
-    [Serializable]
     public static class PlayerInformation
     {
-        public static int PlayerID { get; private set; }
-        public static int Level { get; private set; } = 1;
-        public static long TotalExperience { get; private set; }
-        public static KeyValuePair<int, int> FurthestStageIndex { get; private set; } = new KeyValuePair<int, int>();
-        public static DateTime Birthday { get; private set; } = new DateTime(1993, 2, 3);
-        public static long Credits { get; private set; } 
-        public static long PremiumCredits { get; private set; }
-        public static DateTime LastTimeAppWasOpen { get; private set; } 
-        public static int ConsecutiveDailyOpens { get; private set; }
-        public static TimeSpan TotalPlayTime{ get; set; } 
-        
+        public static long PlayerID { get; private set; }
+        public static string PlayerName { get; private set; }
+
         public static void Initialise()
         {
-            SaveSystem.OnSaveDataLoaded += LoadPlayerInformation;
-            ExperienceManager.OnExperienceChange += OnExperienceChange;
-            ExperienceManager.OnLevelChange += OnLevelChange;
-
-            CreditsManager.OnCreditsChanged += OnCreditChange;
-            CreditsManager.OnPremiumCreditsChanged += OnPremiumCreditChange;
-
-            PlayerEngagementManager.OnDailyBonusOpen += OnDailyBonusOpen;
+            FirstOpenPopUpMenu.OnPlayerInformationSubmitted += OnPlayerInformationSubmitted;
+            SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
+            SettingsMenu.OnNameChange += OnNameChange;
         }
-        
-        private static void LoadPlayerInformation(SaveSystem.SaveData saveData)
+
+        private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
-            
+
             PlayerID = saveData.PlayerID;
-            TotalExperience = saveData.TotalExperience;
-            Level = saveData.Level;
-            Credits = saveData.Credits;
-            PremiumCredits = saveData.PremiumCredits;
-            LastTimeAppWasOpen = saveData.LastTimeAppWasOpen;
-            ConsecutiveDailyOpens = saveData.ConsecutiveDailyOpens;
-            TotalPlayTime = saveData.TotalPlayTime;
-        }
-
-        private static void OnExperienceChange(long oldValue, long newValue)
-        {
-            TotalExperience = newValue;
-        }
-
-        private static void OnLevelChange(int levelID)
-        {
-            Level = levelID + 1;
+            PlayerName = saveData.PlayerName;
         }
         
-        private static void OnCreditChange(long originalValue, long newValue)
+        private static void OnPlayerInformationSubmitted(string name, DateTime birthday)
         {
-            Credits = newValue;
+            PlayerID = 111; //TODO custom identifier
+            PlayerName = name;
         }
         
-        private static void OnPremiumCreditChange(long originalValue, long newValue)
+        private static void OnNameChange(string name)
         {
-            PremiumCredits = newValue;
-        }
-
-        private static void OnDailyBonusOpen(int consecutiveDailyOpens)
-        {
-            ConsecutiveDailyOpens = consecutiveDailyOpens;
+            PlayerName = name;
         }
     }
 }

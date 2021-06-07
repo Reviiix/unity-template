@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Abstract;
-using PureFunctions;
+using Abstract.Interfaces;
+using MostlyPureFunctions;
 using UnityEngine;
 
 namespace Achievements.Display.PopUp
@@ -9,7 +10,7 @@ namespace Achievements.Display.PopUp
     [RequireComponent(typeof(Transform))]
     public class AchievementPopUpDisplay : PrivateSingleton<AchievementPopUpDisplay>, IHandleSimultaneousAdditions
     {
-        private static readonly Queue<AchievementPopUp> PopUps = new Queue<AchievementPopUp>();
+        private static readonly Queue<AchievementPopUpItem> PopUps = new Queue<AchievementPopUpItem>();
         private static readonly Queue<AchievementManager.Achievement> DelayedAchievementsQueue = new Queue<AchievementManager.Achievement>();
         private static int _maximumNumberOfActiveAchievements;
         private static Transform _parent;
@@ -36,7 +37,7 @@ namespace Achievements.Display.PopUp
             _parent = GetComponent<Transform>();
             for (var i = 0; i < _maximumNumberOfActiveAchievements; i++)
             {
-                var popUp = ObjectPooling.ReturnObjectFromPool(PoolIndex, Vector3.zero, Quaternion.identity.normalized, false).GetComponent<AchievementPopUp>();
+                var popUp = ObjectPooling.ReturnObjectFromPool(PoolIndex, Vector3.zero, Quaternion.identity.normalized, false).GetComponent<AchievementPopUpItem>();
                 popUp.transform.SetParent(_parent);
                 PopUps.Enqueue(popUp);
             }
@@ -44,7 +45,7 @@ namespace Achievements.Display.PopUp
 
         private static void OnAchievementUnlocked(AchievementManager.Achievement achievement)
         {
-            if (_activeAchievements > _maximumNumberOfActiveAchievements)
+            if (_activeAchievements >= _maximumNumberOfActiveAchievements)
             {
                 DelayedAchievementsQueue.Enqueue(achievement);
                 return;
@@ -54,14 +55,22 @@ namespace Achievements.Display.PopUp
 
         private static void PopAchievements(AchievementManager.Achievement achievement)
         {
-            var popUp = PopUps.Dequeue();
-            _activeAchievements++;
-            popUp.Show(null, achievement.ToString(), AchievementManager.ReturnDescription(achievement), AchievementManager.ReturnReward(achievement), () =>
+            var assetReference = AchievementManager.ReturnSpriteAssetReference(achievement);
+            AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
             {
-                _activeAchievements--;
+                var popUp = PopUps.Dequeue();
+                popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
+                _activeAchievements++;
+                popUp.Show(returnVariable, achievement.ToString(), AchievementManager.ReturnDescription(achievement), AchievementManager.ReturnReward(achievement), () =>
+                {
+                    _activeAchievements--;
+                    PopUps.Enqueue(popUp);
+                });
+                AssetReferenceLoader.UnloadAssetReference(assetReference);
+                Instance.StartCoroutine(Instance.HandleDelayedAdditions());
             });
-            Instance.StartCoroutine(Instance.HandleDelayedAdditions());
         }
+        
 
         public IEnumerator HandleDelayedAdditions()
         {

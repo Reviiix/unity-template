@@ -1,8 +1,6 @@
 ﻿using System;
 using Achievements;
 using Credits;
-using Player;
-using Statistics;
 using Statistics.Experience;
 using TMPro;
 using UnityEngine;
@@ -28,8 +26,6 @@ namespace DebuggingAid.Cheats
         [Header("Cash Cheats")]
         [SerializeField] private Button addCashButton;
         [SerializeField] private TMP_Dropdown cashDropDown;
-        [Header("Reset")]
-        [SerializeField] private Button resetPlayerInformation;
 
         private void Awake()
         {
@@ -38,9 +34,10 @@ namespace DebuggingAid.Cheats
             AssignButtonEvents();
         }
 
+        
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Space)) AchievementManager.UnlockAchievement(AchievementManager.Achievement.NumeroUno);
+            if (Input.GetKeyUp(KeyCode.Space)) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppOnce);
         }
 
         private void ResolveDependencies()
@@ -54,7 +51,6 @@ namespace DebuggingAid.Cheats
             
             addExperienceButton.onClick.AddListener(AddExperience);
             addScoreButton.onClick.AddListener(AddScore);
-            resetPlayerInformation.onClick.AddListener(DeleteSaveData);
             addCreditsButton.onClick.AddListener(AddCredits);
             addCashButton.onClick.AddListener(AddCash);
         }
@@ -105,22 +101,15 @@ namespace DebuggingAid.Cheats
         private void Validate()
         {
             #if !UNITY_EDITOR && !DEBUG_BUILD 
-            Destroy(gameObject);
+            Addressables.ReleaseInstance(gameObject);
             #endif
             Debugging.DisplayDebugMessage("CHEATS ENABLED! \n Culprit: " + name);
         }
-        
-        [ContextMenu("Delete Save Data")]
-        public void DeleteSaveData()
-        {
-            SaveSystem.Delete();
-            SaveSystem.Save();
-        }
-        
-        #else
+
+#else
         private void OnEnable()
         {
-            Destroy(gameObject);
+            Addressables.ReleaseInstance(gameObject);
         }
         #endif
     }
