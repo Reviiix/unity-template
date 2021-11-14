@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Abstract;
 using Abstract.Interfaces;
+using PureFunctions;
 using UnityEngine;
 
 namespace Achievements.Display.PopUp
@@ -60,10 +61,11 @@ namespace Achievements.Display.PopUp
                 var popUp = PopUps.Dequeue();
                 popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
                 _activeAchievements++;
-                popUp.Show(returnVariable, achievement.ToString(), AchievementManager.ReturnDescription(achievement), AchievementManager.ReturnReward(achievement), () =>
+                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), AchievementManager.ReturnDescription(achievement), AchievementManager.ReturnReward(achievement), () =>
                 {
                     _activeAchievements--;
                     PopUps.Enqueue(popUp);
+                    popUp.gameObject.SetActive(false);
                 });
                 AssetReferenceLoader.UnloadAssetReference(assetReference);
                 Instance.StartCoroutine(Instance.HandleDelayedAdditions());
@@ -77,9 +79,7 @@ namespace Achievements.Display.PopUp
             
             if (DelayedAchievementsQueue.Count == 0) yield break;
 
-            var dequeue = DelayedAchievementsQueue.Dequeue();
-            
-            OnAchievementUnlocked(dequeue);
+            OnAchievementUnlocked(DelayedAchievementsQueue.Dequeue());
         }
     }
 }

@@ -1,6 +1,4 @@
-using Abstract;
 using Abstract.Interfaces;
-using UserInterface.MainMenus.StageSelection;
 
 namespace Achievements.Display.ListDisplay
 {
@@ -8,7 +6,7 @@ namespace Achievements.Display.ListDisplay
     {
         public void RemoveClassFromObject()
         {
-            Destroy(GetComponent<StageListItem>());
+            Destroy(GetComponent<AchievementListItem>());
         }
     }
 }
