@@ -5,11 +5,9 @@ using UserInterface.ConditionalMenus;
 public static class HolidayManager
 {
     public static Holiday CurrentHoliday { get; private set; } = Holiday.None;
-    public static DateTime Birthday { get; private set; } = new DateTime(1993, 2, 3);
     public static DateTime FirstOpen { get; private set; }
     public static int AmountOfYearsSinceFirstOpen { get; private set; } = 1;
     public static bool IsHoliday => CurrentHoliday != Holiday.None;
-    public static bool IsUserBirthday => DateTime.Today == Birthday;
     public static bool IsAnniversary => DateTime.Today == new DateTime(FirstOpen.Year + AmountOfYearsSinceFirstOpen, FirstOpen.Month, FirstOpen.Day);
 
     public static void Initialise()
@@ -18,7 +16,6 @@ public static class HolidayManager
         RemoteConfigurationManager.OnConfigurationChanged += OnConfigurationChanged;
         ProjectManager.OnApplicationOpen += OnApplicationOpen;
         AnniversaryPopUp.OnAnniversaryOfFirstOpen += OnAnniversaryOfFirstOpen;
-        FirstOpenPopUpMenu.OnPlayerInformationSubmitted += OnPlayerInformationSubmitted;
     }
     
     private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
@@ -26,7 +23,6 @@ public static class HolidayManager
         if (saveData == null) return;
 
         FirstOpen = saveData.FirstOpen;
-        Birthday = saveData.Birthday;
         AmountOfYearsSinceFirstOpen = saveData.AmountOfYearsSinceFirstOpen;
     }
 
@@ -46,12 +42,7 @@ public static class HolidayManager
     {
         AmountOfYearsSinceFirstOpen++;
     }
-    
-    private static void OnPlayerInformationSubmitted(string name, DateTime birthday)
-    {
-        Birthday = birthday;
-    }
-    
+
     private static void SetHoliday(Holiday holidayType)
     {
         CurrentHoliday = holidayType;

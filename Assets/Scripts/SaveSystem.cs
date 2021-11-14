@@ -70,7 +70,6 @@ public static class SaveSystem
         public readonly int ConsecutiveDailyOpens;
         public readonly TimeSpan TotalPlayTime;
         public readonly DateTime FirstOpen;
-        public readonly DateTime Birthday;
         public readonly int AmountOfYearsSinceFirstOpen;
         public readonly int TimesGameHasBeenOpened;
         public readonly KeyValuePair<int, int> FurthestLevelIndex;
@@ -90,7 +89,6 @@ public static class SaveSystem
             PremiumCredits = CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits);
             
             FirstOpen = HolidayManager.FirstOpen;
-            Birthday = HolidayManager.Birthday;
             AmountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
             
             TimesGameHasBeenOpened = PlayerEngagementManager.TimesGameHasBeenOpened;

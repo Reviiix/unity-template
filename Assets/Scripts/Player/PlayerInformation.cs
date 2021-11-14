@@ -11,7 +11,6 @@ namespace Player
 
         public static void Initialise()
         {
-            FirstOpenPopUpMenu.OnPlayerInformationSubmitted += OnPlayerInformationSubmitted;
             SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
             SettingsMenu.OnNameChange += OnNameChange;
         }
@@ -23,13 +22,7 @@ namespace Player
             PlayerID = saveData.PlayerID;
             PlayerName = saveData.PlayerName;
         }
-        
-        private static void OnPlayerInformationSubmitted(string name, DateTime birthday)
-        {
-            PlayerID = 111; //TODO custom identifier
-            PlayerName = name;
-        }
-        
+
         private static void OnNameChange(string name)
         {
             PlayerName = name;
