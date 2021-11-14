@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using JetBrains.Annotations;
 using PureFunctions.Movement;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace UserInterface
     {
         protected Canvas Display;
         [SerializeField] protected Transform popUpMenu;
-        [FormerlySerializedAs("closeMenu")] [SerializeField] [CanBeNull] protected Button closeButton;
+        [SerializeField] protected Button closeButton;
         private const int DefaultMenuMovementSpeed = 7;
         private const int ScreenDistanceBuffer = 500; //ScreenDistanceBuffer is intended to get the remaining bit of the object off screen if its centre is placed at the screen edge.
         private static int ScreenDistance => (CameraManager.ReturnScreenWidth * 2) + ScreenDistanceBuffer;
@@ -49,6 +50,7 @@ namespace UserInterface
                     Display.enabled = false;
                     break;
             }
+            BaseAudioManager.PlayMenuMovementSound();
         }
 
         private void CloseButtonPressed()
@@ -90,7 +92,7 @@ namespace UserInterface
             });
         }
         
-        protected void UnloadSelf()
+        private void UnloadSelf()
         {
             AssetReferenceLoader.DestroyOrUnload(gameObject);
             Destroy(gameObject);

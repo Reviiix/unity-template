@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,7 @@ namespace UserInterface.PopUpMenus
                     });
                     break;
             }
+            BaseAudioManager.PlayMenuMovementSound();
         }
     }
 }
