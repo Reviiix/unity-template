@@ -1,9 +1,9 @@
 ﻿using System;
 using Credits;
 using Player;
+using PureFunctions.Effects;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
@@ -11,52 +11,71 @@ namespace UserInterface.ConditionalMenus
     [Serializable]
     public class DailyLogInPopUp : PopUpInterface, IUserInterface
     {
-        [SerializeField] private Button claimRewardButton;
-        [SerializeField] private TMP_Text rewardDisplay;
+        [SerializeField] private SpinningWheel bonusWheel;
+        [SerializeField] private Button proceedButton;
+        [SerializeField] private TMP_Text buttonText;
         [SerializeField] private TMP_Text consecutiveOpensDisplay;
-        private static int RewardCredits => PlayerEngagementManager.DailyBonusRewardCredits;
-        private static int RewardPremiumCredits => PlayerEngagementManager.DailyBonusRewardCredits;
+        [SerializeField] private TMP_Text wheelWinDisplay;
+        private static Coroutine _creditsRollup;
+        private static int _creditsFromWheelCache;
+        private static int DailyCredits => PlayerEngagementManager.DailyBonusRewardCredits;
 
         protected override void Awake()
         {
             base.Awake();
-            SetButtonEvents();
+            bonusWheel.OnWheelSpinEnded += OnWheelSpinEnded;
+            proceedButton.onClick.AddListener(StartSpin);
+            closeButton.onClick.AddListener(ClaimReward);
             SetDisplay();
+            RollupCredits(0, 0);
         }
 
-        private void SetButtonEvents()
+        private void OnDisable()
         {
-            claimRewardButton.onClick.AddListener(ClaimReward);
-            claimRewardButton.onClick.AddListener(()=>Enable(false));
+            if (_creditsRollup != null) StopCoroutine(_creditsRollup);
         }
-        
+
         private void SetDisplay()
         {
-            const string claimPrefix = "CLAIM ";
             const string consecutiveOpensPrefix = "CONSECUTIVE BONUS: ";
-            rewardDisplay.text = claimPrefix + RewardCredits + "!";
-            consecutiveOpensDisplay.text = consecutiveOpensPrefix + PlayerEngagementManager.ConsecutiveDailyOpens;
-        }
-        
-        private static void ClaimReward()
-        {
-            CreditsManager.ChangeCredits(CreditsManager.Currency.Credits, RewardCredits);
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
+            consecutiveOpensDisplay.text = consecutiveOpensPrefix + DailyCredits;
         }
 
-        public void Enable(bool state = true)
+        private void StartSpin()
         {
-            Display.enabled = state;
-            switch (state)
-            {
-                case true:
-                    AppearAnimation(popUpMenu);
-                    break;
-                case false:
-                    ClaimReward();
-                    DisappearAnimation(popUpMenu, UnloadSelf);
-                    break;
-            }
+            closeButton.gameObject.SetActive(false);
+            proceedButton.interactable = false;
+            ChangeButtonState();
+            bonusWheel.StartSpin();
+        }
+        
+        private void OnWheelSpinEnded(int resultSegmentValue)
+        {
+            _creditsFromWheelCache = resultSegmentValue;
+            RollupCredits(resultSegmentValue);
+            proceedButton.interactable = true;
+        }
+
+        private void ChangeButtonState()
+        {
+            const string claim = "CLAIM!";
+            proceedButton.onClick.RemoveListener(StartSpin);
+            proceedButton.onClick.AddListener(() => Enable(false));
+            proceedButton.onClick.AddListener(ClaimReward);
+            buttonText.text = claim;
+        }
+
+        private void ClaimReward()
+        {
+            Display.GetComponent<GraphicRaycaster>().enabled = false; // Stop players clicking anything else;
+            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, DailyCredits + _creditsFromWheelCache);
+        }
+
+        private void RollupCredits(int credits, int seconds = 3)
+        {
+            const string prefix = "WHEEL WIN: ";
+            const string suffix = "";
+            _creditsRollup = StartCoroutine(NumberRolling.Rollup(wheelWinDisplay, 0, credits, prefix, suffix, seconds));
         }
     }
 }

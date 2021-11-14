@@ -26,23 +26,22 @@ namespace UserInterface.PopUpMenus
             deny.onClick.AddListener(()=>Enable(false));
         }
 
-        public void Enable(bool state = true)
+        public override void Enable(bool state = true)
         {
-            Display.enabled = state;
             switch (state)
             {
                 case true:
+                    Display.enabled = true;
                     AppearAnimation(popUpMenu);
                     break;
                 case false:
-                    DisappearAnimation(popUpMenu, ChoiceMade);
+                    DisappearAnimation(popUpMenu, ()=>
+                    {
+                        OnChoiceMade?.Invoke(_choice);
+                        Display.enabled = false;
+                    });
                     break;
             }
-        }
-
-        private void ChoiceMade()
-        {
-            OnChoiceMade?.Invoke(_choice);
         }
     }
 }

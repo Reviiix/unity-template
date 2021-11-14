@@ -73,60 +73,32 @@ public static class StageLoadManager
 
     private readonly struct StageConfiguration
     {
+        private const string FilePathPrefix = "Assets/Scenes/";
+        private const string FilePathSuffix = ".unity";
+        private const string LevelGroupOneFilePath = FilePathPrefix + "LevelGroupOne/0-";
+        private const string LevelGroupTwoFilePath = FilePathPrefix + "LevelGroupTwo/1-";
         private static readonly StageGroup[] StageGroups =
         {
-            //World 1
             new StageGroup(new []
             {
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
+                new AssetReference(LevelGroupOneFilePath + "0(Tutorial)" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "1" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "2" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "3" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "4" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "5" + FilePathSuffix),
+                new AssetReference(LevelGroupOneFilePath + "6" + FilePathSuffix),
             }),
-            //World 2
             new StageGroup(new []
             {
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
+                new AssetReference(LevelGroupTwoFilePath + "0(Tutorial)" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "1" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "2" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "3" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "4" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "5" + FilePathSuffix),
+                new AssetReference(LevelGroupTwoFilePath + "6" + FilePathSuffix),
             }),
-            //World 3
-            new StageGroup(new []
-            {
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-                new AssetReference("Assets/Scenes/StageGroupOne/0-0(Tutorial).unity"),
-            })
         };
         public static AssetReference ReturnAssetReferenceForStage(int stageGroup, int stage) => StageGroups[stageGroup].Stages[stage];
         public static int ReturnAmountOfGroups() => StageGroups.Length;

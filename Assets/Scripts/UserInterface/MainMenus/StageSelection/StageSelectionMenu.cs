@@ -16,7 +16,7 @@ namespace UserInterface.MainMenus.StageSelection
         [SerializeField] private Button nextLevelGroupButton, previousLevelGroupButton;
         [SerializeField] private Transform levelItemParent;
         [SerializeField] private ScrollRect levelScroller;
-        private static readonly AssetReference DisplayItemPrefab = new AssetReference("Assets/Prefabs/UserInterface/StageDisplayItem.prefab");
+        private static readonly AssetReference DisplayItemPrefab = new AssetReference("Prefabs/UserInterface/StageDisplayItem.prefab");
         private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new WaitUntil(() => _addressableAsGameObject != null);
         private static GameObject _addressableAsGameObject;
         private static RectTransform[] _levelGroupDisplays;

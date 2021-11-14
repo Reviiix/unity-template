@@ -29,11 +29,5 @@ namespace UserInterface.ConditionalMenus
             StageLoadManager.LoadTutorial();
             Enable(false);
         }
-
-        public void Enable(bool state = true)
-        {
-            Display.enabled = state;
-            if (!state) DisappearAnimation(popUpMenu, UnloadSelf);
-        }
     }
 }

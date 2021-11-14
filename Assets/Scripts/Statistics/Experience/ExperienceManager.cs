@@ -59,7 +59,7 @@ namespace Statistics.Experience
         private static void LevelUp()
         {
             CurrentLevelID = ReturnLevelIDFromExperience(TotalExperience);
-            OnLevelChange(CurrentLevelID);
+            OnLevelChange?.Invoke(CurrentLevelID);
         }
 
         public static long ReturnAllExperienceToLevelUp(int level)

@@ -18,37 +18,23 @@ MonoBehaviour:
   m_GUID: 0bb07c34417ff47e3bf0ae7d9fe6cb61
   m_SerializeEntries:
   - m_GUID: 44a931bb7562946378bb5b047e92020c
-    m_Address: Assets/Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab
+    m_Address: Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1078230510378195064, guid: 44a931bb7562946378bb5b047e92020c,
-      type: 3}
-    m_TargetAsset: {fileID: 1078230510378195064, guid: 44a931bb7562946378bb5b047e92020c,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: eae993d1c129c47d6a949c4461ce1e1a
-    m_Address: Assets/Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab
+    m_Address: Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1962925322443620307, guid: eae993d1c129c47d6a949c4461ce1e1a,
-      type: 3}
-    m_TargetAsset: {fileID: 1962925322443620307, guid: eae993d1c129c47d6a949c4461ce1e1a,
-      type: 3}
-  - m_GUID: 33a158ce5df53438dbd49c1dcfa9f0a6
-    m_Address: Assets/Prefabs/UserInterface/ConditionalMenus/BirthdayPopUp.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 6889517450651803322, guid: 33a158ce5df53438dbd49c1dcfa9f0a6,
-      type: 3}
-    m_TargetAsset: {fileID: 6889517450651803322, guid: 33a158ce5df53438dbd49c1dcfa9f0a6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 686046d6994194fbfb0cb1a903b78d2d
-    m_Address: Assets/Prefabs/UserInterface/ConditionalMenus/AniversaryPopUp.prefab
+    m_Address: Prefabs/UserInterface/ConditionalMenus/AniversaryPopUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 355918881674752695, guid: 686046d6994194fbfb0cb1a903b78d2d,
-      type: 3}
-    m_TargetAsset: {fileID: 355918881674752695, guid: 686046d6994194fbfb0cb1a903b78d2d,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 051efda1f89be44879a1d75ac262d19c, type: 2}
   m_SchemaSet:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Achievements;
 using Audio;
 using Credits;
 using Player;
@@ -74,8 +75,8 @@ public static class SaveSystem
         public readonly int TimesGameHasBeenOpened;
         public readonly KeyValuePair<int, int> FurthestLevelIndex;
         public readonly int[] LevelRatings;
-
         public readonly float Volume;
+        public readonly bool[] Achievements;
 
         public SaveData()
         {
@@ -101,6 +102,8 @@ public static class SaveSystem
             LevelRatings = GameStatistics.LevelRatings;
 
             Volume = BaseAudioManager.CurrentVolume;
+
+            Achievements = AchievementManager.ReturnUnLockStates();
         }
     }
 }

@@ -18,13 +18,13 @@ MonoBehaviour:
   m_GUID: c2887fe746a624166824525b0cd50562
   m_SerializeEntries:
   - m_GUID: 1c01c61b8686945b2a7f2188b5e978ce
-    m_Address: Assets/Prefabs/DefaultAudioSource.prefab
+    m_Address: Prefabs/DefaultAudioSource.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: da8ded5846185407c8a3965060befb6c
-    m_Address: Assets/Prefabs/UserInterface/StageDisplayItem.prefab
+    m_Address: Prefabs/UserInterface/StageDisplayItem.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

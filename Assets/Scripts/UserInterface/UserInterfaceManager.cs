@@ -30,13 +30,11 @@ namespace UserInterface
         [Header("Pop Up Menus")]
         public ConfirmationPopUp confirmationScreen;
         public static ConfirmationPopUp ConfirmationScreen => Instance.confirmationScreen;
-        private const string FirstOpenPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab";
+        private const string FirstOpenPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab";
         private static readonly AssetReference FirstOpenPopUp = new AssetReference(FirstOpenPopUpGuid);
-        private const string BirthdayPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/BirthdayPopUp.prefab";
-        private static readonly AssetReference BirthdayPopUp = new AssetReference(BirthdayPopUpGuid);
-        private const string DailyLogInPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab";
+        private const string DailyLogInPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab";
         private static readonly AssetReference DailyLogInPopUp = new AssetReference(DailyLogInPopUpGuid);
-        private const string AnniversaryPopUpPopUpGuid = "Assets/Prefabs/UserInterface/ConditionalMenus/AnniversaryPopUp.prefab";
+        private const string AnniversaryPopUpPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/AnniversaryPopUp.prefab";
         private static readonly AssetReference AnniversaryPopUp = new AssetReference(AnniversaryPopUpPopUpGuid);
 
         public void Initialise()
@@ -84,11 +82,12 @@ namespace UserInterface
                 }
 
                 if (HolidayManager.IsAnniversary) ShowAnniversaryPopUp();
-
-                if (HolidayManager.IsUserBirthday) ShowBirthdayPopUp();
-
-                if (!PlayerEngagementManager.IsRepeatOpenToday) ShowDailyLogInPopUp();
-                
+                #if !UNITY_EDITOR
+                if (!PlayerEngagementManager.IsRepeatOpenToday)
+                #endif
+                {
+                    ShowDailyLogInPopUp();
+                }
             }));
         }
 
@@ -160,11 +159,6 @@ namespace UserInterface
             OpenAddressableMenu<DailyLogInPopUp>(DailyLogInPopUp);
         }
 
-        private static void ShowBirthdayPopUp()
-        {
-            OpenAddressableMenu<BirthdayPopUp>(BirthdayPopUp);
-        }
-        
         private static void ShowAnniversaryPopUp()
         {
             OpenAddressableMenu<AnniversaryPopUp>(AnniversaryPopUp);

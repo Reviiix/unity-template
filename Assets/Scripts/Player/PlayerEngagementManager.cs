@@ -10,7 +10,7 @@ namespace Player
         private static bool OpenedYesterday => LastTimeAppWasOpen.Date == DateTime.Today.Subtract(new TimeSpan(1,0,0,0)).Date;
         public static bool IsRepeatOpenToday => DateTime.Today.Date == LastTimeAppWasOpen.Date;
         public static Action<int> OnDailyBonusOpen;
-        private static int _consecutiveDays;
+        private static int _consecutiveDays = 1;
         public static readonly int DailyBonusRewardCredits = 10 * _consecutiveDays;
         public static readonly int DailyBonusRewardPremiumCredits = DailyBonusRewardCredits / 10 * _consecutiveDays;
         public const int TutorialRewardCredits = 100;
@@ -50,14 +50,12 @@ namespace Player
             TimesGameHasBeenOpened++;
         
             DebuggingAid.Debugging.DisplayDebugMessage("App has been opened " + TimesGameHasBeenOpened + " times.");
+            
+            ProjectManager.OnApplicationOpen -= OnApplicationOpen;
         
             if (IsRepeatOpenToday) return;
         
             if (OpenedYesterday) _consecutiveDays++;
-        
-            OnDailyBonusOpen?.Invoke(_consecutiveDays);
-
-            ProjectManager.OnApplicationOpen -= OnApplicationOpen;
         }
     }
 }

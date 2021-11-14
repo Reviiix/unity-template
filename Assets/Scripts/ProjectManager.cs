@@ -69,6 +69,7 @@ public class ProjectManager : Singleton<ProjectManager>
             CreditsManager.Initialise();
             CameraManager.Initialise();
             PlayerEngagementManager.Initialise();
+            AchievementManager.Initialise();
             callBack();
         }
     

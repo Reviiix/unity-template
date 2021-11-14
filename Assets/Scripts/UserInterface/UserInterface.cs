@@ -2,6 +2,7 @@ using System;
 using JetBrains.Annotations;
 using PureFunctions.Movement;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UserInterface
@@ -23,7 +24,7 @@ namespace UserInterface
     {
         protected Canvas Display;
         [SerializeField] protected Transform popUpMenu;
-        [SerializeField] [CanBeNull] protected Button closeMenu;
+        [FormerlySerializedAs("closeMenu")] [SerializeField] [CanBeNull] protected Button closeButton;
         private const int DefaultMenuMovementSpeed = 7;
         private const int ScreenDistanceBuffer = 500; //ScreenDistanceBuffer is intended to get the remaining bit of the object off screen if its centre is placed at the screen edge.
         private static int ScreenDistance => (CameraManager.ReturnScreenWidth * 2) + ScreenDistanceBuffer;
@@ -31,8 +32,23 @@ namespace UserInterface
         protected virtual void Awake()
         {
             Display = GetComponent<Canvas>();
-            if (closeMenu != null) closeMenu.onClick.AddListener(CloseButtonPressed);
+            if (closeButton != null) closeButton.onClick.AddListener(CloseButtonPressed);
             Display.enabled = false;
+        }
+        
+        public virtual void Enable(bool state = true)
+        {
+            switch (state)
+            {
+                case true:
+                    Display.enabled = true;
+                    AppearAnimation(popUpMenu);
+                    break;
+                case false:
+                    DisappearAnimation(popUpMenu, UnloadSelf);
+                    Display.enabled = false;
+                    break;
+            }
         }
 
         private void CloseButtonPressed()

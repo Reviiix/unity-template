@@ -40,20 +40,10 @@ namespace UserInterface.ConditionalMenus
             CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
         }
 
-        public void Enable(bool state = true)
+        public override void Enable(bool state = true)
         {
-            Display.enabled = state;
-            switch (state)
-            {
-                case true:
-                    AppearAnimation(popUpMenu);
-                    OnAnniversaryOfFirstOpen?.Invoke();
-                    break;
-                case false:
-                    ClaimReward();
-                    DisappearAnimation(popUpMenu, UnloadSelf);
-                    break;
-            }
+            base.Enable(state);
+            OnAnniversaryOfFirstOpen?.Invoke();
         }
     }
 }
