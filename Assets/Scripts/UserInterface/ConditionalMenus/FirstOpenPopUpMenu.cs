@@ -1,5 +1,5 @@
-﻿using System;
-using PureFunctions.DateTime;
+﻿using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +7,14 @@ namespace UserInterface.ConditionalMenus
 {
     public class FirstOpenPopUpMenu : PopUpInterface, IUserInterface
     {
-        public static Action<string, DateTime> OnPlayerInformationSubmitted;
+        [SerializeField] private TMP_Text title;
         [SerializeField] private Button continueButton;
-        [SerializeField] private InputField nameInput;
-        [SerializeField] private DatePicker datePicker;
 
         protected override void Awake()
         {
             base.Awake();
             SetButtonEvents();
+            title.text = "WELCOME TO " + PlayerSettings.productName.ToUpper();
         }
         
         private void SetButtonEvents()
@@ -25,8 +24,6 @@ namespace UserInterface.ConditionalMenus
 
         private void ContinuePressed()
         {
-            OnPlayerInformationSubmitted?.Invoke(nameInput.text, datePicker.ReturnCurrentDateSelection);
-            StageLoadManager.LoadTutorial();
             Enable(false);
         }
     }
