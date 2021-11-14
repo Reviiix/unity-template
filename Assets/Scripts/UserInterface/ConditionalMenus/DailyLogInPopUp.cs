@@ -85,7 +85,7 @@ namespace UserInterface.ConditionalMenus
         {
             const string prefix = "WHEEL WIN: ";
             const string suffix = "";
-            _creditsRollup = StartCoroutine(NumberRolling.Rollup(wheelWinDisplay, startValue, endValue, prefix, suffix, seconds, callBack));
+            _creditsRollup = StartCoroutine(NumberRollup.Rollup(wheelWinDisplay, startValue, endValue, prefix, suffix, seconds, callBack));
         }
     }
 }

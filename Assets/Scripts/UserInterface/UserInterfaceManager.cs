@@ -81,10 +81,11 @@ namespace UserInterface
                     return;
                 }
 
-                if (HolidayManager.IsAnniversary) ShowAnniversaryPopUp();
-                #if !UNITY_EDITOR
+                if (HolidayManager.IsAnniversary)
+                {
+                    ShowAnniversaryPopUp();
+                }
                 if (!PlayerEngagementManager.IsRepeatOpenToday)
-                #endif
                 {
                     ShowDailyLogInPopUp();
                 }

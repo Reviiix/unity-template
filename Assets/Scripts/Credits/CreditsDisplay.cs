@@ -67,7 +67,7 @@ namespace Credits
             private void UpdateDisplay(long originalAmount, long newAmount)
             {
                 _animating = true;
-                _coRoutineHandler.StartCoroutine(NumberRolling.Rollup(creditsDisplay, originalAmount, newAmount, prefix, suffix,RollUpSpeed,() =>
+                _coRoutineHandler.StartCoroutine(NumberRollup.Rollup(creditsDisplay, originalAmount, newAmount, prefix, suffix,RollUpSpeed,() =>
                 {
                     _animating = false;
                     creditsDisplay.text = prefix + newAmount + suffix;
