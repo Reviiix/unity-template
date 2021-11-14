@@ -19,6 +19,7 @@ namespace UserInterface.ConditionalMenus
         private static Coroutine _creditsRollup;
         private static int _creditsFromWheelCache;
         private static int DailyCredits => PlayerEngagementManager.DailyBonusRewardCredits;
+        private const int RollUpTime = CreditsDisplay.RollUpTimeInSeconds;
 
         protected override void Awake()
         {
@@ -27,12 +28,15 @@ namespace UserInterface.ConditionalMenus
             proceedButton.onClick.AddListener(StartSpin);
             closeButton.onClick.AddListener(ClaimReward);
             SetDisplay();
-            RollupCredits(0, 0);
+            RollupCredits(0,0,0);
         }
 
         private void OnDisable()
         {
-            if (_creditsRollup != null) StopCoroutine(_creditsRollup);
+            if (_creditsRollup != null)
+            {
+                StopCoroutine(_creditsRollup);
+            }
         }
 
         private void SetDisplay()
@@ -52,30 +56,36 @@ namespace UserInterface.ConditionalMenus
         private void OnWheelSpinEnded(int resultSegmentValue)
         {
             _creditsFromWheelCache = resultSegmentValue;
-            RollupCredits(resultSegmentValue);
-            proceedButton.interactable = true;
+            RollupCredits(0, resultSegmentValue, RollUpTime, () =>
+            {
+                proceedButton.interactable = true;
+            });
         }
 
         private void ChangeButtonState()
         {
-            const string claim = "CLAIM!";
+            const string claim = "CLAIM";
             proceedButton.onClick.RemoveListener(StartSpin);
-            proceedButton.onClick.AddListener(() => Enable(false));
             proceedButton.onClick.AddListener(ClaimReward);
             buttonText.text = claim;
         }
 
         private void ClaimReward()
         {
-            Display.GetComponent<GraphicRaycaster>().enabled = false; // Stop players clicking anything else;
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, DailyCredits + _creditsFromWheelCache);
+            var credits = DailyCredits + _creditsFromWheelCache;
+            Display.GetComponent<GraphicRaycaster>().enabled = false;
+            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, credits);
+            RollupCredits(credits, 0, RollUpTime, () =>
+            {
+                Enable(false);
+            });
         }
 
-        private void RollupCredits(int credits, int seconds = 3)
+        private void RollupCredits(int startValue, int endValue, int seconds, Action callBack = null)
         {
             const string prefix = "WHEEL WIN: ";
             const string suffix = "";
-            _creditsRollup = StartCoroutine(NumberRolling.Rollup(wheelWinDisplay, 0, credits, prefix, suffix, seconds));
+            _creditsRollup = StartCoroutine(NumberRolling.Rollup(wheelWinDisplay, startValue, endValue, prefix, suffix, seconds, callBack));
         }
     }
 }

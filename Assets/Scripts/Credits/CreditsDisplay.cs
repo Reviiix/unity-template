@@ -11,7 +11,7 @@ namespace Credits
 {
     public class CreditsDisplay : MonoBehaviour
     {
-        private const int RollUpTimeInSeconds = 1;
+        public const int RollUpTimeInSeconds = 2;
         [SerializeField] private CreditDisplay credits;
         [SerializeField] private CreditDisplay premiumCredits;
 
