@@ -7,7 +7,7 @@ public static class RemoteConfigurationManager
 {
     public static Action<Configuration> OnConfigurationChanged;
     private const string RemoteConfigKey = "Configuration";
-    private static readonly Configuration OfflineConfiguration = new Configuration(true, "None", 50, new WeeklyQuests(1, 2, 3));
+    private static readonly Configuration OfflineConfiguration = new Configuration(true, "None", 50, new Achievements(-1, -1, -1, -1, -1));
     public static Configuration CurrentConfiguration { get; private set; } = OfflineConfiguration;
 
     public static void Initialise()
@@ -39,30 +39,34 @@ public static class RemoteConfigurationManager
         [JsonProperty] public bool ShowAdvertisements;
         [JsonProperty] public string Holiday;
         [JsonProperty] public int AmountOfExperienceLevels;
-        [JsonProperty] public WeeklyQuests WeeklyQuests;
+        [JsonProperty] public Achievements Achievements;
 
         [JsonConstructor]
-        public Configuration(bool showAdvertisements, string holiday, int amountOfExperienceLevels, WeeklyQuests weeklyQuests)
+        public Configuration(bool showAdvertisements, string holiday, int amountOfExperienceLevels, Achievements achievements)
         {
             ShowAdvertisements = showAdvertisements;
             Holiday = holiday;
             AmountOfExperienceLevels = amountOfExperienceLevels;
-            WeeklyQuests = weeklyQuests;
+            Achievements = achievements;
         }
     }
 
     [Serializable] 
-    public struct WeeklyQuests
+    public struct Achievements
     {
-        [JsonProperty] public int highsSore;
-        [JsonProperty] public int playTimeInSeconds;
+        [JsonProperty] public int highsScore;
+        [JsonProperty] public int consecutivePlayTimeInSeconds;
+        [JsonProperty] public int totalPlayTimeInSeconds;
+        [JsonProperty] public int experienceGained;
         [JsonProperty] public int levelsComplete;
     
         [JsonConstructor]
-        public WeeklyQuests(int newHighScore, int newPlayTimeInSeconds, int newLevelsComplete)
+        public Achievements(int newHighScore, int newConsecutivePlayTimeInSeconds, int newTotalPlayTimeInSeconds, int newExperienceGained, int newLevelsComplete)
         {
-            highsSore = newHighScore;
-            playTimeInSeconds = newPlayTimeInSeconds;
+            highsScore = newHighScore;
+            consecutivePlayTimeInSeconds = newConsecutivePlayTimeInSeconds;
+            totalPlayTimeInSeconds = newTotalPlayTimeInSeconds;
+            experienceGained = newExperienceGained;
             levelsComplete = newLevelsComplete;
         }
     }

@@ -11,6 +11,7 @@ using UserInterface.PopUpMenus;
 
 namespace UserInterface
 {
+    [RequireComponent(typeof(RawImage))]
     public class UserInterfaceManager : PrivateSingleton<UserInterfaceManager>
     {
         public static MonoBehaviour CoRoutineHandler => Instance;
@@ -19,16 +20,16 @@ namespace UserInterface
         [SerializeField] private Button returnToMainMenuButton;
         [Header("Main Menus")]
         [SerializeField] private MainMenu mainMenu;
-        [SerializeField] private SettingsMenu settingsMenu;
         [SerializeField] private StageSelectionMenu stageSelectionMenu;
         [SerializeField] private StatisticsMenu statisticsMenu;
+        [SerializeField] private SettingsMenu settingsMenu;
         [SerializeField] private StoreMenu storeMenu;
         [Header("In Game Menus")]
         [SerializeField] private InGameUserInterface inGameUserInterface;
         [SerializeField] private PauseUserMenu pauseUserMenu;
         [SerializeField] private GameOverMenu gameOverMenu;
         [Header("Pop Up Menus")]
-        public ConfirmationPopUp confirmationScreen;
+        [SerializeField] private ConfirmationPopUp confirmationScreen;
         public static ConfirmationPopUp ConfirmationScreen => Instance.confirmationScreen;
         private const string FirstOpenPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab";
         private static readonly AssetReference FirstOpenPopUp = new AssetReference(FirstOpenPopUpGuid);

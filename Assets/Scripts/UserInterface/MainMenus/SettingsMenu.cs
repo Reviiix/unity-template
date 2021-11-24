@@ -21,7 +21,7 @@ namespace UserInterface.MainMenus
 
         private void AssignEvents()
         {
-            nameInputField.onDeselect.AddListener(ChangeNamePressed);
+            //nameInputField.onDeselect.AddListener(ChangeNamePressed);
             deleteAllDataButton.onClick.AddListener(DeleteAllDataPressed);
         }
         

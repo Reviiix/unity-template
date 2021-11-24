@@ -37,7 +37,7 @@ namespace DebuggingAid.Cheats
         
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Space)) AchievementManager.UnlockAchievement(AchievementManager.Achievement.OpenTheAppOnce);
+            if (Input.GetKeyUp(KeyCode.Space)) PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppOnce);
         }
 
         private void ResolveDependencies()

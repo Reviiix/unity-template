@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Achievements.Display.ListDisplay;
-using Unity.Collections;
 using UnityEngine.AddressableAssets;
 
 namespace Achievements
 {
-    public static class AchievementManager
+    public static class PermanentAchievementManager
     {
         public static Action<Achievement> OnAchievementUnlocked;
         private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
@@ -135,7 +132,7 @@ namespace Achievements
             }
         }
 
-        public static void UnlockAchievement(Achievement achievement)
+        public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything
         {
             if (ReturnUnlockedState(achievement)) return;
             Achievements[achievement].Unlock();

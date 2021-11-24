@@ -15,7 +15,7 @@ public static class SaveSystem
     public static Action<SaveData> OnSaveDataLoaded;
     private static readonly BinaryFormatter Formatter = new BinaryFormatter();
     private static readonly string Location = Application.persistentDataPath;
-    private static readonly string FilePath = Location + "SaveData.";
+    private static readonly string FilePath = Location + "/SaveData.";
 
     public static void Save()
     {
@@ -101,7 +101,7 @@ public static class SaveSystem
 
             Volume = BaseAudioManager.CurrentVolume;
 
-            Achievements = AchievementManager.ReturnUnLockStates();
+            Achievements = PermanentAchievementManager.ReturnUnLockStates();
         }
     }
 }

@@ -173,7 +173,7 @@ MonoBehaviour:
     Key: RainbowAssets
     Ordinal: 13
     Priority: 1
-    IconType: 2130
+    IconType: 2040
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 1
@@ -413,7 +413,7 @@ MonoBehaviour:
     Key: Assets/Graphics/RainbowFoldersCustomIcons
     Ordinal: 33
     Priority: 0
-    IconType: 2130
+    IconType: 2190
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0
