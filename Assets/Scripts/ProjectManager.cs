@@ -16,8 +16,9 @@ public class ProjectManager : Singleton<ProjectManager>
     [SerializeField] private UserInterfaceManager userInterface;
     [SerializeField] private ObjectPooling objectPool;
     public static Action OnApplicationOpen;
+    public static readonly WaitUntil WaitForInitialisation = ProjectInitializer.WaitForAsynchronousInitialisationToComplete;
 
-    protected override void OnEnable()
+    protected override void OnEnable() //OnEnable instead of strt to ensure instance is set by 
     {
         base.OnEnable();
         ProjectInitializer.Initialise(()=>OnApplicationOpen?.Invoke());
@@ -29,25 +30,28 @@ public class ProjectManager : Singleton<ProjectManager>
         DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagementManager.TotalPlayTime);
     }
     
-    public static IEnumerator WaitForAnyAsynchronousInitialisationToComplete(Action callBack)
+    public static IEnumerator WaitForInitialisationToComplete(Action callBack)
     {
-        yield return ProjectInitializer.WaitForAnyAsynchronousInitialisation(callBack);
+        yield return WaitForInitialisation;
+        callBack();
     }
 
+    //Initialising like this seems cumbersome but gives better control over the order of events and helps prevent race conditions
     private static class ProjectInitializer
     {
         private static bool _initialised;
-        public static bool Initialised
+        private static bool Initialised
         {
             get => _initialised;
             // ReSharper disable once ValueParameterNotUsed
-            private set => _initialised = true;
+            set => _initialised = true;
         }
+        public static readonly WaitUntil WaitForAsynchronousInitialisationToComplete = new WaitUntil(() => Initialised);
 
         public static void Initialise(Action callBack)
         {
             if (Initialised) return;
-
+            
             InitialiseStaticManagers(() =>
             {
                 InitialiseSingletons(() =>
@@ -76,19 +80,12 @@ public class ProjectManager : Singleton<ProjectManager>
     
         private static void InitialiseSingletons(Action callBack)
         {
-            var instance = Instance;
-            instance.objectPool.Initialise(() => //Some classes are dependant on objects being created by the ObjectPooler class which uses the asynchronous addressable system so we need to wait for that to be done before initialising those classes.
+            Instance.objectPool.Initialise(() => //Some classes are dependant on objects being created by the ObjectPooler class which uses the asynchronous addressable system so we need to wait for that to be done before initialising those classes.
             {
-                instance.audioManager.Initialise();
-                instance.userInterface.Initialise();
+                Instance.audioManager.Initialise();
+                Instance.userInterface.Initialise();
                 callBack();
             });
-        }
-        
-        public static IEnumerator WaitForAnyAsynchronousInitialisation(Action callBack)
-        {
-            yield return new WaitUntil(() => Initialised);
-            callBack();
         }
     }
 

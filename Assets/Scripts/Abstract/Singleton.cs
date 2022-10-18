@@ -30,7 +30,7 @@ namespace Abstract
     {
         protected static T Instance;
 
-        protected virtual void OnEnable()
+        protected virtual void Awake()
         {
             if (Instance != null)
             {

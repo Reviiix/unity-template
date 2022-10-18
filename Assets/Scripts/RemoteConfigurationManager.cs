@@ -1,4 +1,5 @@
 ﻿using System;
+using Credits;
 using Newtonsoft.Json;
 using Unity.RemoteConfig;
 using UnityEngine;
@@ -7,13 +8,12 @@ public static class RemoteConfigurationManager
 {
     public static Action<Configuration> OnConfigurationChanged;
     private const string RemoteConfigKey = "Configuration";
-    private static readonly Configuration OfflineConfiguration = new Configuration(true, "None", 50, new Achievements(-1, -1, -1, -1, -1));
+    public static readonly Configuration OfflineConfiguration = new Configuration(true, "None", 50, new DynamicAchievements(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1));
     public static Configuration CurrentConfiguration { get; private set; } = OfflineConfiguration;
 
     public static void Initialise()
     {
         ConfigManager.FetchCompleted += OnRemoteConfigUpdated;
-        //Debug.Log(JsonUtility.ToJson(OfflineConfiguration));
     }
 
     public static void UpdateConfiguration()
@@ -39,35 +39,53 @@ public static class RemoteConfigurationManager
         [JsonProperty] public bool ShowAdvertisements;
         [JsonProperty] public string Holiday;
         [JsonProperty] public int AmountOfExperienceLevels;
-        [JsonProperty] public Achievements Achievements;
+        [JsonProperty] public DynamicAchievements DynamicAchievements;
 
         [JsonConstructor]
-        public Configuration(bool showAdvertisements, string holiday, int amountOfExperienceLevels, Achievements achievements)
+        public Configuration(bool showAdvertisements, string holiday, int amountOfExperienceLevels, DynamicAchievements dynamicAchievements)
         {
             ShowAdvertisements = showAdvertisements;
             Holiday = holiday;
             AmountOfExperienceLevels = amountOfExperienceLevels;
-            Achievements = achievements;
+            DynamicAchievements = dynamicAchievements;
         }
     }
 
     [Serializable] 
-    public struct Achievements
+    public struct DynamicAchievements
     {
-        [JsonProperty] public int highsScore;
+        [JsonProperty] public int highScore;
+        [JsonProperty] public int highScoreReward;
+        
         [JsonProperty] public int consecutivePlayTimeInSeconds;
+        [JsonProperty] public int consecutivePlayTimeInSecondsReward;
+        
         [JsonProperty] public int totalPlayTimeInSeconds;
+        [JsonProperty] public int totalPlayTimeInSecondsReward;
+        
         [JsonProperty] public int experienceGained;
-        [JsonProperty] public int levelsComplete;
+        [JsonProperty] public int experienceGainedReward;
+        
+        [JsonProperty] public int stagesComplete;
+        [JsonProperty] public int stagesCompleteReward;
     
         [JsonConstructor]
-        public Achievements(int newHighScore, int newConsecutivePlayTimeInSeconds, int newTotalPlayTimeInSeconds, int newExperienceGained, int newLevelsComplete)
+        public DynamicAchievements(int newHighScore, int newHighScoreReward, int newConsecutivePlayTimeInSeconds, int newConsecutivePlayTimeInSecondsReward, int newTotalPlayTimeInSeconds, int newTotalPlayTimeInSecondsReward, int newExperienceGained, int newExperienceGainedReward, int newStagesComplete, int newStagesCompleteReward)
         {
-            highsScore = newHighScore;
+            highScore = newHighScore;
+            highScoreReward = newHighScoreReward;
+            
             consecutivePlayTimeInSeconds = newConsecutivePlayTimeInSeconds;
+            consecutivePlayTimeInSecondsReward = newConsecutivePlayTimeInSecondsReward;
+            
             totalPlayTimeInSeconds = newTotalPlayTimeInSeconds;
+            totalPlayTimeInSecondsReward = newTotalPlayTimeInSecondsReward;
+            
             experienceGained = newExperienceGained;
-            levelsComplete = newLevelsComplete;
+            experienceGainedReward = newExperienceGainedReward;
+            
+            stagesComplete = newStagesComplete;
+            stagesCompleteReward = newStagesCompleteReward;
         }
     }
 

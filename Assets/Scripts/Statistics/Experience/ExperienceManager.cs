@@ -1,4 +1,5 @@
 ﻿using System;
+using Credits;
 using UnityEngine;
 
 namespace Statistics.Experience
@@ -13,9 +14,9 @@ namespace Statistics.Experience
 
         public static void Initialise()
         {
+            CreateLevels(RemoteConfigurationManager.OfflineConfiguration.AmountOfExperienceLevels);
             SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
             RemoteConfigurationManager.OnConfigurationChanged += OnConfigurationChanged;
-            CreateLevels(50);
         }
 
         private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
@@ -41,28 +42,32 @@ namespace Statistics.Experience
             var oldValue = TotalExperience;
             TotalExperience += experience;
             OnExperienceChange?.Invoke(oldValue, TotalExperience);
-            if (TotalExperience >= ReturnCurrentExperienceRequirement()) LevelUp();
+            if (TotalExperience >= GetCurrentExperienceRequirement)
+            {
+                LevelUp();
+            }
             SaveSystem.Save();
         }
 
-        private static int ReturnLevelIDFromExperience(long experience)
+        private static int GetLevelIDFromExperience(long experience)
         {
             for (var i = 0; i < _levels.Length; i++)
             {
-                if (experience >= ReturnAllExperienceToLevelUp(i)) continue;
+                if (experience >= GetAllExperienceToLevelUp(i)) continue;
                 return _levels[i].ID;
             }
-            Debug.LogError("There is no level that accounts for that much experience. Returning 0, Please create more level data to fix this error.");
+            const string errorMessage = "There is no level that accounts for that much experience. Returning 0, Please create more level data to fix this error.";
+            Debug.LogError(errorMessage);
             return 0;
         }
 
         private static void LevelUp()
         {
-            CurrentLevelID = ReturnLevelIDFromExperience(TotalExperience);
+            CurrentLevelID = GetLevelIDFromExperience(TotalExperience);
             OnLevelChange?.Invoke(CurrentLevelID);
         }
 
-        public static long ReturnAllExperienceToLevelUp(int level)
+        public static long GetAllExperienceToLevelUp(int level)
         {
             long experienceOfPriorLevels = 0;
             for (var i = 0; i < level; i++)
@@ -72,43 +77,35 @@ namespace Statistics.Experience
             return experienceOfPriorLevels + ReturnExperienceForLevelID(level);
         }
         
-        private static long ReturnCurrentExperienceRequirement() => ReturnAllExperienceToLevelUp(CurrentLevelID);
+        private static long GetCurrentExperienceRequirement => GetAllExperienceToLevelUp(CurrentLevelID);
         
         public static long ReturnExperienceForLevelID(int id) => _levels[id].Experience;
     }
 
     public class CreateExperienceData
     {
-        private long _experience = 100;
+        private long experience = 100;
         private const float ExperienceCurve = 1.1f;
-        private long _reward = 10;
+        private float ExperienceIncrement => experience * ExperienceCurve / 2;
+        private long reward = 10;
         private const float RewardCurve = 1.1f;
-        private float ExperienceIncrement => _experience * ExperienceCurve / 2;
-        private float RewardIncrement => _reward * RewardCurve / 2;
+        private float RewardIncrement => reward * RewardCurve / 2;
 
         public ExperienceData[] CreateLevels(int amountOfLevels)
         {
-            var returnVariable = new ExperienceData[amountOfLevels];
+            var levels = new ExperienceData[amountOfLevels];
             for (var i = 0; i < amountOfLevels; i++)
             {
-                returnVariable[i] = new ExperienceData(i, ReturnExperience(), ReturnReward());
+                levels[i] = new ExperienceData(i, experience, reward);
+                IncrementReward();
             }
-
-            return returnVariable;
+            return levels;
         }
 
-        private long ReturnReward()
+        private void IncrementReward()
         {
-            var returnVariable = _reward;
-            _reward += (int)RewardIncrement;
-            return returnVariable;
-        }
-
-        private long ReturnExperience()
-        {
-            var returnVariable = _experience;
-            _experience += (int)ExperienceIncrement;
-            return returnVariable;
+            reward += (int)RewardIncrement;
+            experience += (int)ExperienceIncrement;
         }
     }
 

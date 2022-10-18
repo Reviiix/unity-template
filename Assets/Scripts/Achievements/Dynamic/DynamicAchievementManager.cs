@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Credits;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public static class DynamicAchievementManager
 {
     private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
+    private static bool _achievementsSet;
     public static Action<Achievement[]> OnAchievementsSet;
     public static Action<Achievement> OnAchievementUnlocked;
     private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>();
@@ -12,7 +16,7 @@ public static class DynamicAchievementManager
     public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
     public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
     public static AssetReference ReturnSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
-    public static Achievement[] ReturnAllAchievements()
+    private static Achievement[] ReturnAllAchievements()
     {
         var returnVariable = new List<Achievement>();
         foreach (var achievement in Achievements)
@@ -61,6 +65,16 @@ public static class DynamicAchievementManager
         }
         return returnVariable;
     }
+    
+    public static bool[] ReturnUnLockStates()
+    {
+        var returnVariable = new List<bool>();
+        foreach (var achievement in Achievements)
+        {
+            returnVariable.Add(achievement.Value.Unlocked);
+        }
+        return returnVariable.ToArray();
+    }
 
     public static void Initialise()
     {
@@ -68,43 +82,57 @@ public static class DynamicAchievementManager
         RemoteConfigurationManager.OnConfigurationChanged += OnConfigurationChanged;
     }
 
-    private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
-    {
-        
-    }
-
     private static void OnConfigurationChanged(RemoteConfigurationManager.Configuration configuration)
     {
-        CreateAchievements(configuration.Achievements);
+        CreateAchievements(configuration.DynamicAchievements);
+    }
+    
+    private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
+    {
+        if (saveData == null) return;
+        
+        ProjectManager.Instance.StartCoroutine(WaitForRemoteConfig(() =>
+        {
+            var i = 0;
+            foreach (var achievement in Achievements)
+            {
+                if (saveData.DynamicAchievements[i])
+                {
+                    achievement.Value.Unlock(false);
+                }
+                i++;
+            }
+        }));
     }
 
-    private static void CreateAchievements(RemoteConfigurationManager.Achievements achievements)
+    private static void CreateAchievements(RemoteConfigurationManager.DynamicAchievements dynamicAchievements)
     {
-        var highScore = achievements.highsScore;
-        var consecutivePlayTimeInSeconds = achievements.consecutivePlayTimeInSeconds;
-        var totalPlayTimeInSeconds = achievements.totalPlayTimeInSeconds;
-        var experienceGained = achievements.experienceGained;
-        var levelsComplete = achievements.levelsComplete;
-        //if (highScore != -1)
+        var highScore = dynamicAchievements.highScore;
+        var consecutivePlayTimeInSeconds = dynamicAchievements.consecutivePlayTimeInSeconds;
+        var totalPlayTimeInSeconds = dynamicAchievements.totalPlayTimeInSeconds;
+        var experienceGained = dynamicAchievements.experienceGained;
+        var stagesComplete = dynamicAchievements.stagesComplete;
+        if (highScore != -1)
         {
-            Achievements.Add(Achievement.HighScore, new AchievementInformation("Achieve a high score of " + highScore, 0, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
+            Achievements.Add(Achievement.HighScore, new AchievementInformation("Achieve a high score of " + highScore, dynamicAchievements.highScoreReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
         }
-        //if (consecutivePlayTimeInSeconds != -1)
+        if (consecutivePlayTimeInSeconds != -1)
         {
-            Achievements.Add(Achievement.ConsecutivePlayTimeInSeconds, new AchievementInformation("Play for " + consecutivePlayTimeInSeconds + " seconds consecutively.", 0, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
+            Achievements.Add(Achievement.ConsecutivePlayTimeInSeconds, new AchievementInformation("Play for " + consecutivePlayTimeInSeconds + " seconds consecutively.", dynamicAchievements.consecutivePlayTimeInSecondsReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
         }
-        //if (totalPlayTimeInSeconds != -1)
+        if (totalPlayTimeInSeconds != -1)
         {
-            Achievements.Add(Achievement.TotalPlayTimeInSeconds, new AchievementInformation("Play for " + totalPlayTimeInSeconds + " seconds this week.", 0, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
+            Achievements.Add(Achievement.TotalPlayTimeInSeconds, new AchievementInformation("Play for " + totalPlayTimeInSeconds + " seconds.", dynamicAchievements.totalPlayTimeInSecondsReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
         }
-        //if (experienceGained != -1)
+        if (experienceGained != -1)
         {
-            Achievements.Add(Achievement.ExperienceGained, new AchievementInformation("Gain " + experienceGained + " experience this week.", 0, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
+            Achievements.Add(Achievement.ExperienceGained, new AchievementInformation("Gain " + experienceGained + " experience.", dynamicAchievements.experienceGainedReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
         }
-        //if (levelsComplete != -1)
+        if (stagesComplete != -1)
         {
-            Achievements.Add(Achievement.LevelsComplete, new AchievementInformation("Complete " + levelsComplete + "levels this week.", 0, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
+            Achievements.Add(Achievement.LevelsComplete, new AchievementInformation("Complete " + stagesComplete + " levels.", dynamicAchievements.stagesCompleteReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
         }
+        _achievementsSet = true;
         OnAchievementsSet?.Invoke(ReturnAllAchievements());
     }
     
@@ -114,6 +142,12 @@ public static class DynamicAchievementManager
         if (ReturnUnlockedState(achievement)) return;
         Achievements[achievement].Unlock();
         OnAchievementUnlocked?.Invoke(achievement);
+    }
+    
+    private static IEnumerator WaitForRemoteConfig(Action callBack)
+    {
+        yield return new WaitUntil(() => _achievementsSet);
+        callBack();
     }
 
     public enum Achievement
@@ -140,10 +174,13 @@ public static class DynamicAchievementManager
             Unlocked = unlocked;
         }
 
-        public void Unlock()
+        public void Unlock(bool addCredits = true)
         {
             Unlocked = true;
+            if (addCredits)
+            {
+                CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, Reward);
+            }
         }
     }
-
 }

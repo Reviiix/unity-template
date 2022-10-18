@@ -42,7 +42,7 @@ namespace Achievements
 
         protected override void PerformChecks()
         {
-            CheckTotalPlayTime();
+            //CheckTotalPlayTime();
         }
 
         private static void OnLevelChange(int levelID)
@@ -145,7 +145,7 @@ namespace Achievements
             switch (totalPlayTime.Hours > 100)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PLayForOneHundredHours);
+                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHundredHours);
                     break;
             }
         }

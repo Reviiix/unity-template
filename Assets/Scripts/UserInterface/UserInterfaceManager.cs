@@ -72,7 +72,7 @@ namespace UserInterface
         
         private void StartUpSequence()
         {
-            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(() =>
+            StartCoroutine(ProjectManager.WaitForInitialisationToComplete(() =>
             {
                 EnableMainMenu();
 

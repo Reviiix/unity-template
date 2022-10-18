@@ -16,10 +16,11 @@ namespace Achievements.Display.ListDisplay
         private static readonly AssetReference DisplayItemPrefab = new AssetReference(DisplayItemPrefabPath);
         private readonly Dictionary<PermanentAchievementManager.Achievement, AchievementItemStruct> _achievementListItems = new Dictionary<PermanentAchievementManager.Achievement, AchievementItemStruct>();
 
-        protected override void Awake()
+        protected override IEnumerator Start()
         {
-            base.Awake();
-            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(CreateDisplayAsynchronously));
+            yield return ProjectManager.WaitForInitialisation;
+            yield return StartCoroutine(base.Start());
+            CreateDisplayAsynchronously();
         }
 
         private void OnEnable()

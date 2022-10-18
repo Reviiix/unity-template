@@ -19,12 +19,17 @@ namespace Achievements.Display.PopUp
         private static int _activeAchievements;
         private static bool SpaceAvailable => _activeAchievements < _maximumNumberOfActiveAchievements;
 
-        protected override void OnEnable()
+        protected override void Awake()
         {
-            base.OnEnable();
+            base.Awake();
+            StartCoroutine(ProjectManager.WaitForInitialisationToComplete(ResolveDependencies));
+        }
+
+        private void OnEnable()
+        {
             PermanentAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
             DynamicAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
-            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(ResolveDependencies));
+            StartCoroutine(ProjectManager.WaitForInitialisationToComplete(ResolveDependencies));
         }
         
         protected override void OnDisable()

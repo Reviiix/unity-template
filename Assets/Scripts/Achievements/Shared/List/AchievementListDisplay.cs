@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,8 +15,9 @@ public abstract class AchievementListDisplay : MonoBehaviour
     [SerializeField] protected TMP_Text rewardDisplay;
     [SerializeField] protected TMP_Text amountOfUnlocksDisplay;
     
-    protected virtual void Awake()
+    protected virtual IEnumerator Start()
     {
+        yield return ProjectManager.WaitForInitialisation;
         Display = GetComponent<Transform>();
     }
     

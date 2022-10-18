@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414337698140977109}
-  - component: {fileID: 1414337698140977106}
   - component: {fileID: 1414337698140977107}
+  - component: {fileID: 1414337698140977106}
   - component: {fileID: 1414337698140977108}
   m_Layer: 0
   m_Name: CreditsDisplay
@@ -40,14 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0088196, y: 1514}
   m_SizeDelta: {x: 1400.0177, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1414337698140977106
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414337698140977110}
-  m_CullTransparentMesh: 0
 --- !u!114 &1414337698140977107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +60,14 @@ MonoBehaviour:
     creditsDisplay: {fileID: 1414337699612777822}
     prefix: 'PREMIUM CREDITS: '
     suffix: 
+--- !u!222 &1414337698140977106
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414337698140977110}
+  m_CullTransparentMesh: 0
 --- !u!114 &1414337698140977108
 MonoBehaviour:
   m_ObjectHideFlags: 0

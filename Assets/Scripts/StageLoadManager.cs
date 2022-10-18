@@ -54,7 +54,7 @@ public static class StageLoadManager
         #region Fade
         private static RawImage FadeImage => UserInterfaceManager.TransitionalFadeImage;
         private const int TotalFadeInAndOutDuration = 3;
-        private const int FadeDuration = TotalFadeInAndOutDuration / 2;
+        private const int FadeDuration = TotalFadeInAndOutDuration / 2; //2 because fade in then fade out
         #endregion Fade
             
         public static IEnumerator LoadStageWithFade(int stageGroup, int stage, Action fadeCompleteCallBack = null, Action completeCallBack = null)

@@ -11,18 +11,16 @@ namespace Credits
 {
     public class CreditsDisplay : MonoBehaviour
     {
-        public const int RollUpTimeInSeconds = 2;
+        public const int RollUpTimeInSeconds = 1;
         [SerializeField] private CreditDisplay credits;
         [SerializeField] private CreditDisplay premiumCredits;
 
-        private void Start()
+        private IEnumerator Start()
         {
-            StartCoroutine(ProjectManager.WaitForAnyAsynchronousInitialisationToComplete(() =>
-            {
-                MonoBehaviour coRoutineHandler = this;
-                credits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.Credits));
-                premiumCredits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits));
-            }));
+            yield return ProjectManager.WaitForInitialisation;
+            MonoBehaviour coRoutineHandler = this;
+            credits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.Credits));
+            premiumCredits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits));
         }
 
         private void OnEnable()

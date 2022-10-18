@@ -75,7 +75,8 @@ public static class SaveSystem
         public readonly KeyValuePair<int, int> FurthestLevelIndex;
         public readonly int[] LevelRatings;
         public readonly float Volume;
-        public readonly bool[] Achievements;
+        public readonly bool[] PermanentAchievements;
+        public readonly bool[] DynamicAchievements;
 
         public SaveData()
         {
@@ -101,7 +102,8 @@ public static class SaveSystem
 
             Volume = BaseAudioManager.CurrentVolume;
 
-            Achievements = PermanentAchievementManager.ReturnUnLockStates();
+            PermanentAchievements = PermanentAchievementManager.ReturnUnLockStates();
+            DynamicAchievements = DynamicAchievementManager.ReturnUnLockStates();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Credits;
 using UnityEngine.AddressableAssets;
 
 namespace Achievements
@@ -17,7 +18,7 @@ namespace Achievements
             {Achievement.PlayForTenHours, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             {Achievement.PlayForTwentyFiveHours, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             {Achievement.PlayForFiftyHours, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
-            {Achievement.PLayForOneHundredHours, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
+            {Achievement.PlayForOneHundredHours, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             
             {Achievement.OpenTheAppOnce, new AchievementInformation("Play your first game.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             {Achievement.OpenTheAppFiveTimes, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
@@ -47,7 +48,6 @@ namespace Achievements
             {Achievement.TenThousandPremiumCredits, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             {Achievement.OneHundredThousandPremiumCredits, new AchievementInformation("Open the game five times.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
         };
-
         public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
         public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
         public static AssetReference ReturnSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
@@ -124,9 +124,9 @@ namespace Achievements
             var i = 0;
             foreach (var achievement in Achievements)
             {
-                if (saveData.Achievements[i])
+                if (saveData.PermanentAchievements[i])
                 {
-                    achievement.Value.Unlock();
+                    achievement.Value.Unlock(false);
                 }
                 i++;
             }
@@ -154,9 +154,13 @@ namespace Achievements
                 Unlocked = unlocked;
             }
 
-            public void Unlock()
+            public void Unlock(bool addCredits = true)
             {
                 Unlocked = true;
+                if (addCredits)
+                {
+                    CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, Reward);
+                }
             }
         }
 
@@ -168,7 +172,7 @@ namespace Achievements
             PlayForTenHours, 
             PlayForTwentyFiveHours, 
             PlayForFiftyHours, 
-            PLayForOneHundredHours,
+            PlayForOneHundredHours,
             
             OpenTheAppOnce,
             OpenTheAppFiveTimes,
