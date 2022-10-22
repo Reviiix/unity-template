@@ -2,6 +2,9 @@
 
 namespace Player
 {
+    /// <summary>
+    /// This class manages player information
+    /// </summary>
     public static class PlayerInformation
     {
         public static long PlayerID { get; private set; }

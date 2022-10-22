@@ -10,6 +10,9 @@ using Object = UnityEngine.Object;
 
 namespace UserInterface.MainMenus.StageSelection
 {
+    /// <summary>
+    /// This is the stage selection menu
+    /// </summary>
     [Serializable]
     public class StageSelectionMenu : UserInterface, IUserInterface
     {

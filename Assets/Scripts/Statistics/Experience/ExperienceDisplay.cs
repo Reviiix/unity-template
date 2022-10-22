@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 namespace Statistics.Experience
 {
+    /// <summary>
+    /// This class displays the amount of experience based on the ExperienceManager class
+    /// </summary>
     public class ExperienceDisplay : MonoBehaviour, IHandleSimultaneousAdditions
     {
         private bool animating;

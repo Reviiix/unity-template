@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Abstract;
 using Abstract.Interfaces;
+using PureFunctions;
 using PureFunctions.Effects;
 using TMPro;
 using UnityEngine;
 
 namespace Credits
 {
+    /// <summary>
+    /// This class handles displaying the credit values.
+    /// It is not for tracking values. That job belongs to CreditsManager.
+    /// </summary>
     public class CreditsDisplay : MonoBehaviour
     {
         public const int RollUpTimeInSeconds = 1;
@@ -17,10 +21,10 @@ namespace Credits
 
         private IEnumerator Start()
         {
-            yield return ProjectManager.WaitForInitialisation;
             MonoBehaviour coRoutineHandler = this;
-            credits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.Credits));
-            premiumCredits.Initialise(coRoutineHandler, CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits));
+            yield return ProjectManager.WaitForInitialisation;
+            credits.Initialise(coRoutineHandler, CreditsManager.GetCredits(CreditsManager.Currency.Credits));
+            premiumCredits.Initialise(coRoutineHandler, CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits));
         }
 
         private void OnEnable()
@@ -39,48 +43,48 @@ namespace Credits
         private class CreditDisplay : IHandleSimultaneousAdditions
         {
             private const int RollUpSpeed = RollUpTimeInSeconds;
-            private MonoBehaviour _coRoutineHandler;
-            private bool _animating;
+            private MonoBehaviour coRoutineHandler;
+            private bool animating;
             [SerializeField] private TMP_Text creditsDisplay;
             [SerializeField] private string prefix = "ERROR";
             [SerializeField] private string suffix = "ERROR";
-            private readonly Queue<KeyValuePair<long, long>> _additionQueue = new Queue<KeyValuePair<long, long>>(); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
+            private readonly Queue<ValueChangeInformation> additionQueue = new Queue<ValueChangeInformation>(); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
 
             public void Initialise(MonoBehaviour coRoutineHandler, long startingValue)
             {
-                _coRoutineHandler = coRoutineHandler;
+                this.coRoutineHandler = coRoutineHandler;
                 creditsDisplay.text = prefix + startingValue + suffix;
             }
 
-            public void OnCreditsChanged(long originalAmount, long newAmount)
+            public void OnCreditsChanged(ValueChangeInformation valueChangeInformation)
             {
-                if (_animating)
+                if (animating)
                 {
-                    _additionQueue.Enqueue(new KeyValuePair<long, long>(originalAmount, newAmount));
+                    additionQueue.Enqueue(valueChangeInformation);
                     return;
                 }
-                UpdateDisplay(originalAmount, newAmount);
+                UpdateDisplay(valueChangeInformation);
             }
 
-            private void UpdateDisplay(long originalAmount, long newAmount)
+            private void UpdateDisplay(ValueChangeInformation valueChangeInformation)
             {
-                _animating = true;
-                _coRoutineHandler.StartCoroutine(NumberRollup.Rollup(creditsDisplay, originalAmount, newAmount, prefix, suffix,RollUpSpeed,() =>
+                var newValue = valueChangeInformation.NewValue;
+                animating = true;
+                coRoutineHandler.StartCoroutine(NumberRollup.Rollup(creditsDisplay, valueChangeInformation.OldValue, newValue, prefix, suffix,RollUpSpeed,() =>
                 {
-                    _animating = false;
-                    creditsDisplay.text = prefix + newAmount + suffix;
-                    _coRoutineHandler.StartCoroutine(HandleDelayedAdditions());
+                    animating = false;
+                    creditsDisplay.text = prefix + newValue + suffix;
+                    coRoutineHandler.StartCoroutine(HandleDelayedAdditions());
                 }));
             }
             
             public IEnumerator HandleDelayedAdditions()
             {
-                yield return new WaitUntil(() => !_animating);
+                yield return new WaitUntil(() => !animating);
             
-                if (_additionQueue.Count == 0) yield break;
-
-                var dequeue = _additionQueue.Dequeue();
-                UpdateDisplay(dequeue.Key, dequeue.Value);
+                if (additionQueue.Count == 0) yield break;
+                
+                UpdateDisplay(additionQueue.Dequeue());
             }
         }
     }

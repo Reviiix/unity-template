@@ -2,7 +2,11 @@
 
 namespace Player
 {
-    public static class PlayerEngagementManager
+    /// <summary>
+    /// This class tracks the players engagement with the application.
+    /// Amount opened, time played etc
+    /// </summary>
+    public static class PlayerEngagement
     {
         public static DateTime LastTimeAppWasOpen { get; private set; } 
         public static int ConsecutiveDailyOpens { get; private set; }
@@ -17,8 +21,6 @@ namespace Player
         public const int TutorialRewardPremiumCredits = TutorialRewardCredits / 10;
         public static readonly int AnniversaryRewardCredits = 100 * HolidayManager.AmountOfYearsSinceFirstOpen;
         public static readonly int AnniversaryRewardPremiumCredits = AnniversaryRewardCredits / 10;
-        public const int BirthdayRewardCredits = 1000;
-        public const int BirthdayRewardPremiumCredits = BirthdayRewardCredits / 10;
         private static int _timesGameHasBeenOpened;
         public static int TimesGameHasBeenOpened
         {

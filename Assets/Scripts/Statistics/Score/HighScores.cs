@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Statistics
 {
+    /// <summary>
+    /// This class tracks highscores
+    /// </summary>
     public static class HighScores
     {
         private static readonly string Key = PlayerSettings.productName + "HighScore";

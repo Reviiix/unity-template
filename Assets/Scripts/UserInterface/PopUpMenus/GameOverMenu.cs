@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace UserInterface.PopUpMenus
 {
+    /// <summary>
+    /// This menu will be displayed on game over
+    /// </summary>
     [Serializable]
     public class GameOverMenu : UserInterface, IUserInterface
     {

@@ -11,6 +11,9 @@ using UserInterface.PopUpMenus;
 
 namespace UserInterface
 {
+    /// <summary>
+    /// This class manages what menus will be open when.
+    /// </summary>
     [RequireComponent(typeof(RawImage))]
     public class UserInterfaceManager : PrivateSingleton<UserInterfaceManager>
     {
@@ -76,7 +79,7 @@ namespace UserInterface
             {
                 EnableMainMenu();
 
-                if (PlayerEngagementManager.TimesGameHasBeenOpened == 1)
+                if (PlayerEngagement.TimesGameHasBeenOpened == 1)
                 {
                     ShowFirstOpenPopUp();
                     return;
@@ -86,7 +89,7 @@ namespace UserInterface
                 {
                     ShowAnniversaryPopUp();
                 }
-                if (!PlayerEngagementManager.IsRepeatOpenToday)
+                if (!PlayerEngagement.IsRepeatOpenToday)
                 {
                     ShowDailyLogInPopUp();
                 }

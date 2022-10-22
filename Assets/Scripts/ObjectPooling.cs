@@ -5,11 +5,12 @@ using Abstract;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-//Objects that are created as part of the game are pooled by this glass and enabled as they are needed.
-//This system produces less garbage than instantiating and destroying objects.
-
-//Game objects are created from addressable assets meaning they are loaded into memory as they are needed then need to be unloaded when they are not.
-//Pools are created by copying one instance of a converted addressable asset.
+/// <summary>
+/// Objects that are created as part of the game are pooled by this class and enabled as they are needed.
+/// This system produces less garbage than instantiating and destroying objects as needed.
+/// Game objects are created from addressable assets meaning they are loaded into memory as they are needed then need to be unloaded when they are not.
+/// Pools are created by copying one instance of a converted addressable asset.
+/// </summary>
 public class ObjectPooling : PrivateSingleton<ObjectPooling>
 {
     [SerializeField] private Pool[] pools;

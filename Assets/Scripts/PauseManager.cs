@@ -1,5 +1,8 @@
 ﻿using Audio;
 
+/// <summary>
+/// This class pauses game time.
+/// </summary>
 public static class PauseManager
 {
     public static bool IsPaused
@@ -8,7 +11,7 @@ public static class PauseManager
         private set;
     }
 
-    private const float NormalAudioVolume = AudioManager.VolumeControls.MaximumVolume;
+    private const float NormalAudioVolume = ProjectAudioManager.VolumeControls.MaximumVolume;
     private const float PauseAudioVolume = 0.2f;
     
     public static void PauseButtonPressed()

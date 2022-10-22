@@ -10,6 +10,9 @@ using Statistics.Experience;
 using UnityEngine;
 using UserInterface;
 
+/// <summary>
+/// This class manages features on a whole project scope such as initialsation and..
+/// </summary>
 public class ProjectManager : Singleton<ProjectManager>
 {
     [SerializeField] private BaseAudioManager audioManager;
@@ -27,7 +30,7 @@ public class ProjectManager : Singleton<ProjectManager>
     private void OnApplicationQuit()
     {
         SaveSystem.Save();
-        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagementManager.TotalPlayTime);
+        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagement.TotalPlayTime);
     }
     
     public static IEnumerator WaitForInitialisationToComplete(Action callBack)
@@ -39,6 +42,7 @@ public class ProjectManager : Singleton<ProjectManager>
     //Initialising like this seems cumbersome but gives better control over the order of events and helps prevent race conditions
     private static class ProjectInitializer
     {
+        public static readonly WaitUntil WaitForAsynchronousInitialisationToComplete = new WaitUntil(() => Initialised);
         private static bool _initialised;
         private static bool Initialised
         {
@@ -46,7 +50,6 @@ public class ProjectManager : Singleton<ProjectManager>
             // ReSharper disable once ValueParameterNotUsed
             set => _initialised = true;
         }
-        public static readonly WaitUntil WaitForAsynchronousInitialisationToComplete = new WaitUntil(() => Initialised);
 
         public static void Initialise(Action callBack)
         {
@@ -72,7 +75,7 @@ public class ProjectManager : Singleton<ProjectManager>
             ExperienceManager.Initialise();
             CreditsManager.Initialise();
             CameraManager.Initialise();
-            PlayerEngagementManager.Initialise();
+            PlayerEngagement.Initialise();
             PermanentAchievementManager.Initialise();
             DynamicAchievementManager.Initialise();
             callBack();

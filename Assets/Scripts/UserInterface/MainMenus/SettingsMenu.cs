@@ -6,6 +6,9 @@ using UserInterface.PopUpMenus;
 
 namespace UserInterface.MainMenus
 {
+    /// <summary>
+    /// This is the class for the settings menu
+    /// </summary>
     [Serializable]
     public class SettingsMenu : UserInterface, IUserInterface
     {
@@ -20,8 +23,7 @@ namespace UserInterface.MainMenus
         }
 
         private void AssignEvents()
-        {
-            //nameInputField.onDeselect.AddListener(ChangeNamePressed);
+        { 
             deleteAllDataButton.onClick.AddListener(DeleteAllDataPressed);
         }
         

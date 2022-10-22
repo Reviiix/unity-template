@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Achievements.Display
 {
+    /// <summary>
+    /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.
+    /// </summary>
     [RequireComponent(typeof(RawImage))]
     public abstract class AchievementItemBase : MonoBehaviour
     {

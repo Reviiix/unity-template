@@ -1,22 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// This class is the base for achievement tracking. it is shared by dynamic and permanent achievements.
+/// </summary>
 public abstract class AchievementTracker : MonoBehaviour
 {
-    private Coroutine _intermittentChecks;
-    private static readonly WaitForSeconds TenMinutes = new WaitForSeconds(600);
-    protected static readonly WaitForSeconds OneHour = new WaitForSeconds(3600);
+    private Coroutine intermittentChecks;
+    private static readonly WaitForSeconds WaitTenMinutes = new WaitForSeconds(600);
+    protected static readonly WaitForSeconds WaitOneHour = new WaitForSeconds(3600);
     
     protected virtual void OnEnable()
     {
-        _intermittentChecks = StartCoroutine(PerformChecksIntermittently());
+        intermittentChecks = StartCoroutine(PerformChecksIntermittently());
     }
     
     protected virtual void OnDisable()
     {
-        if (_intermittentChecks != null)
+        if (intermittentChecks != null)
         {
-            StopCoroutine(_intermittentChecks);
+            StopCoroutine(intermittentChecks);
         }
     }
     
@@ -24,8 +27,8 @@ public abstract class AchievementTracker : MonoBehaviour
     private IEnumerator PerformChecksIntermittently()
     {
         PerformChecks();
-        yield return TenMinutes;
-        _intermittentChecks = StartCoroutine(PerformChecksIntermittently());
+        yield return WaitTenMinutes;
+        intermittentChecks = StartCoroutine(PerformChecksIntermittently());
     }
     
     protected virtual void PerformChecks()

@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Object = System.Object;
 
+/// <summary>
+/// This class will load and unload asset references
+/// </summary>
 public static class AssetReferenceLoader 
 {
     public static void LoadScene(IKeyEvaluator scene, Action callBack = null)

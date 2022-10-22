@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Player;
 using PureFunctions.Effects;
 using Statistics;
 using UnityEngine;
@@ -10,6 +9,10 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UserInterface;
 
+/// <summary>
+/// This class handles loading different stages.
+/// Stages (scenes) should be asset references.
+/// </summary>
 public static class StageLoadManager
 {
     private static KeyValuePair<int, int> _furthestLevelIndex = GameStatistics.FurthestLevelIndex;

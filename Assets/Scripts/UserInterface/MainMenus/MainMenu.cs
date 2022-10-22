@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace UserInterface.MainMenus
 {
+    /// <summary>
+    /// This is the main menu display class
+    /// </summary>
     [Serializable]
     public class MainMenu : UserInterface, IUserInterface
     {

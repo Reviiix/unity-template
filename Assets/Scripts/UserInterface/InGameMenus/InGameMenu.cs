@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace UserInterface.InGameMenus
 {
+    /// <summary>
+    /// This is the in game user interface display class.
+    /// </summary>
     [Serializable]
     public class InGameUserInterface : UserInterface, IUserInterface
     {

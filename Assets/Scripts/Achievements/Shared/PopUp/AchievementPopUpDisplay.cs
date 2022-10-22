@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Achievements.Display.PopUp
 {
+    /// <summary>
+    /// This class handles the popping of achievements. It is shared by dynamic and permanent achievements.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class AchievementPopUpDisplay : PrivateSingleton<AchievementPopUpDisplay>, IHandleSimultaneousAdditions
     {

@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Abstract;
 using UnityEngine;
 using UnityEngine.UI;
 
-//The audio manager will instantiate the maximum amount of audio sources set in the object pool on start up.
-//When playing a clip it will use the first inactive audio source from the hashset.
-//This system limits the amount of audio sources in the scene and can have a significant performance improvement as the game scales.
-//A drawback of this system is that the developer has to anticipate the amount of sounds that can play at one time.
 namespace Audio
 {
+    /// <summary>
+    /// This class is the base for audio managers which will manage what sounds play and when
+    /// The audio manager will instantiate the maximum amount of audio sources set in the object pool on start up.
+    /// When playing a clip it will use the first inactive audio source from the hashset.
+    /// This system limits the amount of audio sources in the scene and can have a significant performance improvement as the game scales.
+    /// A drawback of this system is that the developer has to anticipate the amount of sounds that can play at one time.
+    /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public abstract class BaseAudioManager : PrivateSingleton<BaseAudioManager>
     {
@@ -18,12 +20,12 @@ namespace Audio
         private const int PoolIndex = 0;
         [SerializeField] private AudioClip buttonClick;
         [SerializeField] private AudioClip menuMovement;
-        private readonly VolumeControls _volumeControls = new VolumeControls();
-        public static float CurrentVolume => Instance._volumeControls.VolumeLevel;
+        private readonly VolumeControls volumeControls = new VolumeControls();
+        public static float CurrentVolume => Instance.volumeControls.VolumeLevel;
 
         public void Initialise()
         {
-            _volumeControls.Initialise();
+            volumeControls.Initialise();
             ResolveDependencies();
             AssignAllButtonsTheClickClickSound();
         }

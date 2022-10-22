@@ -1,12 +1,13 @@
-﻿using Abstract;
-using Abstract.Interfaces;
+﻿using Abstract.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UserInterface.MainMenus.StageSelection
 {
-    //This class just holds the variables until the stage selection menu caches them. Then it removes itself (So no searching of the prefab for children and components is needed and eventually less MonoBehaviours)
+    /// <summary>
+    /// This class just holds the variables until the stage selection menu caches them. Then it removes itself (So no searching of the prefab for children and components is needed and eventually less MonoBehaviours)
+    /// </summary>
     public class StageListItem : MonoBehaviour, IListItem
     {
         [SerializeField] private Button stageLevelButton;

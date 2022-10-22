@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace DebuggingAid.Cheats
 {
+    /// <summary>
+    /// This class will enable / disable the cheat functionality.
+    /// </summary>
     [RequireComponent(typeof(GameObject))]
     public class CheatEnabler : MonoBehaviour 
     {
@@ -16,9 +19,9 @@ namespace DebuggingAid.Cheats
         
         private void Validate()
         {
-            #if UNITY_EDITOR || DEBUGBUILD
+            #if UNITY_EDITOR || DEBUG_BUILD
             cheats.SetActive(true);
-            Destroy(GetComponent<CheatEnabler>());
+            Destroy(this);
             return;
             #endif
             AssetReferenceLoader.DestroyOrUnload(gameObject);

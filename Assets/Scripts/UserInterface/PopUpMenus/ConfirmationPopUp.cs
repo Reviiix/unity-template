@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 namespace UserInterface.PopUpMenus
 {
+    /// <summary>
+    /// This is the confirmation screen, It will return a choice of accept or deny
+    /// </summary>
     [Serializable]
     public class ConfirmationPopUp : PopUpInterface, IUserInterface
     {
-        private bool _choice;
+        private bool choice;
         public Action<bool> OnChoiceMade;
         [SerializeField] private Button confirm;
         [SerializeField] private Button deny;
@@ -21,8 +24,8 @@ namespace UserInterface.PopUpMenus
         
         private void SetButtonEvents()
         {
-            confirm.onClick.AddListener(()=>_choice = true);
-            deny.onClick.AddListener(()=>_choice = false);
+            confirm.onClick.AddListener(()=>choice = true);
+            deny.onClick.AddListener(()=>choice = false);
             confirm.onClick.AddListener(()=>Enable(false));
             deny.onClick.AddListener(()=>Enable(false));
         }
@@ -38,7 +41,7 @@ namespace UserInterface.PopUpMenus
                 case false:
                     DisappearAnimation(popUpMenu, ()=>
                     {
-                        OnChoiceMade?.Invoke(_choice);
+                        OnChoiceMade?.Invoke(choice);
                         Display.enabled = false;
                     });
                     break;

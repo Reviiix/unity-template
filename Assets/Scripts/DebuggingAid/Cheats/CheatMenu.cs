@@ -1,5 +1,4 @@
 ﻿using System;
-using Achievements;
 using Credits;
 using Statistics.Experience;
 using TMPro;
@@ -8,10 +7,15 @@ using UnityEngine.UI;
 
 namespace DebuggingAid.Cheats
 {
+    /// <summary>
+    /// This class cheats features! Mainly for debugging purposes
+    /// This class will be removed when project is built by the CheatEnabler class (unless the DEBUG_BUILD scripting define symbol is enabled).
+    /// </summary>
     [RequireComponent(typeof(Canvas))]
     public class CheatMenu : MonoBehaviour
     {
         #if UNITY_EDITOR || DEBUG_BUILD
+        private const string AddingByCheatingMessage = "CHEATING! Adding: ";
         private static Canvas _cheatMenu;
         [SerializeField] private Button showCheatMenuButton;
         [Header("Experience Cheats")]
@@ -23,21 +27,17 @@ namespace DebuggingAid.Cheats
         [Header("Credit Cheats")]
         [SerializeField] private Button addCreditsButton;
         [SerializeField] private TMP_InputField creditInputField;
-        [Header("Cash Cheats")]
-        [SerializeField] private Button addCashButton;
-        [SerializeField] private TMP_Dropdown cashDropDown;
-
+        [Header("Premium Credit Cheats")]
+        [SerializeField] private Button addPremiumCreditsButton;
+        [SerializeField] private TMP_InputField premiumCreditInputField;
+        
         private void Awake()
         {
-            Validate();
-            ResolveDependencies();
-            AssignButtonEvents();
-        }
-
-        
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Space)) PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppOnce);
+            Validate(() =>
+            {
+                ResolveDependencies();
+                AssignButtonEvents();
+            });
         }
 
         private void ResolveDependencies()
@@ -52,7 +52,7 @@ namespace DebuggingAid.Cheats
             addExperienceButton.onClick.AddListener(AddExperience);
             addScoreButton.onClick.AddListener(AddScore);
             addCreditsButton.onClick.AddListener(AddCredits);
-            addCashButton.onClick.AddListener(AddCash);
+            addPremiumCreditsButton.onClick.AddListener(AddPremiumCredits);
         }
         
         private void OpenCheatMenuButtonPressed()
@@ -70,7 +70,8 @@ namespace DebuggingAid.Cheats
             var experienceAsString = experienceInputField.text;
             if (string.IsNullOrEmpty(experienceAsString)) return;
             var experience = int.Parse(experienceAsString);
-            Debug.LogWarning("CHEATING! Adding: " + experience + " to experience.");
+            const string cheatedItemMessage = " to experience.";
+            Debug.LogWarning(AddingByCheatingMessage + experience + cheatedItemMessage);
             ExperienceManager.AddExperience(experience);
         }
         
@@ -79,34 +80,43 @@ namespace DebuggingAid.Cheats
             var scoreAsString = scoreInputField.text;
             if (string.IsNullOrEmpty(scoreAsString)) return;
             var score = int.Parse(scoreAsString);
-            Debug.LogWarning("CHEATING! Adding: " + score + " to score.");
+            const string cheatedItemMessage = " to score.";
+            Debug.LogWarning(AddingByCheatingMessage + score + cheatedItemMessage);
             GameManager.Instance.IncrementScore(score);
         }
-        
-        private void AddCash()
-        {
-            var dropDownChoice = cashDropDown.value;
-            throw new NotImplementedException();
-        }
-        
+
         private void AddCredits()
         {
             var creditsAsString = creditInputField.text;
             if (string.IsNullOrEmpty(creditsAsString)) return;
             var credits = int.Parse(creditsAsString);
-            Debug.LogWarning("CHEATING! Adding: " + credits + " to credits.");
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, credits);
+            const string cheatedItemMessage = " to credits.";
+            Debug.LogWarning(AddingByCheatingMessage + credits + cheatedItemMessage);
+            CreditsManager.IncrementCredits(CreditsManager.Currency.Credits, credits);
+        }
+        
+        private void AddPremiumCredits()
+        {
+            var creditsAsString = premiumCreditInputField.text;
+            if (string.IsNullOrEmpty(creditsAsString)) return;
+            var credits = int.Parse(creditsAsString);
+            const string cheatedItemMessage = " to premium credits.";
+            Debug.LogWarning(AddingByCheatingMessage + credits + cheatedItemMessage);
+            CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, credits);
         }
 
-        private void Validate()
+        private void Validate(Action callBack)
         {
             #if !UNITY_EDITOR && !DEBUG_BUILD 
             Addressables.ReleaseInstance(gameObject);
+            return;
             #endif
-            Debugging.DisplayDebugMessage("CHEATS ENABLED! \n Culprit: " + name);
+            const string errorMessage = "CHEATS ENABLED! \n Culprit: ";
+            Debug.LogWarning(errorMessage + name);
+            callBack();
         }
 
-#else
+        #else
         private void OnEnable()
         {
             Addressables.ReleaseInstance(gameObject);

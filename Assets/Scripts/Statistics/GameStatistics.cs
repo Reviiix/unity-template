@@ -2,6 +2,9 @@
 
 namespace Statistics
 {
+    /// <summary>
+    /// This class manages the game statistics
+    /// </summary>
     public static class GameStatistics
     {
         public static KeyValuePair<int, int> FurthestLevelIndex { get; private set; }

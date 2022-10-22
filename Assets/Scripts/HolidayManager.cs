@@ -35,7 +35,7 @@ public static class HolidayManager
     
     private static void OnApplicationOpen()
     {
-        if (PlayerEngagementManager.TimesGameHasBeenOpened == 1) FirstOpen = DateTime.Today;
+        if (PlayerEngagement.TimesGameHasBeenOpened == 1) FirstOpen = DateTime.Today;
     }
         
     private static void OnAnniversaryOfFirstOpen()

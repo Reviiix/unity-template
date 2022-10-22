@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
 {
+    /// <summary>
+    /// This is the daily log in display class. It will be loaded once per open so only load through addressables
+    /// </summary>
     [Serializable]
     public class DailyLogInPopUp : PopUpInterface, IUserInterface
     {
@@ -18,7 +21,7 @@ namespace UserInterface.ConditionalMenus
         [SerializeField] private TMP_Text wheelWinDisplay;
         private static Coroutine _creditsRollup;
         private static int _creditsFromWheelCache;
-        private static int DailyCredits => PlayerEngagementManager.DailyBonusRewardCredits;
+        private static int DailyCredits => PlayerEngagement.DailyBonusRewardCredits;
         private const int RollUpTime = CreditsDisplay.RollUpTimeInSeconds;
 
         protected override void Awake()
@@ -74,7 +77,7 @@ namespace UserInterface.ConditionalMenus
         {
             var credits = DailyCredits + _creditsFromWheelCache;
             Display.GetComponent<GraphicRaycaster>().enabled = false;
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, credits);
+            CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, credits);
             RollupCredits(credits, 0, RollUpTime, () =>
             {
                 Enable(false);

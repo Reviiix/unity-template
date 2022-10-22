@@ -1,14 +1,19 @@
 ﻿using System;
+using PureFunctions;
 using UnityEngine;
 
 namespace Credits
 {
+    /// <summary>
+    /// This class handles tracking the credit values.
+    /// It is not for displaying values. That job belongs to CreditsDisplay.
+    /// </summary>
     public static class CreditsManager
     {
-        private static readonly CreditManager Credits  = new CreditManager();
-        private static readonly CreditManager PremiumCredits = new CreditManager();
-        public static Action<long, long> OnCreditsChanged;
-        public static Action<long, long> OnPremiumCreditsChanged;
+        private static readonly CreditTracker Credits  = new CreditTracker();
+        private static readonly CreditTracker PremiumCredits = new CreditTracker();
+        public static Action<ValueChangeInformation> OnCreditsChanged;
+        public static Action<ValueChangeInformation> OnPremiumCreditsChanged;
 
         public static void Initialise()
         {
@@ -23,35 +28,15 @@ namespace Credits
             PremiumCredits.Initialise(saveData.PremiumCredits);
         }
         
-        public static void ChangeCredits(Currency currency, long amount)
+        public static void IncrementCredits(Currency currency, long amount)
         {
-            CreditManager credits;
-            long originalAmount;
-            long newAmountAmount;
-            switch (currency)
-            {
-                case Currency.Credits:
-                    credits = Credits;
-                    originalAmount = credits.CurrentCredits;
-                    credits.ChangeCredits(amount);
-                    newAmountAmount = credits.CurrentCredits;
-                    OnCreditsChanged?.Invoke(originalAmount, newAmountAmount);
-                    break;
-                case Currency.PremiumCredits:
-                    credits = PremiumCredits;
-                    originalAmount = credits.CurrentCredits;
-                    credits.ChangeCredits(amount);
-                    newAmountAmount = credits.CurrentCredits;
-                    OnPremiumCreditsChanged?.Invoke(originalAmount, newAmountAmount);
-                    break;
-                default:
-                    Debug.LogError(currency + " is not accounted for in this switch statement!");
-                    break;
-            }
+            var creditsTracker = GetCreditsTracker(currency);
+            creditsTracker.IncrementCredits(amount);
+            GetIncrementCreditsAction(currency).Invoke(new ValueChangeInformation(creditsTracker.CurrentCredits, creditsTracker.CurrentCredits + amount));
             SaveSystem.Save();
         }
-
-        public static long ReturnCredits(Currency currency)
+        
+        public static long GetCredits(Currency currency)
         {
             switch (currency)
             {
@@ -60,8 +45,52 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return PremiumCredits.CurrentCredits;
                 default:
-                    Debug.LogError(currency + " is not accounted for in this switch statement!");
+                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
                     return 0;
+            }
+        }
+
+        private static CreditTracker GetCreditsTracker(Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.Credits:
+                    return Credits;
+                case Currency.PremiumCredits:
+                    return PremiumCredits;
+                default:
+                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
+                    return PremiumCredits;
+            }
+        }
+
+        private static Action<ValueChangeInformation> GetIncrementCreditsAction(Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.Credits:
+                    return OnCreditsChanged;
+                case Currency.PremiumCredits:
+                    return OnPremiumCreditsChanged;
+                default:
+                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
+                    return OnPremiumCreditsChanged;
+            }
+        }
+
+        private class CreditTracker
+        {
+            private const int StartingCredits = 0;
+            public long CurrentCredits { get; private set; } = StartingCredits;
+            
+            public void Initialise(long credits)
+            { 
+                CurrentCredits = credits;
+            }
+
+            public void IncrementCredits(long amount)
+            {
+                CurrentCredits += amount;
             }
         }
         
@@ -69,14 +98,6 @@ namespace Credits
         {
             Credits,
             PremiumCredits
-        }
-            
-        private class CreditManager
-        {
-            private const int StartingCredits = 0;
-            public long CurrentCredits { get; private set; } = StartingCredits;
-            public void Initialise(long credits) => CurrentCredits = credits;
-            public void ChangeCredits(long amount) => CurrentCredits += amount;
         }
     }
     

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This class is caches the main camera to avoid having to use expensive Camera.main
+/// </summary>
 public static class CameraManager
 {
     public static Camera ActiveCamera { get; private set; }

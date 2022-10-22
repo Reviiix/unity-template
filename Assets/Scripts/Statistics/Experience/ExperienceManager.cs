@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Statistics.Experience
 {
+    /// <summary>
+    /// This class tracks experience
+    /// </summary>
     public static class ExperienceManager
     {
         public static int CurrentLevelID { get; private set; }

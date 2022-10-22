@@ -1,9 +1,11 @@
 ﻿using System;
-using Credits;
 using Newtonsoft.Json;
 using Unity.RemoteConfig;
 using UnityEngine;
 
+/// <summary>
+/// This class handles to remote config changes and sets features accordingly.
+/// </summary>
 public static class RemoteConfigurationManager
 {
     public static Action<Configuration> OnConfigurationChanged;

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Audio
 {
+    /// <summary>
+    /// This class controls the global volume
+    /// </summary>
     public class VolumeController : MonoBehaviour
     {
         public static Action<bool, float> OnMuteButtonPressed;
@@ -12,14 +15,18 @@ namespace Audio
         [SerializeField] private Sprite[] volumeSprites;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private Button muteButton;
-        private bool _muteButtonState;
-        private Sprite _nonMuteSpriteCache;
-        private float _nonMuteVolumeCache;
+        private bool muteButtonState;
+        private Sprite nonMuteSpriteCache;
+        private float nonMuteVolumeCache;
+
+        private void Awake()
+        {
+            SetButtonEvents();
+        }
 
         private void OnEnable()
         {
             SaveSystem.OnSaveDataLoaded += Load;
-            SetButtonEvents();
         }
 
         private void OnDisable()
@@ -44,26 +51,26 @@ namespace Audio
         private void MuteButtonPressed()
         {
             var volume = 0f;
-            _muteButtonState = !_muteButtonState;
-            if (_muteButtonState)
+            muteButtonState = !muteButtonState;
+            if (muteButtonState)
             {
-                _nonMuteSpriteCache = volumeImage.sprite;
-                _nonMuteVolumeCache = BaseAudioManager.CurrentVolume;
+                nonMuteSpriteCache = volumeImage.sprite;
+                nonMuteVolumeCache = BaseAudioManager.CurrentVolume;
                 volumeImage.sprite = volumeSprites[(int)volume];
                 MatchVolumeSliderWithIcon(volume);
             }
             else
             {
-                volume = _nonMuteVolumeCache;
-                volumeImage.sprite = _nonMuteSpriteCache;
+                volume = nonMuteVolumeCache;
+                volumeImage.sprite = nonMuteSpriteCache;
                 MatchVolumeSliderWithIcon(volume);
             }
-            OnMuteButtonPressed?.Invoke(_muteButtonState, volume);
+            OnMuteButtonPressed?.Invoke(muteButtonState, volume);
         }
 
         private void SliderValueChanged(float value)
         {
-            _muteButtonState = value == 0;
+            muteButtonState = value == 0;
             MatchVolumeIconWithSlider(value);
             OnSliderValueChanged?.Invoke(value);
         }

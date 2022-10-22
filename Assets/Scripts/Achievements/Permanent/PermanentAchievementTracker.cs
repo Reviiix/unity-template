@@ -2,11 +2,15 @@
 using System.Collections;
 using Credits;
 using Player;
+using PureFunctions;
 using Statistics.Experience;
 using UnityEngine;
 
 namespace Achievements
 {
+    /// <summary>
+    /// This class tracks progress towards unlocking permanent achievements.
+    /// </summary>
     public class PermanentAchievementTracker : AchievementTracker
     {
         private static Coroutine _consecutivePlayTimeTracker;
@@ -42,7 +46,7 @@ namespace Achievements
 
         protected override void PerformChecks()
         {
-            //CheckTotalPlayTime();
+            CheckTotalPlayTime();
         }
 
         private static void OnLevelChange(int levelID)
@@ -87,7 +91,7 @@ namespace Achievements
 
         private static void CheckOpenTimes()
         {
-            var timesGameHasBeenOpened = PlayerEngagementManager.TimesGameHasBeenOpened;
+            var timesGameHasBeenOpened = PlayerEngagement.TimesGameHasBeenOpened;
             switch (timesGameHasBeenOpened)
             {
                 case 5:
@@ -110,7 +114,7 @@ namespace Achievements
 
         private static void CheckTotalPlayTime()
         {
-            var totalPlayTime = PlayerEngagementManager.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
+            var totalPlayTime = PlayerEngagement.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
             switch (totalPlayTime.Hours > 1)
             {
@@ -150,39 +154,40 @@ namespace Achievements
             }
         }
         
-        private static void CheckTotalCredits(long startingValue, long endValue) //TODO use parametres!
+        private static void CheckTotalCredits(ValueChangeInformation valueChangeInformation)
         {
-            switch (endValue > 100)
+            var credits = valueChangeInformation.NewValue;
+            switch (credits > 100)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredCredits);
                     break;
             }
-            switch (endValue > 250)
+            switch (credits > 250)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyCredits);
                     break;
             }
-            switch (endValue > 500)
+            switch (credits > 500)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredCredits);
                     break;
             }
-            switch (endValue > 1000)
+            switch (credits > 1000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandCredits);
                     break;
             }
-            switch (endValue > 10000)
+            switch (credits > 10000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandCredits);
                     break;
             }
-            switch (endValue > 100000)
+            switch (credits > 100000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandCredits);
@@ -190,39 +195,40 @@ namespace Achievements
             }
         }
         
-        private static void CheckTotalPremiumCredits(long startingValue, long endValue)
+        private static void CheckTotalPremiumCredits(ValueChangeInformation valueChangeInformation)
         {
-            switch (endValue > 100)
+            var credits = valueChangeInformation.NewValue;
+            switch (credits > 100)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredPremiumCredits);
                     break;
             }
-            switch (endValue > 250)
+            switch (credits > 250)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyPremiumCredits);
                     break;
             }
-            switch (endValue > 500)
+            switch (credits > 500)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredPremiumCredits);
                     break;
             }
-            switch (endValue > 1000)
+            switch (credits > 1000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandPremiumCredits);
                     break;
             }
-            switch (endValue > 10000)
+            switch (credits > 10000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandPremiumCredits);
                     break;
             }
-            switch (endValue > 100000)
+            switch (credits > 100000)
             {
                 case true:
                     PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandPremiumCredits);
@@ -232,7 +238,7 @@ namespace Achievements
         
         private static IEnumerator ConsecutivePlayTimeAchievement()
         {
-            yield return OneHour;
+            yield return WaitOneHour;
             PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHourConsecutively);
         }
     }

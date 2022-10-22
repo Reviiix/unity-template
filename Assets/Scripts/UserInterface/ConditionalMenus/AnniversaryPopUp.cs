@@ -8,13 +8,16 @@ using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
 {
+    /// <summary>
+    /// This is the anniversary popUp display class. It will be loaded once per year so only load through addressables
+    /// </summary>
     public class AnniversaryPopUp : PopUpInterface, IUserInterface
     {
         public static Action OnAnniversaryOfFirstOpen;
         [SerializeField] private Button claimRewardButton;
         [SerializeField] private TMP_Text textDisplay;
-        private static readonly int RewardCredits = PlayerEngagementManager.AnniversaryRewardCredits;
-        private static readonly int RewardPremiumCredits = PlayerEngagementManager.AnniversaryRewardPremiumCredits;
+        private static readonly int RewardCredits = PlayerEngagement.AnniversaryRewardCredits;
+        private static readonly int RewardPremiumCredits = PlayerEngagement.AnniversaryRewardPremiumCredits;
 
         protected override void Awake()
         {
@@ -36,8 +39,8 @@ namespace UserInterface.ConditionalMenus
 
         private static void ClaimReward()
         {
-            CreditsManager.ChangeCredits(CreditsManager.Currency.Credits, RewardCredits);
-            CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
+            CreditsManager.IncrementCredits(CreditsManager.Currency.Credits, RewardCredits);
+            CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
         }
 
         public override void Enable(bool state = true)

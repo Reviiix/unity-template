@@ -1,8 +1,10 @@
 ﻿using System;
-using TMPro;
 
 namespace Statistics
 {
+    /// <summary>
+    /// This class tracks the player score.
+    /// </summary>
     public class ScoreTracker
     {
         public const string ScoreDisplayPrefix = "SCORE: ";

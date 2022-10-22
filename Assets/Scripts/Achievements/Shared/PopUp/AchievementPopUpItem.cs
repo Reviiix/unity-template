@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using PureFunctions.Effects;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Achievements.Display.PopUp
 {
+    /// <summary>
+    /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.
+    /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
     public class AchievementPopUpItem : AchievementItemBase
     {

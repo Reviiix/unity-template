@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Statistics
 {
+    /// <summary>
+    /// This class tracks game time.
+    /// </summary>
     public class TimeTracker
     {
         public const string TimeDisplayPrefix = "TIME: ";

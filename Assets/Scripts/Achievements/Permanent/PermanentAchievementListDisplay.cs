@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Abstract;
 using PureFunctions;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
 
 namespace Achievements.Display.ListDisplay
 {
+    /// <summary>
+    /// This class displays the permanent achievements in a list
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class PermanentAchievementListDisplay : AchievementListDisplay
     {

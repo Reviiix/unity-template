@@ -6,6 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/// <summary>
+/// This class displays the dynamic achievements in a list
+/// </summary>
 public class DynamicAchievementsListDisplay : AchievementListDisplay
 {
     private const string DisplayItemPrefabPath = "Prefabs/UserInterface/Achievements/AchievementListItem.prefab";

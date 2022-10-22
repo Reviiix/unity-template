@@ -5,6 +5,9 @@ using Credits;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/// <summary>
+/// This class manages the dynamic achievements which are intended to change regularly based on the updated remote config
+/// </summary>
 public static class DynamicAchievementManager
 {
     private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
@@ -179,7 +182,7 @@ public static class DynamicAchievementManager
             Unlocked = true;
             if (addCredits)
             {
-                CreditsManager.ChangeCredits(CreditsManager.Currency.PremiumCredits, Reward);
+                CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, Reward);
             }
         }
     }

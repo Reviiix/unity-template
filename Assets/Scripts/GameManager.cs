@@ -3,6 +3,9 @@ using Statistics;
 using UnityEngine;
 using UserInterface;
 
+/// <summary>
+/// This class manages the flow of the game
+/// </summary>
 public class GameManager : Singleton<GameManager>
 {
     public TimeTracker GameTime { get; } = new TimeTracker();

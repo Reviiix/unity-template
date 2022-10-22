@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace UserInterface.PopUpMenus
 {
+    /// <summary>
+    /// This menu will display when the game is paused
+    /// </summary>
     [Serializable]
     public class PauseUserMenu : UserInterface, IUserInterface
     {

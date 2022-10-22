@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace UserInterface.ConditionalMenus
 {
+    /// <summary>
+    /// This is the first open display class. It will be loaded once ever per user so only load through addressables.
+    /// </summary>
     public class FirstOpenPopUpMenu : PopUpInterface, IUserInterface
     {
         [SerializeField] private TMP_Text title;

@@ -1,13 +1,14 @@
 using System;
 using Audio;
-using JetBrains.Annotations;
 using PureFunctions.Movement;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UserInterface
 {
+    /// <summary>
+    /// This is the base class for menus
+    /// </summary>
     [Serializable]
     public abstract class UserInterface
     {
@@ -15,11 +16,17 @@ namespace UserInterface
         protected static MonoBehaviour CoRoutineHandler => UserInterfaceManager.CoRoutineHandler;
     }
     
+    /// <summary>
+    /// This is the interface for menus
+    /// </summary>
     public interface IUserInterface
     { 
         void Enable(bool state = true);
     }
     
+    /// <summary>
+    /// This is the base class for pop up menus
+    /// </summary>
     [RequireComponent(typeof(Canvas))]
     public abstract class PopUpInterface : MonoBehaviour
     {

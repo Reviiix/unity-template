@@ -10,6 +10,10 @@ using Statistics;
 using Statistics.Experience;
 using UnityEngine;
 
+/// <summary>
+/// This class handles saving and loading locally from the device.
+/// It saves custom binary files to the application support folder
+/// </summary>
 public static class SaveSystem
 {
     public static Action<SaveData> OnSaveDataLoaded;
@@ -86,16 +90,16 @@ public static class SaveSystem
             LevelID = ExperienceManager.CurrentLevelID;
             TotalExperience = ExperienceManager.TotalExperience;
             
-            Credits = CreditsManager.ReturnCredits(CreditsManager.Currency.Credits);
-            PremiumCredits = CreditsManager.ReturnCredits(CreditsManager.Currency.PremiumCredits);
+            Credits = CreditsManager.GetCredits(CreditsManager.Currency.Credits);
+            PremiumCredits = CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits);
             
             FirstOpen = HolidayManager.FirstOpen;
             AmountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
             
-            TimesGameHasBeenOpened = PlayerEngagementManager.TimesGameHasBeenOpened;
+            TimesGameHasBeenOpened = PlayerEngagement.TimesGameHasBeenOpened;
             LastTimeAppWasOpen = DateTime.Now;
-            ConsecutiveDailyOpens = PlayerEngagementManager.ConsecutiveDailyOpens;
-            TotalPlayTime = PlayerEngagementManager.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
+            ConsecutiveDailyOpens = PlayerEngagement.ConsecutiveDailyOpens;
+            TotalPlayTime = PlayerEngagement.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
             FurthestLevelIndex = GameStatistics.FurthestLevelIndex;
             LevelRatings = GameStatistics.LevelRatings;

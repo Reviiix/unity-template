@@ -1,9 +1,11 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is the base for handling displaying achievements in a list it is shared by dynamic and permanent achievements.
+/// </summary>
 [RequireComponent(typeof(Transform))]
 public abstract class AchievementListDisplay : MonoBehaviour
 {
