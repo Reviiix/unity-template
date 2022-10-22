@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Achievements.Shared;
 using Credits;
 using Player;
 using PureFunctions;
 using Statistics.Experience;
 using UnityEngine;
 
-namespace Achievements
+namespace Achievements.Permanent
 {
     /// <summary>
     /// This class tracks progress towards unlocking permanent achievements.

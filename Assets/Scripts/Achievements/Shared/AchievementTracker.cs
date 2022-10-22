@@ -1,38 +1,41 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// This class is the base for achievement tracking. it is shared by dynamic and permanent achievements.
-/// </summary>
-public abstract class AchievementTracker : MonoBehaviour
+namespace Achievements.Shared
 {
-    private Coroutine intermittentChecks;
-    private static readonly WaitForSeconds WaitTenMinutes = new WaitForSeconds(600);
-    protected static readonly WaitForSeconds WaitOneHour = new WaitForSeconds(3600);
-    
-    protected virtual void OnEnable()
+    /// <summary>
+    /// This class is the base for achievement tracking. it is shared by dynamic and permanent achievements.
+    /// </summary>
+    public abstract class AchievementTracker : MonoBehaviour
     {
-        intermittentChecks = StartCoroutine(PerformChecksIntermittently());
-    }
+        private Coroutine intermittentChecks;
+        private static readonly WaitForSeconds WaitTenMinutes = new WaitForSeconds(600);
+        protected static readonly WaitForSeconds WaitOneHour = new WaitForSeconds(3600);
     
-    protected virtual void OnDisable()
-    {
-        if (intermittentChecks != null)
+        protected virtual void OnEnable()
         {
-            StopCoroutine(intermittentChecks);
+            intermittentChecks = StartCoroutine(PerformChecksIntermittently());
         }
-    }
     
-    // ReSharper disable once FunctionRecursiveOnAllPaths
-    private IEnumerator PerformChecksIntermittently()
-    {
-        PerformChecks();
-        yield return WaitTenMinutes;
-        intermittentChecks = StartCoroutine(PerformChecksIntermittently());
-    }
+        protected virtual void OnDisable()
+        {
+            if (intermittentChecks != null)
+            {
+                StopCoroutine(intermittentChecks);
+            }
+        }
     
-    protected virtual void PerformChecks()
-    {
-        Debug.LogWarning("Override this method!");
+        // ReSharper disable once FunctionRecursiveOnAllPaths
+        private IEnumerator PerformChecksIntermittently()
+        {
+            PerformChecks();
+            yield return WaitTenMinutes;
+            intermittentChecks = StartCoroutine(PerformChecksIntermittently());
+        }
+    
+        protected virtual void PerformChecks()
+        {
+            Debug.LogWarning("Override this method!");
+        }
     }
 }

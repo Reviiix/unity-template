@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Achievements;
+using Achievements.Dynamic;
+using Achievements.Permanent;
 using Audio;
 using Credits;
 using Player;

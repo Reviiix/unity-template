@@ -3,7 +3,7 @@ using System.Collections;
 using PureFunctions.Effects;
 using UnityEngine;
 
-namespace Achievements.Display.PopUp
+namespace Achievements.Shared.PopUp
 {
     /// <summary>
     /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.

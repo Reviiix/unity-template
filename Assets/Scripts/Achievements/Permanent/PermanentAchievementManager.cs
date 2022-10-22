@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Credits;
 using UnityEngine.AddressableAssets;
 
-namespace Achievements
+namespace Achievements.Permanent
 {
     /// <summary>
     /// This class manages the permanent achievements.

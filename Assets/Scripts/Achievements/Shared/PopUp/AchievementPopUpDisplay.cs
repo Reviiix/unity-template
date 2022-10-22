@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Abstract;
 using Abstract.Interfaces;
+using Achievements.Dynamic;
+using Achievements.Permanent;
 using PureFunctions;
 using UnityEngine;
 
-namespace Achievements.Display.PopUp
+namespace Achievements.Shared.PopUp
 {
     /// <summary>
     /// This class handles the popping of achievements. It is shared by dynamic and permanent achievements.

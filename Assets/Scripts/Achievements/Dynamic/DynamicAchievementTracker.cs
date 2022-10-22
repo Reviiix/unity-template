@@ -1,11 +1,16 @@
-/// <summary>
-/// This class tracks progress towards unlocking dynamic achievements.
-/// </summary>
-public class DynamicAchievementTracker : AchievementTracker
-{
+using Achievements.Shared;
 
-    protected override void PerformChecks()
+namespace Achievements.Dynamic
+{
+    /// <summary>
+    /// This class tracks progress towards unlocking dynamic achievements.
+    /// </summary>
+    public class DynamicAchievementTracker : AchievementTracker
     {
+
+        protected override void PerformChecks()
+        {
         
+        }
     }
 }

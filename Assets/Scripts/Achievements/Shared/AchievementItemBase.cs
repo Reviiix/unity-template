@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Achievements.Display
+namespace Achievements.Shared
 {
     /// <summary>
     /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.

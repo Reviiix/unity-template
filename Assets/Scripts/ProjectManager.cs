@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Abstract;
-using Achievements;
+using Achievements.Dynamic;
+using Achievements.Permanent;
 using Audio;
 using Credits;
 using Player;

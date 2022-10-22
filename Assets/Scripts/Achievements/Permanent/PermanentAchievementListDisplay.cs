@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Achievements.Shared.List;
 using PureFunctions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Achievements.Display.ListDisplay
+namespace Achievements.Permanent
 {
     /// <summary>
     /// This class displays the permanent achievements in a list
