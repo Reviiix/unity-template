@@ -15,7 +15,7 @@ namespace Achievements.Dynamic
     {
         private const string DisplayItemPrefabPath = "Prefabs/UserInterface/Achievements/AchievementListItem.prefab";
         private static readonly AssetReference DisplayItemPrefab = new AssetReference(DisplayItemPrefabPath);
-        private readonly Dictionary<DynamicAchievementManager.Achievement, AchievementItemStruct> _achievementListItems = new Dictionary<DynamicAchievementManager.Achievement, AchievementItemStruct>();
+        private readonly Dictionary<DynamicAchievementManager.Achievement, AchievementItemStruct> achievementListItems = new Dictionary<DynamicAchievementManager.Achievement, AchievementItemStruct>();
         [SerializeField] private TMP_Text noAchievementsSetText;
 
         private void OnEnable()
@@ -72,10 +72,10 @@ namespace Achievements.Dynamic
             achievementItemGameObjectTransform.SetParent(Display);
             achievementItemGameObjectTransform.localScale = Vector3.one;
 
-            _achievementListItems.Add(itemName, new AchievementItemStruct(achievementItemGameObject.Background, achievementItemGameObject.ReturnNameDisplay, achievementItemGameObject.ReturnDescriptionDisplay, achievementItemGameObject.ReturnRewardDisplay, achievementItemGameObject.ReturnGraphic, unlocked));
-            _achievementListItems[itemName].NameDisplay.text = StringUtilities.AddSpacesBeforeCapitals(itemName.ToString());
-            _achievementListItems[itemName].DescriptionDisplay.text = description;
-            _achievementListItems[itemName].RewardDisplay.text = reward.ToString();
+            achievementListItems.Add(itemName, new AchievementItemStruct(achievementItemGameObject.Background, achievementItemGameObject.ReturnNameDisplay, achievementItemGameObject.ReturnDescriptionDisplay, achievementItemGameObject.ReturnRewardDisplay, achievementItemGameObject.ReturnGraphic, unlocked));
+            achievementListItems[itemName].NameDisplay.text = StringUtilities.AddSpacesBeforeCapitals(itemName.ToString());
+            achievementListItems[itemName].DescriptionDisplay.text = description;
+            achievementListItems[itemName].RewardDisplay.text = reward.ToString();
 
             if (unlocked)
             {
@@ -84,7 +84,7 @@ namespace Achievements.Dynamic
             
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(sprite, (returnSprite) =>
             {
-                _achievementListItems[itemName].Graphic.sprite = returnSprite;
+                achievementListItems[itemName].Graphic.sprite = returnSprite;
                 achievementItemGameObject.RemoveClassFromObject();
                 if (sprite.Asset) 
                 {
@@ -106,7 +106,7 @@ namespace Achievements.Dynamic
         {
             if (!ListCreated) return; //Sometimes an achievement for opening the app X amount of times will try to set this before the list is created.
             
-            _achievementListItems[achievement].Background.color = UnLockedColour;
+            achievementListItems[achievement].Background.color = UnLockedColour;
         }
     }
 }

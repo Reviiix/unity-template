@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using PureFunctions;
 using UnityEngine;
 
 namespace Statistics
@@ -9,10 +10,9 @@ namespace Statistics
     /// </summary>
     public class TimeTracker
     {
+        public bool Active { get; private set; }
         public const string TimeDisplayPrefix = "TIME: ";
         private const string TimeFormat = @"m\:ss\.ff";
-        private bool _trackTime;
-        private MonoBehaviour _coRoutineHandler;
         private Coroutine _timeTrackingRoutine;
         private DateTime _gameStartTime = DateTime.Now;
         private DateTime _pauseStartTime = DateTime.Now;
@@ -20,12 +20,11 @@ namespace Statistics
         private TimeSpan _timePaused = TimeSpan.Zero;
         private TimeSpan _currentTime;
 
-        public void StartTimer(MonoBehaviour coRoutineHandler)
+        public void StartTimer()
         {
-            _coRoutineHandler = coRoutineHandler;
-            _trackTime = true;
+            Active = true;
             _gameStartTime = DateTime.Now;
-            _timeTrackingRoutine = _coRoutineHandler.StartCoroutine(TrackTime(_gameStartTime));
+            _timeTrackingRoutine = Coroutiner.StartCoroutine(TrackTime(_gameStartTime)).Coroutine;
         }
         
         public void PauseTimer()
@@ -39,23 +38,23 @@ namespace Statistics
             _pauseEndTime = DateTime.Now;
             _timePaused = _pauseEndTime - _pauseStartTime;
             
-            _trackTime = true;
+            Active = true;
             _gameStartTime += _timePaused;
-            _timeTrackingRoutine = _coRoutineHandler.StartCoroutine(TrackTime(_gameStartTime));
+            _timeTrackingRoutine = Coroutiner.StartCoroutine(TrackTime(_gameStartTime)).Coroutine;
         }
         
         public void StopTimer()
         {
-            _trackTime = false;
+            Active = false;
             OnTimerStop();
         }
     
         private IEnumerator TrackTime(DateTime startingTime)
         {
-            while (_trackTime)
+            while (Active)
             {
                 _currentTime = TrackTimeFrom(startingTime);
-                if (_trackTime == false)
+                if (Active == false)
                 {
                     OnTimerStop();
                     yield return null;
@@ -68,7 +67,7 @@ namespace Statistics
         {
             if (_timeTrackingRoutine != null)
             {
-                _coRoutineHandler.StopCoroutine(_timeTrackingRoutine);
+                Coroutiner.StopCoroutine(_timeTrackingRoutine);
             }
         }
 

@@ -9,11 +9,16 @@ namespace Achievements.Shared
     public abstract class AchievementTracker : MonoBehaviour
     {
         private Coroutine intermittentChecks;
-        private static readonly WaitForSeconds WaitTenMinutes = new WaitForSeconds(600);
-        protected static readonly WaitForSeconds WaitOneHour = new WaitForSeconds(3600);
+        private static readonly WaitForSeconds WaitTenMinutes = new (600);
+        protected static readonly WaitForSeconds WaitOneHour = new (3600);
     
         protected virtual void OnEnable()
         {
+            if (!ProjectManager.EnabledFeatures.Achievements)
+            {
+                Destroy(this);
+                return;
+            }
             intermittentChecks = StartCoroutine(PerformChecksIntermittently());
         }
     
@@ -35,7 +40,8 @@ namespace Achievements.Shared
     
         protected virtual void PerformChecks()
         {
-            Debug.LogWarning("Override this method!");
+            const string errorMessage = "Override this method with the Checks needed to track achievements!";
+            Debug.LogWarning(errorMessage);
         }
     }
 }

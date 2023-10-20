@@ -26,8 +26,8 @@ namespace Statistics.Experience
         {
             if (saveData == null) return;
             
-            CurrentLevelID = saveData.LevelID;
-            TotalExperience = saveData.TotalExperience;
+            CurrentLevelID = saveData.levelID;
+            TotalExperience = saveData.totalExperience;
         }
         
         private static void OnConfigurationChanged(RemoteConfigurationManager.Configuration configuration)

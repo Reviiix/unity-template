@@ -1,4 +1,5 @@
 using System.Collections;
+using PureFunctions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ namespace Achievements.Shared.List
     
         protected virtual IEnumerator Start()
         {
-            yield return ProjectManager.WaitForInitialisation;
+            yield return Wait.WaitForInitialisation;
             Display = GetComponent<Transform>();
         }
     

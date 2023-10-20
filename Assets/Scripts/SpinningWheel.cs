@@ -24,7 +24,7 @@ public class SpinningWheel : MonoBehaviour
         ResetWheel();
     }
 
-    [ContextMenu("Spin")]
+    [ContextMenu(nameof(StartSpin))]
     public void StartSpin()
     {
         Spin(wheelSegments.ReturnFinalSegmentIndex());

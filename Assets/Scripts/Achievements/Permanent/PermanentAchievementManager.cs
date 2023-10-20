@@ -10,9 +10,10 @@ namespace Achievements.Permanent
     /// </summary>
     public static class PermanentAchievementManager
     {
+        private const bool Enabled = ProjectManager.EnabledFeatures.Achievements;
         public static Action<Achievement> OnAchievementUnlocked;
         private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
-        private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>
+        private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new()
         {
             {Achievement.PlayForOneHourConsecutively, new AchievementInformation("Play For One Hour Consecutively.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             
@@ -53,7 +54,7 @@ namespace Achievements.Permanent
         };
         public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
         public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
-        public static AssetReference ReturnSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
+        public static AssetReference GetSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
         public static bool ReturnUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
 
         public static Achievement[] ReturnAllAchievements()
@@ -127,7 +128,7 @@ namespace Achievements.Permanent
             var i = 0;
             foreach (var achievement in Achievements)
             {
-                if (saveData.PermanentAchievements[i])
+                if (saveData.permanentAchievements[i])
                 {
                     achievement.Value.Unlock(false);
                 }
@@ -135,8 +136,10 @@ namespace Achievements.Permanent
             }
         }
 
-        public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything
+        public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything nasty
         {
+            if (!Enabled) return;
+            
             if (ReturnUnlockedState(achievement)) return;
             Achievements[achievement].Unlock();
             OnAchievementUnlocked?.Invoke(achievement);
@@ -162,7 +165,7 @@ namespace Achievements.Permanent
                 Unlocked = true;
                 if (addCredits)
                 {
-                    CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, Reward);
+                    CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, Reward);
                 }
             }
         }

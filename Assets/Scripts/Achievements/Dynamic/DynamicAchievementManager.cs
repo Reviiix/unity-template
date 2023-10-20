@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Credits;
+using PureFunctions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -12,8 +13,8 @@ namespace Achievements.Dynamic
     /// </summary>
     public static class DynamicAchievementManager
     {
+        private const bool Enabled = ProjectManager.EnabledFeatures.Achievements;
         private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
-        private static bool _achievementsSet;
         public static Action<Achievement[]> OnAchievementsSet;
         public static Action<Achievement> OnAchievementUnlocked;
         private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>();
@@ -94,14 +95,15 @@ namespace Achievements.Dynamic
         
         private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
+            //return; //TODO fix
             if (saveData == null) return;
             
-            ProjectManager.Instance.StartCoroutine(WaitForRemoteConfig(() =>
+            Coroutiner.StartCoroutine(Wait.WaitForRemoteConfigToUpdate(() =>
             {
                 var i = 0;
                 foreach (var achievement in Achievements)
                 {
-                    if (saveData.DynamicAchievements[i])
+                    if (saveData.dynamicAchievements[i])
                     {
                         achievement.Value.Unlock(false);
                     }
@@ -137,22 +139,17 @@ namespace Achievements.Dynamic
             {
                 Achievements.Add(Achievement.LevelsComplete, new AchievementInformation("Complete " + stagesComplete + " levels.", dynamicAchievements.stagesCompleteReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
             }
-            _achievementsSet = true;
             OnAchievementsSet?.Invoke(ReturnAllAchievements());
         }
         
         public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything
         {
+            if (!Enabled) return;
+            
             if (!Achievements.ContainsKey(achievement)) return;
             if (ReturnUnlockedState(achievement)) return;
             Achievements[achievement].Unlock();
             OnAchievementUnlocked?.Invoke(achievement);
-        }
-        
-        private static IEnumerator WaitForRemoteConfig(Action callBack)
-        {
-            yield return new WaitUntil(() => _achievementsSet);
-            callBack();
         }
 
         public enum Achievement
@@ -184,7 +181,7 @@ namespace Achievements.Dynamic
                 Unlocked = true;
                 if (addCredits)
                 {
-                    CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, Reward);
+                    CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, Reward);
                 }
             }
         }

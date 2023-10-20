@@ -20,8 +20,8 @@ namespace Player
         {
             if (saveData == null) return;
 
-            PlayerID = saveData.PlayerID;
-            PlayerName = saveData.PlayerName;
+            PlayerID = saveData.playerID;
+            PlayerName = saveData.playerName;
         }
 
         private static void OnNameChange(string name)

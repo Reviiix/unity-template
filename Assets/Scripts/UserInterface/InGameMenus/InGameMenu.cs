@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using Statistics;
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine.SceneManagement;
 
 namespace UserInterface.InGameMenus

@@ -9,15 +9,17 @@ namespace DebuggingAid
     /// </summary>
     public static class Debugging
     {
-        private const bool DisplayDebugMessages = true;
-        #region Error Messages
+        private const bool DisplayDebugMessages = ProjectManager.EnabledFeatures.DebugMessages;
+        #region Common Error Messages
         //The following strings are used consistently as error messages throughout the project so instead of having multiple instances of the same error messages across classes we save them here.
         public const string IsNotAccountedForInSwitchStatement = " is not accounted for in this switch statement! ";
         public const char FullStop = '.';
         public const string DuplicateErrorMessagePrefix = "There are 2 ";
         public const string DuplicateSingletonErrorMessageSuffix = " singletons in the scene. Removing ";
         public const string CanNotFindSingletonErrorMessage = "Can not find singleton: ";
-        #endregion Error Messages
+
+        private const string UnusedAssetsRemovedWarning = "Unused assets have been forcefully unloaded and garbage has been collected manually.";
+        #endregion Common Error Messages
 
         public static void DisplayDebugMessage(string message)
         {
@@ -32,7 +34,7 @@ namespace DebuggingAid
         {
             Resources.UnloadUnusedAssets();
             GC.Collect();
-            DisplayDebugMessage("Unused assets have been forcefully unloaded and garbage has been collected manually.");
+            DisplayDebugMessage(UnusedAssetsRemovedWarning);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using DebuggingAid;
 using PureFunctions;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ namespace Credits
     /// </summary>
     public static class CreditsManager
     {
-        private static readonly CreditTracker Credits  = new CreditTracker();
-        private static readonly CreditTracker PremiumCredits = new CreditTracker();
+        private static readonly CreditTracker Credits  = new ();
+        private static readonly CreditTracker PremiumCredits = new ();
         public static Action<ValueChangeInformation> OnCreditsChanged;
         public static Action<ValueChangeInformation> OnPremiumCreditsChanged;
 
@@ -24,16 +25,19 @@ namespace Credits
         {
             if (saveData == null) return;
             
-            Credits.Initialise(saveData.Credits);
-            PremiumCredits.Initialise(saveData.PremiumCredits);
+            Credits.Initialise(saveData.credits);
+            PremiumCredits.Initialise(saveData.premiumCredits);
         }
         
-        public static void IncrementCredits(Currency currency, long amount)
+        public static void AddCredits(Currency currency, long amount)
         {
             var creditsTracker = GetCreditsTracker(currency);
-            creditsTracker.IncrementCredits(amount);
-            GetIncrementCreditsAction(currency).Invoke(new ValueChangeInformation(creditsTracker.CurrentCredits, creditsTracker.CurrentCredits + amount));
+            var creditsBeforeAddition = creditsTracker.CurrentCredits;
+            var creditsAfterAddition = creditsTracker.CurrentCredits + amount;
+            creditsTracker.AddCredits(amount);
+            GetIncrementCreditsAction(currency).Invoke(new ValueChangeInformation(creditsBeforeAddition, creditsAfterAddition));
             SaveSystem.Save();
+            Debugging.DisplayDebugMessage($"{currency} updated by {amount}.\nFrom {creditsBeforeAddition} to {creditsAfterAddition}.");
         }
         
         public static long GetCredits(Currency currency)
@@ -45,7 +49,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return PremiumCredits.CurrentCredits;
                 default:
-                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
                     return 0;
             }
         }
@@ -59,7 +63,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return PremiumCredits;
                 default:
-                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
                     return PremiumCredits;
             }
         }
@@ -73,7 +77,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return OnPremiumCreditsChanged;
                 default:
-                    Debug.LogError(currency + DebuggingAid.Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
                     return OnPremiumCreditsChanged;
             }
         }
@@ -88,7 +92,7 @@ namespace Credits
                 CurrentCredits = credits;
             }
 
-            public void IncrementCredits(long amount)
+            public void AddCredits(long amount)
             {
                 CurrentCredits += amount;
             }
@@ -100,5 +104,4 @@ namespace Credits
             PremiumCredits
         }
     }
-    
 }

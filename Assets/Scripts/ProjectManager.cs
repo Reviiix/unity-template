@@ -12,17 +12,17 @@ using UnityEngine;
 using UserInterface;
 
 /// <summary>
-/// This class manages features on a whole project scope such as initialsation and..
+/// This class manages features on a whole project scope such as initialisation, enabled features and..
 /// </summary>
 public class ProjectManager : Singleton<ProjectManager>
 {
     [SerializeField] private BaseAudioManager audioManager;
     [SerializeField] private UserInterfaceManager userInterface;
-    [SerializeField] private ObjectPooling objectPool;
+    [SerializeField] private ObjectPooler objectPool;
     public static Action OnApplicationOpen;
-    public static readonly WaitUntil WaitForInitialisation = ProjectInitializer.WaitForAsynchronousInitialisationToComplete;
+    public static bool Initialised => ProjectInitializer.Complete;
 
-    protected override void OnEnable() //OnEnable instead of strt to ensure instance is set by 
+    protected override void OnEnable() //OnEnable instead of Start/Awake to ensure instance is set by base class.
     {
         base.OnEnable();
         ProjectInitializer.Initialise(()=>OnApplicationOpen?.Invoke());
@@ -31,30 +31,19 @@ public class ProjectManager : Singleton<ProjectManager>
     private void OnApplicationQuit()
     {
         SaveSystem.Save();
-        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ", Total Play Time: " + PlayerEngagement.TotalPlayTime);
-    }
-    
-    public static IEnumerator WaitForInitialisationToComplete(Action callBack)
-    {
-        yield return WaitForInitialisation;
-        callBack();
+        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ".\nTotal Play Time: " + PlayerEngagement.TotalPlayTime);
     }
 
-    //Initialising like this seems cumbersome but gives better control over the order of events and helps prevent race conditions
+    /// <summary>
+    /// Initialising like this seems cumbersome but gives better control over the order of events and helps prevent race conditions
+    /// </summary>
     private static class ProjectInitializer
     {
-        public static readonly WaitUntil WaitForAsynchronousInitialisationToComplete = new WaitUntil(() => Initialised);
-        private static bool _initialised;
-        private static bool Initialised
-        {
-            get => _initialised;
-            // ReSharper disable once ValueParameterNotUsed
-            set => _initialised = true;
-        }
+        public static bool Complete { get; private set; }
 
         public static void Initialise(Action callBack)
         {
-            if (Initialised) return;
+            if (Complete) return;
             
             InitialiseStaticManagers(() =>
             {
@@ -62,12 +51,18 @@ public class ProjectManager : Singleton<ProjectManager>
                 {
                     RemoteConfigurationManager.UpdateConfiguration();
                     SaveSystem.Load();
-                    Initialised = true;
+                    Complete = true;
                     callBack();
                 });
             });
         }
 
+        /// <summary>
+        /// Initialising like this instead of through the static constructor gives greater control over the order of execution.
+        /// </summary>
+        /// <param name="callBack">
+        /// /// Action is intended to start any other initialisation that is dependent on the static classes.
+        /// </param>
         private static void InitialiseStaticManagers(Action callBack)
         {
             RemoteConfigurationManager.Initialise();
@@ -82,9 +77,15 @@ public class ProjectManager : Singleton<ProjectManager>
             callBack();
         }
     
+        /// <summary>
+        /// Some classes are dependant on objects being created by the ObjectPooler class which uses the asynchronous addressable system so we need to wait for that to be done before initialising those classes.
+        /// </summary>
+        /// <param name="callBack">
+        /// /// Action is intended to start any other initialisation that is dependent on the singleton classes.
+        /// </param>
         private static void InitialiseSingletons(Action callBack)
         {
-            Instance.objectPool.Initialise(() => //Some classes are dependant on objects being created by the ObjectPooler class which uses the asynchronous addressable system so we need to wait for that to be done before initialising those classes.
+            Instance.objectPool.Initialise(() =>
             {
                 Instance.audioManager.Initialise();
                 Instance.userInterface.Initialise();
@@ -97,6 +98,15 @@ public class ProjectManager : Singleton<ProjectManager>
     {
         private const string GitHubURL = "https://github.com/Reviiix/unity-template";
         private const string DiscordServer = "https://github.com/Reviiix/unity-template";
+        private const string SupportEmail = "fuckoff@live.co.uk";
+    }
+    
+    public struct EnabledFeatures
+    {
+        public const bool DebugMessages = true;
+        public const bool Achievements = false;
+        public const bool DailyBonus = true;
+        public const bool SaveWithBinaryFormatter = true; //Alternative is JSON.
     }
 }
 

@@ -27,14 +27,14 @@ namespace Achievements.Shared.PopUp
         protected override void Awake()
         {
             base.Awake();
-            StartCoroutine(ProjectManager.WaitForInitialisationToComplete(ResolveDependencies));
+            StartCoroutine(Wait.WaitForInitialisationToComplete(ResolveDependencies));
         }
 
         private void OnEnable()
         {
             PermanentAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
             DynamicAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
-            StartCoroutine(ProjectManager.WaitForInitialisationToComplete(ResolveDependencies));
+            StartCoroutine(Wait.WaitForInitialisationToComplete(ResolveDependencies));
         }
         
         protected override void OnDisable()
@@ -46,11 +46,11 @@ namespace Achievements.Shared.PopUp
         
         private void ResolveDependencies()
         {
-            _maximumNumberOfActiveAchievements = ObjectPooling.ReturnMaximumActiveObjects(PoolIndex);
+            _maximumNumberOfActiveAchievements = ObjectPooler.GetMaximumActiveObjects(PoolIndex);
             _parent = GetComponent<Transform>();
             for (var i = 0; i < _maximumNumberOfActiveAchievements; i++)
             {
-                var popUp = ObjectPooling.ReturnObjectFromPool(PoolIndex, Vector3.zero, Quaternion.identity.normalized, false).GetComponent<AchievementPopUpItem>();
+                var popUp = ObjectPooler.GetObjectFromPool(PoolIndex, Vector3.zero, Quaternion.identity.normalized, false).GetComponent<AchievementPopUpItem>();
                 popUp.transform.SetParent(_parent);
                 PopUps.Enqueue(popUp);
             }
@@ -78,7 +78,7 @@ namespace Achievements.Shared.PopUp
 
         private static void PopAchievement(PermanentAchievementManager.Achievement achievement)
         {
-            var assetReference = PermanentAchievementManager.ReturnSpriteAssetReference(achievement);
+            var assetReference = PermanentAchievementManager.GetSpriteAssetReference(achievement);
             _activeAchievements++;
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
             {

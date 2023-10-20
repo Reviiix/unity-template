@@ -21,10 +21,9 @@ namespace Credits
 
         private IEnumerator Start()
         {
-            MonoBehaviour coRoutineHandler = this;
-            yield return ProjectManager.WaitForInitialisation;
-            credits.Initialise(coRoutineHandler, CreditsManager.GetCredits(CreditsManager.Currency.Credits));
-            premiumCredits.Initialise(coRoutineHandler, CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits));
+            yield return Wait.WaitForInitialisation;
+            credits.Initialise(CreditsManager.GetCredits(CreditsManager.Currency.Credits));
+            premiumCredits.Initialise(CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits));
         }
 
         private void OnEnable()
@@ -43,16 +42,14 @@ namespace Credits
         private class CreditDisplay : IHandleSimultaneousAdditions
         {
             private const int RollUpSpeed = RollUpTimeInSeconds;
-            private MonoBehaviour coRoutineHandler;
             private bool animating;
             [SerializeField] private TMP_Text creditsDisplay;
             [SerializeField] private string prefix = "ERROR";
             [SerializeField] private string suffix = "ERROR";
-            private readonly Queue<ValueChangeInformation> additionQueue = new Queue<ValueChangeInformation>(); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
+            private readonly Queue<ValueChangeInformation> additionQueue = new (); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
 
-            public void Initialise(MonoBehaviour coRoutineHandler, long startingValue)
+            public void Initialise(long startingValue)
             {
-                this.coRoutineHandler = coRoutineHandler;
                 creditsDisplay.text = prefix + startingValue + suffix;
             }
 
@@ -70,11 +67,11 @@ namespace Credits
             {
                 var newValue = valueChangeInformation.NewValue;
                 animating = true;
-                coRoutineHandler.StartCoroutine(NumberRollup.Rollup(creditsDisplay, valueChangeInformation.OldValue, newValue, prefix, suffix,RollUpSpeed,() =>
+                Coroutiner.StartCoroutine(NumberRollup.Rollup(creditsDisplay, valueChangeInformation.OldValue, newValue, prefix, suffix,RollUpSpeed,() =>
                 {
                     animating = false;
                     creditsDisplay.text = prefix + newValue + suffix;
-                    coRoutineHandler.StartCoroutine(HandleDelayedAdditions());
+                    Coroutiner.StartCoroutine(HandleDelayedAdditions());
                 }));
             }
             

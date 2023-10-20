@@ -13,7 +13,6 @@ namespace UserInterface
     public abstract class UserInterface
     {
         public Canvas display;
-        protected static MonoBehaviour CoRoutineHandler => UserInterfaceManager.CoRoutineHandler;
     }
     
     /// <summary>

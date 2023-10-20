@@ -26,20 +26,20 @@ namespace Audio
 
         private void OnEnable()
         {
-            SaveSystem.OnSaveDataLoaded += Load;
+            SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
         }
 
         private void OnDisable()
         {
-            SaveSystem.OnSaveDataLoaded -= Load;
+            SaveSystem.OnSaveDataLoaded -= OnSaveDataLoaded;
         }
 
-        private void Load(SaveSystem.SaveData saveData)
+        private void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
             
-            MatchVolumeSliderWithIcon(saveData.Volume);
-            MatchVolumeIconWithSlider(saveData.Volume);
+            MatchVolumeSliderWithIcon(saveData.volume);
+            MatchVolumeIconWithSlider(saveData.volume);
         }
         
         private void SetButtonEvents()

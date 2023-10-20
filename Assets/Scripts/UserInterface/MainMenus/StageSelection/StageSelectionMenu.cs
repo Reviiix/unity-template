@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using PureFunctions;
 using Statistics;
 using TMPro;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace UserInterface.MainMenus.StageSelection
         private static GameObject _addressableAsGameObject;
         private static RectTransform[] _levelGroupDisplays;
         private static LevelItemDisplay[] _levelListItems;
-        private static int _amountOfLevelGroups = StageLoadManager.ReturnAmountOfStageGroups;
+        private static int _amountOfLevelGroups = StageLoadManager.AmountOfStageGroups;
         private static int _currentLeveGroupDisplayIndex;
         private static int CurrentLeveGroupDisplayIndex
         {
@@ -41,7 +42,7 @@ namespace UserInterface.MainMenus.StageSelection
 
         public void Initialise()
         {
-            CoRoutineHandler.StartCoroutine(CreateDisplayAsynchronously());
+            Coroutiner.StartCoroutine(CreateDisplayAsynchronously());
         }
 
         public void Enable(bool state = true)
@@ -64,11 +65,11 @@ namespace UserInterface.MainMenus.StageSelection
             
             yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
             
-            _levelListItems = new LevelItemDisplay[StageLoadManager.ReturnTotalAmountOfStages];
+            _levelListItems = new LevelItemDisplay[StageLoadManager.TotalAmountOfStages];
 
             for (var groupIndex = 0; groupIndex < _amountOfLevelGroups; groupIndex++)
             {
-                var amountOfLevels = StageLoadManager.ReturnAmountOfStagesIn(groupIndex);
+                var amountOfLevels = StageLoadManager.GetAmountOfStagesIn(groupIndex);
                 
                 levelItemParent = Object.Instantiate(parentCache, levelItemParent.parent);
                 levelGroupDisplays.Add(levelItemParent.GetComponent<RectTransform>());

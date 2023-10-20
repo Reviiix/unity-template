@@ -97,6 +97,8 @@ namespace UserInterface.MainMenus
             performanceContent.SetActive(state);
             performanceTitle.fontStyle = GetHighlightedFontStyle(state);
             SetTimePlayedDisplay();
+            SetTimesOpenedDisplay();
+            SetLongestSessionDisplay();
         }
 
         private void SetTimePlayedDisplay()
@@ -113,7 +115,7 @@ namespace UserInterface.MainMenus
         
         private void SetLongestSessionDisplay()
         {
-            const string prefix = "LONGEST SESSION: ERROR";
+            const string prefix = "LONGEST SESSION: ";
             longestSession.text = prefix;
         }
         #endregion Performance Panel

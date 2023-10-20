@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Abstract;
 using Abstract.Interfaces;
-using Player;
+using DG.Tweening;
+using PureFunctions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,14 +18,15 @@ namespace Statistics.Experience
         private Coroutine gainExperienceCoroutine;
         private static long _amountOfExperienceForNextLevelCache;
         private int levelIDCache;
-        private static readonly Queue<KeyValuePair<long, long>> AdditionQueue = new Queue<KeyValuePair<long, long>>(); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
+        private static readonly Queue<KeyValuePair<long, long>> AdditionQueue = new (); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
         [SerializeField] private Image levelBar;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text experienceText;
+        private const int AnimationDuration = 3; 
         
         private IEnumerator Start()
         {
-            yield return ProjectManager.WaitForInitialisation;
+            yield return Wait.WaitForInitialisation;
             Initialise();
         }
 
@@ -66,49 +67,54 @@ namespace Statistics.Experience
                 AdditionQueue.Enqueue(new KeyValuePair<long, long>(oldValue, newValue));
                 return;
             }
-            gainExperienceCoroutine = StartCoroutine(GainExperienceAnimation(oldValue, newValue));
+            GainExperienceAnimation(oldValue, newValue);
         }
 
-        private IEnumerator GainExperienceAnimation(long oldValue, long newValue)
+        private void GainExperienceAnimation(long oldValue, long newValue, int seconds = AnimationDuration)
         {
-            const float levelBarIncrementAmount = 0.01f;
-            var newBarValue = ReturnExperienceAsBarValue(newValue, levelIDCache);
-            var barValueDifference = newBarValue - levelBar.fillAmount;
-            var amountOfWhileLoops = Mathf.CeilToInt(barValueDifference / levelBarIncrementAmount);
-            var incrementAmount = Mathf.CeilToInt((float)(newValue - oldValue) / amountOfWhileLoops);
-            var experienceAmount = (int)oldValue;
-            animating = true;
+            ChangeFillBarAmount(newValue, seconds);
+            ChangeTextAmount(oldValue, newValue, seconds);
+        }
 
-            while (levelBar.fillAmount < newBarValue)
+        private void ChangeFillBarAmount(long newValue, int seconds)
+        {
+            one = DOTween.To(()=> levelBar.fillAmount, x=> levelBar.fillAmount = x, ReturnExperienceAsBarValue(newValue, levelIDCache), seconds).OnComplete(() =>
             {
-                levelBar.fillAmount += levelBarIncrementAmount;
-                experienceText.text = experienceAmount + "/" + _amountOfExperienceForNextLevelCache;
-                experienceAmount += incrementAmount;
-
-                if (levelBar.fillAmount >= 1) OnVisualLevelUp(experienceAmount, newValue);
-
-                yield return null;
-            }
-            experienceText.text = newValue + "/" + _amountOfExperienceForNextLevelCache;
-            levelBar.fillAmount = newBarValue;
-            animating = false;
-            
-            StartCoroutine(HandleDelayedAdditions());
+                //levelBar.fillAmount = ReturnExperienceAsBarValue(newValue, levelIDCache);
+            });
         }
-
-        private void OnVisualLevelUp(long currentValue, long newValue)
+        
+        private Tween one;
+        private Tween two;
+        
+        private void ChangeTextAmount(long oldValue, long newValue, int seconds)
         {
-            if (gainExperienceCoroutine != null) StopCoroutine(gainExperienceCoroutine);
-            levelIDCache++;
-            _amountOfExperienceForNextLevelCache = ExperienceManager.GetAllExperienceToLevelUp(levelIDCache);
-            levelText.text = (levelIDCache+1).ToString();
-            levelBar.fillAmount = 0;
-            RestartExperienceGainProcess(currentValue, newValue);
+            var numberDisplay = oldValue;
+
+            two = DOTween.To(()=> numberDisplay, x=> numberDisplay = x, newValue, seconds).OnUpdate(() =>
+            {
+                experienceText.text = numberDisplay + "/" + _amountOfExperienceForNextLevelCache;
+                if (numberDisplay >= _amountOfExperienceForNextLevelCache)
+                {
+                    DOTween.Kill(one);
+                    DOTween.Kill(two);
+                    levelIDCache++;
+                    _amountOfExperienceForNextLevelCache = ExperienceManager.GetAllExperienceToLevelUp(levelIDCache);
+                    levelText.text = (levelIDCache+1).ToString();
+                    levelBar.fillAmount = 0;
+                    //RestartExperienceGainProcess(numberDisplay, newValue);
+
+                }
+            }).OnComplete(() =>
+            {
+                //experienceText.text = newValue + "/" + _amountOfExperienceForNextLevelCache;
+            });
         }
+        
 
         private void RestartExperienceGainProcess(long currentValue, long newValue)
         {
-            gainExperienceCoroutine = StartCoroutine(GainExperienceAnimation(currentValue, newValue));
+            GainExperienceAnimation(currentValue, newValue);;
         }
 
         public IEnumerator HandleDelayedAdditions()

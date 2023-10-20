@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public static class RemoteConfigurationManager
 {
+    public static bool RemoteConfigSet { get; private set; }
     public static Action<Configuration> OnConfigurationChanged;
     private const string RemoteConfigKey = "Configuration";
     public static readonly Configuration OfflineConfiguration = new Configuration(true, "None", 50, new DynamicAchievements(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1));
@@ -29,10 +30,9 @@ public static class RemoteConfigurationManager
         var newConfiguration = JsonUtility.FromJson<Configuration>(newConfigurationAsJson);
 
         CurrentConfiguration = newConfiguration;
-
         OnConfigurationChanged?.Invoke(newConfiguration);
-
-        DebuggingAid.Debugging.DisplayDebugMessage("Remote Config Updated: \n" + newConfigurationAsJson);
+        RemoteConfigSet = true;
+        DebuggingAid.Debugging.DisplayDebugMessage("Remote Config Updated:\n\n" + newConfigurationAsJson);
     }
     
     [JsonObject]

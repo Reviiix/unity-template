@@ -32,19 +32,18 @@ namespace Player
         public static void Initialise()
         {
             ProjectManager.OnApplicationOpen += OnApplicationOpen;
-            SaveSystem.OnSaveDataLoaded += LoadEngagementStatistics;
+            SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
         }
     
-        private static void LoadEngagementStatistics(SaveSystem.SaveData saveData)
+        private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
             
-            _timesGameHasBeenOpened = saveData.TimesGameHasBeenOpened;
+            _timesGameHasBeenOpened = saveData.timesGameHasBeenOpened;
             LastTimeAppWasOpen = saveData.LastTimeAppWasOpen;
-            ConsecutiveDailyOpens = saveData.ConsecutiveDailyOpens;
+            ConsecutiveDailyOpens = saveData.consecutiveDailyOpens;
             TotalPlayTime = saveData.TotalPlayTime;
-            LastTimeAppWasOpen = saveData.LastTimeAppWasOpen;
-            ConsecutiveDailyOpens = saveData.ConsecutiveDailyOpens;
+            ConsecutiveDailyOpens = saveData.consecutiveDailyOpens;
         }
 
         private static void OnApplicationOpen()

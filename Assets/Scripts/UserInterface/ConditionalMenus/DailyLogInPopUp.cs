@@ -77,7 +77,7 @@ namespace UserInterface.ConditionalMenus
         {
             var credits = DailyCredits + _creditsFromWheelCache;
             Display.GetComponent<GraphicRaycaster>().enabled = false;
-            CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, credits);
+            CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, credits);
             RollupCredits(credits, 0, RollUpTime, () =>
             {
                 Enable(false);

@@ -23,7 +23,7 @@ public static class HolidayManager
         if (saveData == null) return;
 
         FirstOpen = saveData.FirstOpen;
-        AmountOfYearsSinceFirstOpen = saveData.AmountOfYearsSinceFirstOpen;
+        AmountOfYearsSinceFirstOpen = saveData.amountOfYearsSinceFirstOpen;
     }
 
     private static void OnConfigurationChanged(RemoteConfigurationManager.Configuration configuration)

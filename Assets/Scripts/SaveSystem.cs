@@ -7,109 +7,170 @@ using Achievements.Dynamic;
 using Achievements.Permanent;
 using Audio;
 using Credits;
+using DebuggingAid;
+using Newtonsoft.Json;
 using Player;
 using Statistics;
 using Statistics.Experience;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// This class handles saving and loading locally from the device.
-/// It saves custom binary files to the application support folder
+/// It saves using either the Binary Formatter or JSON Utilities.
+/// Save data is stored in to the Application.persistentDataPath folder (Usually the application support folder)
+/// Custom binary files arte more secure but can be unreliable and difficult to work with.
+/// JSON is easy to work with but is human readable and can be edited by someone with a decent amount of computing experience.
 /// </summary>
 public static class SaveSystem
 {
+    private const bool SaveWithBinaryFormatter = ProjectManager.EnabledFeatures.SaveWithBinaryFormatter; //Alternative is JSON.
     public static Action<SaveData> OnSaveDataLoaded;
-    private static readonly BinaryFormatter Formatter = new BinaryFormatter();
+    private static readonly BinaryFormatter Formatter = new();
     private static readonly string Location = Application.persistentDataPath;
     private static readonly string FilePath = Location + "/SaveData.";
 
     public static void Save()
     {
-        SaveClass<SaveData>(FilePath);
+        if (SaveWithBinaryFormatter)
+        {
+            SaveClassWithBinaryFormatter<SaveData>(FilePath);
+        }
+        else
+        {
+            SaveClassWithJSON<SaveData>(FilePath);
+        }
     }
 
     public static void Load()
     {
-        OnSaveDataLoaded?.Invoke(LoadClass<SaveData>(FilePath));
-    }
-
-    public static void Delete()
-    {
-        var directory = new DirectoryInfo(Location).Parent;
-        directory?.Delete(true);
-    }
-
-    private static void SaveClass<T>(string path) where T : new()
-    {
-        var stream = new FileStream(path, FileMode.Create);
-        var saveData = new T();
-        
-        Formatter.Serialize(stream, saveData);
-        stream.Close();
+        OnSaveDataLoaded?.Invoke(SaveWithBinaryFormatter ? LoadClassFromBinaryFormatter<SaveData>(FilePath) : LoadClassFromJSON<SaveData>(FilePath));
     }
     
-    private static T LoadClass<T>(string path) where T : class
+    public static void Delete()
+    {
+        try
+        {
+            new DirectoryInfo(Location).Parent?.Delete(true);
+        }
+        catch (Exception e)
+        {
+            const string errorMessage = "Failed To delete save data. Exception:";
+            Debug.LogError(errorMessage + e);
+        }
+    }
+    
+    #region Binary Save System
+    private static void SaveClassWithBinaryFormatter<T>(string path) where T : new()
+    {
+        try
+        {
+            using var stream = new FileStream(path, FileMode.Create);
+            
+            if (stream.Length == 0) return;
+            
+            var saveData = new T();
+            Formatter.Serialize(stream, saveData);
+            stream?.Close();
+        }
+        catch (Exception e)
+        {
+            const string errorMessage = "Failed To save data. Exception:";
+            Debug.LogError(errorMessage + e);
+        }
+    }
+    
+    private static T LoadClassFromBinaryFormatter<T>(string path) where T : class
     {
         if (!File.Exists(path)) return null;
         
-        var stream = new FileStream(path, FileMode.Open);
+        using var stream = new FileStream(path, FileMode.Open);
 
         if (stream.Length == 0) return null;
         
         var saveData = Formatter.Deserialize(stream) as T;
         
-        stream.Close();
+        stream?.Close();
 
         return saveData;
     }
+    #endregion Binary Save System
+
+    #region JSON Save System
+    private static void SaveClassWithJSON<T>(string path) where T : new()
+    {
+        try
+        {
+            var v = JsonUtility.ToJson(new T(), true);
+            File.WriteAllText(path, v);
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+    }
+    
+    private static T LoadClassFromJSON<T>(string path) where T : class
+    {
+        try
+        {
+            return JsonUtility.FromJson<T>(File.ReadAllText(path));
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+            return null;
+        }
+    }
+    #endregion JSON Save System
 
     [Serializable]
     public class SaveData
     {
-        public readonly long PlayerID;
-        public readonly string PlayerName;
-        public readonly int LevelID = 1;
-        public readonly long TotalExperience;
-        public readonly long Credits;
-        public readonly long PremiumCredits;
-        public readonly DateTime LastTimeAppWasOpen;
-        public readonly int ConsecutiveDailyOpens;
-        public readonly TimeSpan TotalPlayTime;
-        public readonly DateTime FirstOpen;
-        public readonly int AmountOfYearsSinceFirstOpen;
-        public readonly int TimesGameHasBeenOpened;
-        public readonly KeyValuePair<int, int> FurthestLevelIndex;
-        public readonly int[] LevelRatings;
-        public readonly float Volume;
-        public readonly bool[] PermanentAchievements;
-        public readonly bool[] DynamicAchievements;
-
+        [FormerlySerializedAs("PlayerID")] public long playerID;
+        [FormerlySerializedAs("PlayerName")] public string playerName;
+        [FormerlySerializedAs("LevelID")] public int levelID = 1;
+        [FormerlySerializedAs("TotalExperience")] public long totalExperience;
+        [FormerlySerializedAs("Credits")] public long credits;
+        [FormerlySerializedAs("PremiumCredits")] public long premiumCredits;
+        public DateTime LastTimeAppWasOpen;
+        [FormerlySerializedAs("ConsecutiveDailyOpens")] public int consecutiveDailyOpens;
+        public TimeSpan TotalPlayTime;
+        public DateTime FirstOpen;
+        [FormerlySerializedAs("AmountOfYearsSinceFirstOpen")] public int amountOfYearsSinceFirstOpen;
+        [FormerlySerializedAs("TimesGameHasBeenOpened")] public int timesGameHasBeenOpened;
+        public KeyValuePair<int, int> FurthestLevelIndex;
+        [FormerlySerializedAs("LevelRatings")] public int[] levelRatings;
+        [FormerlySerializedAs("Volume")] public float volume;
+        [FormerlySerializedAs("PermanentAchievements")] public bool[] permanentAchievements;
+        [FormerlySerializedAs("DynamicAchievements")] public bool[] dynamicAchievements;
+        
         public SaveData()
         {
-            PlayerID = PlayerInformation.PlayerID;
-            PlayerName = PlayerInformation.PlayerName;
+            playerID = PlayerInformation.PlayerID;
+            playerName = PlayerInformation.PlayerName;
             
-            LevelID = ExperienceManager.CurrentLevelID;
-            TotalExperience = ExperienceManager.TotalExperience;
+            levelID = ExperienceManager.CurrentLevelID;
+            totalExperience = ExperienceManager.TotalExperience;
             
-            Credits = CreditsManager.GetCredits(CreditsManager.Currency.Credits);
-            PremiumCredits = CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits);
+            credits = CreditsManager.GetCredits(CreditsManager.Currency.Credits);
+            premiumCredits = CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits);
             
             FirstOpen = HolidayManager.FirstOpen;
-            AmountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
+            amountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
             
-            TimesGameHasBeenOpened = PlayerEngagement.TimesGameHasBeenOpened;
+            timesGameHasBeenOpened = PlayerEngagement.TimesGameHasBeenOpened;
             LastTimeAppWasOpen = DateTime.Now;
-            ConsecutiveDailyOpens = PlayerEngagement.ConsecutiveDailyOpens;
+            consecutiveDailyOpens = PlayerEngagement.ConsecutiveDailyOpens;
             TotalPlayTime = PlayerEngagement.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
             FurthestLevelIndex = GameStatistics.FurthestLevelIndex;
-            LevelRatings = GameStatistics.LevelRatings;
+            levelRatings = GameStatistics.LevelRatings;
 
-            Volume = BaseAudioManager.CurrentVolume;
+            volume = BaseAudioManager.CurrentVolume;
 
-            PermanentAchievements = PermanentAchievementManager.ReturnUnLockStates();
-            DynamicAchievements = DynamicAchievementManager.ReturnUnLockStates();
+            permanentAchievements = PermanentAchievementManager.ReturnUnLockStates();
+            dynamicAchievements = DynamicAchievementManager.ReturnUnLockStates();
         }
     }
 }

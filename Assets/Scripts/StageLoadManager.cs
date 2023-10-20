@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using PureFunctions;
 using PureFunctions.Effects;
 using Statistics;
 using UnityEngine;
@@ -16,12 +17,14 @@ using UserInterface;
 public static class StageLoadManager
 {
     private static KeyValuePair<int, int> _furthestLevelIndex = GameStatistics.FurthestLevelIndex;
-    private static MonoBehaviour CoRoutineHandler => ProjectManager.Instance;
-    public static int ReturnStageIndex(int stageGroup, int stage) => StageConfiguration.ReturnAssetReferenceIndex(stageGroup, stage);
-    private static AssetReference ReturnStageAsAssetReference(int stageGroup, int stage) => StageConfiguration.ReturnAssetReferenceForStage(stageGroup, stage);
-    public static int ReturnTotalAmountOfStages => StageConfiguration.ReturnAmountOfAssetReferences;
-    public static int ReturnAmountOfStageGroups => StageConfiguration.ReturnAmountOfGroups();
-    public static int ReturnAmountOfStagesIn(int groupIndex) => StageConfiguration.ReturnAmountOfStagesInGroup(groupIndex);
+    public static int GetStageIndex(int stageGroup, int stage) => StageConfiguration.GetAssetReferenceIndex(stageGroup, stage);
+    private static AssetReference GetStageAsAssetReference(int stageGroup, int stage) => StageConfiguration.GetAssetReferenceForStage(stageGroup, stage);
+    public const string InitialisationStageFilePath = StageConfiguration.InitialisationSceneFilePath;
+    public const string StageFilePathPrefix = StageConfiguration.FilePathPrefix;
+    
+    public static readonly int TotalAmountOfStages = StageConfiguration.GetAmountOfAssetReferences;
+    public static readonly int AmountOfStageGroups = StageConfiguration.GetAmountOfGroups();
+    public static int GetAmountOfStagesIn(int groupIndex) => StageConfiguration.GetAmountOfStagesInGroup(groupIndex);
     
     public static void LoadLatestUnlockedStage()
     {
@@ -35,7 +38,7 @@ public static class StageLoadManager
     
     public static void LoadSpecificStage(int stageGroup, int stage)
     {
-        CoRoutineHandler.StartCoroutine(FadeInNewStage(stageGroup, stage,() =>
+        Coroutiner.StartCoroutine(FadeInNewStage(stageGroup, stage,() =>
         {
             //Fade complete.
             UserInterfaceManager.EnableBackground(false);
@@ -62,13 +65,13 @@ public static class StageLoadManager
             
         public static IEnumerator LoadStageWithFade(int stageGroup, int stage, Action fadeCompleteCallBack = null, Action completeCallBack = null)
         {
-            yield return CoRoutineHandler.StartCoroutine(Fade.FadeImageAlphaUp(FadeImage, FadeDuration)); 
+            yield return Coroutiner.StartCoroutine(Fade.FadeImageAlphaUp(FadeImage, FadeDuration)); 
             
             fadeCompleteCallBack?.Invoke();
             
-            AssetReferenceLoader.LoadScene(ReturnStageAsAssetReference(stageGroup, stage)); //Should i do a wait here or does the fade disquise it??
+            AssetReferenceLoader.LoadScene(GetStageAsAssetReference(stageGroup, stage)); //Should i do a wait here or does the fade disquise it??
             
-            yield return CoRoutineHandler.StartCoroutine(Fade.FadeImageAlphaDown(FadeImage, FadeDuration));
+            yield return Coroutiner.StartCoroutine(Fade.FadeImageAlphaDown(FadeImage, FadeDuration));
             
             completeCallBack?.Invoke();
         }
@@ -76,7 +79,8 @@ public static class StageLoadManager
 
     private readonly struct StageConfiguration
     {
-        private const string FilePathPrefix = "Assets/Scenes/";
+        public const string InitialisationSceneFilePath = "Assets/Scenes/Initialisation.unity";
+        public const string FilePathPrefix = "Assets/Scenes/";
         private const string FilePathSuffix = ".unity";
         private const string LevelGroupOneFilePath = FilePathPrefix + "LevelGroupOne/0-";
         private const string LevelGroupTwoFilePath = FilePathPrefix + "LevelGroupTwo/1-";
@@ -103,12 +107,12 @@ public static class StageLoadManager
                 new AssetReference(LevelGroupTwoFilePath + "6" + FilePathSuffix),
             }),
         };
-        public static AssetReference ReturnAssetReferenceForStage(int stageGroup, int stage) => StageGroups[stageGroup].Stages[stage];
-        public static int ReturnAmountOfGroups() => StageGroups.Length;
-        public static int ReturnAmountOfStagesInGroup(int groupIndex) => StageGroups[groupIndex].Stages.Length;
-        public static int ReturnAmountOfAssetReferences => ReturnAllAssetReferences().Length;
+        public static AssetReference GetAssetReferenceForStage(int stageGroup, int stage) => StageGroups[stageGroup].Stages[stage];
+        public static int GetAmountOfGroups() => StageGroups.Length;
+        public static int GetAmountOfStagesInGroup(int groupIndex) => StageGroups[groupIndex].Stages.Length;
+        public static int GetAmountOfAssetReferences => ReturnAllAssetReferences().Length;
 
-        public static int ReturnAssetReferenceIndex(int stageGroup, int currentStageGroupStage)
+        public static int GetAssetReferenceIndex(int stageGroup, int currentStageGroupStage)
         {
             var mountOfStagesInCompletedWorlds = 0;
             for (var i = 0; i < stageGroup; i++)

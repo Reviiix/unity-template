@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace UserInterface.ConditionalMenus
 {
     /// <summary>
-    /// This is the anniversary popUp display class. It will be loaded once per year so only load through addressables
+    /// This is the anniversary popUp display class. It will be loaded once per year so only load through addressables so its only loaded when needed.
     /// </summary>
     public class AnniversaryPopUp : PopUpInterface, IUserInterface
     {
@@ -39,8 +39,8 @@ namespace UserInterface.ConditionalMenus
 
         private static void ClaimReward()
         {
-            CreditsManager.IncrementCredits(CreditsManager.Currency.Credits, RewardCredits);
-            CreditsManager.IncrementCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
+            CreditsManager.AddCredits(CreditsManager.Currency.Credits, RewardCredits);
+            CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
         }
 
         public override void Enable(bool state = true)

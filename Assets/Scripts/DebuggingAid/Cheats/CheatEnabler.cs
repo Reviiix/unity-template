@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
 
 namespace DebuggingAid.Cheats
 {
@@ -20,9 +18,12 @@ namespace DebuggingAid.Cheats
         private void Validate()
         {
             #if UNITY_EDITOR || DEBUG_BUILD
-            cheats.SetActive(true);
-            Destroy(this);
-            return;
+            if (CheatManager.Enabled)
+            {
+                cheats.SetActive(true);
+                AssetReferenceLoader.DestroyOrUnload(gameObject);
+                return;
+            }
             #endif
             AssetReferenceLoader.DestroyOrUnload(gameObject);
         }

@@ -32,13 +32,13 @@ namespace Audio
 
         private void ResolveDependencies()
         {
-            var maximumNumberOfAudioSources = ObjectPooling.ReturnMaximumActiveObjects(PoolIndex);
+            var maximumNumberOfAudioSources = ObjectPooler.GetMaximumActiveObjects(PoolIndex);
 
             _backGroundAudioSource = GetComponent<AudioSource>();
             
             for (var i = 0; i < maximumNumberOfAudioSources; i++)
             {
-                var audioSource = ObjectPooling.ReturnObjectFromPool(0, Vector3.zero, Quaternion.identity).GetComponent<AudioSource>();
+                var audioSource = ObjectPooler.GetObjectFromPool(0, Vector3.zero, Quaternion.identity).GetComponent<AudioSource>();
                 audioSource.transform.parent = transform;
                 AudioSources.Enqueue(audioSource);
             }
@@ -119,16 +119,16 @@ namespace Audio
 
             public void Initialise()
             {
-                SaveSystem.OnSaveDataLoaded += Load;
+                SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
                 VolumeController.OnMuteButtonPressed += OnMuteButtonPressed;
                 VolumeController.OnSliderValueChanged += OnSliderValueChanged;
             }
 
-            private void Load(SaveSystem.SaveData saveData)
+            private void OnSaveDataLoaded(SaveSystem.SaveData saveData)
             {
                 if (saveData == null) return;
                 
-                VolumeLevel = saveData.Volume;
+                VolumeLevel = saveData.volume;
             }
 
             private void OnMuteButtonPressed(bool state, float volume)
