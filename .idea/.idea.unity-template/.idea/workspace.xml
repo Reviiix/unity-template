@@ -20,176 +20,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b4b62b-63b8-4468-b7bf-13e924a7ebf1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/FilePathImportant.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/FilePathImportant/WhiteStar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/FilePathImportant/WhiteStar.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/Logo/LogoFull.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/Logo/LogoFull.jpg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/Logo/LogoSmall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Graphics/Logo/LogoSmall.jpg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Coroutiner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Coroutiner.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Singleton.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Singleton.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/GameOverMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/GameOverMenu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/PauseMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/PauseMenu.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/EditorTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/EditorTools.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Icons.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Icons.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Logo/BGSeperated.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Logo/BGSeperated.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Logo/DeveloperLogo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Logo/DeveloperLogo.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/RainbowFoldersCustomIcons.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/RainbowFoldersCustomIcons/WhiteTrophy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/RainbowFoldersCustomIcons/WhiteTrophy.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/SocialNetworkIcons.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/SocialNetworkIcons.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/VolumeIcons.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/VolumeIcons.psd.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/WhiteStar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/WhiteStar.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/Assemblies.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/Assemblies/RainbowCore.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/Assemblies/RainbowCore.dll.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/NOTICES.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/NOTICES.txt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/Source.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/!Core/Source/RainbowCore.src.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Android.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Android/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Android/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Animations.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Animations/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Animations/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Audio.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Audio/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Audio/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Editor/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Editor/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Extensions.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Extensions/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Extensions/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Flares.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Flares/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Flares/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Fonts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Fonts/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Fonts/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Mac.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Mac/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Mac/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Materials.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Materials/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Materials/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Meshes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Meshes/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Meshes/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Physics.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Physics/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Physics/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Plugins.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Plugins/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Plugins/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Prefabs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Prefabs/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Prefabs/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Project.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Project/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Project/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Resources.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Resources/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Resources/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scenes/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scenes/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scripts/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Scripts/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Shaders.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Shaders/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Shaders/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Terrains.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Terrains/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Terrains/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Textures.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Textures/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Textures/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/WebGL.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/WebGL/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/WebGL/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Windows.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Windows/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/Windows/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/iOS.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/iOS/stub.file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Demo/iOS/stub.file.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Assemblies.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Assemblies/RainbowFolders.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Assemblies/RainbowFolders.dll.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Data.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Data/RainbowFoldersRuleset.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Data/RainbowFoldersRuleset.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Source.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/QuickStart.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlugIns/RainbowAssets/RainbowFolders/QuickStart.pdf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/ConditionalMenus/PopUp.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/ConditionalMenus/PopUp.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/ExperienceDisplay.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/ExperienceDisplay.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/CreditsDisplay.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UserInterface/CreditsDisplay.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Initialisation.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Initialisation.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Abstract/Singleton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Abstract/Singleton.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementsListDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementsListDisplay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/AchievementTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/AchievementTracker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/List/AchievementListDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/List/AchievementListDisplay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/BaseAudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/BaseAudioManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/VolumeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/VolumeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Credits/CreditsDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Credits/CreditsDisplay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Credits/CreditsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Credits/CreditsManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Cheats/CheatEnabler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Cheats/CheatEnabler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Cheats/CheatMenu.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Cheats/CheatMenu.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Debugging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DebuggingAid/Debugging.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HolidayManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HolidayManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPooling.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerEngagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerEngagement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInformation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPooler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPooler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Effects/ChangeTextColour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Effects/ChangeTextColour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Wait.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/Wait.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/RemoteConfigurationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RemoteConfigurationManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpinningWheel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpinningWheel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/StageLoadManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StageLoadManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/GameStatistics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/GameStatistics.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Statistics/TimeTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Statistics/TimeTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/AnniversaryPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/AnniversaryPopUp.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/InGameMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/InGameMenus/InGameMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/MainMenus/StageSelection/StageSelectionMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/MainMenus/StageSelection/StageSelectionMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/MainMenus/StatisticsMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/MainMenus/StatisticsMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/PopUpMenus/GameOverMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/PopUpMenus/GameOverMenu.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/PopUpMenus/PauseMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/PopUpMenus/PauseMenu.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterface.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterface.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterfaceManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/UserInterfaceManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_iOS.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/BurstAotSettings_iOS.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unity-template.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/unity-template.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/boot.config" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,6 +84,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/DateTimeOrdinals.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Coroutiner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SpinningWheel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -231,30 +99,11 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/SpriteEditorModule/SpriteSecondaryTexturesModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridBrushEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/GridPaintPaletteWindow.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Editor/Build/BuildPipelineTasks/BuildLayoutGenerationTask.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.3.0/Editor/DevX/Networking/RequestGameIds.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.3.0/Editor/DevX/Utils/AdsDashboardUrls.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.scriptablebuildpipeline@1.20.1/Tests/ContentLoadFixture.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.scriptablebuildpipeline@1.20.1/Tests/Editor/ThreadingManagerTasks.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/GlyphMetricsPropertyDrawer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_CharacterPropertyDrawer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorPanel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorUtility.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_FontAsset_CreationMenu.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_GlyphPairAdjustmentRecordPropertyDrawer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_ProjectTextSettings.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_ContextMenus.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontAssetCreatorWindow.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontPlugin.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_TexturePostProcessor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_FontAssetUtilities.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ObjectPool.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_PackageResourceImporter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Sprite.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.4.2/Runtime/Advertisement/Utilities/MiniJSON.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.remote-config-runtime@4.0.1/Runtime/RemoteConfigService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/EventSystem/EventTriggerEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/InterceptedEventsPreview.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1dc32e039a8c4e8ea9211f597ddfd8a6158e00/9a/287c69d0/SceneManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C24F0C1-857D-4078-B6D4-53F88E061A29/42/a3abc6b8/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C24F0C1-857D-4078-B6D4-53F88E061A29/72/38266f69/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2C24F0C1-857D-4078-B6D4-53F88E061A29/f5/21d21535/DateTime.cs" root0="SKIP_HIGHLIGHTING" />
@@ -337,7 +186,7 @@
   &quot;keyToString&quot;: {
     &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.6456693&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.22103658&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -350,7 +199,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="/Applications/UnityInstalls/2021.3.16f1/Unity.app/Contents/MacOS/Unity" />
+      <option name="EXE_PATH" value="/Applications/UnityInstalls/2022.3.16f1/Unity.app/Contents/MacOS/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -358,7 +207,7 @@
       <method v="2" />
     </configuration>
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="/Applications/UnityInstalls/2021.3.16f1/Unity.app/Contents/MacOS/Unity" />
+      <option name="EXE_PATH" value="/Applications/UnityInstalls/2022.3.16f1/Unity.app/Contents/MacOS/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -375,10 +224,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="19719">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="19719" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -511,7 +360,10 @@
       <workItem from="1682514240836" duration="4742000" />
       <workItem from="1682537874313" duration="864000" />
       <workItem from="1696863550160" duration="749000" />
-      <workItem from="1697837085340" duration="6670000" />
+      <workItem from="1697837085340" duration="11370000" />
+      <workItem from="1705690064460" duration="4000" />
+      <workItem from="1705690078607" duration="2220000" />
+      <workItem from="1705692554124" duration="763000" />
     </task>
     <servers />
   </component>
@@ -568,49 +420,49 @@
           <line>90</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" initialLine="77" containingFunctionPresentation="method 'RollupCredits'">
             <startOffsets>
-              <option value="3059" />
+              <option value="3073" />
             </startOffsets>
             <endOffsets>
-              <option value="3173" />
+              <option value="3187" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs</url>
-          <line>70</line>
+          <line>71</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" initialLine="60" containingFunctionPresentation="method 'OnAchievementUnlocked'">
             <startOffsets>
-              <option value="3115" />
+              <option value="3150" />
             </startOffsets>
             <endOffsets>
-              <option value="3177" />
+              <option value="3212" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs</url>
-          <line>80</line>
+          <line>81</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" initialLine="70" containingFunctionPresentation="method 'PopAchievement'">
             <startOffsets>
-              <option value="3470" />
+              <option value="3505" />
             </startOffsets>
             <endOffsets>
-              <option value="3556" />
+              <option value="3591" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs</url>
-          <line>99</line>
+          <line>100</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" initialLine="89" containingFunctionPresentation="method 'PopAchievement'">
             <startOffsets>
-              <option value="4558" />
+              <option value="4593" />
             </startOffsets>
             <endOffsets>
-              <option value="4645" />
+              <option value="4680" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="74" />
@@ -620,36 +472,36 @@
           <line>79</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" initialLine="76" containingFunctionPresentation="method 'ClaimReward'">
             <startOffsets>
-              <option value="2644" />
+              <option value="2658" />
             </startOffsets>
             <endOffsets>
-              <option value="2719" />
+              <option value="2733" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs</url>
-          <line>104</line>
+          <line>105</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" initialLine="103" containingFunctionPresentation="lambda expression inside method 'ChangeTextAmount'">
             <startOffsets>
-              <option value="3973" />
+              <option value="4008" />
             </startOffsets>
             <endOffsets>
-              <option value="4027" />
+              <option value="4062" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs</url>
-          <line>81</line>
+          <line>82</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" initialLine="80" containingFunctionPresentation="lambda expression inside method 'ChangeFillBarAmount'">
             <startOffsets>
-              <option value="2971" />
+              <option value="3006" />
             </startOffsets>
             <endOffsets>
-              <option value="2972" />
+              <option value="3007" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="90" />
@@ -659,10 +511,10 @@
           <line>108</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="105" containingFunctionPresentation="method 'SaveClassWithJSON'">
             <startOffsets>
-              <option value="3361" />
+              <option value="3363" />
             </startOffsets>
             <endOffsets>
-              <option value="3383" />
+              <option value="3385" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="93" />
@@ -672,52 +524,93 @@
           <line>104</line>
           <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="101" containingFunctionPresentation="method 'SaveClassWithJSON'">
             <startOffsets>
-              <option value="3273" />
+              <option value="3275" />
             </startOffsets>
             <endOffsets>
-              <option value="3300" />
+              <option value="3302" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs</url>
-          <line>92</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs" initialLine="92" containingFunctionPresentation="method 'OnConfigurationChanged'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
+          <line>77</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="77" containingFunctionPresentation="method 'SaveClassWithBinaryFormatter'">
             <startOffsets>
-              <option value="3506" />
+              <option value="2526" />
             </startOffsets>
             <endOffsets>
-              <option value="3560" />
+              <option value="2588" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
+          <line>67</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="67" containingFunctionPresentation="method 'SaveClassWithBinaryFormatter'">
+            <startOffsets>
+              <option value="2220" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2277" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
+          <line>69</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="69" containingFunctionPresentation="method 'SaveClassWithBinaryFormatter'">
+            <startOffsets>
+              <option value="2305" />
+              <option value="2329" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2328" />
+              <option value="2336" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
+          <line>71</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="71" containingFunctionPresentation="method 'SaveClassWithBinaryFormatter'">
+            <startOffsets>
+              <option value="2362" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2385" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs</url>
-          <line>105</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Dynamic/DynamicAchievementManager.cs" initialLine="105" containingFunctionPresentation="lambda expression inside method 'OnSaveDataLoaded'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
+          <line>73</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="73" containingFunctionPresentation="method 'SaveClassWithBinaryFormatter'">
             <startOffsets>
-              <option value="3967" />
+              <option value="2449" />
             </startOffsets>
             <endOffsets>
-              <option value="4003" />
+              <option value="2465" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/PauseManager.cs</url>
+          <line>17</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" initialLine="18" containingFunctionPresentation="method 'PauseButtonPressed'">
+            <startOffsets>
+              <option value="306" />
+            </startOffsets>
+            <endOffsets>
+              <option value="327" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="100" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Editor/EditorTools.cs</url>
-          <line>43</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Editor/EditorTools.cs" initialLine="45" containingFunctionPresentation="method 'OnGUI'">
-            <startOffsets>
-              <option value="1742" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1868" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

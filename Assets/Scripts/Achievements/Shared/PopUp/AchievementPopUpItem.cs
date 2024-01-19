@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using PureFunctions.Effects;
+using PureFunctions.UnitySpecific.Effects;
 using UnityEngine;
 
 namespace Achievements.Shared.PopUp

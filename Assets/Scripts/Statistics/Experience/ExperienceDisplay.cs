@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Abstract.Interfaces;
 using DG.Tweening;
 using PureFunctions;
+using PureFunctions.UnitySpecific;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -67,7 +67,7 @@ public static class SaveSystem
         {
             using var stream = new FileStream(path, FileMode.Create);
             
-            if (stream.Length == 0) return;
+            //if (stream.Length == 0) return;
             
             var saveData = new T();
             Formatter.Serialize(stream, saveData);

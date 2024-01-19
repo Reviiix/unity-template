@@ -29,22 +29,27 @@ namespace UserInterface.PopUpMenus
         private void AddButtonEvents()
         {
             _pauseButton.onClick.AddListener(PauseManager.PauseButtonPressed);
-            _pauseButton.onClick.AddListener(()=>Enable(true));
+            _pauseButton.onClick.AddListener(ButtonPressed);
         }
 
-        public void EnablePauseButtons(bool state = true)
+        private void EnablePauseButtons(bool state = true)
         {
             pauseButtonImage.enabled = state;
             _pauseButton.enabled = state;
+        }
+        
+        private void ButtonPressed()
+        {
+            Enable(PauseManager.IsPaused);
         }
 
         public void Enable(bool state = true)
         {
             display.enabled = state;
-            pauseButtonImage.sprite = ReturnCurrentPauseButtonSprite(state);
+            pauseButtonImage.sprite = GetCurrentPauseButtonSprite(state);
         }
 
-        public Sprite ReturnCurrentPauseButtonSprite(bool state = true)
+        private Sprite GetCurrentPauseButtonSprite(bool state = true)
         {
             return state ? playSprite : pauseSprite;
         }

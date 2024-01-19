@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Credits;
 using PureFunctions;
+using PureFunctions.UnitySpecific;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -95,7 +96,6 @@ namespace Achievements.Dynamic
         
         private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
-            //return; //TODO fix
             if (saveData == null) return;
             
             Coroutiner.StartCoroutine(Wait.WaitForRemoteConfigToUpdate(() =>

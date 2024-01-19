@@ -2,10 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using PureFunctions;
-using PureFunctions.Effects;
+using PureFunctions.UnitySpecific;
+using PureFunctions.UnitySpecific.Effects;
 using Statistics;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UserInterface;

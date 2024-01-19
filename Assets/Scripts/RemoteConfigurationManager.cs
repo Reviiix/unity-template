@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Unity.RemoteConfig;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 
 /// <summary>
@@ -16,17 +17,17 @@ public static class RemoteConfigurationManager
 
     public static void Initialise()
     {
-        ConfigManager.FetchCompleted += OnRemoteConfigUpdated;
+        RemoteConfigService.Instance.FetchCompleted += OnRemoteConfigUpdated;
     }
 
     public static void UpdateConfiguration()
     {
-        ConfigManager.FetchConfigs(new UserAttributes(), new ApplicationAttributes());
+        RemoteConfigService.Instance.FetchConfigs(new UserAttributes(), new ApplicationAttributes());
     }
 
     private static void OnRemoteConfigUpdated(ConfigResponse response)
     {
-        var newConfigurationAsJson = ConfigManager.appConfig.GetJson(RemoteConfigKey);
+        var newConfigurationAsJson = RemoteConfigService.Instance.appConfig.GetJson(RemoteConfigKey);
         var newConfiguration = JsonUtility.FromJson<Configuration>(newConfigurationAsJson);
 
         CurrentConfiguration = newConfiguration;

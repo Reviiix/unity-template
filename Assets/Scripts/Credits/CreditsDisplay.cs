@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Abstract.Interfaces;
 using PureFunctions;
-using PureFunctions.Effects;
+using PureFunctions.UnitySpecific;
+using PureFunctions.UnitySpecific.Effects;
 using TMPro;
 using UnityEngine;
 

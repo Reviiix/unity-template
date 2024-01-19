@@ -5,6 +5,7 @@ using Abstract.Interfaces;
 using Achievements.Dynamic;
 using Achievements.Permanent;
 using PureFunctions;
+using PureFunctions.UnitySpecific;
 using UnityEngine;
 
 namespace Achievements.Shared.PopUp

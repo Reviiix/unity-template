@@ -51,9 +51,7 @@ public class SpinningWheel : MonoBehaviour
     private class WheelWeightings
     {
         [SerializeField] private WheelSegmentChance[] wheelSegments;
-        
         public int ReturnAmountOfSegments => wheelSegments.Length;
-        
         public int ReturnSegmentValue(int index) => wheelSegments[index].value;
 
         public int ReturnFinalSegmentIndex()

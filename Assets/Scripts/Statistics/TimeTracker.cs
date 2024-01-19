@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using PureFunctions;
+using PureFunctions.UnitySpecific;
 using UnityEngine;
 
 namespace Statistics
