@@ -20,14 +20,14 @@ namespace Achievements.Dynamic
 
         private void OnEnable()
         {
-            DynamicAchievementManager.OnAchievementsSet += OnAchievementsSet;
-            DynamicAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.OnDynamicAchievementsSet += OnAchievementsSet;
+            AchievementManager.OnDynamicAchievementUnlocked += OnAchievementUnlocked;
         }
         
         private void OnDisable()
         {
-            DynamicAchievementManager.OnAchievementsSet -= OnAchievementsSet;
-            DynamicAchievementManager.OnAchievementUnlocked -= OnAchievementUnlocked;
+            AchievementManager.OnDynamicAchievementsSet -= OnAchievementsSet;
+            AchievementManager.OnDynamicAchievementUnlocked -= OnAchievementUnlocked;
         }
         
         private void OnAchievementUnlocked(DynamicAchievementManager.Achievement achievement)
@@ -38,35 +38,33 @@ namespace Achievements.Dynamic
 
         private void OnAchievementsSet(DynamicAchievementManager.Achievement[] achievements)
         {
-            StartCoroutine(CreateListAsynchronously(achievements));
+            CreateListAsynchronously(achievements);
             SetRewardDisplay();
         }
 
-        private IEnumerator CreateListAsynchronously(IReadOnlyList<DynamicAchievementManager.Achievement> achievements)
+        private void CreateListAsynchronously(IReadOnlyList<DynamicAchievementManager.Achievement> achievements)
         {
             var amountOfAchievements = achievements.Count;
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(DisplayItemPrefab, (returnVariable) =>
             {
-                DisplayItemAddressableAsGameObject = returnVariable;
+                for (var i = 0; i < amountOfAchievements; i++)
+                {
+                    var achievement = achievements[i];
+                    CreateListItemAsynchronously(returnVariable, achievement, AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), AchievementManager.GetSpriteAssetReference(achievement), AchievementManager.GetUnlockedState(achievement));
+                }
+                //DisplayItemAddressableAsGameObject = null;
+                if (amountOfAchievements > 0)
+                {
+                    noAchievementsSetText.enabled = false;
+                }
+                Initialised = true;
                 AssetReferenceLoader.DestroyOrUnload(returnVariable);
             });
-            yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
-            for (var i = 0; i < amountOfAchievements; i++)
-            {
-                var achievement = achievements[i];
-                CreateListItemAsynchronously(achievement, DynamicAchievementManager.ReturnDescription(achievement), DynamicAchievementManager.ReturnReward(achievement), DynamicAchievementManager.ReturnSpriteAssetReference(achievement), DynamicAchievementManager.ReturnUnlockedState(achievement));
-            }
-            DisplayItemAddressableAsGameObject = null;
-            ListCreated = true;
-            if (amountOfAchievements > 0)
-            {
-                noAchievementsSetText.enabled = false;
-            }
         }
 
-        private void CreateListItemAsynchronously(DynamicAchievementManager.Achievement itemName, string description, int reward, AssetReference sprite, bool unlocked)
+        private void CreateListItemAsynchronously(GameObject item, DynamicAchievementManager.Achievement itemName, string description, int reward, AssetReference sprite, bool unlocked)
         {
-            var achievementItemGameObject = Instantiate(DisplayItemAddressableAsGameObject, Display).GetComponentInChildren<AchievementListItem>();
+            var achievementItemGameObject = Instantiate(item, Display).GetComponentInChildren<AchievementListItem>();
             var achievementItemGameObjectTransform = achievementItemGameObject.transform;
             
             achievementItemGameObjectTransform.SetParent(Display);
@@ -98,13 +96,13 @@ namespace Achievements.Dynamic
             const string rewardsPrefix = "Total Rewards: ";
             const string amountPrefix = "Total Achievements: ";
             const string backslash = "/";
-            rewardDisplay.text = rewardsPrefix + DynamicAchievementManager.ReturnTotalRewards(true) + backslash + DynamicAchievementManager.ReturnTotalRewards();
-            amountOfUnlocksDisplay.text = amountPrefix + DynamicAchievementManager.ReturnAmountOfAchievements(true) + backslash + DynamicAchievementManager.ReturnAmountOfAchievements();
+            rewardDisplay.text = rewardsPrefix + AchievementManager.GetTotalRewardsOfDynamicAchievements(true) + backslash + AchievementManager.GetTotalRewardsOfDynamicAchievements();
+            amountOfUnlocksDisplay.text = amountPrefix + AchievementManager.GetAmountOfDynamicAchievements(true) + backslash + AchievementManager.GetAmountOfDynamicAchievements();
         }
         
         private void SetUnlockedState(DynamicAchievementManager.Achievement achievement)
         {
-            if (!ListCreated) return; //Sometimes an achievement for opening the app X amount of times will try to set this before the list is created.
+            if (!Initialised) return; //Sometimes an achievement for opening the app X amount of times will try to set this before the list is created.
             
             achievementListItems[achievement].Background.color = UnLockedColour;
         }

@@ -14,10 +14,8 @@ namespace Achievements.Shared.List
     public abstract class AchievementListDisplay : MonoBehaviour
     {
         protected Transform Display;
-        protected static bool ListCreated;
+        protected static bool Initialised;
         protected static readonly Color UnLockedColour = Color.yellow;
-        protected static GameObject DisplayItemAddressableAsGameObject;
-        protected static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new WaitUntil(() => DisplayItemAddressableAsGameObject != null);
         [SerializeField] protected TMP_Text rewardDisplay;
         [SerializeField] protected TMP_Text amountOfUnlocksDisplay;
     

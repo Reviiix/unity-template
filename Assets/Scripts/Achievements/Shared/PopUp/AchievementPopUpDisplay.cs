@@ -16,9 +16,9 @@ namespace Achievements.Shared.PopUp
     [RequireComponent(typeof(Transform))]
     public class AchievementPopUpDisplay : PrivateSingleton<AchievementPopUpDisplay>, IHandleSimultaneousAdditions
     {
-        private static readonly Queue<AchievementPopUpItem> PopUps = new Queue<AchievementPopUpItem>();
-        private static readonly Queue<PermanentAchievementManager.Achievement> DelayedPermanentAchievementsQueue = new Queue<PermanentAchievementManager.Achievement>();
-        private static readonly Queue<DynamicAchievementManager.Achievement> DelayedDynamicAchievementsQueue = new Queue<DynamicAchievementManager.Achievement>();
+        private static readonly Queue<AchievementPopUpItem> PopUps = new ();
+        private static readonly Queue<PermanentAchievementManager.Achievement> DelayedPermanentAchievementsQueue = new ();
+        private static readonly Queue<DynamicAchievementManager.Achievement> DelayedDynamicAchievementsQueue = new ();
         private static int _maximumNumberOfActiveAchievements;
         private static Transform _parent;
         private const int PoolIndex = 1;
@@ -33,16 +33,16 @@ namespace Achievements.Shared.PopUp
 
         private void OnEnable()
         {
-            PermanentAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
-            DynamicAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.OnDynamicAchievementUnlocked += OnAchievementUnlocked;
             StartCoroutine(Wait.WaitForInitialisationToComplete(ResolveDependencies));
         }
         
         protected override void OnDisable()
         {
             base.OnDisable();
-            PermanentAchievementManager.OnAchievementUnlocked -= OnAchievementUnlocked;
-            DynamicAchievementManager.OnAchievementUnlocked -= OnAchievementUnlocked;
+            AchievementManager.OnPermanentAchievementUnlocked -= OnAchievementUnlocked;
+            AchievementManager.OnDynamicAchievementUnlocked -= OnAchievementUnlocked;
         }
         
         private void ResolveDependencies()
@@ -79,13 +79,13 @@ namespace Achievements.Shared.PopUp
 
         private static void PopAchievement(PermanentAchievementManager.Achievement achievement)
         {
-            var assetReference = PermanentAchievementManager.GetSpriteAssetReference(achievement);
+            var assetReference = AchievementManager.GetSpriteAssetReference(achievement);
             _activeAchievements++;
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
             {
                 var popUp = PopUps.Dequeue();
                 popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
-                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), PermanentAchievementManager.ReturnDescription(achievement), PermanentAchievementManager.ReturnReward(achievement), () =>
+                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), () =>
                 {
                     _activeAchievements--;
                     PopUps.Enqueue(popUp);
@@ -98,13 +98,13 @@ namespace Achievements.Shared.PopUp
         
         private static void PopAchievement(DynamicAchievementManager.Achievement achievement)
         {
-            var assetReference = DynamicAchievementManager.ReturnSpriteAssetReference(achievement);
+            var assetReference = AchievementManager.GetSpriteAssetReference(achievement);
             _activeAchievements++;
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
             {
                 var popUp = PopUps.Dequeue();
                 popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
-                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), DynamicAchievementManager.ReturnDescription(achievement), DynamicAchievementManager.ReturnReward(achievement), () =>
+                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), () =>
                 {
                     _activeAchievements--;
                     PopUps.Enqueue(popUp);

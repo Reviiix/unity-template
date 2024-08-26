@@ -12,18 +12,17 @@ namespace Achievements.Dynamic
     /// <summary>
     /// This class manages the dynamic achievements which are intended to change regularly based on the updated remote config
     /// </summary>
-    public static class DynamicAchievementManager
+    public class DynamicAchievementManager
     {
         private const bool Enabled = ProjectManager.EnabledFeatures.Achievements;
         private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
-        public static Action<Achievement[]> OnAchievementsSet;
-        public static Action<Achievement> OnAchievementUnlocked;
-        private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>();
-        public static bool ReturnUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
-        public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
-        public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
-        public static AssetReference ReturnSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
-        private static Achievement[] ReturnAllAchievements()
+        public Action<Achievement> OnAchievementUnlocked;
+        private readonly Dictionary<Achievement, AchievementInformation> Achievements = new Dictionary<Achievement, AchievementInformation>();
+        public bool GetUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
+        public string GetDescription(Achievement achievement) => Achievements[achievement].Description;
+        public int GetReward(Achievement achievement) => Achievements[achievement].Reward;
+        public AssetReference GetSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
+        public Achievement[] GetAchievements()
         {
             var returnVariable = new List<Achievement>();
             foreach (var achievement in Achievements)
@@ -33,7 +32,7 @@ namespace Achievements.Dynamic
             return returnVariable.ToArray();
         }
         
-        public static int ReturnTotalRewards(bool unlockedOnly = false)
+        public  int GetTotalRewards(bool unlockedOnly = false)
         {
             var returnVariable = 0;
             foreach (var achievement in Achievements)
@@ -42,18 +41,18 @@ namespace Achievements.Dynamic
                 {
                     if (achievement.Value.Unlocked)
                     {
-                        returnVariable += ReturnReward(achievement.Key);
+                        returnVariable += GetReward(achievement.Key);
                     }
                 }
                 else
                 {
-                    returnVariable += ReturnReward(achievement.Key);
+                    returnVariable += GetReward(achievement.Key);
                 }
             }
             return returnVariable;
         }
             
-        public static int ReturnAmountOfAchievements(bool unlockedOnly = false)
+        public  int ReturnAmountOfAchievements(bool unlockedOnly = false)
         {
             var returnVariable = 0;
             foreach (var achievement in Achievements)
@@ -73,7 +72,7 @@ namespace Achievements.Dynamic
             return returnVariable;
         }
         
-        public static bool[] ReturnUnLockStates()
+        public  bool[] GetUnLockStates()
         {
             var returnVariable = new List<bool>();
             foreach (var achievement in Achievements)
@@ -83,18 +82,18 @@ namespace Achievements.Dynamic
             return returnVariable.ToArray();
         }
 
-        public static void Initialise()
+        public void Initialise()
         {
             SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
             RemoteConfigurationManager.OnConfigurationChanged += OnConfigurationChanged;
         }
 
-        private static void OnConfigurationChanged(RemoteConfigurationManager.Configuration configuration)
+        private void OnConfigurationChanged(RemoteConfigurationManager.Configuration configuration)
         {
             CreateAchievements(configuration.DynamicAchievements);
         }
         
-        private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
+        private void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
             
@@ -112,7 +111,7 @@ namespace Achievements.Dynamic
             }));
         }
 
-        private static void CreateAchievements(RemoteConfigurationManager.DynamicAchievements dynamicAchievements)
+        private void CreateAchievements(RemoteConfigurationManager.DynamicAchievements dynamicAchievements)
         {
             var highScore = dynamicAchievements.highScore;
             var consecutivePlayTimeInSeconds = dynamicAchievements.consecutivePlayTimeInSeconds;
@@ -139,15 +138,15 @@ namespace Achievements.Dynamic
             {
                 Achievements.Add(Achievement.LevelsComplete, new AchievementInformation("Complete " + stagesComplete + " levels.", dynamicAchievements.stagesCompleteReward, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png")));
             }
-            OnAchievementsSet?.Invoke(ReturnAllAchievements());
+            AchievementManager.DynamicAchievementsSet(GetAchievements());
         }
         
-        public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything
+        public void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything
         {
             if (!Enabled) return;
             
             if (!Achievements.ContainsKey(achievement)) return;
-            if (ReturnUnlockedState(achievement)) return;
+            if (GetUnlockedState(achievement)) return;
             Achievements[achievement].Unlock();
             OnAchievementUnlocked?.Invoke(achievement);
         }

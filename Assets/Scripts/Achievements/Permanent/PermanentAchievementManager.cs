@@ -8,12 +8,11 @@ namespace Achievements.Permanent
     /// <summary>
     /// This class manages the permanent achievements.
     /// </summary>
-    public static class PermanentAchievementManager
+    public class PermanentAchievementManager
     {
         private const bool Enabled = ProjectManager.EnabledFeatures.Achievements;
-        public static Action<Achievement> OnAchievementUnlocked;
         private const string AchievementGraphicsFolderAssetPath = "Graphics/Achievements/";
-        private static readonly Dictionary<Achievement, AchievementInformation> Achievements = new()
+        private readonly Dictionary<Achievement, AchievementInformation> Achievements = new()
         {
             {Achievement.PlayForOneHourConsecutively, new AchievementInformation("Play For One Hour Consecutively.", 10, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             
@@ -52,12 +51,12 @@ namespace Achievements.Permanent
             {Achievement.TenThousandPremiumCredits, new AchievementInformation("Acquire ten thousand premium credits.", 1000, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
             {Achievement.OneHundredThousandPremiumCredits, new AchievementInformation("Acquire one hundred thousand premium credits.", 10000, new AssetReference(AchievementGraphicsFolderAssetPath + "placeholder.png"))},
         };
-        public static string ReturnDescription(Achievement achievement) => Achievements[achievement].Description;
-        public static int ReturnReward(Achievement achievement) => Achievements[achievement].Reward;
-        public static AssetReference GetSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
-        public static bool ReturnUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
+        public string GetDescription(Achievement achievement) => Achievements[achievement].Description;
+        public int GetReward(Achievement achievement) => Achievements[achievement].Reward;
+        public AssetReference GetSpriteAssetReference(Achievement achievement) => Achievements[achievement].SpriteAssetReference;
+        public bool GetUnlockedState(Achievement achievement) => Achievements[achievement].Unlocked;
 
-        public static Achievement[] ReturnAllAchievements()
+        public Achievement[] GetAchievements()
         {
             var returnVariable = new List<Achievement>();
             foreach (var achievement in Achievements)
@@ -67,7 +66,7 @@ namespace Achievements.Permanent
             return returnVariable.ToArray();
         }
 
-        public static int ReturnTotalRewards(bool unlockedOnly = false)
+        public int GetTotalRewards(bool unlockedOnly = false)
         {
             var returnVariable = 0;
             foreach (var achievement in Achievements)
@@ -76,18 +75,18 @@ namespace Achievements.Permanent
                 {
                     if (achievement.Value.Unlocked)
                     {
-                        returnVariable += ReturnReward(achievement.Key);
+                        returnVariable += GetReward(achievement.Key);
                     }
                 }
                 else
                 {
-                    returnVariable += ReturnReward(achievement.Key);
+                    returnVariable += GetReward(achievement.Key);
                 }
             }
             return returnVariable;
         }
         
-        public static int ReturnAmountOfAchievements(bool unlockedOnly = false)
+        public int ReturnAmountOfAchievements(bool unlockedOnly = false)
         {
             var returnVariable = 0;
             foreach (var achievement in Achievements)
@@ -107,7 +106,7 @@ namespace Achievements.Permanent
             return returnVariable;
         }
         
-        public static bool[] ReturnUnLockStates()
+        public bool[] GetUnLockStates()
         {
             var returnVariable = new List<bool>();
             foreach (var achievement in Achievements)
@@ -117,12 +116,12 @@ namespace Achievements.Permanent
             return returnVariable.ToArray();
         }
 
-        public static void Initialise()
+        public void Initialise()
         {
             SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
         }
 
-        private static void OnSaveDataLoaded(SaveSystem.SaveData saveData)
+        private void OnSaveDataLoaded(SaveSystem.SaveData saveData)
         {
             if (saveData == null) return;
             var i = 0;
@@ -136,13 +135,12 @@ namespace Achievements.Permanent
             }
         }
 
-        public static void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything nasty
+        public void UnlockAchievement(Achievement achievement) //TODO: Protect me from being called by anything nasty
         {
             if (!Enabled) return;
             
-            if (ReturnUnlockedState(achievement)) return;
+            if (GetUnlockedState(achievement)) return;
             Achievements[achievement].Unlock();
-            OnAchievementUnlocked?.Invoke(achievement);
         }
 
         private class AchievementInformation

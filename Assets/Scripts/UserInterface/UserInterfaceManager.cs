@@ -4,6 +4,7 @@ using PureFunctions;
 using PureFunctions.UnitySpecific;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UserInterface.ConditionalMenus;
 using UserInterface.InGameMenus;
@@ -16,16 +17,15 @@ namespace UserInterface
     /// <summary>
     /// This class manages what menus will be open when.
     /// It also has some degree of control of the transition between menus and the content.
-    /// I would potentially extract this down into a data class and a display class but the user interface system as a whole is already broken down into sections and this kind of works 
     /// </summary>
     [RequireComponent(typeof(RawImage))]
-    public class UserInterfaceManager : PrivateSingleton<UserInterfaceManager>
+    public class UserInterfaceManager : Singleton<UserInterfaceManager>
     {
-        public static RawImage TransitionalFadeImage { get; private set; } //This image is attached the user interface game object and is used to achieve a fade effect by modifying the alpha value.
+        public RawImage transitionalFadeImage;
         [SerializeField] private Canvas background;
         [SerializeField] private Button returnToMainMenuButton;
         #region Main Menus
-        [Header("Main Menus")]
+        [Header("Menus")]
         [SerializeField] private MainMenu mainMenu;
         [SerializeField] private StageSelectionMenu stageSelectionMenu;
         [SerializeField] private StatisticsMenu statisticsMenu;
@@ -54,17 +54,11 @@ namespace UserInterface
 
         public void Initialise()
         {
-            ResolveDependencies();
             AssignButtonEvents();
             InitialiseMenus();
             StartUpSequence();
         }
-        
-        private void ResolveDependencies()
-        {
-            TransitionalFadeImage = GetComponent<RawImage>();
-        }
-        
+
         private void AssignButtonEvents()
         {
             returnToMainMenuButton.onClick.AddListener(()=>EnableMainMenu());

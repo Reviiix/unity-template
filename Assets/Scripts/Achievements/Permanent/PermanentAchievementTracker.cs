@@ -55,37 +55,37 @@ namespace Achievements.Permanent
             switch (levelID >= 1)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTwo);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTwo);
                     break;
             }
             switch (levelID >= 4)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelFive);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelFive);
                     break;
             }
             switch (levelID >= 9)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTen);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTen);
                     break;
             }
             switch (levelID >= 24)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTwentyFive);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelTwentyFive);
                     break;
             }
             switch (levelID >= 49)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelFifty);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelFifty);
                     break;
             }
             switch (levelID >= 99)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelOneHundred);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.ReachLevelOneHundred);
                     break;
             }
         }
@@ -96,19 +96,19 @@ namespace Achievements.Permanent
             switch (timesGameHasBeenOpened)
             {
                 case 5:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppFiveTimes);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppFiveTimes);
                     break;
                 case 10:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppTenTimes);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppTenTimes);
                     break;
                 case 25:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppTwentyFiveTimes);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppTwentyFiveTimes);
                     break;
                 case 50:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppFiftyTimes);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppFiftyTimes);
                     break;
                 case 100:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppOneHundredTimes);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OpenTheAppOneHundredTimes);
                     break;
             }
         }
@@ -120,37 +120,37 @@ namespace Achievements.Permanent
             switch (totalPlayTime.Hours > 1)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHour);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHour);
                     break;
             }
             switch (totalPlayTime.Hours > 5)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForFiveHours);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForFiveHours);
                     break;
             }
             switch (totalPlayTime.Hours > 10)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForTenHours);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForTenHours);
                     break;
             }
             switch (totalPlayTime.Hours > 25)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForTwentyFiveHours);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForTwentyFiveHours);
                     break;
             }
             switch (totalPlayTime.Hours > 50)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForFiftyHours);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForFiftyHours);
                     break;
             }
             switch (totalPlayTime.Hours > 100)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHundredHours);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHundredHours);
                     break;
             }
         }
@@ -161,37 +161,37 @@ namespace Achievements.Permanent
             switch (credits > 100)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredCredits);
                     break;
             }
             switch (credits > 250)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyCredits);
                     break;
             }
             switch (credits > 500)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredCredits);
                     break;
             }
             switch (credits > 1000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandCredits);
                     break;
             }
             switch (credits > 10000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandCredits);
                     break;
             }
             switch (credits > 100000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandCredits);
                     break;
             }
         }
@@ -202,45 +202,45 @@ namespace Achievements.Permanent
             switch (credits > 100)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredPremiumCredits);
                     break;
             }
             switch (credits > 250)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TwoHundredAndFiftyPremiumCredits);
                     break;
             }
             switch (credits > 500)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.FiveHundredPremiumCredits);
                     break;
             }
             switch (credits > 1000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneThousandPremiumCredits);
                     break;
             }
             switch (credits > 10000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.TenThousandPremiumCredits);
                     break;
             }
             switch (credits > 100000)
             {
                 case true:
-                    PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandPremiumCredits);
+                    AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.OneHundredThousandPremiumCredits);
                     break;
             }
         }
         
-        private static IEnumerator ConsecutivePlayTimeAchievement()
+        private static  IEnumerator ConsecutivePlayTimeAchievement()
         {
             yield return WaitOneHour;
-            PermanentAchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHourConsecutively);
+            AchievementManager.UnlockAchievement(PermanentAchievementManager.Achievement.PlayForOneHourConsecutively);
         }
     }
 }

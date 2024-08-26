@@ -73,8 +73,7 @@ public class ProjectManager : Singleton<ProjectManager>
             CreditsManager.Initialise();
             CameraManager.Initialise();
             PlayerEngagement.Initialise();
-            PermanentAchievementManager.Initialise();
-            DynamicAchievementManager.Initialise();
+            AchievementManager.Initialise();
             callBack();
         }
     

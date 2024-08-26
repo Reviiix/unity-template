@@ -169,8 +169,8 @@ public static class SaveSystem
 
             volume = BaseAudioManager.CurrentVolume;
 
-            permanentAchievements = PermanentAchievementManager.ReturnUnLockStates();
-            dynamicAchievements = DynamicAchievementManager.ReturnUnLockStates();
+            permanentAchievements = AchievementManager.GetUnLockStatesOfPermanentAchievements();
+            dynamicAchievements = AchievementManager.GetUnLockStatesOfDynamicAchievements();
         }
     }
 }

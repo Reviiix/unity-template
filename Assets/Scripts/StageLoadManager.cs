@@ -57,7 +57,7 @@ public static class StageLoadManager
     private readonly struct StageLoader
     {
         #region Fade
-        private static RawImage FadeImage => UserInterfaceManager.TransitionalFadeImage;
+        private static RawImage FadeImage => UserInterfaceManager.Instance.transitionalFadeImage;
         private const int TotalFadeInAndOutDuration = 3;
         private const int FadeDuration = TotalFadeInAndOutDuration / 2; //2 because fade in then fade out
         #endregion Fade

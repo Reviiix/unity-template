@@ -20,7 +20,7 @@ namespace Statistics
         {
             var originalValue = Score;
             Score += amount;
-            OnScoreChanged(originalValue, Score);
+            OnScoreChanged?.Invoke(originalValue, Score);
         }
     }
 }

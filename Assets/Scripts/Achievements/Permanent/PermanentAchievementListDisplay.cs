@@ -15,8 +15,8 @@ namespace Achievements.Permanent
     public class PermanentAchievementListDisplay : AchievementListDisplay
     {
         private const string DisplayItemPrefabPath = "Prefabs/UserInterface/Achievements/AchievementListItem.prefab";
-        private static readonly AssetReference DisplayItemPrefab = new AssetReference(DisplayItemPrefabPath);
-        private readonly Dictionary<PermanentAchievementManager.Achievement, AchievementItemStruct> achievementListItems = new Dictionary<PermanentAchievementManager.Achievement, AchievementItemStruct>();
+        private static readonly AssetReference DisplayItemPrefab = new (DisplayItemPrefabPath);
+        private readonly Dictionary<PermanentAchievementManager.Achievement, AchievementItemStruct> achievementListItems = new ();
 
         protected override IEnumerator Start()
         {
@@ -27,12 +27,12 @@ namespace Achievements.Permanent
 
         private void OnEnable()
         {
-            PermanentAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
         }
 
         private void OnDisable()
         {
-            PermanentAchievementManager.OnAchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
         }
 
         private void OnAchievementUnlocked(PermanentAchievementManager.Achievement achievement)
@@ -43,33 +43,29 @@ namespace Achievements.Permanent
 
         private void CreateDisplayAsynchronously()
         {
-            StartCoroutine(CreateListAsynchronously());
+            CreateListAsynchronously();
             SetRewardDisplay();
         }
 
-        private IEnumerator CreateListAsynchronously()
+        private void CreateListAsynchronously()
         {
-            var achievements = PermanentAchievementManager.ReturnAllAchievements();
+            var achievements = AchievementManager.GetPermanentAchievements;
             var amountOfAchievements = achievements.Length;
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(DisplayItemPrefab, (returnVariable) =>
             {
-                DisplayItemAddressableAsGameObject = returnVariable;
+                for (var i = 0; i < amountOfAchievements; i++)
+                {
+                    var achievement = achievements[i];
+                    CreateListItemAsynchronously(returnVariable, achievement, AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), AchievementManager.GetSpriteAssetReference(achievement), AchievementManager.GetUnlockedState(achievement));
+                }
+                Initialised = true;
                 AssetReferenceLoader.DestroyOrUnload(returnVariable);
             });
-            yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
-            for (var i = 0; i < amountOfAchievements; i++)
-            {
-                var achievement = achievements[i];
-                CreateListItemAsynchronously(achievement, PermanentAchievementManager.ReturnDescription(achievement), PermanentAchievementManager.ReturnReward(achievement), PermanentAchievementManager.GetSpriteAssetReference(achievement), PermanentAchievementManager.ReturnUnlockedState(achievement));
-            }
-
-            DisplayItemAddressableAsGameObject = null;
-            ListCreated = true;
         }
 
-        private void CreateListItemAsynchronously(PermanentAchievementManager.Achievement itemName, string description, int reward, AssetReference sprite, bool unlocked)
+        private void CreateListItemAsynchronously(GameObject item, PermanentAchievementManager.Achievement itemName, string description, int reward, AssetReference sprite, bool unlocked)
         {
-            var achievementItemGameObject = Instantiate(DisplayItemAddressableAsGameObject, Display).GetComponentInChildren<AchievementListItem>();
+            var achievementItemGameObject = Instantiate(item, Display).GetComponentInChildren<AchievementListItem>();
             var achievementItemGameObjectTransform = achievementItemGameObject.transform;
             
             achievementItemGameObjectTransform.SetParent(Display);
@@ -93,7 +89,7 @@ namespace Achievements.Permanent
 
         private void SetUnlockedState(PermanentAchievementManager.Achievement achievement)
         {
-            if (!ListCreated) return; //Sometimes an achievement for opening the app x times will try to set this before the list is created.
+            if (!Initialised) return; //Sometimes an achievement for opening the app x times will try to set this before the list is created.
             
             achievementListItems[achievement].Background.color = UnLockedColour;
         }
@@ -102,8 +98,8 @@ namespace Achievements.Permanent
         {
             const string rewardsPrefix = "Total Rewards: ";
             const string amountPrefix = "Total Achievements: ";
-            rewardDisplay.text = rewardsPrefix + PermanentAchievementManager.ReturnTotalRewards(true) + "/" + PermanentAchievementManager.ReturnTotalRewards();
-            amountOfUnlocksDisplay.text = amountPrefix + PermanentAchievementManager.ReturnAmountOfAchievements(true) + "/" + PermanentAchievementManager.ReturnAmountOfAchievements();
+            rewardDisplay.text = rewardsPrefix + AchievementManager.GetTotalRewardsOfPermanentAchievements(true) + "/" + AchievementManager.GetTotalRewardsOfPermanentAchievements();
+            amountOfUnlocksDisplay.text = amountPrefix + AchievementManager.GetAmountOfPermanentAchievements(true) + "/" + AchievementManager.GetAmountOfPermanentAchievements();
         }
     }
 }
