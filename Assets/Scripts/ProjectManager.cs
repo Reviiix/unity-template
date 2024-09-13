@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Abstract;
+using Achievements;
 using Achievements.Dynamic;
 using Achievements.Permanent;
 using Audio;
@@ -32,7 +33,7 @@ public class ProjectManager : Singleton<ProjectManager>
     private void OnApplicationQuit()
     {
         SaveSystem.Save();
-        DebuggingAid.Debugging.DisplayDebugMessage("Current Session Time in seconds: " + Time.deltaTime + ".\nTotal Play Time: " + PlayerEngagement.TotalPlayTime);
+        DebuggingAid.DebugLogManager.Log("Current Session Time in seconds: " + Time.deltaTime + ".\nTotal Play Time: " + PlayerEngagement.TotalPlayTime);
     }
 
     /// <summary>
@@ -67,7 +68,7 @@ public class ProjectManager : Singleton<ProjectManager>
         private static void InitialiseStaticManagers(Action callBack)
         {
             RemoteConfigurationManager.Initialise();
-            GameStatistics.Initialise();
+            PlayerStatistics.Initialise();
             HolidayManager.Initialise();
             ExperienceManager.Initialise();
             CreditsManager.Initialise();

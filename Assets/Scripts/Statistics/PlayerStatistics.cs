@@ -5,12 +5,11 @@ namespace Statistics
     /// <summary>
     /// This class manages the game statistics
     /// </summary>
-    public static class GameStatistics
+    public static class PlayerStatistics
     {
-        public static KeyValuePair<int, int> FurthestLevelIndex { get; private set; }
+        public static KeyValuePair<int, int> FurthestStage { get; private set; }
         public static readonly int[] LevelRatings = new int[StageLoadManager.TotalAmountOfStages];
-        public static int ReturnRating(int levelGroup, int level) => LevelRatings[StageLoadManager.GetStageIndex(levelGroup, level)];
-        
+
         public static void Initialise()
         {
             SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
@@ -21,7 +20,7 @@ namespace Statistics
             if (saveData == null) return;
             
             var amountOfLevels = saveData.levelRatings.Length;
-            FurthestLevelIndex = saveData.FurthestLevelIndex;
+            FurthestStage = saveData.FurthestLevelIndex;
             for (var i = 0; i < amountOfLevels; i++)
             {
                 var rating = saveData.levelRatings[i];
@@ -32,22 +31,22 @@ namespace Statistics
 
         private static void IncrementMostRecentUnlockedLevel()
         {
-            var currentWorld = FurthestLevelIndex.Key;
+            var currentWorld = FurthestStage.Key;
             var maxLevelInCurrentWorld = StageLoadManager.GetAmountOfStagesIn(currentWorld);
 
-            if (FurthestLevelIndex.Value < maxLevelInCurrentWorld)
+            if (FurthestStage.Value < maxLevelInCurrentWorld)
             {
-                var currentLevel = FurthestLevelIndex.Value + 1;
-                FurthestLevelIndex = new KeyValuePair<int, int>(currentWorld, currentLevel);
+                var currentLevel = FurthestStage.Value + 1;
+                FurthestStage = new KeyValuePair<int, int>(currentWorld, currentLevel);
                 return;
             }
-            FurthestLevelIndex = new KeyValuePair<int, int>(currentWorld+1, 0);
+            FurthestStage = new KeyValuePair<int, int>(currentWorld+1, 0);
         }
 
         public static int ReturnMostRecentUnlockedLevel()
         {
             var returnVariable = 0;
-            var furthestLevelKeyValuePair = FurthestLevelIndex;
+            var furthestLevelKeyValuePair = FurthestStage;
             var totalWorlds = furthestLevelKeyValuePair.Key;
             for (var i = 0; i < totalWorlds; i++)
             {

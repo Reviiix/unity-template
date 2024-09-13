@@ -7,7 +7,7 @@ namespace DebuggingAid
     /// Send debug messages through this class so they can be switched on and off as needed.
     /// I recommend not logging errors through here as we want them to display regardless.
     /// </summary>
-    public static class Debugging
+    public static class DebugLogManager
     {
         private const bool DisplayDebugMessages = ProjectManager.EnabledFeatures.DebugMessages;
         #region Common Error Messages
@@ -21,7 +21,7 @@ namespace DebuggingAid
         private const string UnusedAssetsRemovedWarning = "Unused assets have been forcefully unloaded and garbage has been collected manually.";
         #endregion Common Error Messages
 
-        public static void DisplayDebugMessage(string message)
+        public static void Log(string message)
         {
             // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (DisplayDebugMessages)
@@ -29,12 +29,21 @@ namespace DebuggingAid
                 Debug.Log(message);
             }
         }
+        
+        public static void LogError(string message)
+        {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            if (DisplayDebugMessages)
+            {
+                Debug.LogError(message);
+            }
+        }
 
         public static void ClearUnusedAssetsAndCollectGarbage()
         {
             Resources.UnloadUnusedAssets();
             GC.Collect();
-            DisplayDebugMessage(UnusedAssetsRemovedWarning);
+            Log(UnusedAssetsRemovedWarning);
         }
     }
 }

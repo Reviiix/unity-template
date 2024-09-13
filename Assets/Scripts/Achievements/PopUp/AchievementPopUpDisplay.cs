@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Abstract;
 using Abstract.Interfaces;
 using Achievements.Dynamic;
 using Achievements.Permanent;
@@ -8,7 +7,7 @@ using PureFunctions;
 using PureFunctions.UnitySpecific;
 using UnityEngine;
 
-namespace Achievements.Shared.PopUp
+namespace Achievements.PopUp
 {
     /// <summary>
     /// This class handles the popping of achievements. It is shared by dynamic and permanent achievements.
@@ -17,8 +16,8 @@ namespace Achievements.Shared.PopUp
     public class AchievementPopUpDisplay : PrivateSingleton<AchievementPopUpDisplay>, IHandleSimultaneousAdditions
     {
         private static readonly Queue<AchievementPopUpItem> PopUps = new ();
-        private static readonly Queue<PermanentAchievementManager.Achievement> DelayedPermanentAchievementsQueue = new ();
-        private static readonly Queue<DynamicAchievementManager.Achievement> DelayedDynamicAchievementsQueue = new ();
+        private static readonly Queue<Achievement> DelayedPermanentAchievementsQueue = new ();
+        private static readonly Queue<Achievement> DelayedDynamicAchievementsQueue = new ();
         private static int _maximumNumberOfActiveAchievements;
         private static Transform _parent;
         private const int PoolIndex = 1;
@@ -56,18 +55,9 @@ namespace Achievements.Shared.PopUp
                 PopUps.Enqueue(popUp);
             }
         }
-
-        private static void OnAchievementUnlocked(PermanentAchievementManager.Achievement achievement)
-        {
-            if (_activeAchievements >= _maximumNumberOfActiveAchievements)
-            {
-                DelayedPermanentAchievementsQueue.Enqueue(achievement);
-                return;
-            }
-            PopAchievement(achievement);
-        }
         
-        private static void OnAchievementUnlocked(DynamicAchievementManager.Achievement achievement)
+        
+        private static void OnAchievementUnlocked(Achievement achievement)
         {
             if (_activeAchievements >= _maximumNumberOfActiveAchievements)
             {
@@ -77,7 +67,7 @@ namespace Achievements.Shared.PopUp
             PopAchievement(achievement);
         }
 
-        private static void PopAchievement(PermanentAchievementManager.Achievement achievement)
+        private static void PopAchievement(Achievement achievement)
         {
             var assetReference = AchievementManager.GetSpriteAssetReference(achievement);
             _activeAchievements++;
@@ -95,26 +85,7 @@ namespace Achievements.Shared.PopUp
                 Instance.StartCoroutine(Instance.HandleDelayedAdditions());
             });
         }
-        
-        private static void PopAchievement(DynamicAchievementManager.Achievement achievement)
-        {
-            var assetReference = AchievementManager.GetSpriteAssetReference(achievement);
-            _activeAchievements++;
-            AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
-            {
-                var popUp = PopUps.Dequeue();
-                popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
-                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), () =>
-                {
-                    _activeAchievements--;
-                    PopUps.Enqueue(popUp);
-                    popUp.gameObject.SetActive(false);
-                });
-                AssetReferenceLoader.UnloadAssetReference(assetReference);
-                Instance.StartCoroutine(Instance.HandleDelayedAdditions());
-            });
-        }
-        
+
         public IEnumerator HandleDelayedAdditions()
         {
             yield return new WaitUntil(() => SpaceAvailable);
@@ -137,7 +108,7 @@ namespace Achievements.Shared.PopUp
             
             if (DelayedDynamicAchievementsQueue.Count == 0) yield break;
 
-            OnAchievementUnlocked((PermanentAchievementManager.Achievement)DelayedDynamicAchievementsQueue.Dequeue());
+            OnAchievementUnlocked(DelayedDynamicAchievementsQueue.Dequeue());
         }
     }
 }

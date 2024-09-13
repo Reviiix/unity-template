@@ -50,7 +50,7 @@ namespace Player
         {
             TimesGameHasBeenOpened++;
         
-            DebuggingAid.Debugging.DisplayDebugMessage("App has been opened " + TimesGameHasBeenOpened + " times.");
+            DebuggingAid.DebugLogManager.Log("App has been opened " + TimesGameHasBeenOpened + " times.");
             
             ProjectManager.OnApplicationOpen -= OnApplicationOpen;
         

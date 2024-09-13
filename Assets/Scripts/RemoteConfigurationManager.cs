@@ -33,7 +33,7 @@ public static class RemoteConfigurationManager
         CurrentConfiguration = newConfiguration;
         OnConfigurationChanged?.Invoke(newConfiguration);
         RemoteConfigSet = true;
-        DebuggingAid.Debugging.DisplayDebugMessage("Remote Config Updated:\n\n" + newConfigurationAsJson);
+        DebuggingAid.DebugLogManager.Log("Remote Config Updated:\n\n" + newConfigurationAsJson);
     }
     
     [JsonObject]

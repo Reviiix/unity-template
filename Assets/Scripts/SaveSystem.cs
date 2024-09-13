@@ -164,8 +164,8 @@ public static class SaveSystem
             consecutiveDailyOpens = PlayerEngagement.ConsecutiveDailyOpens;
             TotalPlayTime = PlayerEngagement.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
             
-            FurthestLevelIndex = GameStatistics.FurthestLevelIndex;
-            levelRatings = GameStatistics.LevelRatings;
+            FurthestLevelIndex = PlayerStatistics.FurthestStage;
+            levelRatings = PlayerStatistics.LevelRatings;
 
             volume = BaseAudioManager.CurrentVolume;
 

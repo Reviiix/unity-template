@@ -1,13 +1,9 @@
-﻿using Abstract;
-using Player;
-using PureFunctions;
+﻿using Player;
 using PureFunctions.UnitySpecific;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UserInterface.ConditionalMenus;
-using UserInterface.InGameMenus;
 using UserInterface.MainMenus;
 using UserInterface.MainMenus.StageSelection;
 using UserInterface.PopUpMenus;
@@ -16,7 +12,6 @@ namespace UserInterface
 {
     /// <summary>
     /// This class manages what menus will be open when.
-    /// It also has some degree of control of the transition between menus and the content.
     /// </summary>
     [RequireComponent(typeof(RawImage))]
     public class UserInterfaceManager : Singleton<UserInterfaceManager>
@@ -24,33 +19,19 @@ namespace UserInterface
         public RawImage transitionalFadeImage;
         [SerializeField] private Canvas background;
         [SerializeField] private Button returnToMainMenuButton;
-        #region Main Menus
-        [Header("Menus")]
+        [Header("Menus")] //Menus
         [SerializeField] private MainMenu mainMenu;
         [SerializeField] private StageSelectionMenu stageSelectionMenu;
         [SerializeField] private StatisticsMenu statisticsMenu;
         [SerializeField] private SettingsMenu settingsMenu;
         [SerializeField] private StoreMenu storeMenu;
-        #endregion
-        #region In Game Menus
-        [Header("In Game Menus")]
-        [SerializeField] private InGameUserInterface inGameUserInterface;
-        [SerializeField] private PauseUserMenu pauseUserMenu;
-        [SerializeField] private GameOverMenu gameOverMenu;
-        #endregion In Game Menus
-        #region Pop Up Menus
-        [Header("Pop Up Menus")]
+        [Header("Pop Up Menus")] //Pop Ups
         [SerializeField] private ConfirmationPopUp confirmationScreen;
-        #endregion Pop Up Menus
-        #region Conditional Menus
         public static ConfirmationPopUp ConfirmationScreen => Instance.confirmationScreen;
-        private const string FirstOpenPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab";
-        private static readonly AssetReference FirstOpenPopUp = new AssetReference(FirstOpenPopUpGuid);
-        private const string DailyLogInPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab";
-        private static readonly AssetReference DailyLogInPopUp = new AssetReference(DailyLogInPopUpGuid);
-        private const string AnniversaryPopUpPopUpGuid = "Prefabs/UserInterface/ConditionalMenus/AnniversaryPopUp.prefab";
-        private static readonly AssetReference AnniversaryPopUp = new AssetReference(AnniversaryPopUpPopUpGuid);
-        #endregion Conditional Menus
+        //Conditional Menus
+        private static readonly AssetReference FirstOpenPopUp = new ("Prefabs/UserInterface/ConditionalMenus/FirstOpenPopUp.prefab");
+        private static readonly AssetReference DailyLogInPopUp = new ("Prefabs/UserInterface/ConditionalMenus/DailyLogInPopUp.prefab");
+        private static readonly AssetReference AnniversaryPopUp = new ("Prefabs/UserInterface/ConditionalMenus/AnniversaryPopUp.prefab");
 
         public void Initialise()
         {
@@ -71,9 +52,6 @@ namespace UserInterface
             statisticsMenu.Initialise();
             storeMenu.Initialise();
             stageSelectionMenu.Initialise();
-            inGameUserInterface.Initialise();
-            gameOverMenu.Initialise();
-            pauseUserMenu.Initialise();
         }
         
         private void StartUpSequence()
@@ -148,34 +126,13 @@ namespace UserInterface
         private void EnableAllNonPermanentCanvases(bool state = true)
         {
             mainMenu.display.enabled = state;
-            gameOverMenu.display.enabled = state;
-            pauseUserMenu.display.enabled = state;
             settingsMenu.display.enabled = state;
             storeMenu.display.enabled = state;
             statisticsMenu.display.enabled = state;
             stageSelectionMenu.display.enabled = state;
         }
         #endregion
-        
-        #region In Game Menus
-        private void EnablePauseMenu(bool state = true)
-        {
-            pauseUserMenu.Enable(state);
-        }
-    
-        public static void EnableGameOverMenu(bool state = true)
-        {
-            var instance = Instance;
-            instance.gameOverMenu.Enable(state);
-            EnableHeadsUpDisplay(false);
-        }
-        
-        public static void EnableHeadsUpDisplay(bool state = true)
-        {
-            Instance.inGameUserInterface.Enable(state);
-        }
-        #endregion In Game Menus
-        
+
         #region Conditional Menus
         private static void ShowFirstOpenPopUp()
         {

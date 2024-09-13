@@ -15,7 +15,7 @@ using UserInterface;
 /// </summary>
 public static class StageLoadManager
 {
-    private static KeyValuePair<int, int> _furthestLevelIndex = GameStatistics.FurthestLevelIndex;
+    private static KeyValuePair<int, int> _furthestStage = PlayerStatistics.FurthestStage;
     public static int GetStageIndex(int stageGroup, int stage) => StageConfiguration.GetAssetReferenceIndex(stageGroup, stage);
     private static AssetReference GetStageAsAssetReference(int stageGroup, int stage) => StageConfiguration.GetAssetReferenceForStage(stageGroup, stage);
     public const string InitialisationStageFilePath = StageConfiguration.InitialisationSceneFilePath;
@@ -27,7 +27,7 @@ public static class StageLoadManager
     
     public static void LoadLatestUnlockedStage()
     {
-        LoadSpecificStage(_furthestLevelIndex.Key, _furthestLevelIndex.Value);
+        LoadSpecificStage(_furthestStage.Key, _furthestStage.Value);
     }
     
     public static void LoadTutorial()
@@ -45,7 +45,6 @@ public static class StageLoadManager
         }, () =>
         {
             //Fade and load complete.
-            UserInterfaceManager.EnableHeadsUpDisplay();
         }));
     }
 
@@ -85,7 +84,7 @@ public static class StageLoadManager
         private const string LevelGroupTwoFilePath = FilePathPrefix + "LevelGroupTwo/1-";
         private static readonly StageGroup[] StageGroups =
         {
-            new StageGroup(new []
+            new (new []
             {
                 new AssetReference(LevelGroupOneFilePath + "0(Tutorial)" + FilePathSuffix),
                 new AssetReference(LevelGroupOneFilePath + "1" + FilePathSuffix),
@@ -95,7 +94,7 @@ public static class StageLoadManager
                 new AssetReference(LevelGroupOneFilePath + "5" + FilePathSuffix),
                 new AssetReference(LevelGroupOneFilePath + "6" + FilePathSuffix),
             }),
-            new StageGroup(new []
+            new (new []
             {
                 new AssetReference(LevelGroupTwoFilePath + "0(Tutorial)" + FilePathSuffix),
                 new AssetReference(LevelGroupTwoFilePath + "1" + FilePathSuffix),

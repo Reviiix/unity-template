@@ -71,7 +71,7 @@ public class ObjectPooler : PrivateSingleton<ObjectPooler>
 
             if (PoolDictionary.ContainsKey(pool.index))
             {
-                DebuggingAid.Debugging.DisplayDebugMessage("Replacing object pool " + pool.index + ". ");
+                DebuggingAid.DebugLogManager.Log("Replacing object pool " + pool.index + ". ");
                 PoolDictionary.Remove(pool.index);
             }
             

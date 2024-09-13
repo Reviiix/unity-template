@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Statistics
+namespace Statistics.Score
 {
     /// <summary>
     /// This class tracks highscores

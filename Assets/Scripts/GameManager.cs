@@ -1,5 +1,6 @@
 ﻿using PureFunctions.UnitySpecific;
 using Statistics;
+using Statistics.Score;
 using UnityEngine;
 using UserInterface;
 
@@ -38,6 +39,5 @@ public class GameManager : Singleton<GameManager>
     {
         GameTime.StopTimer();
         HighScores.SetHighScore(ScoreTracker.Score);
-        UserInterfaceManager.EnableGameOverMenu();
     }
 }

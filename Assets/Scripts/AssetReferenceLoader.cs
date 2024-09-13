@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Object = System.Object;
 
 /// <summary>
 /// This class will load and unload asset references
@@ -25,7 +24,7 @@ public static class AssetReferenceLoader
         operationHandler.Completed += (operation) =>
         {
             callBack(operation.Result);
-            Addressables.Release(operationHandler);
+            //Addressables.Release(operationHandler);
         };
     }
     

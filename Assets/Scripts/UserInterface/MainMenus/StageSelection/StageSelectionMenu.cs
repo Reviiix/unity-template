@@ -56,7 +56,7 @@ namespace UserInterface.MainMenus.StageSelection
             var currentLevelIndex = 0;
             var levelGroupDisplays = new List<RectTransform>();
             var parentCache = levelItemParent;
-            var mostRelevantLevelUnlockedIndex = GameStatistics.ReturnMostRecentUnlockedLevel();
+            var mostRelevantLevelUnlockedIndex = PlayerStatistics.ReturnMostRecentUnlockedLevel();
 
             AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(DisplayItemPrefab, (returnVariable) =>
             {

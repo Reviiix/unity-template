@@ -37,7 +37,7 @@ namespace Credits
             creditsTracker.AddCredits(amount);
             GetIncrementCreditsAction(currency).Invoke(new ValueChangeInformation(creditsBeforeAddition, creditsAfterAddition));
             SaveSystem.Save();
-            Debugging.DisplayDebugMessage($"{currency} updated by {amount}.\nFrom {creditsBeforeAddition} to {creditsAfterAddition}.");
+            DebugLogManager.Log($"{currency} updated by {amount}.\nFrom {creditsBeforeAddition} to {creditsAfterAddition}.");
         }
         
         public static long GetCredits(Currency currency)
@@ -49,7 +49,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return PremiumCredits.CurrentCredits;
                 default:
-                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + DebugLogManager.IsNotAccountedForInSwitchStatement);
                     return 0;
             }
         }
@@ -63,7 +63,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return PremiumCredits;
                 default:
-                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + DebugLogManager.IsNotAccountedForInSwitchStatement);
                     return PremiumCredits;
             }
         }
@@ -77,7 +77,7 @@ namespace Credits
                 case Currency.PremiumCredits:
                     return OnPremiumCreditsChanged;
                 default:
-                    Debug.LogError(currency + Debugging.IsNotAccountedForInSwitchStatement);
+                    Debug.LogError(currency + DebugLogManager.IsNotAccountedForInSwitchStatement);
                     return OnPremiumCreditsChanged;
             }
         }

@@ -1,6 +1,6 @@
 using Abstract.Interfaces;
 
-namespace Achievements.Shared.List
+namespace Achievements.List
 {
     /// <summary>
     /// This class is for achievement list items. it is shared by dynamic and permanent achievements.

@@ -47,7 +47,7 @@ namespace UserInterface.MainMenus
         private void SetStartGameText()
         {
             var content = "START";
-            if (GameStatistics.ReturnMostRecentUnlockedLevel() >= 1) content = "CONTINUE";
+            if (PlayerStatistics.ReturnMostRecentUnlockedLevel() >= 1) content = "CONTINUE";
             startGame.GetComponent<TMP_Text>().text = content;
         }
     }

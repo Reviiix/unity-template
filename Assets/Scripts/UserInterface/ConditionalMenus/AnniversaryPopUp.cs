@@ -1,7 +1,7 @@
 using System;
 using Credits;
 using Player;
-using PureFunctions.DateTime;
+using PureFunctions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

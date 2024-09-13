@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Statistics
+namespace Statistics.Score
 {
     /// <summary>
     /// This class tracks the player score.
