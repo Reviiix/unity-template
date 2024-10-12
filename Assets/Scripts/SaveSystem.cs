@@ -127,50 +127,9 @@ public static class SaveSystem
     [Serializable]
     public class SaveData
     {
-        [FormerlySerializedAs("PlayerID")] public long playerID;
-        [FormerlySerializedAs("PlayerName")] public string playerName;
-        [FormerlySerializedAs("LevelID")] public int levelID = 1;
-        [FormerlySerializedAs("TotalExperience")] public long totalExperience;
-        [FormerlySerializedAs("Credits")] public long credits;
-        [FormerlySerializedAs("PremiumCredits")] public long premiumCredits;
-        public DateTime LastTimeAppWasOpen;
-        [FormerlySerializedAs("ConsecutiveDailyOpens")] public int consecutiveDailyOpens;
-        public TimeSpan TotalPlayTime;
-        public DateTime FirstOpen;
-        [FormerlySerializedAs("AmountOfYearsSinceFirstOpen")] public int amountOfYearsSinceFirstOpen;
-        [FormerlySerializedAs("TimesGameHasBeenOpened")] public int timesGameHasBeenOpened;
-        public KeyValuePair<int, int> FurthestLevelIndex;
-        [FormerlySerializedAs("LevelRatings")] public int[] levelRatings;
-        [FormerlySerializedAs("Volume")] public float volume;
-        [FormerlySerializedAs("PermanentAchievements")] public bool[] permanentAchievements;
-        [FormerlySerializedAs("DynamicAchievements")] public bool[] dynamicAchievements;
-        
         public SaveData()
         {
-            playerID = PlayerInformation.PlayerID;
-            playerName = PlayerInformation.PlayerName;
-            
-            levelID = ExperienceManager.CurrentLevelID;
-            totalExperience = ExperienceManager.TotalExperience;
-            
-            credits = CreditsManager.GetCredits(CreditsManager.Currency.Credits);
-            premiumCredits = CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits);
-            
-            FirstOpen = HolidayManager.FirstOpen;
-            amountOfYearsSinceFirstOpen = HolidayManager.AmountOfYearsSinceFirstOpen;
-            
-            timesGameHasBeenOpened = PlayerEngagement.TimesGameHasBeenOpened;
-            LastTimeAppWasOpen = DateTime.Now;
-            consecutiveDailyOpens = PlayerEngagement.ConsecutiveDailyOpens;
-            TotalPlayTime = PlayerEngagement.TotalPlayTime + TimeSpan.FromSeconds(Time.deltaTime);
-            
-            FurthestLevelIndex = PlayerStatistics.FurthestStage;
-            levelRatings = PlayerStatistics.LevelRatings;
 
-            volume = BaseAudioManager.CurrentVolume;
-
-            permanentAchievements = AchievementManager.GetUnLockStatesOfPermanentAchievements();
-            dynamicAchievements = AchievementManager.GetUnLockStatesOfDynamicAchievements();
         }
     }
 }
