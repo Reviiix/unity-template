@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Abstract.Interfaces;
+using pure_unity_methods;
+using pure_unity_methods.Effects;
 using PureFunctions;
 using PureFunctions.UnitySpecific;
 using PureFunctions.UnitySpecific.Effects;

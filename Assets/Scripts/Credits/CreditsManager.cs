@@ -1,6 +1,6 @@
 ﻿using System;
 using DebuggingAid;
-using PureFunctions;
+using pure_unity_methods;
 using UnityEngine;
 
 namespace Credits

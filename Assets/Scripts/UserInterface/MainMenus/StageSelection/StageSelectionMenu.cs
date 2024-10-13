@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using PureFunctions;
-using PureFunctions.UnitySpecific;
+using pure_unity_methods;
 using Statistics;
 using TMPro;
 using UnityEngine;

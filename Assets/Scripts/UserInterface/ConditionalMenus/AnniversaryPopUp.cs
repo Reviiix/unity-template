@@ -1,7 +1,7 @@
 using System;
 using Credits;
 using Player;
-using PureFunctions;
+using pure_unity_methods;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
