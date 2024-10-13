@@ -1,6 +1,6 @@
 using System;
 using Audio;
-using PureFunctions.UnitySpecific.Movement;
+using pure_unity_methods.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 

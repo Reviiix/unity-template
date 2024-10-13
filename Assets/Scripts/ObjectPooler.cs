@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Abstract;
-using PureFunctions.UnitySpecific;
+using pure_unity_methods;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

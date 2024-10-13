@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DebuggingAid;
 using JetBrains.Annotations;
+using pure_unity_methods;
 using PureFunctions;
 using PureFunctions.UnitySpecific;
 using TMPro;

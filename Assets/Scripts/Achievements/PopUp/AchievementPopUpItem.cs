@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using pure_unity_methods.Effects;
 using PureFunctions.UnitySpecific.Effects;
 using UnityEngine;
 

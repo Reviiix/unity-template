@@ -1,7 +1,7 @@
 ﻿using System;
 using Credits;
 using Player;
-using PureFunctions.UnitySpecific.Effects;
+using pure_unity_methods.Effects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
