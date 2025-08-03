@@ -14,9 +14,9 @@ using UnityEngine.AddressableAssets;
 public class ObjectPooler : PrivateSingleton<ObjectPooler>
 {
     [SerializeField] private Pool[] pools;
-    private static readonly Dictionary<int, Queue<GameObject>> PoolDictionary = new Dictionary<int, Queue<GameObject>>();
+    private static readonly Dictionary<int, Queue<GameObject>> PoolDictionary = new();
     
-    private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new WaitUntil(() => _currentAddressableAsGameObjectCache != null);
+    private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new (() => _currentAddressableAsGameObjectCache != null);
     private static GameObject _currentAddressableAsGameObjectCache;
 
     public void Initialise(Action callBack)

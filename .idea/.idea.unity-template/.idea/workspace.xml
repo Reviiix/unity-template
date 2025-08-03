@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,74 +23,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b4b62b-63b8-4468-b7bf-13e924a7ebf1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.unity-template/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Built In Data.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Built In Data.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Drop Shadow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Drop Shadow.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Outline.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Outline.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Custom-Atlas.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Custom-Atlas.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Mobile.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Mobile.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Mobile.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Mobile.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Masking.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Masking.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Masking.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Masking.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface-Mobile.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface-Mobile.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface-Mobile.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface-Mobile.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro.cginc.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro.cginc.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Properties.cginc" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Properties.cginc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Properties.cginc.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Properties.cginc.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Surface.cginc" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Surface.cginc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Surface.cginc.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMPro_Surface.cginc.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/TMP Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/TMP Settings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectPooler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectPooler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/DateTimeOrdinals.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/DateTimeOrdinals.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/README.md.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/README.md.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Coroutiner.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Coroutiner.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/ChangeTextColour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/ChangeTextColour.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/Fade.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/Fade.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/FlashObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/FlashObject.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/NumberRollup.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Effects/NumberRollup.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Movement/RotateObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Movement/RotateObject.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/OpenURLButton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/OpenURLButton.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/PersistObjects.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/PersistObjects.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/ScreenSafeScaler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/ScreenSafeScaler.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/SetGameTitleText.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/SetGameTitleText.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/SetVersionNumberText.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/SetVersionNumberText.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Singleton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Singleton.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Wait.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Wait.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ValueChangeInformation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PureFunctions/ValueChangeInformation.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/pure-unity-methods" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/pure-unity-methods" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,9 +75,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Credits/CreditsManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Debugging/DebugLogManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/DateTimeOrdinals.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/StringUtilities.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PureFunctions/UnitySpecific/Coroutiner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SpinningWheel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StageLoadManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -132,6 +90,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3106A267-530D-4882-A7C5-0DDA1995BCAE/5a/20cb8b3d/ScriptableSingleton`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D496C8E-82AE-4EBD-B5D2-754C57C486CF/4e/b6c62b85/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3D496C8E-82AE-4EBD-B5D2-754C57C486CF/bd/7b8a52ae/IJobExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3ff87c59c5ac40d69c02c27bc5571d641dd800/e5/3c22e6d7/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5A55D4B6-90B6-4085-AA6A-3E01886A9E6B/03/6cf99782/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5A55D4B6-90B6-4085-AA6A-3E01886A9E6B/2d/a90163e9/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5A55D4B6-90B6-4085-AA6A-3E01886A9E6B/71/f0b3f7f3/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -196,6 +155,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="1hQzS0QNc0itzAyQd5Ynh6aNX25" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -204,26 +167,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.22103658&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/Users/leon/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache&quot;,
-      &quot;/Users/leon/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache&quot;,
-      &quot;/Users/leon/.local/share/Symbols/src&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Discover.Launch.Via.Unity": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.22103658",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="/Applications/UnityInstalls/6000.0.21f1/Unity.app/Contents/MacOS/Unity" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="/Applications/UnityInstalls/6000.0.21f1/Unity.app/Contents/MacOS/Unity" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -242,6 +212,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -252,6 +225,9 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
       <option name="selectedOptions">
         <list />
       </option>
@@ -391,6 +367,14 @@
       <workItem from="1717427317872" duration="854000" />
       <workItem from="1724683606143" duration="18773000" />
       <workItem from="1727628651654" duration="611000" />
+      <workItem from="1728777542678" duration="867000" />
+      <workItem from="1734123891779" duration="691000" />
+      <workItem from="1744191704011" duration="1231000" />
+      <workItem from="1747989803290" duration="867000" />
+      <workItem from="1747992295372" duration="3802000" />
+      <workItem from="1748022442146" duration="25000" />
+      <workItem from="1748950793604" duration="1172000" />
+      <workItem from="1749038858738" duration="1508000" />
     </task>
     <servers />
   </component>
@@ -399,6 +383,11 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -421,36 +410,43 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/SavingAndLoading/LevelLoadManager.cs</url>
           <line>61</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SavingAndLoading/LevelLoadManager.cs" initialLine="61" containingFunctionPresentation="method 'LoadLevelWithFade'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SavingAndLoading/LevelLoadManager.cs" containingFunctionPresentation="method 'LoadLevelWithFade'" />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Audio/VolumeController.cs</url>
           <line>56</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioControls.cs" initialLine="50" containingFunctionPresentation="method 'SliderValueChanged'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioControls.cs" containingFunctionPresentation="Method 'MuteButtonPressed'">
+            <startOffsets>
+              <option value="1634" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1674" />
+            </endOffsets>
+          </properties>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs</url>
           <line>47</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs" initialLine="46" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs</url>
           <line>52</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs" initialLine="51" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Display/PopUp/AchievementPopUpDisplay.cs" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs</url>
           <line>90</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" initialLine="77" containingFunctionPresentation="method 'RollupCredits'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" containingFunctionPresentation="Method 'RollupCredits'">
             <startOffsets>
-              <option value="3073" />
+              <option value="3064" />
             </startOffsets>
             <endOffsets>
-              <option value="3187" />
+              <option value="3191" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="61" />
@@ -458,50 +454,50 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs</url>
           <line>62</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" initialLine="60" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" containingFunctionPresentation="method 'OnAchievementUnlocked'" />
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs</url>
           <line>72</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" initialLine="70" containingFunctionPresentation="method 'PopAchievement'" />
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Shared/PopUp/AchievementPopUpDisplay.cs" containingFunctionPresentation="method 'PopAchievement'" />
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs</url>
           <line>79</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" initialLine="76" containingFunctionPresentation="method 'ClaimReward'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/UserInterface/ConditionalMenus/DailyLogInPopUp.cs" containingFunctionPresentation="method 'ClaimReward'">
             <startOffsets>
-              <option value="2658" />
+              <option value="2649" />
             </startOffsets>
             <endOffsets>
-              <option value="2733" />
+              <option value="2724" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs</url>
-          <line>105</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" initialLine="103" containingFunctionPresentation="lambda expression inside method 'ChangeTextAmount'">
+          <line>104</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" containingFunctionPresentation="lambda expression inside method 'ChangeTextAmount'">
             <startOffsets>
-              <option value="4008" />
+              <option value="3978" />
             </startOffsets>
             <endOffsets>
-              <option value="4062" />
+              <option value="4032" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs</url>
-          <line>82</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" initialLine="80" containingFunctionPresentation="lambda expression inside method 'ChangeFillBarAmount'">
+          <line>81</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Statistics/Experience/ExperienceDisplay.cs" containingFunctionPresentation="lambda expression inside method 'ChangeFillBarAmount'">
             <startOffsets>
-              <option value="3006" />
+              <option value="2976" />
             </startOffsets>
             <endOffsets>
-              <option value="3007" />
+              <option value="2977" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="90" />
@@ -509,7 +505,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
           <line>108</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="105" containingFunctionPresentation="method 'SaveClassWithJSON'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" containingFunctionPresentation="method 'SaveClassWithJSON'">
             <startOffsets>
               <option value="3363" />
             </startOffsets>
@@ -522,7 +518,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs</url>
           <line>104</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" initialLine="101" containingFunctionPresentation="method 'SaveClassWithJSON'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/SaveSystem.cs" containingFunctionPresentation="method 'SaveClassWithJSON'">
             <startOffsets>
               <option value="3275" />
             </startOffsets>
@@ -535,7 +531,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/PauseManager.cs</url>
           <line>17</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" initialLine="18" containingFunctionPresentation="method 'PauseButtonPressed'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/PauseManager.cs" containingFunctionPresentation="method 'PauseButtonPressed'">
             <startOffsets>
               <option value="306" />
             </startOffsets>
@@ -548,7 +544,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/BaseAchievementManager.cs</url>
           <line>32</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/BaseAchievementManager.cs" initialLine="32" containingFunctionPresentation="method 'GetTotalRewards'">
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/BaseAchievementManager.cs" containingFunctionPresentation="method 'GetTotalRewards'">
             <startOffsets>
               <option value="1428" />
             </startOffsets>
@@ -560,52 +556,52 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs</url>
-          <line>17</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" initialLine="17" containingFunctionPresentation="method 'Start'">
+          <line>18</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" containingFunctionPresentation="method 'Start'">
             <startOffsets>
-              <option value="542" />
+              <option value="568" />
             </startOffsets>
             <endOffsets>
-              <option value="572" />
+              <option value="598" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs</url>
-          <line>15</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" initialLine="15" containingFunctionPresentation="method 'Start'">
+          <line>16</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" containingFunctionPresentation="method 'Start'">
             <startOffsets>
-              <option value="434" />
+              <option value="460" />
             </startOffsets>
             <endOffsets>
-              <option value="474" />
+              <option value="500" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs</url>
-          <line>32</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" initialLine="32" containingFunctionPresentation="method 'CreateDisplayAsynchronously'">
+          <line>33</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" containingFunctionPresentation="method 'CreateDisplayAsynchronously'">
             <startOffsets>
-              <option value="940" />
+              <option value="966" />
             </startOffsets>
             <endOffsets>
-              <option value="1010" />
+              <option value="1036" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs</url>
-          <line>33</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" initialLine="33" containingFunctionPresentation="method 'CreateDisplayAsynchronously'">
+          <line>34</line>
+          <properties documentPath="$PROJECT_DIR$/Assets/Scripts/Achievements/Permanent/PermanentAchievementListDisplay.cs" containingFunctionPresentation="method 'CreateDisplayAsynchronously'">
             <startOffsets>
-              <option value="1023" />
+              <option value="1049" />
             </startOffsets>
             <endOffsets>
-              <option value="1042" />
+              <option value="1068" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="115" />

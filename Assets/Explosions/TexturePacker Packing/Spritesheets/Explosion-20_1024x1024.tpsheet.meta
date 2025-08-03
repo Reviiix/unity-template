@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 62fbd5ce42e47294b86100c17d7b4bdb
+timeCreated: 1447856624
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 21510
+  packageName: 2D explosion animations pack
+  packageVersion: 1.0
+  assetPath: Assets/Explosions/TexturePacker Packing/Spritesheets/Explosion-20_1024x1024.tpsheet
+  uploadId: 90517

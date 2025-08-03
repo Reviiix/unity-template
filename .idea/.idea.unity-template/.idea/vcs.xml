@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Assets/Scripts/PureFunctions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Assets/Scripts/pure-unity-methods" vcs="Git" />
   </component>
 </project>

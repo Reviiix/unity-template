@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 410931ee6f3f52845a4809c5ca33cb50
+timeCreated: 1447852010
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 21510
+  packageName: 2D explosion animations pack
+  packageVersion: 1.0
+  assetPath: Assets/Explosions/TexturePacker Packing/Spritesheets/Explosion-15_00002.controller
+  uploadId: 90517

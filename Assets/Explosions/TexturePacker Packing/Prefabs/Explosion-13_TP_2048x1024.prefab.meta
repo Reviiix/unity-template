@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 78a9f139f04706d4bac374464db14365
+timeCreated: 1447925409
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 21510
+  packageName: 2D explosion animations pack
+  packageVersion: 1.0
+  assetPath: Assets/Explosions/TexturePacker Packing/Prefabs/Explosion-13_TP_2048x1024.prefab
+  uploadId: 90517
