@@ -102,7 +102,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 
 ## Tests
 
-- **Window > General > Test Runner**: EditMode (services, saves, scene wiring) and PlayMode (boots the game and walks first launch, the daily wheel and starting a stage).
+- **Window > General > Test Runner**: EditMode (services, saves, scene wiring) and PlayMode (boots the game and walks first launch, the daily wheel, the RESET ALL confirmation and starting a stage).
 - Command line: `unity test <project> --mode EditMode` and `unity test <project> --mode PlayMode`. The PlayMode tests back up and restore your local save.
 
 Manual checklist before a release: cold start, first open, daily wheel (spin and X), anniversary (Tools > Save Data tools), stage fade, RESET ALL, Android back button, airplane mode.

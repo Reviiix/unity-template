@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using DG.Tweening;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -14,11 +16,12 @@ using UnityTemplate.Engagement;
 using UnityTemplate.Gameplay;
 using UnityTemplate.UserInterface;
 using UnityTemplate.UserInterface.ConditionalMenus;
+using UnityTemplate.UserInterface.PopUpMenus;
 using Object = UnityEngine.Object;
 
 namespace UnityTemplate.Tests.PlayMode
 {
-    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel and starting the first stage; any logged error or exception fails the test.</summary>
+    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation and starting the first stage; any logged error or exception fails the test.</summary>
     public class MetaLoopSmokeTests
     {
         private const string InitialisationScene = "Initialisation";
@@ -87,6 +90,30 @@ namespace UnityTemplate.Tests.PlayMode
             Assert.IsFalse(ServiceLocator.Get<EngagementService>().IsDailyBonusAvailable(DateTime.Now));
         }
 
+        /// <summary>Opens the RESET ALL confirmation and checks that a tap on BACK behind it lands on the popup, then reaches BACK again once the popup has closed.</summary>
+        [UnityTest]
+        public IEnumerator ResetAllConfirmationBlocksTapsOnTheMenuBehindIt()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+
+            var back = FindLoadedButton("BTN_BackToMainMenu");
+            FindLoadedButton("BTN_Settings").onClick.Invoke();
+            FindLoadedButton("BTN_DeleteAllData").onClick.Invoke();
+            var confirmation = default(ConfirmationPopUp);
+            yield return WaitUntil(() => (confirmation = Object.FindFirstObjectByType<ConfirmationPopUp>()) != null && confirmation.State == PopUpState.Open);
+
+            var tappedWhileOpen = TopObjectUnderTap(back.transform.position);
+            Assert.IsNotNull(tappedWhileOpen, "Nothing took a tap on BACK while the RESET ALL confirmation was open.");
+            Assert.IsTrue(tappedWhileOpen.transform.IsChildOf(confirmation.transform), $"A tap on BACK reached {tappedWhileOpen.name} behind the RESET ALL confirmation.");
+
+            FindButtonByName(confirmation.gameObject, "BTN_No").onClick.Invoke();
+            yield return WaitUntil(() => confirmation.State == PopUpState.Hidden);
+            yield return null;
+            var tappedAfterClosing = TopObjectUnderTap(back.transform.position);
+            Assert.IsTrue(tappedAfterClosing != null && tappedAfterClosing.transform.IsChildOf(back.transform), $"After the confirmation closed, a tap on BACK reached {(tappedAfterClosing == null ? "nothing" : tappedAfterClosing.name)}.");
+        }
+
         [UnityTest]
         public IEnumerator StartFadesOutAndLoadsTheTutorialStage()
         {
@@ -125,6 +152,15 @@ namespace UnityTemplate.Tests.PlayMode
             }
             Assert.Fail($"No button named {name} under {root.name}.");
             return null;
+        }
+
+        /// <summary>Returns the object a tap at this overlay-canvas position would reach first, or null if nothing takes it.</summary>
+        private static GameObject TopObjectUnderTap(Vector3 overlayPosition)
+        {
+            var tap = new PointerEventData(EventSystem.current) { position = RectTransformUtility.WorldToScreenPoint(null, overlayPosition) };
+            var hits = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(tap, hits);
+            return hits.Count > 0 ? hits[0].gameObject : null;
         }
 
         private static Button FindLoadedButton(string name)
