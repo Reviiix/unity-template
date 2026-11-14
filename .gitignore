@@ -60,3 +60,9 @@ crashlytics-build.properties
 
 # macOS Finder metadata
 .DS_Store
+
+# Per-user Unity and IDE state (each developer gets their own)
+/[Uu]ser[Ss]ettings/
+.idea/
+/UIElementsSchema/
+mono_crash.*.json
