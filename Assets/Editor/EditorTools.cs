@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace Editor
+namespace UnityTemplate.Editor
 {
     public class EditorTools : UnityEditor.Editor
     {
