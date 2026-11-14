@@ -2,7 +2,9 @@
     "name": "UnityTemplate.Editor",
     "rootNamespace": "UnityTemplate.EditorTools",
     "references": [
-        "UnityTemplate"
+        "UnityTemplate",
+        "UnityEditor.TestRunner",
+        "UnityEngine.TestRunner"
     ],
     "includePlatforms": [
         "Editor"

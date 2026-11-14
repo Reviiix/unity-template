@@ -1,5 +1,7 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.TestTools.TestRunner.Api;
+using UnityEngine;
 
 namespace UnityTemplate.EditorTools
 {
@@ -9,11 +11,13 @@ namespace UnityTemplate.EditorTools
     {
         private const string MenuPath = "Tools/Scenes/Always Play From Initialisation Scene";
         private const string PreferenceKey = "UnityTemplate.PlayFromInitialisationScene";
+        private const string TestsRunningKey = "UnityTemplate.TestsRunning";
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
 
         static PlayFromInitialisationScene()
         {
-            EditorApplication.delayCall += Apply;
+            ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new TestRunCallbacks());
+            if (!EditorApplication.isPlayingOrWillChangePlaymode) EditorApplication.delayCall += Apply;
         }
 
         private static bool IsEnabled
@@ -38,10 +42,39 @@ namespace UnityTemplate.EditorTools
             return true;
         }
 
-        /// <summary>Points Unity's play-mode start scene at Initialisation.unity, or clears it.</summary>
+        /// <summary>Points Unity's play-mode start scene at Initialisation.unity, or clears it in batch mode, during test runs or when switched off.</summary>
         private static void Apply()
         {
-            EditorSceneManager.playModeStartScene = IsEnabled ? AssetDatabase.LoadAssetAtPath<SceneAsset>(InitialisationScenePath) : null;
+            var useInitialisationScene = IsEnabled && !Application.isBatchMode && !SessionState.GetBool(TestsRunningKey, false);
+            EditorSceneManager.playModeStartScene = useInitialisationScene ? AssetDatabase.LoadAssetAtPath<SceneAsset>(InitialisationScenePath) : null;
+        }
+
+        /// <summary>Steps aside while the Test Runner runs, because PlayMode tests must start from the Test Runner's own scene.</summary>
+        private class TestRunCallbacks : ICallbacks
+        {
+            /// <summary>Clears the start scene before the run enters Play mode.</summary>
+            public void RunStarted(ITestAdaptor testsToRun)
+            {
+                SessionState.SetBool(TestsRunningKey, true);
+                EditorSceneManager.playModeStartScene = null;
+            }
+
+            /// <summary>Restores the start scene once the run has finished.</summary>
+            public void RunFinished(ITestResultAdaptor result)
+            {
+                SessionState.SetBool(TestsRunningKey, false);
+                Apply();
+            }
+
+            /// <summary>Not needed: the start scene only matters for the whole run.</summary>
+            public void TestStarted(ITestAdaptor test)
+            {
+            }
+
+            /// <summary>Not needed: the start scene only matters for the whole run.</summary>
+            public void TestFinished(ITestResultAdaptor result)
+            {
+            }
         }
     }
 }
