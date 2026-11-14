@@ -1,0 +1,25 @@
+{
+    "name": "UnityTemplate",
+    "rootNamespace": "UnityTemplate",
+    "references": [
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.Services.RemoteConfig",
+        "Unity.RemoteConfig.Editor.Core",
+        "Unity.Burst",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
