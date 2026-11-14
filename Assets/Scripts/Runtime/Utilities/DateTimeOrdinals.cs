@@ -1,30 +1,25 @@
 namespace UnityTemplate.Utilities
 {
+    /// <summary>Formats numbers as English ordinals for dates and anniversaries.</summary>
     public static class DateTimeOrdinals
     {
-        public enum Days { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
-        
-        public enum Months { January, February, March, April, May, June, July, August, September, October, November, December }
-
+        /// <summary>Returns 1st, 2nd, 3rd, 4th, 11th, 21st... for positive numbers and the plain number otherwise.</summary>
         public static string ConvertToOrdinalString(int number)
         {
             if (number <= 0) return number.ToString();
 
-            return (number % 100) switch
+            var suffix = (number % 100) switch
             {
-                11 => number + "th",
-                12 => number + "th",
-                13 => number + "th",
+                11 or 12 or 13 => "th",
                 _ => (number % 10) switch
                 {
-                    1 => number + "st",
-                    2 => number + "nd",
-                    3 => number + "rd",
-                    _ => number + "th"
-                }
+                    1 => "st",
+                    2 => "nd",
+                    3 => "rd",
+                    _ => "th",
+                },
             };
+            return number + suffix;
         }
     }
 }
-
-

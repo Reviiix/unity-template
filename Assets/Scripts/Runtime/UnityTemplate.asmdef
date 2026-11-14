@@ -8,10 +8,7 @@
         "UnityEngine.UI",
         "Unity.Services.Core",
         "Unity.Services.Authentication",
-        "Unity.Services.RemoteConfig",
-        "Unity.RemoteConfig.Editor.Core",
-        "Unity.Burst",
-        "Unity.Mathematics"
+        "Unity.Services.RemoteConfig"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
