@@ -40,11 +40,15 @@ namespace UnityTemplate.UserInterface.MainMenus
             base.Show();
         }
 
-        /// <summary>Loads the stage CONTINUE points at (the first stage for a new player).</summary>
+        /// <summary>Hides the main menu at once, as the original did, and loads the stage CONTINUE points at (the first stage for a new player).</summary>
         private void StartGamePressed()
         {
             var (group, stage) = progress.GetContinueStage();
-            ServiceLocator.Get<StageLoader>().LoadStage(group, stage);
+            var stageLoader = ServiceLocator.Get<StageLoader>();
+            if (!stageLoader.CanLoadStage(group, stage)) return;
+
+            Hide();
+            stageLoader.LoadStage(group, stage);
         }
     }
 }
