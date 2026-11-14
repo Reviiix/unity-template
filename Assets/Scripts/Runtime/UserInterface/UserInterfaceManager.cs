@@ -37,6 +37,7 @@ namespace UnityTemplate.UserInterface
         private RawImage transitionalFadeImage;
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
+        public bool IsShowingStartUpPopUps { get; private set; }
 
         /// <summary>Releases the Addressable assets the menus keep loaded for the app's lifetime.</summary>
         private void OnDestroy()
@@ -64,20 +65,27 @@ namespace UnityTemplate.UserInterface
             storeMenu.Initialise();
         }
 
-        /// <summary>Opens the main menu, then the first-open popup, or the anniversary and daily bonus popups one after another.</summary>
+        /// <summary>Opens the main menu, then the first-open popup, or the anniversary and daily bonus popups one after another; stages cannot start until it finishes.</summary>
         public async Awaitable ShowStartUpPopUpsAsync(bool dailyBonusEnabled)
         {
             ShowMenu(mainMenu);
-
-            var engagement = ServiceLocator.Get<EngagementService>();
-            var today = System.DateTime.Now;
-            if (engagement.IsFirstOpen)
+            IsShowingStartUpPopUps = true;
+            try
             {
-                await OpenAddressablePopUpAsync(firstOpenPopUp);
-                return;
+                var engagement = ServiceLocator.Get<EngagementService>();
+                var today = System.DateTime.Now;
+                if (engagement.IsFirstOpen)
+                {
+                    await OpenAddressablePopUpAsync(firstOpenPopUp);
+                    return;
+                }
+                if (engagement.IsAnniversaryAvailable(today)) await OpenAddressablePopUpAsync(anniversaryPopUp);
+                if (dailyBonusEnabled && engagement.IsDailyBonusAvailable(today)) await OpenAddressablePopUpAsync(dailyLogInPopUp);
             }
-            if (engagement.IsAnniversaryAvailable(today)) await OpenAddressablePopUpAsync(anniversaryPopUp);
-            if (dailyBonusEnabled && engagement.IsDailyBonusAvailable(today)) await OpenAddressablePopUpAsync(dailyLogInPopUp);
+            finally
+            {
+                IsShowingStartUpPopUps = false;
+            }
         }
 
         /// <summary>Opens a popup that already lives in the scene and waits until it has closed.</summary>

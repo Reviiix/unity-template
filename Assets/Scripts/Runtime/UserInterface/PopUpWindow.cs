@@ -35,10 +35,14 @@ namespace UnityTemplate.UserInterface
             canvas.enabled = false;
         }
 
-        /// <summary>Stops the slide before the popup is destroyed.</summary>
+        /// <summary>Stops the slide and, if the popup was destroyed while still showing, reports it closed so nothing waits on it forever.</summary>
         protected virtual void OnDestroy()
         {
             slide?.Kill();
+            if (State == PopUpState.Hidden) return;
+
+            State = PopUpState.Hidden;
+            Closed?.Invoke(this);
         }
 
         /// <summary>Shows the popup with its slide-in animation.</summary>

@@ -21,10 +21,16 @@ namespace UnityTemplate.Progression
             this.userInterface = userInterface;
         }
 
+        /// <summary>Returns true when a stage load can start now: the stage has a scene, no load is running and the start-up popups are done.</summary>
+        public bool CanLoadStage(int group, int stage)
+        {
+            return !IsLoading && !userInterface.IsShowingStartUpPopUps && catalogue.HasScene(group, stage);
+        }
+
         /// <summary>Fades out, hides the menus, loads the stage's scene and fades back in.</summary>
         public async void LoadStage(int group, int stage)
         {
-            if (IsLoading || !catalogue.HasScene(group, stage)) return;
+            if (!CanLoadStage(group, stage)) return;
 
             IsLoading = true;
             try
