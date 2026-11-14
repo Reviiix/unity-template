@@ -11,9 +11,11 @@ namespace UnityTemplate.UserInterface.MainMenus
     /// <summary>The statistics menu with its performance, achievements (permanent and weekly) and leaderboard tabs.</summary>
     public class StatisticsMenu : MenuBase
     {
-        private const FontStyles HighlightedFontStyle = FontStyles.Underline | FontStyles.SmallCaps;
-        private const FontStyles NormalFontStyle = FontStyles.SmallCaps;
         [SerializeField] private StatisticsPanels startingStatisticsPanel;
+        [Header("Tabs")]
+        [SerializeField] private Color selectedTabColour = Color.white;
+        [SerializeField] private Color selectedTabTextColour = new(0.08f, 0.09f, 0.11f);
+        [SerializeField] private Color unselectedTabTextColour = new(0.36f, 0.39f, 0.44f);
         [Header("Performance Panel")]
         [SerializeField] private Button performanceButton;
         [SerializeField] private TMP_Text timePlayed;
@@ -43,11 +45,11 @@ namespace UnityTemplate.UserInterface.MainMenus
         public void Initialise()
         {
             engagement = ServiceLocator.Get<EngagementService>();
-            performanceTitle = performanceButton.GetComponent<TMP_Text>();
-            achievementsTitle = achievementsButton.GetComponent<TMP_Text>();
-            weeklyAchievementsTitle = weeklyAchievementsButton.GetComponent<TMP_Text>();
-            permanentAchievementsTitle = permanentAchievementsButton.GetComponent<TMP_Text>();
-            leaderboardTitle = leaderboardButton.GetComponent<TMP_Text>();
+            performanceTitle = performanceButton.GetComponentInChildren<TMP_Text>();
+            achievementsTitle = achievementsButton.GetComponentInChildren<TMP_Text>();
+            weeklyAchievementsTitle = weeklyAchievementsButton.GetComponentInChildren<TMP_Text>();
+            permanentAchievementsTitle = permanentAchievementsButton.GetComponentInChildren<TMP_Text>();
+            leaderboardTitle = leaderboardButton.GetComponentInChildren<TMP_Text>();
 
             performanceButton.onClick.AddListener(ShowPerformancePanel);
             achievementsButton.onClick.AddListener(ShowAchievementsPanel);
@@ -77,7 +79,7 @@ namespace UnityTemplate.UserInterface.MainMenus
         /// <summary>Shows the performance tab with time played and times opened.</summary>
         private void ShowPerformancePanel()
         {
-            ShowOnlyPanel(performanceContent, performanceTitle);
+            ShowOnlyPanel(performanceContent);
             var playTime = engagement.TotalPlayTime;
             textBuilder.Clear().Append("TIME PLAYED: ").Append(playTime.ToString());
             timePlayed.SetText(textBuilder);
@@ -91,7 +93,7 @@ namespace UnityTemplate.UserInterface.MainMenus
         {
             if (startingAchievementPanel == AchievementPanels.Permanent) ShowPermanentAchievements();
             else ShowWeeklyAchievements();
-            ShowOnlyPanel(achievementsContent, achievementsTitle);
+            ShowOnlyPanel(achievementsContent);
         }
 
         /// <summary>Shows the weekly achievements sub-tab.</summary>
@@ -106,30 +108,37 @@ namespace UnityTemplate.UserInterface.MainMenus
             SelectAchievementTab(weekly: false);
         }
 
-        /// <summary>Shows one achievements sub-tab and underlines its title.</summary>
+        /// <summary>Shows one achievements sub-tab and marks it as selected.</summary>
         private void SelectAchievementTab(bool weekly)
         {
             weeklyAchievementsContent.SetActive(weekly);
             permanentAchievementsContent.SetActive(!weekly);
-            weeklyAchievementsTitle.fontStyle = weekly ? HighlightedFontStyle : NormalFontStyle;
-            permanentAchievementsTitle.fontStyle = weekly ? NormalFontStyle : HighlightedFontStyle;
+            SetTabSelected(weeklyAchievementsButton, weeklyAchievementsTitle, weekly);
+            SetTabSelected(permanentAchievementsButton, permanentAchievementsTitle, !weekly);
         }
 
         /// <summary>Shows the leaderboard tab.</summary>
         private void ShowLeaderboardPanel()
         {
-            ShowOnlyPanel(leaderboardContent, leaderboardTitle);
+            ShowOnlyPanel(leaderboardContent);
         }
 
-        /// <summary>Shows one tab's content and underlines its title, hiding the others.</summary>
-        private void ShowOnlyPanel(GameObject panel, TMP_Text title)
+        /// <summary>Shows one tab's content and marks its tab as selected, hiding the others.</summary>
+        private void ShowOnlyPanel(GameObject panel)
         {
             performanceContent.SetActive(panel == performanceContent);
             achievementsContent.SetActive(panel == achievementsContent);
             leaderboardContent.SetActive(panel == leaderboardContent);
-            performanceTitle.fontStyle = title == performanceTitle ? HighlightedFontStyle : NormalFontStyle;
-            achievementsTitle.fontStyle = title == achievementsTitle ? HighlightedFontStyle : NormalFontStyle;
-            leaderboardTitle.fontStyle = title == leaderboardTitle ? HighlightedFontStyle : NormalFontStyle;
+            SetTabSelected(performanceButton, performanceTitle, panel == performanceContent);
+            SetTabSelected(achievementsButton, achievementsTitle, panel == achievementsContent);
+            SetTabSelected(leaderboardButton, leaderboardTitle, panel == leaderboardContent);
+        }
+
+        /// <summary>Shows a tab as selected (filled segment, dark label) or not (clear segment, grey label).</summary>
+        private void SetTabSelected(Button tab, TMP_Text title, bool selected)
+        {
+            tab.image.color = selected ? selectedTabColour : Color.clear;
+            title.color = selected ? selectedTabTextColour : unselectedTabTextColour;
         }
 
         /// <summary>The achievements sub-tabs; StatisticsMenu.prefab stores these as numbers, so keep their order.</summary>
