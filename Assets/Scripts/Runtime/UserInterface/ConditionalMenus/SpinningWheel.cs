@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace UnityTemplate.UserInterface.ConditionalMenus
@@ -8,6 +9,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
     public class SpinningWheel : MonoBehaviour
     {
         [SerializeField] private WheelWeightings wheelSegments;
+        [SerializeField] private TMP_Text[] segmentLabels;
         [Header("Controls")]
         [SerializeField] private int rotations;
         [SerializeField] [Range(0.1f, 15)] private float duration;
@@ -20,12 +22,16 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
 
         private int AmountOfSegments => wheelSegments.AmountOfSegments;
 
-        /// <summary>Caches the wheel and resets it to segment 0.</summary>
+        /// <summary>Caches the wheel, resets it to segment 0 and writes each segment's credit value on its label.</summary>
         private void Awake()
         {
             wheel = transform;
             currentSegment = 0;
             wheel.eulerAngles = Vector3.zero;
+            for (var i = 0; i < segmentLabels.Length && i < AmountOfSegments; i++)
+            {
+                segmentLabels[i].SetText("{0:0}", wheelSegments.GetSegmentValue(i));
+            }
         }
 
         /// <summary>Picks a segment using the designer-set chance ranges.</summary>

@@ -7,17 +7,17 @@ using UnityEngine.UI;
 namespace UnityTemplate.Achievements
 {
     /// <summary>Shared parts of an achievement row and an achievement popup: background, icon, title, description and reward texts.</summary>
-    [RequireComponent(typeof(RawImage))]
+    [RequireComponent(typeof(Image))]
     public abstract class AchievementItemBase : MonoBehaviour
     {
         [SerializeField] protected Image graphic;
         [SerializeField] protected TMP_Text title;
         [SerializeField] protected TMP_Text description;
         [SerializeField] protected TMP_Text reward;
-        private RawImage background;
+        private Image background;
         private AsyncOperationHandle<Sprite> iconHandle;
 
-        public RawImage Background => background != null ? background : background = GetComponent<RawImage>();
+        public Image Background => background != null ? background : background = GetComponent<Image>();
 
         /// <summary>Fills in the texts and loads the icon of an achievement.</summary>
         protected async void ShowTexts(AchievementInfo achievement)
