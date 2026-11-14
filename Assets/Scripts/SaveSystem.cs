@@ -29,6 +29,8 @@ public static class SaveSystem
     private static readonly BinaryFormatter Formatter = new();
     private static readonly string Location = Application.persistentDataPath;
     private static readonly string FilePath = Location + "/SaveData.";
+    private static readonly string BackupFilePath = FilePath + "backup";
+    private static readonly string TemporaryFilePath = FilePath + "tmp";
 
     public static void Save()
     {
@@ -44,14 +46,49 @@ public static class SaveSystem
 
     public static void Load()
     {
-        OnSaveDataLoaded?.Invoke(SaveWithBinaryFormatter ? LoadClassFromBinaryFormatter<SaveData>(FilePath) : LoadClassFromJSON<SaveData>(FilePath));
+        OnSaveDataLoaded?.Invoke(LoadSaveFile(FilePath) ?? LoadSaveFile(BackupFilePath));
+    }
+
+    /// <summary>Reads one save file, returning null instead of throwing when it is missing or unreadable.</summary>
+    private static SaveData LoadSaveFile(string path)
+    {
+        try
+        {
+            return SaveWithBinaryFormatter ? LoadClassFromBinaryFormatter<SaveData>(path) : LoadClassFromJSON<SaveData>(path);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Could not read save file " + path + ". Exception: " + e);
+            return null;
+        }
+    }
+
+    /// <summary>Writes to a temporary file, then swaps it in so an interrupted save never truncates the existing file.</summary>
+    private static void WriteAtomically(string path, Action<Stream> write)
+    {
+        using (var stream = new FileStream(TemporaryFilePath, FileMode.Create))
+        {
+            write(stream);
+        }
+
+        if (File.Exists(path))
+        {
+            File.Replace(TemporaryFilePath, path, BackupFilePath);
+        }
+        else
+        {
+            File.Move(TemporaryFilePath, path);
+        }
     }
     
     public static void Delete()
     {
         try
         {
-            if (File.Exists(FilePath)) File.Delete(FilePath);
+            foreach (var path in new[] { FilePath, BackupFilePath, TemporaryFilePath })
+            {
+                if (File.Exists(path)) File.Delete(path);
+            }
         }
         catch (Exception e)
         {
@@ -65,13 +102,8 @@ public static class SaveSystem
     {
         try
         {
-            using var stream = new FileStream(path, FileMode.Create);
-            
-            //if (stream.Length == 0) return;
-            
             var saveData = new T();
-            Formatter.Serialize(stream, saveData);
-            stream?.Close();
+            WriteAtomically(path, stream => Formatter.Serialize(stream, saveData));
         }
         catch (Exception e)
         {
@@ -101,8 +133,8 @@ public static class SaveSystem
     {
         try
         {
-            var v = JsonUtility.ToJson(new T(), true);
-            File.WriteAllText(path, v);
+            var json = System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(new T(), true));
+            WriteAtomically(path, stream => stream.Write(json, 0, json.Length));
         }
         catch (Exception e)
         {
@@ -112,15 +144,9 @@ public static class SaveSystem
     
     private static T LoadClassFromJSON<T>(string path) where T : class
     {
-        try
-        {
-            return JsonUtility.FromJson<T>(File.ReadAllText(path));
-        }
-        catch (Exception e)
-        {
-            Debug.LogException(e);
-            return null;
-        }
+        if (!File.Exists(path)) return null;
+
+        return JsonUtility.FromJson<T>(File.ReadAllText(path));
     }
     #endregion JSON Save System
 
