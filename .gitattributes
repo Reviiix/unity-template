@@ -1,0 +1,27 @@
+# Text files are stored with LF line endings.
+*.cs        text eol=lf diff=csharp
+*.asmdef    text eol=lf
+*.json      text eol=lf
+*.md        text eol=lf
+*.shader    text eol=lf
+
+# Unity YAML assets: always text, never re-wrapped.
+*.unity     text eol=lf -diff
+*.prefab    text eol=lf -diff
+*.asset     text eol=lf -diff
+*.meta      text eol=lf
+*.mat       text eol=lf -diff
+*.anim      text eol=lf -diff
+*.controller text eol=lf -diff
+
+# Binary assets.
+*.png  binary
+*.jpg  binary
+*.psd  binary
+*.mp3  binary
+*.wav  binary
+*.ttf  binary
+*.otf  binary
+*.dll  binary
+*.so   binary
+*.a    binary
