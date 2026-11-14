@@ -51,7 +51,11 @@ A target of `-1` disables that weekly achievement. Missing or invalid values kee
 Assets/
   Audio/                    UI sound effects
   Graphics/                 Sprites and textures (mobile import settings: Tools > Apply Mobile Import Settings)
-  Prefabs/                  Pooled objects, menu items and popups (the popups are Addressable)
+  Prefabs/                  Pooled objects, menu items, menus and popups
+    UserInterface/Menus/    Menu.prefab (the canvas set-up every menu shares) and the five menus, all variants of it
+    UserInterface/PopUps/   PopUp.prefab (the frame every popup shares) and the confirmation popup, a variant of it
+    UserInterface/ConditionalMenus/
+                            First-open, daily and anniversary popups (PopUp variants, Addressable)
   Scenes/                   Initialisation.unity (boot scene) and Scenes/StageGroupOne/... (stages)
   Settings/                 StageCatalogue and AchievementCatalogue (designer-editable data)
   Scripts/
@@ -71,7 +75,9 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Task | How |
 |---|---|
 | Add a stage | Create the scene under `Assets/Scenes/...`, mark it Addressable (Scenes group), then drag it into a slot of `Assets/Settings/StageCatalogue.asset`. Empty slots show as locked stages. Append new stages: ratings are stored by position. |
-| Add a popup | Duplicate one of the prefabs in `Prefabs/UserInterface/ConditionalMenus`, give it a script that derives from `PopUpWindow`, mark it Addressable, reference it from `UserInterfaceManager` and open it with `OpenPopUpAsync`. |
+| Add a menu | Right-click `Prefabs/UserInterface/Menus/Menu.prefab` > **Create > Prefab Variant**, build the menu inside it and add a script that derives from `MenuBase` to its root. Put an instance under `UserInterface` in `Initialisation.unity`, then give `UserInterfaceManager` a field for it, add it to `allMenus` and initialise it in `Initialise`. |
+| Add a popup | Right-click `Prefabs/UserInterface/PopUps/PopUp.prefab` > **Create > Prefab Variant**, move the variant to `Prefabs/UserInterface/ConditionalMenus` and build the popup inside `GRP_Content`. Add a script that derives from `PopUpWindow` to its root and set **Pop Up Menu** to `GRP_Content` and **Close Button** to `BTN_Close`. Mark it Addressable (ConditionalMenus group), give `UserInterfaceManager` an `AssetReferenceGameObject` field for it and open it with `OpenAddressablePopUpAsync`, as `ShowStartUpPopUpsAsync` does. |
+| Change a menu or popup | Open its prefab from `Prefabs/UserInterface/Menus`, `PopUps` or `ConditionalMenus`. What every menu or popup shares (canvas scaling, the popup panel and backdrop) lives in `Menu.prefab` or `PopUp.prefab`. A variant stores only what it changes, shown in bold in the Inspector. |
 | Add a service | Write a plain C# class (implement `ISaveable` if it saves), create it and register it in `GameInitialiser.Awake`, then resolve it from MonoBehaviours with `ServiceLocator.Get<T>()` in `OnEnable`. |
 | Save a new value | Add a field to `SaveData`, read it in the owning service's `Load` and write it in `Save`. Never rename or retype an existing field; bump `SaveData.CurrentVersion` and migrate if a field's meaning changes. |
 | Pool a new object | Add an entry to `PoolKey` (append only) and a pool on the `ObjectPooler` in `Initialisation.unity`, then use `ObjectPooler.Get`/`Release`. |
@@ -83,7 +89,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 
 - Services are plain C# classes registered in the `ServiceLocator` by `GameInitialiser`; no `static` managers and no `Singleton<T>`.
 - One central initialiser: everything that needs set-up is called from `GameInitialiser.Awake`, in order.
-- Object pooling for anything created repeatedly; prefabs for anything reused.
+- Object pooling for anything created repeatedly; prefabs for anything reused. Menus are variants of `Menu.prefab` and popups of `PopUp.prefab`, so shared set-up is edited once.
 - Cache references and precompute at start-up rather than at runtime.
 - Self-documenting names, a one-line `/// <summary>` on every class and method, few other comments.
 - Private by default; `[SerializeField]` only for values designers tweak.

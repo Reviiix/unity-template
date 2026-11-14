@@ -53,10 +53,12 @@ Rules:
 
 ## User interface
 
-- Menus (`MainMenu`, `StageSelectionMenu`, `StatisticsMenu`, `SettingsMenu`, `StoreMenu`) are `[Serializable]` classes stored on `UserInterfaceManager`; showing a menu enables its canvas and hides the others.
+- Each menu (`MainMenu`, `StageSelectionMenu`, `StatisticsMenu`, `SettingsMenu`, `StoreMenu`) is a `MenuBase` component on the root canvas of its own prefab in `Prefabs/UserInterface/Menus`. Every menu prefab is a variant of `Menu.prefab`, which holds the canvas set-up they share: overlay canvas, Scale With Screen Size at 1600×900 with Expand, and a graphic raycaster. Each variant overrides only what differs from the base, such as its name, sort order and whether its canvas starts enabled.
+- `UserInterfaceManager` references the menu instances in `Initialisation.unity` and initialises them in a fixed order; showing a menu enables its canvas and hides the others.
 - Popups derive from `PopUpWindow` and move through Hidden, Opening, Open and Closing. They slide in from the left with DOTween (`Ease.OutExpo`, 0.87 s, from `Screen.width * 2 + 500` units off-screen), which matches the original frame-based movement at 30 fps.
 - Three ways to close a popup, matching the original game: `CloseImmediately` (vanish with the menu whoosh; daily CLAIM, anniversary CLAIM), `CloseWithSlide` (slide out silently; every X button and the welcome CONTINUE), `CloseWithSlide(playSound: true)` (confirmation YES/NO).
-- Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup lives in the scene and is reused.
+- Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a backdrop, a grey overlay, and a panel with an outline, a title and a close button. `ConfirmationPopUp.prefab` removes the grey overlay, title and close button, which it never had, and its backdrop lets taps through, as in the original scene.
+- Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
 - Canvas sort orders: menus 0-3, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
 - Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu to the main menu, and does nothing on the main menu or inside a stage.
 - Timings preserved from the original: currency and wheel roll-ups 3.37 s, linear (101 frames at 30 fps); experience bar 3 s, OutQuad; daily wheel 7 s, InOutQuart; stage fade 1 s out and 1 s in, linear.
@@ -86,6 +88,7 @@ When code needs a new package, add its assembly to the `references` list of the 
 ## Decisions
 
 - Kept the menu loop exactly as it was: no in-stage HUD, pause or game-over screens (the canvases remain in the scene, unused, for future gameplay), and no way back from a stage yet.
+- Menus and popups are prefab variants of two bases, `Menu.prefab` and `PopUp.prefab`, so set-up they share is edited once and the scene holds only their instances.
 - Remote Config changes apply from the next launch, so nothing changes mid-session and boot never waits for the network.
 - Animations are time-based and pinned to what devices showed at the original 30 fps, now running at 60 fps.
 - Ratings are stored by stage position: append stages to the catalogue rather than inserting them.
