@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utilities
+namespace UnityTemplate.Utilities
 {
     /// <summary>
     /// This class sets all the objects in its array to not destroy on load

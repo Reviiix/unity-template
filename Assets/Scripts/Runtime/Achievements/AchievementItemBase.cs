@@ -1,29 +1,48 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-namespace Achievements
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.
-    /// </summary>
+    /// <summary>Shared parts of an achievement row and an achievement popup: background, icon, title, description and reward texts.</summary>
     [RequireComponent(typeof(RawImage))]
     public abstract class AchievementItemBase : MonoBehaviour
     {
-        public RawImage Background { get; private set; }
         [SerializeField] protected Image graphic;
         [SerializeField] protected TMP_Text title;
         [SerializeField] protected TMP_Text description;
         [SerializeField] protected TMP_Text reward;
+        private RawImage background;
+        private AsyncOperationHandle<Sprite> iconHandle;
 
-        public Image ReturnGraphic=>graphic;
-        public TMP_Text ReturnNameDisplay=> title;
-        public TMP_Text ReturnDescriptionDisplay=> description;
-        public TMP_Text ReturnRewardDisplay=> reward;
-        
-        private void Awake()
+        public RawImage Background => background != null ? background : background = GetComponent<RawImage>();
+
+        /// <summary>Fills in the texts and loads the icon of an achievement.</summary>
+        protected async void ShowTexts(AchievementInfo achievement)
         {
-            Background = GetComponent<RawImage>();
+            title.text = achievement.Title;
+            description.text = achievement.Description;
+            reward.SetText("{0:0}", achievement.Reward);
+            if (achievement.Icon == null || !achievement.Icon.RuntimeKeyIsValid()) return;
+
+            ReleaseIcon();
+            iconHandle = Addressables.LoadAssetAsync<Sprite>(achievement.Icon);
+            var icon = await iconHandle.Task;
+            if (this == null) return;
+            graphic.sprite = icon;
+            graphic.color = Color.white;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            ReleaseIcon();
+        }
+
+        private void ReleaseIcon()
+        {
+            if (iconHandle.IsValid()) Addressables.Release(iconHandle);
         }
     }
 }

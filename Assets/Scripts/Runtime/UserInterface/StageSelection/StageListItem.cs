@@ -1,37 +1,18 @@
-﻿using Abstract.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UserInterface.MainMenus.StageSelection
+namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
-    /// <summary>
-    /// This class just holds the variables until the stage selection menu caches them. Then it removes itself (So no searching of the prefab for children and components is needed and eventually less MonoBehaviours)
-    /// </summary>
-    public class StageListItem : MonoBehaviour, IListItem
+    /// <summary>References to the parts of a stage button prefab, so the stage selection menu never has to search the prefab.</summary>
+    public class StageListItem : MonoBehaviour
     {
         [SerializeField] private Button stageLevelButton;
         [SerializeField] private TMP_Text stageNameDisplay;
         [SerializeField] private Image[] stars;
 
-        public Image[] ReturnStarDisplay()
-        {
-            return stars;
-        }
-        
-        public Button ReturnButton()
-        {
-             return stageLevelButton;
-        }
-
-        public TMP_Text ReturnStageNameDisplay()
-        {
-            return stageNameDisplay;
-        }
-        
-        public void RemoveClassFromObject()
-        {
-            Destroy(GetComponent<StageListItem>());
-        }
+        public Button Button => stageLevelButton;
+        public TMP_Text StageNameDisplay => stageNameDisplay;
+        public Image[] Stars => stars;
     }
 }

@@ -1,13 +1,11 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UserInterface.ConditionalMenus
+namespace UnityTemplate.UserInterface.ConditionalMenus
 {
-    /// <summary>
-    /// This is the first open display class. It will be loaded once ever per user so only load through addressables.
-    /// </summary>
-    public class FirstOpenPopUpMenu : PopUpInterface, IUserInterface
+    /// <summary>The welcome popup shown on the very first launch.</summary>
+    public class FirstOpenPopUpMenu : PopUpWindow
     {
         [SerializeField] private TMP_Text title;
         [SerializeField] private Button continueButton;
@@ -15,18 +13,8 @@ namespace UserInterface.ConditionalMenus
         protected override void Awake()
         {
             base.Awake();
-            SetButtonEvents();
-            title.text = "WELCOME TO " + Application.productName.ToUpper();
-        }
-        
-        private void SetButtonEvents()
-        {
-            continueButton.onClick.AddListener(ContinuePressed);
-        }
-
-        private void ContinuePressed()
-        {
-            Enable(false);
+            continueButton.onClick.AddListener(() => CloseWithSlide());
+            title.text = "WELCOME TO " + Application.productName.ToUpperInvariant();
         }
     }
 }

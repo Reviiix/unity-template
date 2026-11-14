@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Utilities
+namespace UnityTemplate.Utilities
 {
     /// <summary>
     /// This class gets the product name from Application (set in Player Settings) and displays it in the required component, TMP_Text.

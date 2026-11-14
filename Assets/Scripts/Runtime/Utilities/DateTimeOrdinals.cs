@@ -1,4 +1,4 @@
-namespace Utilities
+namespace UnityTemplate.Utilities
 {
     public static class DateTimeOrdinals
     {

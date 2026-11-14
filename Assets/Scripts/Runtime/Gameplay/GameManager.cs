@@ -1,43 +1,60 @@
-﻿using Utilities;
-using Statistics;
-using Statistics.Score;
 using UnityEngine;
-using UserInterface;
+using UnityTemplate.Audio;
+using UnityTemplate.Core;
+using UnityTemplate.Progression;
 
-/// <summary>
-/// This class manages the flow of the game.
-/// Puppet Master
-/// </summary>
-public class GameManager : Singleton<GameManager>
+namespace UnityTemplate.Gameplay
 {
-    public TimeTracker GameTime { get; } = new();
-    public ScoreTracker ScoreTracker { get; } = new();
-    
-    private void Start()
+    /// <summary>Runs one stage: owns its timer and score, pauses the stage, and submits the high score when the stage ends.</summary>
+    public class GameManager : MonoBehaviour
     {
-        GameTime.StartTimer();
-    }
-    
-    [ContextMenu(nameof(PauseUnpauseTimer))]
-    public void PauseUnpauseTimer()
-    {
-        if (GameTime.Active)
-        {
-            GameTime.PauseTimer();
-            return;
-        }
-        GameTime.ResumeTimer();
-    }
-    
-    public void IncrementScore(int amount)
-    {
-        ScoreTracker.IncrementScore(amount);
-    }
+        private const float PausedVolumeFactor = 0.2f;
 
-    [ContextMenu(nameof(EndGame))]
-    public void EndGame()
-    {
-        GameTime.StopTimer();
-        HighScores.SetHighScore(ScoreTracker.Score);
+        public TimeTracker GameTime { get; } = new();
+        public ScoreTracker ScoreTracker { get; } = new();
+        public bool IsPaused { get; private set; }
+
+        private void Awake()
+        {
+            ServiceLocator.Register(this);
+        }
+
+        private void Start()
+        {
+            GameTime.Start();
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Unregister<GameManager>();
+        }
+
+        /// <summary>Pauses or resumes the stage timer and lowers the volume while paused.</summary>
+        [ContextMenu(nameof(TogglePause))]
+        public void TogglePause()
+        {
+            IsPaused = !IsPaused;
+            if (IsPaused) GameTime.Pause();
+            else GameTime.Resume();
+
+            if (ServiceLocator.TryGet<AudioManager>(out var audioManager))
+            {
+                AudioListener.volume = audioManager.IsMuted ? 0 : audioManager.Volume * (IsPaused ? PausedVolumeFactor : 1);
+            }
+        }
+
+        /// <summary>Adds points to the stage score.</summary>
+        public void IncrementScore(int amount)
+        {
+            ScoreTracker.Increment(amount);
+        }
+
+        /// <summary>Stops the timer and records the score as a high score if it beats the previous best.</summary>
+        [ContextMenu(nameof(EndGame))]
+        public void EndGame()
+        {
+            GameTime.Pause();
+            ServiceLocator.Get<ProgressService>().SubmitScore(ScoreTracker.Score);
+        }
     }
 }

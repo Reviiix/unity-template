@@ -1,140 +1,120 @@
-﻿using System.Collections;
 using System.Collections.Generic;
-using Abstract.Interfaces;
+using System.Text;
 using DG.Tweening;
-using Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
 
-namespace Statistics.Experience
+namespace UnityTemplate.Progression
 {
-    /// <summary>
-    /// This class displays the amount of experience based on the ExperienceManager class
-    /// </summary>
-    public class ExperienceDisplay : MonoBehaviour, IHandleSimultaneousAdditions
+    /// <summary>Shows the player's level, an experience bar and "current/needed" text, animating every experience gain.</summary>
+    public class ExperienceDisplay : MonoBehaviour
     {
-        private bool animating;
-        private Coroutine gainExperienceCoroutine;
-        private static long _amountOfExperienceForNextLevelCache;
-        private int levelIDCache;
-        private static readonly Queue<KeyValuePair<long, long>> AdditionQueue = new (); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
+        private const float AnimationSeconds = 3;
         [SerializeField] private Image levelBar;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text experienceText;
-        private const int AnimationDuration = 3; 
-        
-        private IEnumerator Start()
-        {
-            yield return Wait.WaitForInitialisation;
-            Initialise();
-        }
+        private readonly Queue<ValueChange> queuedGains = new();
+        private readonly StringBuilder textBuilder = new();
+        private ExperienceService experience;
+        private Sequence gainAnimation;
+        private int shownLevel;
+
+        private SaveService saveService;
 
         private void OnEnable()
         {
-            ExperienceManager.OnExperienceChange += OnExperienceChange;
+            experience = ServiceLocator.Get<ExperienceService>();
+            saveService = ServiceLocator.Get<SaveService>();
+            experience.ExperienceChanged += OnExperienceChanged;
+            saveService.DataLoaded += ShowCurrentExperience;
+            ShowCurrentExperience();
         }
 
         private void OnDisable()
         {
-            ExperienceManager.OnExperienceChange -= OnExperienceChange;
+            gainAnimation?.Kill();
+            gainAnimation = null;
+            experience.ExperienceChanged -= OnExperienceChanged;
+            saveService.DataLoaded -= ShowCurrentExperience;
         }
 
-        private void Initialise()
+        private void ShowCurrentExperience()
         {
-            LoadSavedData();
-            SetInitialDisplayState();
+            gainAnimation?.Kill();
+            queuedGains.Clear();
+            ShowState(experience.CurrentLevel, experience.TotalExperience);
         }
 
-        private void LoadSavedData()
+        private void OnExperienceChanged(ValueChange change)
         {
-            levelIDCache = ExperienceManager.CurrentLevelID;
-            _amountOfExperienceForNextLevelCache = ExperienceManager.GetAllExperienceToLevelUp(levelIDCache);
-        }
-
-        private void SetInitialDisplayState()
-        {
-            var totalExperience = ExperienceManager.TotalExperience;
-            levelText.text = (levelIDCache + 1).ToString();
-            levelBar.fillAmount = ReturnExperienceAsBarValue(totalExperience, levelIDCache);
-            experienceText.text = totalExperience + "/" + _amountOfExperienceForNextLevelCache;
-        }
-
-        private void OnExperienceChange(long oldValue, long newValue)
-        {
-            if (animating)
+            if (gainAnimation != null && gainAnimation.IsActive())
             {
-                AdditionQueue.Enqueue(new KeyValuePair<long, long>(oldValue, newValue));
+                queuedGains.Enqueue(change);
                 return;
             }
-            GainExperienceAnimation(oldValue, newValue);
+            AnimateGain(change);
         }
 
-        private void GainExperienceAnimation(long oldValue, long newValue, int seconds = AnimationDuration)
+        private void AnimateGain(ValueChange change)
         {
-            ChangeFillBarAmount(newValue, seconds);
-            ChangeTextAmount(oldValue, newValue, seconds);
-        }
+            gainAnimation = DOTween.Sequence().SetLink(gameObject);
+            var from = change.OldValue;
+            var totalGain = change.NewValue - change.OldValue;
+            var level = shownLevel;
 
-        private void ChangeFillBarAmount(long newValue, int seconds)
-        {
-            one = DOTween.To(()=> levelBar.fillAmount, x=> levelBar.fillAmount = x, ReturnExperienceAsBarValue(newValue, levelIDCache), seconds).OnComplete(() =>
+            while (from < change.NewValue)
             {
-                //levelBar.fillAmount = ReturnExperienceAsBarValue(newValue, levelIDCache);
+                var levelEnd = experience.GetCumulativeExperience(level);
+                var reachesNextLevel = change.NewValue >= levelEnd && level < experience.MaximumLevel;
+                var to = reachesNextLevel ? levelEnd : change.NewValue;
+                var seconds = AnimationSeconds * (to - from) / totalGain;
+                AppendSegment(level, from, to, seconds);
+
+                if (!reachesNextLevel) break;
+                level++;
+                var nextLevel = level;
+                gainAnimation.AppendCallback(() => ShowState(nextLevel, levelEnd));
+                from = to;
+            }
+
+            gainAnimation.OnComplete(() =>
+            {
+                gainAnimation = null;
+                if (queuedGains.Count > 0) AnimateGain(queuedGains.Dequeue());
             });
         }
-        
-        private Tween one;
-        private Tween two;
-        
-        private void ChangeTextAmount(long oldValue, long newValue, int seconds)
-        {
-            var numberDisplay = oldValue;
 
-            two = DOTween.To(()=> numberDisplay, x=> numberDisplay = x, newValue, seconds).OnUpdate(() =>
+        private void AppendSegment(int level, long from, long to, float seconds)
+        {
+            double shownExperience = from;
+            gainAnimation.Append(DOTween.To(() => levelBar.fillAmount, fill => levelBar.fillAmount = fill, GetBarFill(to, level), seconds).SetEase(Ease.OutQuad));
+            gainAnimation.Join(DOTween.To(() => shownExperience, value =>
             {
-                experienceText.text = numberDisplay + "/" + _amountOfExperienceForNextLevelCache;
-                if (numberDisplay >= _amountOfExperienceForNextLevelCache)
-                {
-                    DOTween.Kill(one);
-                    DOTween.Kill(two);
-                    levelIDCache++;
-                    _amountOfExperienceForNextLevelCache = ExperienceManager.GetAllExperienceToLevelUp(levelIDCache);
-                    levelText.text = (levelIDCache+1).ToString();
-                    levelBar.fillAmount = 0;
-                    //RestartExperienceGainProcess(numberDisplay, newValue);
-
-                }
-            }).OnComplete(() =>
-            {
-                //experienceText.text = newValue + "/" + _amountOfExperienceForNextLevelCache;
-            });
-        }
-        
-
-        private void RestartExperienceGainProcess(long currentValue, long newValue)
-        {
-            GainExperienceAnimation(currentValue, newValue);;
+                shownExperience = value;
+                ShowExperienceText((long)shownExperience, level);
+            }, to, seconds).SetEase(Ease.OutQuad));
         }
 
-        public IEnumerator HandleDelayedAdditions()
+        private void ShowState(int level, long totalExperience)
         {
-            yield return new WaitUntil(() => !animating);
-            
-            if (AdditionQueue.Count == 0) yield break;
-
-            var dequeue = AdditionQueue.Dequeue();
-            RestartExperienceGainProcess(dequeue.Key, dequeue.Value);
+            shownLevel = level;
+            levelText.SetText("{0:0}", level + 1);
+            levelBar.fillAmount = GetBarFill(totalExperience, level);
+            ShowExperienceText(totalExperience, level);
         }
 
-        private static float ReturnExperienceAsBarValue(long totalExperience, int levelID)
+        private void ShowExperienceText(long totalExperience, int level)
         {
-            var previousLevelID = levelID - 1;
-            var previousExperienceToLevelUp = previousLevelID >= 0 ? ExperienceManager.GetAllExperienceToLevelUp(previousLevelID) : 0;
-            
-            if (previousLevelID < 0) previousExperienceToLevelUp = 0;
-            
-            return (totalExperience - previousExperienceToLevelUp) * (100f / ExperienceManager.ReturnExperienceForLevelID(levelID)) / 100f;
+            textBuilder.Clear().Append(totalExperience).Append('/').Append(experience.GetCumulativeExperience(level));
+            experienceText.SetText(textBuilder);
+        }
+
+        private float GetBarFill(long totalExperience, int level)
+        {
+            var levelStart = level > 0 ? experience.GetCumulativeExperience(level - 1) : 0;
+            return Mathf.Clamp01((float)(totalExperience - levelStart) / experience.GetExperienceForLevel(level));
         }
     }
 }

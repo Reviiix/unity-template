@@ -1,75 +1,30 @@
-﻿using System;
-using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UserInterface.PopUpMenus;
+using UnityTemplate.Core;
+using UnityTemplate.UserInterface.PopUpMenus;
 
-namespace UserInterface.MainMenus
+namespace UnityTemplate.UserInterface.MainMenus
 {
-    /// <summary>
-    /// This is the class for the settings menu
-    /// </summary>
+    /// <summary>The settings menu: currently the RESET ALL button, which deletes the save after a confirmation.</summary>
     [Serializable]
-    public class SettingsMenu : UserInterface, IUserInterface
+    public class SettingsMenu : MenuBase
     {
-        public static Action<string> OnNameChange;
         [SerializeField] private Button deleteAllDataButton;
-        [SerializeField] private TMP_InputField nameInputField;
-        private static ConfirmationPopUp ConfirmationPopUp => UserInterfaceManager.ConfirmationScreen;
-        
-        public void Initialise()
-        {
-            AssignEvents();
-        }
+        private UserInterfaceManager userInterface;
 
-        private void AssignEvents()
-        { 
+        /// <summary>Wires the RESET ALL button.</summary>
+        public void Initialise(UserInterfaceManager userInterfaceManager)
+        {
+            userInterface = userInterfaceManager;
             deleteAllDataButton.onClick.AddListener(DeleteAllDataPressed);
         }
-        
-        #region ChangeName
-        private void ChangeNamePressed(string name)
-        {
-            ConfirmationPopUp.OnChoiceMade += OnChangeNameConfirmation;
-            ConfirmationPopUp.Enable();
-        }
 
-        private void OnChangeNameConfirmation(bool confirmation)
+        private async void DeleteAllDataPressed()
         {
-            ConfirmationPopUp.OnChoiceMade -= OnChangeNameConfirmation;
-
-            if (confirmation) ChangeName();
-        }
-        
-        private void ChangeName()
-        {
-            OnNameChange?.Invoke(nameInputField.text);
-        }
-        #endregion ChangeName
-
-        #region Delete All Save Data
-        private void DeleteAllDataPressed()
-        {
-            ConfirmationPopUp.OnChoiceMade += OnDeleteAllDataConfirmation;
-            ConfirmationPopUp.Enable();
-        }
-
-        private void OnDeleteAllDataConfirmation(bool confirmation)
-        {
-            ConfirmationPopUp.OnChoiceMade -= OnDeleteAllDataConfirmation;
-
-            if (confirmation) DeleteAllData();
-        }
-        
-        private void DeleteAllData()
-        {
-            SaveSystem.Delete();
-        }
-        #endregion Delete All Save Data
-
-        public void Enable(bool state = true)
-        {
-            display.enabled = state;
+            var confirmation = userInterface.ConfirmationScreen;
+            await userInterface.OpenPopUpAsync(confirmation);
+            if (confirmation.Confirmed) ServiceLocator.Get<SaveService>().DeleteAll();
         }
     }
 }

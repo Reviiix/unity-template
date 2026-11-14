@@ -1,86 +1,103 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Abstract.Interfaces;
-using Utilities;
+using System.Text;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityTemplate.Core;
 
-namespace Credits
+namespace UnityTemplate.Economy
 {
-    /// <summary>
-    /// This class handles displaying the credit values.
-    /// It is not for tracking values. That job belongs to CreditsManager.
-    /// </summary>
+    /// <summary>Shows both currency balances and rolls the number up whenever a balance changes.</summary>
     public class CreditsDisplay : MonoBehaviour
     {
-        public const int RollUpTimeInSeconds = 1;
+        public const float RollUpSeconds = 101 / 30f;
         [SerializeField] private CreditDisplay credits;
         [SerializeField] private CreditDisplay premiumCredits;
+        private CreditsService creditsService;
 
-        private IEnumerator Start()
-        {
-            yield return Wait.WaitForInitialisation;
-            credits.Initialise(CreditsManager.GetCredits(CreditsManager.Currency.Credits));
-            premiumCredits.Initialise(CreditsManager.GetCredits(CreditsManager.Currency.PremiumCredits));
-        }
+        private SaveService saveService;
 
         private void OnEnable()
         {
-            CreditsManager.OnCreditsChanged += credits.OnCreditsChanged;
-            CreditsManager.OnPremiumCreditsChanged += premiumCredits.OnCreditsChanged;
+            creditsService = ServiceLocator.Get<CreditsService>();
+            saveService = ServiceLocator.Get<SaveService>();
+            creditsService.BalanceChanged += OnBalanceChanged;
+            saveService.DataLoaded += ShowCurrentBalances;
+            ShowCurrentBalances();
         }
-        
+
         private void OnDisable()
         {
-            CreditsManager.OnCreditsChanged -= credits.OnCreditsChanged;
-            CreditsManager.OnPremiumCreditsChanged -= premiumCredits.OnCreditsChanged;
+            credits.StopAnimation();
+            premiumCredits.StopAnimation();
+            creditsService.BalanceChanged -= OnBalanceChanged;
+            saveService.DataLoaded -= ShowCurrentBalances;
         }
 
-        [Serializable]
-        private class CreditDisplay : IHandleSimultaneousAdditions
+        private void ShowCurrentBalances()
         {
-            private const int RollUpSpeed = RollUpTimeInSeconds;
-            private bool animating;
-            [SerializeField] private TMP_Text creditsDisplay;
-            [SerializeField] private string prefix = "ERROR";
-            [SerializeField] private string suffix = "ERROR";
-            private readonly Queue<ValueChangeInformation> additionQueue = new (); //Experience additions that happened during this animation are queued up and applied after the animation has finished.
+            credits.Show(creditsService.GetBalance(Currency.Credits));
+            premiumCredits.Show(creditsService.GetBalance(Currency.PremiumCredits));
+        }
 
-            public void Initialise(long startingValue)
+        private void OnBalanceChanged(Currency currency, ValueChange change)
+        {
+            (currency == Currency.Credits ? credits : premiumCredits).Animate(change, gameObject);
+        }
+
+        /// <summary>One balance read-out; changes that arrive mid-animation are queued and played afterwards.</summary>
+        [Serializable]
+        private class CreditDisplay
+        {
+            [SerializeField] private TMP_Text creditsDisplay;
+            [SerializeField] private string prefix = "";
+            [SerializeField] private string suffix = "";
+            private readonly Queue<ValueChange> queuedChanges = new();
+            private readonly StringBuilder textBuilder = new();
+            private Tween rollUp;
+
+            public void Show(long value)
             {
-                creditsDisplay.text = prefix + startingValue + suffix;
+                StopAnimation();
+                queuedChanges.Clear();
+                SetText(value);
             }
 
-            public void OnCreditsChanged(ValueChangeInformation valueChangeInformation)
+            public void Animate(ValueChange change, GameObject owner)
             {
-                if (animating)
+                if (rollUp != null && rollUp.IsActive())
                 {
-                    additionQueue.Enqueue(valueChangeInformation);
+                    queuedChanges.Enqueue(change);
                     return;
                 }
-                UpdateDisplay(valueChangeInformation);
+
+                double shown = change.OldValue;
+                rollUp = DOTween.To(() => shown, value =>
+                    {
+                        shown = value;
+                        SetText((long)Math.Round(shown));
+                    }, change.NewValue, RollUpSeconds)
+                    .SetEase(Ease.Linear)
+                    .SetLink(owner)
+                    .OnComplete(() =>
+                    {
+                        SetText(change.NewValue);
+                        rollUp = null;
+                        if (queuedChanges.Count > 0) Animate(queuedChanges.Dequeue(), owner);
+                    });
             }
 
-            private void UpdateDisplay(ValueChangeInformation valueChangeInformation)
+            public void StopAnimation()
             {
-                var newValue = valueChangeInformation.NewValue;
-                animating = true;
-                Coroutiner.StartCoroutine(NumberRollup.Rollup(creditsDisplay, valueChangeInformation.OldValue, newValue, prefix, suffix,RollUpSpeed,() =>
-                {
-                    animating = false;
-                    creditsDisplay.text = prefix + newValue + suffix;
-                    Coroutiner.StartCoroutine(HandleDelayedAdditions());
-                }));
+                rollUp?.Kill();
+                rollUp = null;
             }
-            
-            public IEnumerator HandleDelayedAdditions()
+
+            private void SetText(long value)
             {
-                yield return new WaitUntil(() => !animating);
-            
-                if (additionQueue.Count == 0) yield break;
-                
-                UpdateDisplay(additionQueue.Dequeue());
+                textBuilder.Clear().Append(prefix).Append(value).Append(suffix);
+                creditsDisplay.SetText(textBuilder);
             }
         }
     }

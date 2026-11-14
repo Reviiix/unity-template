@@ -1,52 +1,46 @@
-using System;
-using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UserInterface.PopUpMenus
+namespace UnityTemplate.UserInterface.PopUpMenus
 {
-    /// <summary>
-    /// This is the confirmation screen, It will return a choice of accept or deny
-    /// </summary>
-    [Serializable]
-    public class ConfirmationPopUp : PopUpInterface, IUserInterface
+    /// <summary>A reusable YES/NO popup in the scene; open it with UserInterfaceManager.OpenPopUpAsync and read Confirmed afterwards.</summary>
+    public class ConfirmationPopUp : PopUpWindow
     {
-        private bool choice;
-        public Action<bool> OnChoiceMade;
         [SerializeField] private Button confirm;
         [SerializeField] private Button deny;
-        
+
+        public bool Confirmed { get; private set; }
+
         protected override void Awake()
         {
-            SetButtonEvents();
             base.Awake();
-        }
-        
-        private void SetButtonEvents()
-        {
-            confirm.onClick.AddListener(()=>choice = true);
-            deny.onClick.AddListener(()=>choice = false);
-            confirm.onClick.AddListener(()=>Enable(false));
-            deny.onClick.AddListener(()=>Enable(false));
+            confirm.onClick.AddListener(() => Choose(true));
+            deny.onClick.AddListener(() => Choose(false));
         }
 
-        public override void Enable(bool state = true)
+        /// <summary>Resets the answer each time the popup opens.</summary>
+        protected override void OnOpening()
         {
-            switch (state)
-            {
-                case true:
-                    Display.enabled = true;
-                    AppearAnimation(popUpMenu);
-                    break;
-                case false:
-                    DisappearAnimation(popUpMenu, ()=>
-                    {
-                        OnChoiceMade?.Invoke(choice);
-                        Display.enabled = false;
-                    });
-                    break;
-            }
-            BaseAudioManager.PlayMenuMovementSound();
+            Confirmed = false;
+        }
+
+        /// <summary>The back button answers NO.</summary>
+        protected override void OnBackPressed()
+        {
+            Choose(false);
+        }
+
+        /// <summary>Keeps the popup in the scene for reuse instead of releasing it.</summary>
+        protected override void OnClosed()
+        {
+        }
+
+        private void Choose(bool confirmed)
+        {
+            if (State is PopUpState.Hidden or PopUpState.Closing) return;
+
+            Confirmed = confirmed;
+            CloseWithSlide(playSound: true);
         }
     }
 }

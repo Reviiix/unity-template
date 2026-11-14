@@ -1,100 +1,64 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
 
-namespace Audio
+namespace UnityTemplate.Audio
 {
-    /// <summary>
-    /// This class controls the global volume
-    /// </summary>
+    /// <summary>The speaker button and volume slider: mirrors AudioManager's saved state and forwards the player's changes to it.</summary>
     public class VolumeController : MonoBehaviour
     {
-        public static Action<bool, float> OnMuteButtonPressed;
-        public static Action<float> OnSliderValueChanged;
         [SerializeField] private Image volumeImage;
         [SerializeField] private Sprite[] volumeSprites;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private Button muteButton;
-        private bool muteButtonState;
-        private Sprite nonMuteSpriteCache;
-        private float nonMuteVolumeCache;
+        private AudioManager audioManager;
 
         private void Awake()
         {
-            SetButtonEvents();
+            muteButton.onClick.AddListener(OnMuteButtonPressed);
+            volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
 
         private void OnEnable()
         {
-            SaveSystem.OnSaveDataLoaded += OnSaveDataLoaded;
+            audioManager = ServiceLocator.Get<AudioManager>();
+            audioManager.VolumeChanged += ShowCurrentVolume;
+            ShowCurrentVolume();
         }
 
         private void OnDisable()
         {
-            SaveSystem.OnSaveDataLoaded -= OnSaveDataLoaded;
+            audioManager.VolumeChanged -= ShowCurrentVolume;
         }
 
-        private void OnSaveDataLoaded(SaveSystem.SaveData saveData)
+        private void OnMuteButtonPressed()
         {
-            if (saveData == null) return;
-            
-            MatchVolumeSliderWithIcon(saveData.volume);
-            MatchVolumeIconWithSlider(saveData.volume);
-        }
-        
-        private void SetButtonEvents()
-        {
-            muteButton.onClick.AddListener(MuteButtonPressed);
-            volumeSlider.onValueChanged.AddListener(SliderValueChanged);
+            var silent = audioManager.IsMuted || audioManager.Volume <= 0;
+            if (silent && audioManager.Volume <= 0) audioManager.SetVolume(AudioManager.MaximumVolume);
+            audioManager.SetMuted(!silent);
         }
 
-        private void MuteButtonPressed()
+        private void OnSliderValueChanged(float value)
         {
-            var volume = 0f;
-            muteButtonState = !muteButtonState;
-            if (muteButtonState)
+            audioManager.SetMuted(false);
+            audioManager.SetVolume(value);
+        }
+
+        private void ShowCurrentVolume()
+        {
+            var audibleVolume = audioManager.IsMuted ? 0 : audioManager.Volume;
+            volumeSlider.SetValueWithoutNotify(audibleVolume);
+            volumeImage.sprite = volumeSprites[GetSpriteIndex(audibleVolume)];
+        }
+
+        private int GetSpriteIndex(float volume)
+        {
+            var step = 1f / volumeSprites.Length;
+            for (var i = 0; i < volumeSprites.Length; i++)
             {
-                nonMuteSpriteCache = volumeImage.sprite;
-                nonMuteVolumeCache = BaseAudioManager.CurrentVolume;
-                volumeImage.sprite = volumeSprites[(int)volume];
-                MatchVolumeSliderWithIcon(volume);
+                if (volume <= step * i) return i;
             }
-            else
-            {
-                volume = nonMuteVolumeCache;
-                volumeImage.sprite = nonMuteSpriteCache;
-                MatchVolumeSliderWithIcon(volume);
-            }
-            OnMuteButtonPressed?.Invoke(muteButtonState, volume);
-        }
-
-        private void SliderValueChanged(float value)
-        {
-            muteButtonState = value == 0;
-            MatchVolumeIconWithSlider(value);
-            OnSliderValueChanged?.Invoke(value);
-        }
-
-        private void MatchVolumeIconWithSlider(float volume)
-        {
-            volumeImage.sprite = volumeSprites[ReturnVolumeSpriteIndex(volume)];
-        }
-        
-        private void MatchVolumeSliderWithIcon(float volume)
-        {
-            volumeSlider.value = volume;
-        }
-
-        private int ReturnVolumeSpriteIndex(float volume)
-        {
-            float increments = 1;
-            var amountOfSprites = volumeSprites.Length;
-            increments /= amountOfSprites;
-            for (var i = 0; i < amountOfSprites; i++)
-            {
-                if (volume <= increments * i) return i;
-            }
-            return amountOfSprites-1;
+            return volumeSprites.Length - 1;
         }
     }
 }

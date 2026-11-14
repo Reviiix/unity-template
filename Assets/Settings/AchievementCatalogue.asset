@@ -1,0 +1,300 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89d175602c24f32a82ba28f3d59711b, type: 3}
+  m_Name: AchievementCatalogue
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Achievements.AchievementCatalogue
+  permanentAchievements:
+  - achievement: 0
+    description: Play For One Hour Consecutively.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 1
+    description: Play for one hour total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 2
+    description: Play for five hours total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 3
+    description: Play for ten hours total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 4
+    description: Play for twenty five hours total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 5
+    description: Play for fifty hours total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 6
+    description: Play for one hundred hours total.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 7
+    description: Play your first game.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 8
+    description: Open the game five times.
+    reward: 50
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 9
+    description: Open the game ten times.
+    reward: 100
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 10
+    description: Open the game twenty five times.
+    reward: 250
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 11
+    description: Open the game fifty times.
+    reward: 500
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 12
+    description: Open the game one hundred times.
+    reward: 1000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 13
+    description: Reach level two.
+    reward: 100
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 14
+    description: Reach level five.
+    reward: 5000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 15
+    description: Reach level ten.
+    reward: 10000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 16
+    description: Reach level twenty five.
+    reward: 250000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 17
+    description: Reach level fifty.
+    reward: 900000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 18
+    description: Reach level one hundred.
+    reward: 900000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 19
+    description: Acquire one hundred credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 20
+    description: Acquire two hundred and fifty credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 21
+    description: Acquire five hundred credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 22
+    description: Acquire one thousand credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 23
+    description: Acquire ten thousand credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 24
+    description: Acquire one hundred thousand credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 25
+    description: Acquire one hundred premium credits.
+    reward: 5
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 26
+    description: Acquire two hundred and fifty premium credits.
+    reward: 5
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 27
+    description: Acquire five hundred premium credits.
+    reward: 10
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 28
+    description: Acquire one thousand premium credits.
+    reward: 100
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 29
+    description: Acquire ten thousand premium credits.
+    reward: 1000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - achievement: 30
+    description: Acquire one hundred thousand premium credits.
+    reward: 10000
+    icon:
+      m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  dynamicAchievementIcon:
+    m_AssetGUID: b37e1cb7e83084d15ba2cb290ccb86d8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

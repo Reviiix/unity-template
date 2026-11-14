@@ -1,0 +1,23 @@
+{
+    "name": "UnityTemplate.Tests.PlayMode",
+    "rootNamespace": "UnityTemplate.Tests.PlayMode",
+    "references": [
+        "UnityTemplate",
+        "UnityEngine.TestRunner",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "DOTween.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

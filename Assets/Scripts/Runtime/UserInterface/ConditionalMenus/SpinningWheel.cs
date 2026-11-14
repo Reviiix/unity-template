@@ -1,78 +1,92 @@
 using System;
-using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(Transform))]
-public class SpinningWheel : MonoBehaviour
+namespace UnityTemplate.UserInterface.ConditionalMenus
 {
-    public Action<int> OnWheelSpinEnded;
-    private Transform _wheel;
-    private int _currentSegment;
-    [SerializeField] private WheelWeightings wheelSegments;
-    [Header("Controls")]
-    [SerializeField] private int rotations;
-    [SerializeField] [Range(0.1f, 15)] private float duration;
-    [SerializeField] private Ease wheelEasing;
-    [SerializeField] private float easingOvershoot;
-    private int AmountOfSegments => wheelSegments.ReturnAmountOfSegments;
-    private float ReturnRotationAngle(int segment) => (-(float)(AmountOfSegments - segment%AmountOfSegments) / AmountOfSegments - rotations) * 360;
-
-    private void Awake()
+    /// <summary>The daily bonus prize wheel: picks a weighted random segment and spins to it with DOTween.</summary>
+    public class SpinningWheel : MonoBehaviour
     {
-        _wheel = GetComponent<Transform>();
-        ResetWheel();
-    }
+        [SerializeField] private WheelWeightings wheelSegments;
+        [Header("Controls")]
+        [SerializeField] private int rotations;
+        [SerializeField] [Range(0.1f, 15)] private float duration;
+        [SerializeField] private Ease wheelEasing;
+        [SerializeField] private float easingOvershoot;
+        private Transform wheel;
+        private int currentSegment;
 
-    [ContextMenu(nameof(StartSpin))]
-    public void StartSpin()
-    {
-        Spin(wheelSegments.ReturnFinalSegmentIndex());
-    }
+        public event Action<int> SpinEnded;
 
-    private void Spin(int targetSegment)
-    {
-        var rotationAngle = new Vector3(0, 0, ReturnRotationAngle((AmountOfSegments + (targetSegment - _currentSegment)) % AmountOfSegments));
-        _currentSegment = targetSegment;
+        private int AmountOfSegments => wheelSegments.AmountOfSegments;
 
-        _wheel.DOLocalRotate(rotationAngle, duration).SetEase(wheelEasing, easingOvershoot).OnComplete(() =>
+        private void Awake()
         {
-            OnWheelSpinEnded?.Invoke(wheelSegments.ReturnSegmentValue(targetSegment));
-        });
-    }
-
-    private void ResetWheel()
-    {
-        _currentSegment = 0;
-        _wheel.eulerAngles = Vector3.zero;
-    }
-    
-    [Serializable]
-    private class WheelWeightings
-    {
-        [SerializeField] private WheelSegmentChance[] wheelSegments;
-        public int ReturnAmountOfSegments => wheelSegments.Length;
-        public int ReturnSegmentValue(int index) => wheelSegments[index].value;
-
-        public int ReturnFinalSegmentIndex()
-        {
-            var chance = UnityEngine.Random.Range(0, wheelSegments.Last().maximumChance);
-            var amountOfSegments = wheelSegments.Length;
-            for (var i = 0; i < amountOfSegments; i++)
-            {
-                var segment = wheelSegments[i];
-                if (chance >= segment.minimumChance && chance <= segment.maximumChance) return i;
-            }
-            Debug.LogError("Not a valid segment value, index returned as 0.");
-            return 0;
+            wheel = transform;
+            currentSegment = 0;
+            wheel.eulerAngles = Vector3.zero;
         }
-    }
-    
-    [Serializable]
-    private struct WheelSegmentChance
-    {
-        public int minimumChance;
-        public int maximumChance;
-        public int value;
+
+        /// <summary>Picks a segment using the designer-set chance ranges.</summary>
+        public int PickRandomSegment()
+        {
+            return wheelSegments.PickRandomSegment();
+        }
+
+        /// <summary>Returns the credits a segment is worth.</summary>
+        public int GetSegmentValue(int segment)
+        {
+            return wheelSegments.GetSegmentValue(segment);
+        }
+
+        /// <summary>Spins to the given segment and raises SpinEnded with its value when the wheel stops.</summary>
+        public void SpinTo(int targetSegment)
+        {
+            var segmentsToTurn = (AmountOfSegments + (targetSegment - currentSegment)) % AmountOfSegments;
+            var rotation = new Vector3(0, 0, GetRotationAngle(segmentsToTurn));
+            currentSegment = targetSegment;
+
+            wheel.DOLocalRotate(rotation, duration).SetEase(wheelEasing, easingOvershoot).SetLink(gameObject).OnComplete(() =>
+            {
+                SpinEnded?.Invoke(wheelSegments.GetSegmentValue(targetSegment));
+            });
+        }
+
+        private float GetRotationAngle(int segment)
+        {
+            return (-(float)(AmountOfSegments - segment % AmountOfSegments) / AmountOfSegments - rotations) * 360;
+        }
+
+        [Serializable]
+        private class WheelWeightings
+        {
+            [SerializeField] private WheelSegmentChance[] wheelSegments;
+
+            public int AmountOfSegments => wheelSegments.Length;
+
+            public int GetSegmentValue(int index)
+            {
+                return wheelSegments[index].value;
+            }
+
+            public int PickRandomSegment()
+            {
+                var chance = UnityEngine.Random.Range(0, wheelSegments[^1].maximumChance);
+                for (var i = 0; i < wheelSegments.Length; i++)
+                {
+                    if (chance >= wheelSegments[i].minimumChance && chance <= wheelSegments[i].maximumChance) return i;
+                }
+                Debug.LogError("The wheel's chance ranges have a gap; segment 0 was chosen.");
+                return 0;
+            }
+        }
+
+        [Serializable]
+        private struct WheelSegmentChance
+        {
+            public int minimumChance;
+            public int maximumChance;
+            public int value;
+        }
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Utilities
+namespace UnityTemplate.Utilities
 {
     /// <summary>
     /// A collection of utility methods to manipulate strings in generic ways.

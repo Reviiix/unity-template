@@ -13,22 +13,13 @@ MonoBehaviour:
   m_Name: Prefabs
   m_EditorClassIdentifier: 
   m_GroupName: Prefabs
-  m_Data:
-    m_SerializedData: []
   m_GUID: c2887fe746a624166824525b0cd50562
   m_SerializeEntries:
-  - m_GUID: 1c01c61b8686945b2a7f2188b5e978ce
-    m_Address: Prefabs/DefaultAudioSource.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: da8ded5846185407c8a3965060befb6c
     m_Address: Prefabs/UserInterface/StageDisplayItem.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 051efda1f89be44879a1d75ac262d19c, type: 2}
   m_SchemaSet:

@@ -1,36 +1,10 @@
-using Achievements.List;
+using System.Collections.Generic;
 
-namespace Achievements.Dynamic
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class displays the dynamic achievements in a list
-    /// </summary>
+    /// <summary>Lists the weekly, remotely configured achievements in the statistics menu.</summary>
     public class DynamicAchievementsListDisplay : AchievementListDisplay
     {
-        private void OnEnable()
-        {
-            AchievementManager.OnDynamicAchievementsSet += OnAchievementsSet;
-            AchievementManager.OnDynamicAchievementUnlocked += OnAchievementUnlocked;
-        }
-        
-        private void OnDisable()
-        {
-            AchievementManager.OnDynamicAchievementsSet -= OnAchievementsSet;
-            AchievementManager.OnDynamicAchievementUnlocked -= OnAchievementUnlocked;
-        }
-
-        private void OnAchievementsSet(Achievement[] achievements)
-        {
-            CreateListAsynchronously(achievements);
-            SetRewardDisplay();
-        }
-        
-        protected override void SetRewardDisplay()
-        {
-            const string rewardsPrefix = "Total Rewards: ";
-            const string amountPrefix = "Total Achievements: ";
-            rewardDisplay.text = rewardsPrefix + AchievementManager.GetTotalRewardsOfPermanentAchievements(true) + "/" + AchievementManager.GetTotalRewardsOfPermanentAchievements();
-            amountOfUnlocksDisplay.text = amountPrefix + AchievementManager.GetAmountOfPermanentAchievements(true) + "/" + AchievementManager.GetAmountOfPermanentAchievements();
-        }
+        protected override IReadOnlyList<AchievementInfo> ListedAchievements => Achievements.DynamicAchievements;
     }
 }

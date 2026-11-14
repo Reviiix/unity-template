@@ -1,113 +1,58 @@
-﻿using System.Collections;
 using System.Collections.Generic;
-using Abstract.Interfaces;
-using Achievements.Dynamic;
-using Achievements.Permanent;
-using Utilities;
 using UnityEngine;
+using UnityTemplate.Core;
 
-namespace Achievements.PopUp
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class handles the popping of achievements. It is shared by dynamic and permanent achievements.
-    /// </summary>
-    [RequireComponent(typeof(Transform))]
-    public class AchievementPopUpDisplay : PrivateSingleton<AchievementPopUpDisplay>, IHandleSimultaneousAdditions
+    /// <summary>Shows unlocked achievements as toasts using pooled popups, queueing them when every popup is busy.</summary>
+    public class AchievementPopUpDisplay : MonoBehaviour
     {
-        private static readonly Queue<AchievementPopUpItem> PopUps = new ();
-        private static readonly Queue<Achievement> DelayedPermanentAchievementsQueue = new ();
-        private static readonly Queue<Achievement> DelayedDynamicAchievementsQueue = new ();
-        private static int _maximumNumberOfActiveAchievements;
-        private static Transform _parent;
-        private const int PoolIndex = 1;
-        private static int _activeAchievements;
-        private static bool SpaceAvailable => _activeAchievements < _maximumNumberOfActiveAchievements;
+        private readonly Queue<AchievementPopUpItem> idlePopUps = new();
+        private readonly Queue<AchievementInfo> waitingAchievements = new();
+        private AchievementService achievements;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-            StartCoroutine(Wait.WaitForInitialisationToComplete(ResolveDependencies));
+            achievements = ServiceLocator.Get<AchievementService>();
+            var pool = ServiceLocator.Get<ObjectPooler>();
+            var amountOfPopUps = pool.GetPoolSize(PoolKey.AchievementPopUp);
+            for (var i = 0; i < amountOfPopUps; i++)
+            {
+                var popUp = pool.Get(PoolKey.AchievementPopUp, false).GetComponent<AchievementPopUpItem>();
+                popUp.transform.SetParent(transform, false);
+                idlePopUps.Enqueue(popUp);
+            }
         }
 
         private void OnEnable()
         {
-            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
-            AchievementManager.OnDynamicAchievementUnlocked += OnAchievementUnlocked;
-            StartCoroutine(Wait.WaitForInitialisationToComplete(ResolveDependencies));
+            achievements.AchievementUnlocked += OnAchievementUnlocked;
         }
-        
-        protected override void OnDisable()
+
+        private void OnDisable()
         {
-            base.OnDisable();
-            AchievementManager.OnPermanentAchievementUnlocked -= OnAchievementUnlocked;
-            AchievementManager.OnDynamicAchievementUnlocked -= OnAchievementUnlocked;
+            achievements.AchievementUnlocked -= OnAchievementUnlocked;
         }
-        
-        private void ResolveDependencies()
+
+        private void OnAchievementUnlocked(AchievementInfo achievement)
         {
-            _maximumNumberOfActiveAchievements = ObjectPooler.GetMaximumActiveObjects(PoolIndex);
-            _parent = GetComponent<Transform>();
-            for (var i = 0; i < _maximumNumberOfActiveAchievements; i++)
+            if (idlePopUps.Count == 0)
             {
-                var popUp = ObjectPooler.GetObjectFromPool(PoolIndex, Vector3.zero, Quaternion.identity.normalized, false).GetComponent<AchievementPopUpItem>();
-                popUp.transform.SetParent(_parent);
-                PopUps.Enqueue(popUp);
-            }
-        }
-        
-        
-        private static void OnAchievementUnlocked(Achievement achievement)
-        {
-            if (_activeAchievements >= _maximumNumberOfActiveAchievements)
-            {
-                DelayedDynamicAchievementsQueue.Enqueue(achievement);
+                waitingAchievements.Enqueue(achievement);
                 return;
             }
-            PopAchievement(achievement);
+            Show(achievement, idlePopUps.Dequeue());
         }
 
-        private static void PopAchievement(Achievement achievement)
+        private void Show(AchievementInfo achievement, AchievementPopUpItem popUp)
         {
-            var assetReference = AchievementManager.GetSpriteAssetReference(achievement);
-            _activeAchievements++;
-            AssetReferenceLoader.LoadAssetReferenceAsynchronously<Sprite>(assetReference, (returnVariable)=>
+            popUp.transform.SetAsLastSibling();
+            popUp.Show(achievement, () =>
             {
-                var popUp = PopUps.Dequeue();
-                popUp.transform.SetSiblingIndex(_maximumNumberOfActiveAchievements-1);
-                popUp.Show(returnVariable, StringUtilities.AddSpacesBeforeCapitals(achievement.ToString()), AchievementManager.GetDescription(achievement), AchievementManager.GetReward(achievement), () =>
-                {
-                    _activeAchievements--;
-                    PopUps.Enqueue(popUp);
-                    popUp.gameObject.SetActive(false);
-                });
-                AssetReferenceLoader.UnloadAssetReference(assetReference);
-                Instance.StartCoroutine(Instance.HandleDelayedAdditions());
+                popUp.gameObject.SetActive(false);
+                if (waitingAchievements.Count > 0) Show(waitingAchievements.Dequeue(), popUp);
+                else idlePopUps.Enqueue(popUp);
             });
-        }
-
-        public IEnumerator HandleDelayedAdditions()
-        {
-            yield return new WaitUntil(() => SpaceAvailable);
-            Instance.StartCoroutine(HandleDelayedAdditionsForPermanentAchievements());
-            Instance.StartCoroutine(HandleDelayedAdditionsForDynamicAchievements());
-        }
-        
-        private static IEnumerator HandleDelayedAdditionsForPermanentAchievements()
-        {
-            yield return new WaitUntil(() => SpaceAvailable);
-            
-            if (DelayedPermanentAchievementsQueue.Count == 0) yield break;
-
-            OnAchievementUnlocked(DelayedPermanentAchievementsQueue.Dequeue());
-        }
-        
-        private static IEnumerator HandleDelayedAdditionsForDynamicAchievements()
-        {
-            yield return new WaitUntil(() => SpaceAvailable);
-            
-            if (DelayedDynamicAchievementsQueue.Count == 0) yield break;
-
-            OnAchievementUnlocked(DelayedDynamicAchievementsQueue.Dequeue());
         }
     }
 }

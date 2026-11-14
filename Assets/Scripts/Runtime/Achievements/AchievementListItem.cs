@@ -1,15 +1,15 @@
-using Abstract.Interfaces;
+using UnityEngine;
 
-namespace Achievements.List
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class is for achievement list items. it is shared by dynamic and permanent achievements.
-    /// </summary>
-    public class AchievementListItem : AchievementItemBase, IListItem
+    /// <summary>One row of an achievement list.</summary>
+    public class AchievementListItem : AchievementItemBase
     {
-        public void RemoveClassFromObject()
+        /// <summary>Shows an achievement with the given background colour (yellow once unlocked).</summary>
+        public void Show(AchievementInfo achievement, Color backgroundColour)
         {
-            Destroy(GetComponent<AchievementListItem>());
+            Background.color = backgroundColour;
+            ShowTexts(achievement);
         }
     }
 }

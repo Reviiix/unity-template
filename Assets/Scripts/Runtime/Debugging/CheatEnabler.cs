@@ -1,31 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-namespace DebuggingAid.Cheats
+namespace UnityTemplate.Debugging
 {
-    /// <summary>
-    /// This class will enable / disable the cheat functionality.
-    /// </summary>
-    [RequireComponent(typeof(GameObject))]
-    public class CheatEnabler : MonoBehaviour 
+    /// <summary>Activates the cheat menu in the Editor and development builds and deletes it from release builds.</summary>
+    public class CheatEnabler : MonoBehaviour
     {
         [SerializeField] private GameObject cheats;
 
         private void Awake()
         {
-            Validate();
-        }
-        
-        private void Validate()
-        {
-            #if UNITY_EDITOR || DEBUG_BUILD
-            if (CheatManager.Enabled)
-            {
-                cheats.SetActive(true);
-                AssetReferenceLoader.DestroyOrUnload(gameObject);
-                return;
-            }
-            #endif
-            AssetReferenceLoader.DestroyOrUnload(gameObject);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            cheats.SetActive(true);
+#else
+            Destroy(cheats);
+#endif
+            Destroy(this);
         }
     }
 }

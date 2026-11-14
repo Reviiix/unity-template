@@ -1,24 +1,22 @@
-﻿using System;
-using Player;
+using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.Engagement;
 
-namespace UserInterface.MainMenus
+namespace UnityTemplate.UserInterface.MainMenus
 {
-    /// <summary>
-    /// This is the base class for the statistics menu
-    /// </summary>
+    /// <summary>The statistics menu with its performance, achievements (permanent and weekly) and leaderboard tabs.</summary>
     [Serializable]
-    public class StatisticsMenu : UserInterface, IUserInterface
+    public class StatisticsMenu : MenuBase
     {
         private const FontStyles HighlightedFontStyle = FontStyles.Underline | FontStyles.SmallCaps;
         private const FontStyles NormalFontStyle = FontStyles.SmallCaps;
-        private FontStyles GetHighlightedFontStyle(bool state) => state ? HighlightedFontStyle : NormalFontStyle;
         [SerializeField] private StatisticsPanels startingStatisticsPanel;
         [Header("Performance Panel")]
         [SerializeField] private Button performanceButton;
-        private TMP_Text performanceTitle;
         [SerializeField] private TMP_Text timePlayed;
         [SerializeField] private TMP_Text timesOpened;
         [SerializeField] private TMP_Text longestSession;
@@ -26,180 +24,121 @@ namespace UserInterface.MainMenus
         [Header("Achievement Panel")]
         [SerializeField] private AchievementPanels startingAchievementPanel;
         [SerializeField] private Button achievementsButton;
-        private TMP_Text achievementsTitle;
         [SerializeField] private GameObject achievementsContent;
         [SerializeField] private Button weeklyAchievementsButton;
-        private TMP_Text weeklyAchievementsTitle;
         [SerializeField] private GameObject weeklyAchievementsContent;
         [SerializeField] private Button permanentAchievementsButton;
-        private TMP_Text permanentAchievementsTitle;
         [SerializeField] private GameObject permanentAchievementsContent;
         [Header("Leaderboard Panel")]
         [SerializeField] private Button leaderboardButton;
-        private TMP_Text leaderboardTitle;
         [SerializeField] private GameObject leaderboardContent;
+        private readonly StringBuilder textBuilder = new();
+        private TMP_Text performanceTitle;
+        private TMP_Text achievementsTitle;
+        private TMP_Text weeklyAchievementsTitle;
+        private TMP_Text permanentAchievementsTitle;
+        private TMP_Text leaderboardTitle;
+        private EngagementService engagement;
 
+        /// <summary>Caches the tab titles and wires the tab buttons.</summary>
         public void Initialise()
         {
-            AssignVariables();
-            SetButtonEvents();
-        }
-
-        private void AssignVariables()
-        {
+            engagement = ServiceLocator.Get<EngagementService>();
             performanceTitle = performanceButton.GetComponent<TMP_Text>();
             achievementsTitle = achievementsButton.GetComponent<TMP_Text>();
             weeklyAchievementsTitle = weeklyAchievementsButton.GetComponent<TMP_Text>();
             permanentAchievementsTitle = permanentAchievementsButton.GetComponent<TMP_Text>();
             leaderboardTitle = leaderboardButton.GetComponent<TMP_Text>();
+
+            performanceButton.onClick.AddListener(ShowPerformancePanel);
+            achievementsButton.onClick.AddListener(ShowAchievementsPanel);
+            weeklyAchievementsButton.onClick.AddListener(ShowWeeklyAchievements);
+            permanentAchievementsButton.onClick.AddListener(ShowPermanentAchievements);
+            leaderboardButton.onClick.AddListener(ShowLeaderboardPanel);
         }
 
-        private void SetButtonEvents()
-        {
-            performanceButton.onClick.AddListener(()=>EnablePerformancePanel());
-            achievementsButton.onClick.AddListener(()=>EnableAchievementsPanel());
-            weeklyAchievementsButton.onClick.AddListener(()=>EnableWeeklyAchievementsPanel());
-            permanentAchievementsButton.onClick.AddListener(()=>EnablePermanentAchievementsPanel());
-            leaderboardButton.onClick.AddListener(()=>EnableLeaderBoardPanel());
-        }
-        
-        public void Enable(bool state = true)
-        {
-            if (state)
-            {
-                EnableStartingPanel();
-            }
-            display.enabled = state;
-        }
-
-        private void EnableStartingPanel()
+        /// <summary>Shows the menu on its starting tab.</summary>
+        public override void Show()
         {
             switch (startingStatisticsPanel)
             {
                 case StatisticsPanels.PerformancePanel:
-                    EnablePerformancePanel();
+                    ShowPerformancePanel();
                     break;
                 case StatisticsPanels.AchievementsPanel:
-                    EnableAchievementsPanel();
+                    ShowAchievementsPanel();
                     break;
                 case StatisticsPanels.LeaderboardsPanel:
-                    EnableLeaderBoardPanel();
-                    break;
-                default:
-                    Debug.LogError(startingStatisticsPanel + " not accounted for in switch statement.");
+                    ShowLeaderboardPanel();
                     break;
             }
-        }
-        #region Performance Panel
-        private void EnablePerformancePanel(bool state = true)
-        {
-            EnableAllPanels(!state);
-            performanceContent.SetActive(state);
-            performanceTitle.fontStyle = GetHighlightedFontStyle(state);
-            SetTimePlayedDisplay();
-            SetTimesOpenedDisplay();
-            SetLongestSessionDisplay();
+            base.Show();
         }
 
-        private void SetTimePlayedDisplay()
+        private void ShowPerformancePanel()
         {
-            const string prefix = "TIME PLAYED: ";
-            timePlayed.text = prefix + PlayerEngagement.TotalPlayTime;
-        }
-        
-        private void SetTimesOpenedDisplay()
-        {
-            const string prefix = "TIMES OPENED: ";
-            timesOpened.text = prefix + PlayerEngagement.TimesGameHasBeenOpened;
-        }
-        
-        private void SetLongestSessionDisplay()
-        {
-            const string prefix = "LONGEST SESSION: ";
-            longestSession.text = prefix;
-        }
-        #endregion Performance Panel
-
-        #region Achievements Panel
-        private void EnableStartingAchievementPanel()
-        {
-            switch (startingAchievementPanel)
-            {
-                case AchievementPanels.Permanent:
-                    EnablePermanentAchievementsPanel();
-                    break;
-                case AchievementPanels.Weekly:
-                    EnableWeeklyAchievementsPanel();
-                    break;
-                default:
-                    Debug.LogError(startingAchievementPanel + " not accounted for in switch statement.");
-                    break;
-            }
+            ShowOnlyPanel(performanceContent, performanceTitle);
+            var playTime = engagement.TotalPlayTime;
+            textBuilder.Clear().Append("TIME PLAYED: ").Append(playTime.ToString());
+            timePlayed.SetText(textBuilder);
+            textBuilder.Clear().Append("TIMES OPENED: ").Append(engagement.TimesOpened);
+            timesOpened.SetText(textBuilder);
+            longestSession.SetText("LONGEST SESSION: ");
         }
 
-        private void EnableAchievementsPanel(bool state = true)
+        private void ShowAchievementsPanel()
         {
-            EnableStartingAchievementPanel();
-            EnableAllPanels(!state);
-            achievementsContent.SetActive(state);
-            achievementsTitle.fontStyle = GetHighlightedFontStyle(state);
+            if (startingAchievementPanel == AchievementPanels.Permanent) ShowPermanentAchievements();
+            else ShowWeeklyAchievements();
+            ShowOnlyPanel(achievementsContent, achievementsTitle);
         }
-        
-        private void EnableWeeklyAchievementsPanel(bool state = true)
+
+        private void ShowWeeklyAchievements()
         {
-            permanentAchievementsContent.SetActive(!state);
-            weeklyAchievementsContent.SetActive(state);
-            weeklyAchievementsTitle.fontStyle = GetHighlightedFontStyle(state);
-            permanentAchievementsTitle.fontStyle = GetHighlightedFontStyle(!state);
+            SelectAchievementTab(weekly: true);
         }
-        
-        private void EnablePermanentAchievementsPanel(bool state = true)
+
+        private void ShowPermanentAchievements()
         {
-            permanentAchievementsContent.SetActive(state);
-            weeklyAchievementsContent.SetActive(!state);
-            weeklyAchievementsTitle.fontStyle = GetHighlightedFontStyle(!state);
-            permanentAchievementsTitle.fontStyle = GetHighlightedFontStyle(state);
+            SelectAchievementTab(weekly: false);
         }
-        
+
+        private void SelectAchievementTab(bool weekly)
+        {
+            weeklyAchievementsContent.SetActive(weekly);
+            permanentAchievementsContent.SetActive(!weekly);
+            weeklyAchievementsTitle.fontStyle = weekly ? HighlightedFontStyle : NormalFontStyle;
+            permanentAchievementsTitle.fontStyle = weekly ? NormalFontStyle : HighlightedFontStyle;
+        }
+
+        private void ShowLeaderboardPanel()
+        {
+            ShowOnlyPanel(leaderboardContent, leaderboardTitle);
+        }
+
+        private void ShowOnlyPanel(GameObject panel, TMP_Text title)
+        {
+            performanceContent.SetActive(panel == performanceContent);
+            achievementsContent.SetActive(panel == achievementsContent);
+            leaderboardContent.SetActive(panel == leaderboardContent);
+            performanceTitle.fontStyle = title == performanceTitle ? HighlightedFontStyle : NormalFontStyle;
+            achievementsTitle.fontStyle = title == achievementsTitle ? HighlightedFontStyle : NormalFontStyle;
+            leaderboardTitle.fontStyle = title == leaderboardTitle ? HighlightedFontStyle : NormalFontStyle;
+        }
+
         [Serializable]
         private enum AchievementPanels
         {
             Permanent,
-            Weekly
-        }
-        #endregion Achievements Panel
-
-        #region Leaderboard Panel
-        private void EnableLeaderBoardPanel(bool state = true)
-        {
-            EnableAllPanels(!state);
-            leaderboardContent.SetActive(state);
-            leaderboardTitle.fontStyle = GetHighlightedFontStyle(state);
+            Weekly,
         }
 
-        private void EnableAllPanels(bool state = true)
-        {
-            performanceContent.SetActive(state);
-            achievementsContent.SetActive(state);
-            leaderboardContent.SetActive(state);
-            HighlightAllTitles(state);
-        }
-        #endregion Leaderboard Panel
-
-        private void HighlightAllTitles(bool state = true)
-        {
-            var fontStyle = GetHighlightedFontStyle(state);
-            performanceTitle.fontStyle = fontStyle;
-            achievementsTitle.fontStyle = fontStyle;
-            leaderboardTitle.fontStyle = fontStyle;
-        }
-        
         [Serializable]
         private enum StatisticsPanels
         {
             PerformancePanel,
             AchievementsPanel,
-            LeaderboardsPanel
+            LeaderboardsPanel,
         }
     }
 }

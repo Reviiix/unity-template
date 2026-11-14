@@ -1,52 +1,51 @@
 using System;
-using Credits;
-using Player;
-using Utilities;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.Economy;
+using UnityTemplate.Engagement;
+using UnityTemplate.Utilities;
 
-namespace UserInterface.ConditionalMenus
+namespace UnityTemplate.UserInterface.ConditionalMenus
 {
-    /// <summary>
-    /// This is the anniversary popUp display class. It will be loaded once per year so only load through addressables so its only loaded when needed.
-    /// </summary>
-    public class AnniversaryPopUp : PopUpInterface, IUserInterface
+    /// <summary>The first-open anniversary popup: thanks the player and pays the anniversary reward on CLAIM.</summary>
+    public class AnniversaryPopUp : PopUpWindow
     {
-        public static Action OnAnniversaryOfFirstOpen;
+        private const int PremiumCreditsDivisor = 10;
         [SerializeField] private Button claimRewardButton;
         [SerializeField] private TMP_Text textDisplay;
-        private static readonly int RewardCredits = PlayerEngagement.AnniversaryRewardCredits;
-        private static readonly int RewardPremiumCredits = PlayerEngagement.AnniversaryRewardPremiumCredits;
+        private EngagementService engagement;
+        private int rewardCredits;
+        private int rewardPremiumCredits;
 
         protected override void Awake()
         {
             base.Awake();
-            SetButtonEvents();
-            SetDisplay();
-        }
-        
-        private void SetButtonEvents()
-        {
-            claimRewardButton.onClick.AddListener(ClaimReward);
-            claimRewardButton.onClick.AddListener(()=>Enable(false));
-        }
-        
-        private void SetDisplay()
-        {
-            textDisplay.text = "Its our " + DateTimeOrdinals.ConvertToOrdinalString(HolidayManager.AmountOfYearsSinceFirstOpen) + " anniversary! Thanks for continuing to play and support our game, here is " + RewardCredits + " credits and " + RewardPremiumCredits + " premium credits as a thank you!";
+            engagement = ServiceLocator.Get<EngagementService>();
+            claimRewardButton.onClick.AddListener(ClaimAndClose);
+
+            var today = DateTime.Now;
+            rewardCredits = engagement.GetAnniversaryCredits(today);
+            rewardPremiumCredits = rewardCredits / PremiumCreditsDivisor;
+            textDisplay.text = new StringBuilder("It's our ")
+                .Append(DateTimeOrdinals.ConvertToOrdinalString(engagement.GetYearsSinceFirstOpen(today)))
+                .Append(" anniversary! Thanks for continuing to play and support our game, here is ")
+                .Append(rewardCredits).Append(" credits and ")
+                .Append(rewardPremiumCredits).Append(" premium credits as a thank you!")
+                .ToString();
         }
 
-        private static void ClaimReward()
+        private void ClaimAndClose()
         {
-            CreditsManager.AddCredits(CreditsManager.Currency.Credits, RewardCredits);
-            CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, RewardPremiumCredits);
-        }
-
-        public override void Enable(bool state = true)
-        {
-            base.Enable(state);
-            OnAnniversaryOfFirstOpen?.Invoke();
+            if (engagement.ClaimAnniversary(DateTime.Now))
+            {
+                var credits = ServiceLocator.Get<CreditsService>();
+                credits.Add(Currency.Credits, rewardCredits);
+                credits.Add(Currency.PremiumCredits, rewardPremiumCredits);
+            }
+            CloseImmediately();
         }
     }
 }

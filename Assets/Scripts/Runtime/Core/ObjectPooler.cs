@@ -1,91 +1,95 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Utilities;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
-/// <summary>
-/// Objects that are created as part of the game are pooled by this class and enabled as they are needed.
-/// This system produces less garbage than instantiating and destroying objects as needed.
-/// Game objects are created from addressable assets meaning they are loaded into memory as they are needed then need to be unloaded when they are not.
-/// Pools are created by copying one instance of a converted addressable asset.
-/// </summary>
-public class ObjectPooler : PrivateSingleton<ObjectPooler>
+namespace UnityTemplate.Core
 {
-    [SerializeField] private Pool[] pools;
-    private static readonly Dictionary<int, Queue<GameObject>> PoolDictionary = new();
-    
-    private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new (() => _currentAddressableAsGameObjectCache != null);
-    private static GameObject _currentAddressableAsGameObjectCache;
+    /// <summary>Pre-instantiates every pooled prefab at start-up and hands instances out and back, so nothing is instantiated or destroyed during play.</summary>
+    public class ObjectPooler : MonoBehaviour
+    {
+        [SerializeField] private Pool[] pools = Array.Empty<Pool>();
+        private readonly Dictionary<PoolKey, ObjectPool<GameObject>> objectPools = new();
+        private readonly Dictionary<PoolKey, int> poolSizes = new();
 
-    public void Initialise(Action callBack)
-    {
-        StartCoroutine(ConvertPoolListIntoQueueOfGameObjects(callBack));
-    }
-
-    public static GameObject GetObjectFromPool(int index, Vector3 position, Quaternion rotation, bool setActive = true)
-    {
-        var returnObject = PoolDictionary[index].Dequeue();
-        
-        returnObject.transform.localPosition = position;
-        returnObject.transform.rotation = rotation;
-        returnObject.SetActive(setActive);
-            
-        PoolDictionary[index].Enqueue(returnObject);
-        
-        return returnObject;
-    }
-
-    public static int GetMaximumActiveObjects(int poolIndex)
-    {
-        return PoolDictionary[poolIndex].Count;
-    }
-    
-    private IEnumerator ConvertPoolListIntoQueueOfGameObjects(Action callBack)
-    {
-        var poolsCache = pools;
-        foreach (var pool in poolsCache)
+        /// <summary>Creates each pool and instantiates its instances up front (inactive, parented to the pooler); called once by GameInitialiser.</summary>
+        public void Initialise()
         {
-            var objectPool = new Queue<GameObject>();
-            var maximumAmountOfObjectsInCurrentPool = pool.maximumActiveObjects;
-            var assetReference = pool.assetReference;
-            
-            AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(assetReference, (returnVariable) =>
+            foreach (var pool in pools)
             {
-                _currentAddressableAsGameObjectCache = returnVariable;
-                AssetReferenceLoader.DestroyOrUnload(returnVariable);
-            });
-            
-            yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
-            
-            for (var i = 0; i < maximumAmountOfObjectsInCurrentPool; i++)
-            {
-                var gameObjectCache = Instantiate(_currentAddressableAsGameObjectCache);
-                gameObjectCache.SetActive(false);
-                objectPool.Enqueue(gameObjectCache);
-            }
-            
-            _currentAddressableAsGameObjectCache = null;
+                var prefab = pool.prefab;
+                var objectPool = new ObjectPool<GameObject>(
+                    () => CreateInstance(prefab),
+                    actionOnRelease: ResetInstance,
+                    actionOnDestroy: Destroy,
+                    defaultCapacity: pool.size,
+                    maxSize: Mathf.Max(1, pool.size) * 4);
 
-            if (PoolDictionary.ContainsKey(pool.index))
-            {
-                DebuggingAid.DebugLogManager.Log("Replacing object pool " + pool.index + ". ");
-                PoolDictionary.Remove(pool.index);
+                Prewarm(objectPool, pool.size);
+                objectPools[pool.key] = objectPool;
+                poolSizes[pool.key] = pool.size;
             }
-            
-            PoolDictionary.Add(pool.index, objectPool);
         }
 
-        pools = null;
-        callBack();
+        /// <summary>Returns how many instances a pool was created with.</summary>
+        public int GetPoolSize(PoolKey key)
+        {
+            return poolSizes.TryGetValue(key, out var size) ? size : 0;
+        }
+
+        /// <summary>Takes an instance from a pool (an extra one is created if the pool is empty) and optionally activates it.</summary>
+        public GameObject Get(PoolKey key, bool activate = true)
+        {
+            if (!objectPools.TryGetValue(key, out var objectPool))
+            {
+                throw new InvalidOperationException($"Pool {key} is not set up on the ObjectPooler in Initialisation.unity.");
+            }
+
+            var instance = objectPool.Get();
+            instance.SetActive(activate);
+            return instance;
+        }
+
+        /// <summary>Deactivates an instance and returns it to its pool for reuse.</summary>
+        public void Release(PoolKey key, GameObject instance)
+        {
+            objectPools[key].Release(instance);
+        }
+
+        private GameObject CreateInstance(GameObject prefab)
+        {
+            var instance = Instantiate(prefab, transform);
+            instance.SetActive(false);
+            return instance;
+        }
+
+        private void ResetInstance(GameObject instance)
+        {
+            instance.SetActive(false);
+            instance.transform.SetParent(transform, false);
+        }
+
+        private static void Prewarm(ObjectPool<GameObject> objectPool, int amount)
+        {
+            var instances = new GameObject[amount];
+            for (var i = 0; i < amount; i++) instances[i] = objectPool.Get();
+            foreach (var instance in instances) objectPool.Release(instance);
+        }
+
+        [Serializable]
+        private struct Pool
+        {
+            [FormerlySerializedAs("index")] public PoolKey key;
+            public GameObject prefab;
+            [FormerlySerializedAs("maximumActiveObjects")] public int size;
+        }
     }
-}
-    
-[Serializable]
-public struct Pool
-{
-    public int index;
-    public AssetReference assetReference;
-    public int maximumActiveObjects;
+
+    /// <summary>Identifies each object pool; values are stored as numbers in the scene, so only ever append new entries.</summary>
+    public enum PoolKey
+    {
+        AudioSource = 0,
+        AchievementPopUp = 1,
+    }
 }

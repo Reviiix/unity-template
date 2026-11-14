@@ -1,46 +1,10 @@
-using System.Collections;
-using Achievements.List;
-using Utilities;
-using UnityEngine;
+using System.Collections.Generic;
 
-namespace Achievements.Permanent
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class displays the permanent achievements in a list
-    /// </summary>
-    [RequireComponent(typeof(Transform))]
+    /// <summary>Lists the permanent achievements in the statistics menu.</summary>
     public class PermanentAchievementListDisplay : AchievementListDisplay
     {
-        protected override IEnumerator Start()
-        {
-            yield return Wait.WaitForInitialisation;
-            yield return StartCoroutine(base.Start());
-            CreateDisplayAsynchronously();
-        }
-
-        private void OnEnable()
-        {
-            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
-        }
-
-        private void OnDisable()
-        {
-            AchievementManager.OnPermanentAchievementUnlocked += OnAchievementUnlocked;
-        }
-
-        private void CreateDisplayAsynchronously()
-        {
-            CreateListAsynchronously(AchievementManager.GetPermanentAchievements);
-            SetRewardDisplay();
-        }
-        
-        protected override void SetRewardDisplay()
-        {
-            const string rewardsPrefix = "Total Rewards: ";
-            const string amountPrefix = "Total Achievements: ";
-            rewardDisplay.text = rewardsPrefix + AchievementManager.GetTotalRewardsOfPermanentAchievements(true) + "/" + AchievementManager.GetTotalRewardsOfPermanentAchievements();
-            amountOfUnlocksDisplay.text = amountPrefix + AchievementManager.GetAmountOfPermanentAchievements(true) + "/" + AchievementManager.GetAmountOfPermanentAchievements();
-        }
-        
+        protected override IReadOnlyList<AchievementInfo> ListedAchievements => Achievements.PermanentAchievements;
     }
 }

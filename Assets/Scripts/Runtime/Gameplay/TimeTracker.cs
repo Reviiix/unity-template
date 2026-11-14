@@ -1,84 +1,47 @@
-﻿using System;
-using System.Collections;
-using Utilities;
+using System;
 using UnityEngine;
 
-namespace Statistics
+namespace UnityTemplate.Gameplay
 {
-    /// <summary>
-    /// This class tracks game time.
-    /// </summary>
+    /// <summary>Measures stage time on demand from the real-time clock, excluding paused time, without any per-frame work.</summary>
     public class TimeTracker
     {
-        public bool Active { get; private set; }
-        public const string TimeDisplayPrefix = "TIME: ";
         private const string TimeFormat = @"m\:ss\.ff";
-        private Coroutine _timeTrackingRoutine;
-        private DateTime _gameStartTime = DateTime.Now;
-        private DateTime _pauseStartTime = DateTime.Now;
-        private DateTime _pauseEndTime = DateTime.Now;
-        private TimeSpan _timePaused = TimeSpan.Zero;
-        private TimeSpan _currentTime;
+        private double accumulatedSeconds;
+        private double runningSince;
 
-        public void StartTimer()
+        public bool IsRunning { get; private set; }
+        public TimeSpan Elapsed => TimeSpan.FromSeconds(accumulatedSeconds + (IsRunning ? Time.realtimeSinceStartupAsDouble - runningSince : 0));
+
+        /// <summary>Starts timing from zero.</summary>
+        public void Start()
         {
-            Active = true;
-            _gameStartTime = DateTime.Now;
-            _timeTrackingRoutine = Coroutiner.StartCoroutine(TrackTime(_gameStartTime)).Coroutine;
-        }
-        
-        public void PauseTimer()
-        {
-            _pauseStartTime = DateTime.Now;
-            StopTimer();
+            accumulatedSeconds = 0;
+            Resume();
         }
 
-        public void ResumeTimer()
+        /// <summary>Stops the clock, keeping the time measured so far.</summary>
+        public void Pause()
         {
-            _pauseEndTime = DateTime.Now;
-            _timePaused = _pauseEndTime - _pauseStartTime;
-            
-            Active = true;
-            _gameStartTime += _timePaused;
-            _timeTrackingRoutine = Coroutiner.StartCoroutine(TrackTime(_gameStartTime)).Coroutine;
-        }
-        
-        public void StopTimer()
-        {
-            Active = false;
-            OnTimerStop();
-        }
-    
-        private IEnumerator TrackTime(DateTime startingTime)
-        {
-            while (Active)
-            {
-                _currentTime = TrackTimeFrom(startingTime);
-                if (Active == false)
-                {
-                    OnTimerStop();
-                    yield return null;
-                }
-                yield return new WaitForEndOfFrame();
-            }
+            if (!IsRunning) return;
+
+            accumulatedSeconds += Time.realtimeSinceStartupAsDouble - runningSince;
+            IsRunning = false;
         }
 
-        private void OnTimerStop()
+        /// <summary>Continues timing after a pause.</summary>
+        public void Resume()
         {
-            if (_timeTrackingRoutine != null)
-            {
-                Coroutiner.StopCoroutine(_timeTrackingRoutine);
-            }
+            if (IsRunning) return;
+
+            runningSince = Time.realtimeSinceStartupAsDouble;
+            IsRunning = true;
         }
 
-        private static TimeSpan TrackTimeFrom(DateTime originalTime)
+        /// <summary>Returns the elapsed time as minutes:seconds.hundredths.</summary>
+        public string GetFormattedTime()
         {
-            return(DateTime.Now - originalTime);
-        }
-
-        public string ReturnCurrentTimeAsFormattedString()
-        {
-            return _currentTime.ToString(TimeFormat);
+            return Elapsed.ToString(TimeFormat);
         }
     }
 }

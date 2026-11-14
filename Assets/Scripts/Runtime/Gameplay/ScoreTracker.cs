@@ -1,26 +1,19 @@
-﻿using System;
+using System;
 
-namespace Statistics.Score
+namespace UnityTemplate.Gameplay
 {
-    /// <summary>
-    /// This class tracks the player score.
-    /// </summary>
+    /// <summary>Tracks the score of the current stage and announces each change.</summary>
     public class ScoreTracker
     {
-        public const string ScoreDisplayPrefix = "SCORE: ";
-        public Action<int, int> OnScoreChanged;
-        
-        public int Score
-        {
-            get;
-            private set;
-        }
+        public int Score { get; private set; }
+        public event Action<int, int> ScoreChanged;
 
-        public void IncrementScore(int amount)
+        /// <summary>Adds points and raises ScoreChanged with the old and new score.</summary>
+        public void Increment(int amount)
         {
-            var originalValue = Score;
+            var oldScore = Score;
             Score += amount;
-            OnScoreChanged?.Invoke(originalValue, Score);
+            ScoreChanged?.Invoke(oldScore, Score);
         }
     }
 }

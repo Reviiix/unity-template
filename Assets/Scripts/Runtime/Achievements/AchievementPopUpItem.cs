@@ -1,47 +1,42 @@
 using System;
-using System.Collections;
-using Utilities;
+using DG.Tweening;
 using UnityEngine;
 
-namespace Achievements.PopUp
+namespace UnityTemplate.Achievements
 {
-    /// <summary>
-    /// This class is the base for achievement items (pop ups and items in a list) it is shared by dynamic and permanent achievements.
-    /// </summary>
+    /// <summary>The toast shown when an achievement unlocks: visible for three seconds, then fades out.</summary>
     [RequireComponent(typeof(CanvasGroup))]
     public class AchievementPopUpItem : AchievementItemBase
     {
-        private static readonly WaitForSeconds DisplayTime = new WaitForSeconds(3);
-        private const float FadeTime = 1;
-        private CanvasGroup _canvasGroup;
+        private const float DisplaySeconds = 3;
+        private const float FadeSeconds = 101 / 30f;
+        private CanvasGroup canvasGroup;
+        private Sequence showAndHide;
 
         private void Awake()
         {
-            _canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void Show(Sprite iconContent, string titleContent, string descriptionContent, int rewardContent, Action callBack)
+        /// <summary>Shows the achievement, then fades out and calls onHidden.</summary>
+        public void Show(AchievementInfo achievement, Action onHidden)
         {
-            graphic.sprite = iconContent;
-            graphic.color = Color.white;
-            title.text = titleContent;
-            description.text = descriptionContent;
-            reward.text = rewardContent.ToString();
-            _canvasGroup.alpha = 1;
+            ShowTexts(achievement);
+            canvasGroup.alpha = 1;
             gameObject.SetActive(true);
-            
-            StartCoroutine(ShowThenHide(callBack));
+
+            showAndHide?.Kill();
+            showAndHide = DOTween.Sequence()
+                .AppendInterval(DisplaySeconds)
+                .Append(DOTween.To(() => canvasGroup.alpha, alpha => canvasGroup.alpha = alpha, 0, FadeSeconds).SetEase(Ease.Linear))
+                .SetLink(gameObject)
+                .OnComplete(() => onHidden());
         }
 
-        private IEnumerator ShowThenHide(Action callBack)
+        protected override void OnDestroy()
         {
-            //yield return StartCoroutine(Fade.FadeCanvasGroupUp(_canvasGroup, 1, FadeTime));
-            
-            yield return DisplayTime;
-            
-            yield return StartCoroutine(Fade.FadeCanvasGroupDown(_canvasGroup, 0, FadeTime));
-
-            callBack();
+            showAndHide?.Kill();
+            base.OnDestroy();
         }
     }
 }

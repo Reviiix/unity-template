@@ -4,7 +4,9 @@
     "references": [
         "UnityTemplate",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.Addressables",
+        "Unity.Addressables.Editor"
     ],
     "includePlatforms": [
         "Editor"

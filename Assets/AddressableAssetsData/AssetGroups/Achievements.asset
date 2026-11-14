@@ -13,28 +13,13 @@ MonoBehaviour:
   m_Name: Achievements
   m_EditorClassIdentifier: 
   m_GroupName: Achievements
-  m_Data:
-    m_SerializedData: []
   m_GUID: 06ad0266043784e26b0b95be4f4abe35
   m_SerializeEntries:
-  - m_GUID: 3ea67f979730e460280134fa094f8088
-    m_Address: Prefabs/UserInterface/Achievements/AchievementListItem.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 875522d60a99041f599a50112a7a70ca
-    m_Address: Prefabs/UserInterface/Achievements/AchievementPopUp.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: b37e1cb7e83084d15ba2cb290ccb86d8
     m_Address: Graphics/Achievements/placeholder.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 051efda1f89be44879a1d75ac262d19c, type: 2}
   m_SchemaSet:

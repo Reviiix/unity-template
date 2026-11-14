@@ -1,94 +1,110 @@
-﻿using System;
-using Credits;
-using Player;
-using Utilities;
+using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.Economy;
+using UnityTemplate.Engagement;
 
-namespace UserInterface.ConditionalMenus
+namespace UnityTemplate.UserInterface.ConditionalMenus
 {
-    /// <summary>
-    /// This is the daily log in display class. It will be loaded once per open so only load through addressables
-    /// </summary>
-    [Serializable]
-    public class DailyLogInPopUp : PopUpInterface, IUserInterface
+    /// <summary>The daily bonus popup: shows the streak bonus, spins the prize wheel and pays both out in premium credits on CLAIM.</summary>
+    public class DailyLogInPopUp : PopUpWindow
     {
+        private const float RollUpSeconds = 101 / 30f;
+        private const string WheelWinFormat = "WHEEL WIN: {0:0}";
+        private const string ClaimText = "CLAIM";
         [SerializeField] private SpinningWheel bonusWheel;
         [SerializeField] private Button proceedButton;
         [SerializeField] private TMP_Text buttonText;
         [SerializeField] private TMP_Text consecutiveOpensDisplay;
         [SerializeField] private TMP_Text wheelWinDisplay;
-        private static Coroutine _creditsRollup;
-        private static int _creditsFromWheelCache;
-        private static int DailyCredits => PlayerEngagement.DailyBonusRewardCredits;
-        private const int RollUpTime = CreditsDisplay.RollUpTimeInSeconds;
+        private EngagementService engagement;
+        private CreditsService credits;
+        private Tween rollUp;
+        private int wheelWinnings;
+        private bool hasSpun;
 
         protected override void Awake()
         {
             base.Awake();
-            bonusWheel.OnWheelSpinEnded += OnWheelSpinEnded;
-            proceedButton.onClick.AddListener(StartSpin);
-            closeButton.onClick.AddListener(ClaimReward);
-            SetDisplay();
-            RollupCredits(0,0,0);
+            engagement = ServiceLocator.Get<EngagementService>();
+            credits = ServiceLocator.Get<CreditsService>();
+            bonusWheel.SpinEnded += OnWheelSpinEnded;
+            proceedButton.onClick.AddListener(OnProceedPressed);
+            consecutiveOpensDisplay.SetText("CONSECUTIVE BONUS: {0:0}", engagement.GetDailyBonusCredits(DateTime.Now));
+            wheelWinDisplay.SetText(WheelWinFormat, 0);
         }
 
-        private void OnDisable()
+        protected override void OnDestroy()
         {
-            if (_creditsRollup != null)
-            {
-                StopCoroutine(_creditsRollup);
-            }
+            rollUp?.Kill();
+            base.OnDestroy();
         }
 
-        private void SetDisplay()
+        /// <summary>The X button claims the streak bonus without spinning and slides the popup away.</summary>
+        protected override void OnCloseButtonPressed()
         {
-            const string consecutiveOpensPrefix = "CONSECUTIVE BONUS: ";
-            consecutiveOpensDisplay.text = consecutiveOpensPrefix + DailyCredits;
+            Claim();
+            CloseWithSlide();
+        }
+
+        private void OnProceedPressed()
+        {
+            if (hasSpun) ClaimAndClose();
+            else StartSpin();
         }
 
         private void StartSpin()
         {
+            hasSpun = true;
             closeButton.gameObject.SetActive(false);
             proceedButton.interactable = false;
-            ChangeButtonState();
-            bonusWheel.StartSpin();
-        }
-        
-        private void OnWheelSpinEnded(int resultSegmentValue)
-        {
-            _creditsFromWheelCache = resultSegmentValue;
-            RollupCredits(0, resultSegmentValue, RollUpTime, () =>
+            buttonText.text = ClaimText;
+
+            var segment = engagement.PendingWheelSegment;
+            if (segment == EngagementService.NoPendingWheelSegment)
             {
-                proceedButton.interactable = true;
-            });
+                segment = bonusWheel.PickRandomSegment();
+                engagement.SetPendingWheelSegment(segment);
+            }
+            bonusWheel.SpinTo(segment);
         }
 
-        private void ChangeButtonState()
+        private void OnWheelSpinEnded(int segmentValue)
         {
-            const string claim = "CLAIM";
-            proceedButton.onClick.RemoveListener(StartSpin);
-            proceedButton.onClick.AddListener(ClaimReward);
-            buttonText.text = claim;
+            wheelWinnings = segmentValue;
+            RollUpWheelWin(0, segmentValue, () => proceedButton.interactable = true);
         }
 
-        private void ClaimReward()
+        private void ClaimAndClose()
         {
-            var credits = DailyCredits + _creditsFromWheelCache;
-            Display.GetComponent<GraphicRaycaster>().enabled = false;
-            CreditsManager.AddCredits(CreditsManager.Currency.PremiumCredits, credits);
-            RollupCredits(credits, 0, RollUpTime, () =>
-            {
-                Enable(false);
-            });
+            SetContentInteractable(false);
+            var payout = Claim();
+            RollUpWheelWin(payout, 0, CloseImmediately);
         }
 
-        private void RollupCredits(int startValue, int endValue, int seconds, Action callBack = null)
+        private int Claim()
         {
-            const string prefix = "WHEEL WIN: ";
-            const string suffix = "";
-            _creditsRollup = StartCoroutine(NumberRollup.Rollup(wheelWinDisplay, startValue, endValue, prefix, suffix, seconds, callBack));
+            var today = DateTime.Now;
+            var payout = engagement.GetDailyBonusCredits(today) + wheelWinnings;
+            if (engagement.ClaimDailyBonus(today)) credits.Add(Currency.PremiumCredits, payout);
+            return payout;
+        }
+
+        private void RollUpWheelWin(int from, int to, Action onComplete)
+        {
+            rollUp?.Kill();
+            float shown = from;
+            rollUp = DOTween.To(() => shown, value =>
+                {
+                    shown = value;
+                    wheelWinDisplay.SetText(WheelWinFormat, shown);
+                }, to, RollUpSeconds)
+                .SetEase(Ease.Linear)
+                .SetLink(gameObject)
+                .OnComplete(() => onComplete());
         }
     }
 }

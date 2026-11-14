@@ -1,161 +1,94 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Utilities;
-using Statistics;
-using TMPro;
+using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.Progression;
 using Object = UnityEngine.Object;
 
-namespace UserInterface.MainMenus.StageSelection
+namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
-    /// <summary>
-    /// This is the stage selection menu
-    /// </summary>
+    /// <summary>The stage selection menu: one scrollable page of stage buttons per stage group, with next/previous group buttons.</summary>
     [Serializable]
-    public class StageSelectionMenu : UserInterface, IUserInterface
+    public class StageSelectionMenu : MenuBase
     {
-        [SerializeField] private Button nextLevelGroupButton, previousLevelGroupButton;
+        [SerializeField] private Button nextLevelGroupButton;
+        [SerializeField] private Button previousLevelGroupButton;
         [SerializeField] private Transform levelItemParent;
         [SerializeField] private ScrollRect levelScroller;
-        private static readonly AssetReference DisplayItemPrefab = new AssetReference("Prefabs/UserInterface/StageDisplayItem.prefab");
-        private static readonly WaitUntil WaitUntilAssetReferenceIsLoadedAsynchronously = new WaitUntil(() => _addressableAsGameObject != null);
-        private static GameObject _addressableAsGameObject;
-        private static RectTransform[] _levelGroupDisplays;
-        private static LevelItemDisplay[] _levelListItems;
-        private static int _amountOfLevelGroups = StageLoadManager.AmountOfStageGroups;
-        private static int _currentLeveGroupDisplayIndex;
-        private static int CurrentLeveGroupDisplayIndex
-        {
-            get => _currentLeveGroupDisplayIndex;
-            set
-            {
-                _currentLeveGroupDisplayIndex = value;
-                
-                if (_currentLeveGroupDisplayIndex >= _amountOfLevelGroups) _currentLeveGroupDisplayIndex = 0;
+        [SerializeField] private AssetReferenceGameObject stageItemPrefab;
+        private readonly StringBuilder labelBuilder = new();
+        private RectTransform[] groupPages = Array.Empty<RectTransform>();
+        private int currentGroup;
 
-                if (_currentLeveGroupDisplayIndex < 0) _currentLeveGroupDisplayIndex = _amountOfLevelGroups-1;
+        /// <summary>Builds one page of stage buttons per group from the stage catalogue, then shows the first group.</summary>
+        public async void Initialise()
+        {
+            var handle = stageItemPrefab.LoadAssetAsync();
+            var itemPrefab = await handle.Task;
+            if (itemPrefab == null)
+            {
+                Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty.");
+                return;
             }
+
+            BuildPages(itemPrefab);
+            stageItemPrefab.ReleaseAsset();
+            nextLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup + 1));
+            previousLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup - 1));
+            ShowGroup(0);
         }
 
-        public void Initialise()
+        private void BuildPages(GameObject itemPrefab)
         {
-            Coroutiner.StartCoroutine(CreateDisplayAsynchronously());
-        }
+            var progress = ServiceLocator.Get<ProgressService>();
+            var catalogue = progress.Catalogue;
+            var stageLoader = ServiceLocator.Get<StageLoader>();
+            groupPages = new RectTransform[catalogue.GroupCount];
 
-        public void Enable(bool state = true)
-        {
-            display.enabled = state;
-        }
-
-        private IEnumerator CreateDisplayAsynchronously()
-        {
-            var currentLevelIndex = 0;
-            var levelGroupDisplays = new List<RectTransform>();
-            var parentCache = levelItemParent;
-            var mostRelevantLevelUnlockedIndex = PlayerStatistics.ReturnMostRecentUnlockedLevel();
-
-            AssetReferenceLoader.LoadAssetReferenceAsynchronously<GameObject>(DisplayItemPrefab, (returnVariable) =>
+            for (var group = 0; group < catalogue.GroupCount; group++)
             {
-                _addressableAsGameObject = returnVariable;
-                AssetReferenceLoader.DestroyOrUnload(returnVariable);
-            });
-            
-            yield return WaitUntilAssetReferenceIsLoadedAsynchronously;
-            
-            _levelListItems = new LevelItemDisplay[StageLoadManager.TotalAmountOfStages];
+                var page = (RectTransform)Object.Instantiate(levelItemParent, levelItemParent.parent);
+                groupPages[group] = page;
 
-            for (var groupIndex = 0; groupIndex < _amountOfLevelGroups; groupIndex++)
-            {
-                var amountOfLevels = StageLoadManager.GetAmountOfStagesIn(groupIndex);
-                
-                levelItemParent = Object.Instantiate(parentCache, levelItemParent.parent);
-                levelGroupDisplays.Add(levelItemParent.GetComponent<RectTransform>());
-
-                for (var levelIndex = 0; levelIndex < amountOfLevels; levelIndex++)
+                for (var stage = 0; stage < catalogue.GetStageCount(group); stage++)
                 {
-                    CreateDisplayItemAsynchronously(groupIndex + "-" + levelIndex, groupIndex, levelIndex, currentLevelIndex > mostRelevantLevelUnlockedIndex);
-                    currentLevelIndex++;
+                    var item = Object.Instantiate(itemPrefab, page).GetComponentInChildren<StageListItem>();
+                    item.transform.localScale = Vector3.one;
+                    labelBuilder.Clear().Append(group).Append('-').Append(stage);
+                    item.StageNameDisplay.SetText(labelBuilder);
+                    item.Button.interactable = CanSelect(progress, catalogue, group, stage);
+
+                    var selectedGroup = group;
+                    var selectedStage = stage;
+                    item.Button.onClick.AddListener(() => stageLoader.LoadStage(selectedGroup, selectedStage));
                 }
             }
 
-            AssetReferenceLoader.DestroyOrUnload(parentCache.gameObject);
-            levelItemParent = null;
-            
-            if (_amountOfLevelGroups > 0)
+            Object.Destroy(levelItemParent.gameObject);
+        }
+
+        private static bool CanSelect(ProgressService progress, StageCatalogue catalogue, int group, int stage)
+        {
+            if (!catalogue.HasScene(group, stage)) return false;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            return true;
+#else
+            return progress.IsUnlocked(group, stage);
+#endif
+        }
+
+        private void ShowGroup(int group)
+        {
+            if (groupPages.Length == 0) return;
+
+            currentGroup = (group % groupPages.Length + groupPages.Length) % groupPages.Length;
+            for (var i = 0; i < groupPages.Length; i++)
             {
-                _levelGroupDisplays = levelGroupDisplays.ToArray();
-                AssignLevelGroupNavigationButtonEvents();
-                ChangeLevelGroup(0);
+                groupPages[i].gameObject.SetActive(i == currentGroup);
             }
-        }
-
-        private void CreateDisplayItemAsynchronously(string description,int levelGroupIndex, int levelIndex, bool locked)
-        {
-            var levelItemGameObject = Object.Instantiate(_addressableAsGameObject, levelItemParent).GetComponentInChildren<StageListItem>();
-            var levelItemGameTransform = levelItemGameObject.transform;
-            levelItemGameTransform.SetParent(levelItemParent);
-            levelItemGameTransform.localScale = Vector3.one;
-
-            _levelListItems[levelIndex] = new LevelItemDisplay(levelItemGameObject.ReturnButton(), levelItemGameObject.ReturnStageNameDisplay(), levelItemGameObject.ReturnStarDisplay());
-            _levelListItems[levelIndex].LoadLevelButton.onClick.AddListener(()=>StageLoadManager.LoadSpecificStage(levelGroupIndex, levelIndex));
-            _levelListItems[levelIndex].LevelNameDisplay.text = description;
-            _levelListItems[levelIndex].LoadLevelButton.interactable = !locked;
-            #if UNITY_EDITOR || DEBUG_BUILD
-            _levelListItems[levelIndex].LoadLevelButton.interactable = true;
-            #endif
-            foreach (var star in _levelListItems[levelIndex].Stars)
-            {
-                star.material.color = Color.white;
-            }
-            levelItemGameObject.RemoveClassFromObject();
-        }
-        
-        private void AssignLevelGroupNavigationButtonEvents()
-        {
-            nextLevelGroupButton.onClick.AddListener(DisplayNextLevelGroup);
-            previousLevelGroupButton.onClick.AddListener(DisplayPreviousLevelGroup);
-        }
-
-        private void DisplayNextLevelGroup()
-        {
-            ChangeLevelGroup(CurrentLeveGroupDisplayIndex++);
-        }
-        
-        private void DisplayPreviousLevelGroup()
-        {
-            ChangeLevelGroup(CurrentLeveGroupDisplayIndex--);
-        }
-
-        private void ChangeLevelGroup(int index)
-        {
-            EnableAllLevelGroupDisplays(false);
-            _levelGroupDisplays[index].gameObject.SetActive(true);
-            levelScroller.content = _levelGroupDisplays[index];
-        }
-
-        private void EnableAllLevelGroupDisplays(bool state = true)
-        {
-            foreach (var levelGroupDisplay in _levelGroupDisplays)
-            {
-                levelGroupDisplay.gameObject.SetActive(state);
-            }
-        }
-
-        private readonly struct LevelItemDisplay
-        {
-            public readonly Button LoadLevelButton;
-            public readonly TMP_Text LevelNameDisplay;
-            public readonly Image[] Stars;
-
-            public LevelItemDisplay(Button loadLevelButton, TMP_Text levelNameDisplay, Image[] stars)
-            {
-                LoadLevelButton = loadLevelButton;
-                LevelNameDisplay = levelNameDisplay;
-                Stars = stars;
-            }
+            levelScroller.content = groupPages[currentGroup];
         }
     }
 }
