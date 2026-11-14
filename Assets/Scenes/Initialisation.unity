@@ -3390,6 +3390,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1543847646}
   m_SourcePrefab: {fileID: 100100000, guid: fecce1de4a5f643a0b023d86c6590bc5, type: 3}
+--- !u!114 &912036205 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5651474291098264552, guid: fecce1de4a5f643a0b023d86c6590bc5,
+    type: 3}
+  m_PrefabInstance: {fileID: 912036204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543847641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!224 &957074004 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9042676239817348430, guid: 559801b84eb49488382e2561d0b26cce,
@@ -4547,6 +4559,7 @@ MonoBehaviour:
   creditInputField: {fileID: 308312120}
   addPremiumCreditsButton: {fileID: 138911911}
   premiumCreditInputField: {fileID: 1536557699}
+  resetPlayerButton: {fileID: 912036205}
 --- !u!223 &1329787041
 Canvas:
   m_ObjectHideFlags: 0
