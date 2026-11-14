@@ -59,7 +59,7 @@ Rules:
 - Three ways to close a popup, matching the original game: `CloseImmediately` (vanish with the menu whoosh; daily CLAIM, anniversary CLAIM), `CloseWithSlide` (slide out silently; every X button and the welcome CONTINUE), `CloseWithSlide(playSound: true)` (confirmation YES/NO).
 - Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a backdrop, a grey overlay, and a panel with an outline, a title and a close button. `ConfirmationPopUp.prefab` removes the grey overlay, title and close button, which it never had. Like every popup, its backdrop blocks taps on the menus behind it.
 - Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
-- Canvas sort orders: menus 0-3, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
+- Canvas sort orders: menus and the unused pause and game-over screens 0-4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
 - Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu to the main menu, and does nothing on the main menu or inside a stage.
 - Timings preserved from the original: currency and wheel roll-ups 3.37 s, linear (101 frames at 30 fps); experience bar 3 s, OutQuad; daily wheel 7 s, InOutQuart; stage fade 1 s out and 1 s in, linear.
 
