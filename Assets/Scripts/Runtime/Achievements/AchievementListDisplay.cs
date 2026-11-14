@@ -15,7 +15,9 @@ namespace UnityTemplate.Achievements
         [SerializeField] private TMP_Text noAchievementsSetText;
         [SerializeField] private AchievementListItem listItemPrefab;
         private readonly Dictionary<Achievement, AchievementListItem> rows = new();
+        private readonly Dictionary<Achievement, Color> lockedColours = new();
         private readonly StringBuilder textBuilder = new();
+        private SaveService saveService;
 
         protected AchievementService Achievements { get; private set; }
 
@@ -25,20 +27,33 @@ namespace UnityTemplate.Achievements
         private void Awake()
         {
             Achievements = ServiceLocator.Get<AchievementService>();
+            saveService = ServiceLocator.Get<SaveService>();
             BuildRows();
         }
 
-        /// <summary>Listens for unlocks and refreshes the totals.</summary>
+        /// <summary>Listens for unlocks and resets, and redraws every row in case either happened while hidden.</summary>
         private void OnEnable()
         {
             Achievements.AchievementUnlocked += OnAchievementUnlocked;
-            RefreshTotals();
+            saveService.DataLoaded += Refresh;
+            Refresh();
         }
 
-        /// <summary>Stops listening for unlocks.</summary>
+        /// <summary>Stops listening for unlocks and resets.</summary>
         private void OnDisable()
         {
             Achievements.AchievementUnlocked -= OnAchievementUnlocked;
+            saveService.DataLoaded -= Refresh;
+        }
+
+        /// <summary>Recolours every row from its unlock state and rewrites the totals, e.g. after RESET ALL.</summary>
+        private void Refresh()
+        {
+            foreach (var achievement in ListedAchievements)
+            {
+                if (rows.TryGetValue(achievement.Id, out var row)) row.Background.color = achievement.IsUnlocked ? UnlockedColour : lockedColours[achievement.Id];
+            }
+            RefreshTotals();
         }
 
         /// <summary>Instantiates a row for every listed achievement and shows the empty-list text when there are none.</summary>
@@ -48,6 +63,7 @@ namespace UnityTemplate.Achievements
             {
                 var row = Instantiate(listItemPrefab, transform);
                 row.transform.localScale = Vector3.one;
+                lockedColours.Add(achievement.Id, row.Background.color);
                 row.Show(achievement, achievement.IsUnlocked ? UnlockedColour : row.Background.color);
                 rows.Add(achievement.Id, row);
             }
