@@ -45,11 +45,11 @@ namespace UnityTemplate.UserInterface.MainMenus
         public void Initialise()
         {
             engagement = ServiceLocator.Get<EngagementService>();
-            performanceTitle = performanceButton.GetComponentInChildren<TMP_Text>();
-            achievementsTitle = achievementsButton.GetComponentInChildren<TMP_Text>();
-            weeklyAchievementsTitle = weeklyAchievementsButton.GetComponentInChildren<TMP_Text>();
-            permanentAchievementsTitle = permanentAchievementsButton.GetComponentInChildren<TMP_Text>();
-            leaderboardTitle = leaderboardButton.GetComponentInChildren<TMP_Text>();
+            performanceTitle = performanceButton.GetComponentInChildren<TMP_Text>(true);
+            achievementsTitle = achievementsButton.GetComponentInChildren<TMP_Text>(true);
+            weeklyAchievementsTitle = weeklyAchievementsButton.GetComponentInChildren<TMP_Text>(true);
+            permanentAchievementsTitle = permanentAchievementsButton.GetComponentInChildren<TMP_Text>(true);
+            leaderboardTitle = leaderboardButton.GetComponentInChildren<TMP_Text>(true);
 
             performanceButton.onClick.AddListener(ShowPerformancePanel);
             achievementsButton.onClick.AddListener(ShowAchievementsPanel);

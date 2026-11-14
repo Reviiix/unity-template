@@ -24,7 +24,7 @@ namespace UnityTemplate.UserInterface.MainMenus
         public void Initialise(Action openStageSelectionMenu, Action openStatisticsMenu, Action openSettingsMenu, Action openStoreMenu)
         {
             progress = ServiceLocator.Get<ProgressService>();
-            startGameText = startGame.GetComponentInChildren<TMP_Text>();
+            startGameText = startGame.GetComponentInChildren<TMP_Text>(true);
             startGame.onClick.AddListener(StartGamePressed);
             openStageSelectionMenuButton.onClick.AddListener(() => openStageSelectionMenu());
             openStatisticsMenuButton.onClick.AddListener(() => openStatisticsMenu());
