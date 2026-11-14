@@ -15,6 +15,7 @@ namespace UnityTemplate.Debugging
     public class CheatManager : MonoBehaviour
     {
         [FormerlySerializedAs("showCheatMenuButton")] [SerializeField] private Button openCheatMenuButton;
+        [SerializeField] private Button closeCheatMenuButton;
         [Header("Experience")]
         [SerializeField] private Button addExperienceButton;
         [SerializeField] private TMP_InputField experienceInputField;
@@ -27,9 +28,11 @@ namespace UnityTemplate.Debugging
         [Header("Premium Credit")]
         [SerializeField] private Button addPremiumCreditsButton;
         [SerializeField] private TMP_InputField premiumCreditInputField;
+        [Header("Reset")]
+        [SerializeField] private Button resetPlayerButton;
         private Canvas cheatMenu;
 
-        /// <summary>Removes the menu from release builds; otherwise wires each cheat button to its input field.</summary>
+        /// <summary>Removes the menu from release builds; otherwise wires the open and close buttons, each cheat button to its input field, and the reset button.</summary>
         private void Awake()
         {
             if (!Debug.isDebugBuild)
@@ -40,10 +43,12 @@ namespace UnityTemplate.Debugging
 
             cheatMenu = GetComponent<Canvas>();
             openCheatMenuButton.onClick.AddListener(() => cheatMenu.enabled = !cheatMenu.enabled);
+            closeCheatMenuButton.onClick.AddListener(() => cheatMenu.enabled = false);
             addExperienceButton.onClick.AddListener(() => Apply(experienceInputField, amount => ServiceLocator.Get<ExperienceService>().Add(amount)));
             addScoreButton.onClick.AddListener(() => Apply(scoreInputField, AddScore));
             addCreditsButton.onClick.AddListener(() => Apply(creditInputField, amount => ServiceLocator.Get<CreditsService>().Add(Currency.Credits, amount)));
             addPremiumCreditsButton.onClick.AddListener(() => Apply(premiumCreditInputField, amount => ServiceLocator.Get<CreditsService>().Add(Currency.PremiumCredits, amount)));
+            resetPlayerButton.onClick.AddListener(ResetPlayer);
             Debug.LogWarning("CHEATS ENABLED on " + name);
         }
 
@@ -54,6 +59,13 @@ namespace UnityTemplate.Debugging
 
             Debug.LogWarning($"CHEATING! Adding {amount} via {inputField.name}.");
             cheat(amount);
+        }
+
+        /// <summary>Deletes the save and starts a new game, like RESET ALL but without the confirmation.</summary>
+        private static void ResetPlayer()
+        {
+            Debug.LogWarning("CHEATING! Resetting the player.");
+            ServiceLocator.Get<SaveService>().DeleteAll();
         }
 
         /// <summary>Adds score to the running stage, if a stage is loaded.</summary>

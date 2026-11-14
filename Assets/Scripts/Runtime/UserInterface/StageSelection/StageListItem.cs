@@ -4,15 +4,34 @@ using UnityEngine.UI;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
-    /// <summary>References to the parts of a stage button prefab, so the stage selection menu never has to search the prefab.</summary>
+    /// <summary>A stage button in the stage selection menu: its label, rating stars and locked state, referenced so the menu never has to search the prefab.</summary>
     public class StageListItem : MonoBehaviour
     {
+        private const float LockedAlpha = 0.4f;
         [SerializeField] private Button stageLevelButton;
         [SerializeField] private TMP_Text stageNameDisplay;
         [SerializeField] private Image[] stars;
+        [SerializeField] private CanvasGroup lockFade;
+        [SerializeField] private Color earnedStarColour = new Color32(62, 99, 221, 255);
+        [SerializeField] private Color unearnedStarColour = new Color32(128, 134, 143, 255);
 
         public Button Button => stageLevelButton;
         public TMP_Text StageNameDisplay => stageNameDisplay;
-        public Image[] Stars => stars;
+
+        /// <summary>Makes the stage tappable, or fades it out as locked.</summary>
+        public void SetSelectable(bool selectable)
+        {
+            stageLevelButton.interactable = selectable;
+            lockFade.alpha = selectable ? 1f : LockedAlpha;
+        }
+
+        /// <summary>Fills one star per rating point; 0 means the stage has not been completed.</summary>
+        public void ShowRating(int rating)
+        {
+            for (var i = 0; i < stars.Length; i++)
+            {
+                stars[i].color = i < rating ? earnedStarColour : unearnedStarColour;
+            }
+        }
     }
 }

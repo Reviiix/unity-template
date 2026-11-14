@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using TMPro;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.SceneManagement;
@@ -16,6 +19,7 @@ namespace UnityTemplate.Tests
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
         private const string MenuBasePath = "Assets/Prefabs/UserInterface/Menus/Menu.prefab";
         private const string PopUpBasePath = "Assets/Prefabs/UserInterface/PopUps/PopUp.prefab";
+        private static readonly string[] InterFontPaths = { "Assets/Fonts/Inter/Inter-Regular SDF.asset", "Assets/Fonts/Inter/Inter-SemiBold SDF.asset" };
         private static readonly string[] MenuFields = { "mainMenu", "stageSelectionMenu", "statisticsMenu", "settingsMenu", "storeMenu" };
         private Scene scene;
         private bool openedByTest;
@@ -115,6 +119,25 @@ namespace UnityTemplate.Tests
             Assert.IsFalse(PrefabUtility.IsAddedComponentOverride(component), $"{component.GetType().Name} is added to {root.name} in the scene instead of in its prefab.");
             var basePrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(root);
             Assert.AreEqual(basePrefabPath, AssetDatabase.GetAssetPath(basePrefab), $"{root.name} is not a variant of {basePrefabPath}.");
+        }
+
+        /// <summary>Checks that every text in the user interface prefabs and the boot scene uses one of the two Inter font assets.</summary>
+        [Test]
+        public void EveryUserInterfaceTextUsesInter()
+        {
+            var inter = InterFontPaths.Select(AssetDatabase.LoadAssetAtPath<TMP_FontAsset>).ToArray();
+            Assert.IsTrue(inter.All(font => font != null), "The Inter font assets are missing.");
+            var offenders = new List<string>();
+            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/UserInterface" }))
+            {
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
+                offenders.AddRange(prefab.GetComponentsInChildren<TMP_Text>(true).Where(text => !inter.Contains(text.font)).Select(text => prefab.name + "/" + text.name));
+            }
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                offenders.AddRange(root.GetComponentsInChildren<TMP_Text>(true).Where(text => !inter.Contains(text.font)).Select(text => root.name + "/" + text.name));
+            }
+            Assert.IsEmpty(offenders, "These texts do not use Inter: " + string.Join(", ", offenders));
         }
 
         /// <summary>Checks that the popup references and the stage selection menu's stage item point at Addressable assets.</summary>
