@@ -14046,7 +14046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7696aad0e20754cc8bf26d2ae7f3f88d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistantObjects:
+  persistentObjects:
   - {fileID: 349200000}
   - {fileID: 1902680939}
 --- !u!114 &1902680941
