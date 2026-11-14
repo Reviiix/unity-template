@@ -439,10 +439,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7755473393577757991, guid: 4cbd37fd26440426c94a9ed11e3446a0,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7755473394580977169, guid: 4cbd37fd26440426c94a9ed11e3446a0,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7755473394874024168, guid: 4cbd37fd26440426c94a9ed11e3446a0,
         type: 3}
       propertyPath: m_text
       value: ANNIVERSARY
+      objectReference: {fileID: 0}
+    - target: {fileID: 7755473394874024171, guid: 4cbd37fd26440426c94a9ed11e3446a0,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
