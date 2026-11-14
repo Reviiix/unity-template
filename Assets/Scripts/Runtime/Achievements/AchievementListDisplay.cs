@@ -9,7 +9,7 @@ namespace UnityTemplate.Achievements
     /// <summary>Base for the achievement lists in the statistics menu: builds one row per achievement and keeps the totals text up to date.</summary>
     public abstract class AchievementListDisplay : MonoBehaviour
     {
-        [SerializeField] private Color unlockedColour = new(0.93f, 0.95f, 1f);
+        [SerializeField] private Color unlockedColour = new Color32(219, 229, 252, 255);
         [SerializeField] protected TMP_Text rewardDisplay;
         [SerializeField] protected TMP_Text amountOfUnlocksDisplay;
         [SerializeField] private TMP_Text noAchievementsSetText;
@@ -46,12 +46,12 @@ namespace UnityTemplate.Achievements
             saveService.DataLoaded -= Refresh;
         }
 
-        /// <summary>Recolours every row from its unlock state and rewrites the totals, e.g. after RESET ALL.</summary>
+        /// <summary>Re-shows every row's unlock state and rewrites the totals, e.g. after RESET ALL.</summary>
         private void Refresh()
         {
             foreach (var achievement in ListedAchievements)
             {
-                if (rows.TryGetValue(achievement.Id, out var row)) row.Background.color = achievement.IsUnlocked ? unlockedColour : lockedColours[achievement.Id];
+                if (rows.TryGetValue(achievement.Id, out var row)) row.SetUnlocked(achievement.IsUnlocked, achievement.IsUnlocked ? unlockedColour : lockedColours[achievement.Id]);
             }
             RefreshTotals();
         }
@@ -64,18 +64,18 @@ namespace UnityTemplate.Achievements
                 var row = Instantiate(listItemPrefab, transform);
                 row.transform.localScale = Vector3.one;
                 lockedColours.Add(achievement.Id, row.Background.color);
-                row.Show(achievement, achievement.IsUnlocked ? unlockedColour : row.Background.color);
+                row.Show(achievement, achievement.IsUnlocked, achievement.IsUnlocked ? unlockedColour : row.Background.color);
                 rows.Add(achievement.Id, row);
             }
             if (noAchievementsSetText != null) noAchievementsSetText.enabled = ListedAchievements.Count == 0;
         }
 
-        /// <summary>Highlights the unlocked achievement's row and updates the totals.</summary>
+        /// <summary>Shows the newly unlocked achievement's row as unlocked and updates the totals.</summary>
         private void OnAchievementUnlocked(AchievementInfo achievement)
         {
             if (!rows.TryGetValue(achievement.Id, out var row)) return;
 
-            row.Background.color = unlockedColour;
+            row.SetUnlocked(true, unlockedColour);
             RefreshTotals();
         }
 

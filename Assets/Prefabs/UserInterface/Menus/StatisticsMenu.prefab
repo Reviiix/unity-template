@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8a40d3abbd472a8949e010c5e0dadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedColour: {r: 0.93, g: 0.95, b: 1, a: 1}
+  unlockedColour: {r: 0.85882354, g: 0.8980392, b: 0.9882353, a: 1}
   rewardDisplay: {fileID: 30755102340375089}
   amountOfUnlocksDisplay: {fileID: 8380535374627814377}
   noAchievementsSetText: {fileID: 0}
@@ -1329,7 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4d2580b958c4c19b65c46591de1cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedColour: {r: 0.93, g: 0.95, b: 1, a: 1}
+  unlockedColour: {r: 0.85882354, g: 0.8980392, b: 0.9882353, a: 1}
   rewardDisplay: {fileID: 279529441874902590}
   amountOfUnlocksDisplay: {fileID: 3374316425500937858}
   noAchievementsSetText: {fileID: 1433592012473142221}

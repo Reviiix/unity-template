@@ -118,6 +118,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7943059614835234724, guid: 3ec02c7357e58431bab317babd5d54aa,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 5051122469959268006}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -126,6 +131,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 928261854693839346}
+    - targetCorrespondingSourceObject: {fileID: 3968565226402564692, guid: 3ec02c7357e58431bab317babd5d54aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8176845050474037498}
   m_SourcePrefab: {fileID: 100100000, guid: 3ec02c7357e58431bab317babd5d54aa, type: 3}
 --- !u!114 &499188101563676229 stripped
 MonoBehaviour:
@@ -163,6 +172,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5051122469959268006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1527523820425357626, guid: 3ec02c7357e58431bab317babd5d54aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 5993142997339660188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221740537391191496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &7221740537391191496 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3968565226402564692, guid: 3ec02c7357e58431bab317babd5d54aa,
@@ -185,6 +206,19 @@ MonoBehaviour:
   title: {fileID: 499188101563676229}
   description: {fileID: 4391898446606227076}
   reward: {fileID: 3516059253571389759}
+  lockFade: {fileID: 8176845050474037498}
+--- !u!225 &8176845050474037498
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221740537391191496}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &8880792874022386189 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2888216782972151185, guid: 3ec02c7357e58431bab317babd5d54aa,
