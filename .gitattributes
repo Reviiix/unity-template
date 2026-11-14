@@ -6,13 +6,13 @@
 *.shader    text eol=lf
 
 # Unity YAML assets: always text, never re-wrapped.
-*.unity     text eol=lf -diff
-*.prefab    text eol=lf -diff
-*.asset     text eol=lf -diff
+*.unity     text eol=lf
+*.prefab    text eol=lf
+*.asset     text eol=lf
 *.meta      text eol=lf
-*.mat       text eol=lf -diff
-*.anim      text eol=lf -diff
-*.controller text eol=lf -diff
+*.mat       text eol=lf
+*.anim      text eol=lf
+*.controller text eol=lf
 
 # Binary assets.
 *.png  binary
