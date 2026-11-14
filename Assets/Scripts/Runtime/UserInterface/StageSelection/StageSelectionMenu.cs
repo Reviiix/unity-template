@@ -94,7 +94,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 #endif
         }
 
-        /// <summary>Shows one group's page (wrapping around) and scrolls it.</summary>
+        /// <summary>Shows one group's page (wrapping around), scrolled to its first stage.</summary>
         private void ShowGroup(int group)
         {
             if (groupPages.Length == 0) return;
@@ -105,6 +105,8 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                 groupPages[i].gameObject.SetActive(i == currentGroup);
             }
             levelScroller.content = groupPages[currentGroup];
+            levelScroller.StopMovement();
+            groupPages[currentGroup].anchoredPosition = Vector2.zero;
         }
     }
 }
