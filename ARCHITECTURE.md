@@ -76,6 +76,7 @@ The UI follows one small design system, so a game made from the template can be 
 | Text | `#15171C`, `#5C6370`, `#8B919B` | Primary, secondary and caption text |
 | Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
 | Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
+| Dim | `#0E1014` at 58% | The overlay behind popups and the pause screen |
 
 - Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (22-26, letter-spaced); Inter Regular for body text (30-34) and captions (24). Sizes are canvas units on the 1600x900 reference.
 - Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle, star), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, rows 20).
