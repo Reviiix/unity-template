@@ -14,6 +14,7 @@ namespace UnityTemplate.Tests
     public class SceneWiringTests
     {
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
+        private const string MenuBasePath = "Assets/Prefabs/UserInterface/Menus/Menu.prefab";
         private static readonly string[] MenuFields = { "mainMenu", "stageSelectionMenu", "statisticsMenu", "settingsMenu", "storeMenu" };
         private Scene scene;
         private bool openedByTest;
@@ -67,6 +68,20 @@ namespace UnityTemplate.Tests
                     if (property.propertyType != SerializedPropertyType.ObjectReference || property.name == "m_Script") continue;
                     Assert.IsNotNull(property.objectReferenceValue, $"{menu.name}.{property.propertyPath} is not assigned.");
                 }
+            }
+        }
+
+        [Test]
+        public void EveryMenuIsAVariantOfTheMenuBase()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            foreach (var field in MenuFields)
+            {
+                var menu = userInterface.FindProperty(field).objectReferenceValue as MenuBase;
+                Assert.IsNotNull(menu, $"UserInterfaceManager.{field} is not assigned.");
+                Assert.IsTrue(PrefabUtility.IsOutermostPrefabInstanceRoot(menu.gameObject), $"{menu.name} is not an instance of a menu prefab.");
+                var menuBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(menu.gameObject);
+                Assert.AreEqual(MenuBasePath, AssetDatabase.GetAssetPath(menuBase), $"{menu.name} is not a variant of {MenuBasePath}.");
             }
         }
 
