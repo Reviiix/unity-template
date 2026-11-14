@@ -12,8 +12,8 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         [SerializeField] private TMP_Text stageNameDisplay;
         [SerializeField] private Image[] stars;
         [SerializeField] private CanvasGroup lockFade;
-        [SerializeField] private Color earnedStarColour = new(0.24f, 0.39f, 0.87f);
-        [SerializeField] private Color unearnedStarColour = new(0.85f, 0.87f, 0.9f);
+        [SerializeField] private Color earnedStarColour = new Color32(62, 99, 221, 255);
+        [SerializeField] private Color unearnedStarColour = new Color32(128, 134, 143, 255);
 
         public Button Button => stageLevelButton;
         public TMP_Text StageNameDisplay => stageNameDisplay;

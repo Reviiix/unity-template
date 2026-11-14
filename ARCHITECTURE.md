@@ -72,13 +72,14 @@ The UI follows one small design system, so a game made from the template can be 
 | Background | `#F3F4F6` | Behind the content card |
 | Surface | `#FFFFFF` | Content card, popup panels, chips |
 | Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles |
-| Border | `#E4E7EB` | Progress tracks, outlines, unearned stars |
+| Border | `#E4E7EB` | Progress tracks, outlines |
 | Text | `#15171C`, `#5C6370`, `#8B919B` | Primary, secondary and caption text |
 | Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
 | Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
 
 - Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (22-26, letter-spaced); Inter Regular for body text (30-34) and captions (24). Sizes are canvas units on the 1600x900 reference.
 - Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, rows 20).
+- Stage tiles show earned stars in the accent and unearned stars in `#80868F`, which keeps 3:1 contrast on the muted tile.
 - Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
 - To rebrand, change the accent in `Kit/PrimaryButton.prefab`, `ExperienceDisplay.prefab` (badge and fill), `Menus/MainMenu.prefab` (title bar), `VolumeControls.prefab` (slider), `ConditionalMenus/DailyLogInPopUp.prefab` (pointer and hub dot), the star colours on `StageDisplayItem.prefab`, the reward text on `Achievements/AchievementBase.prefab`, and the unlocked row colour on the achievement lists in `Menus/StatisticsMenu.prefab`.
 - The daily wheel texture (`Assets/Graphics/Wheel.png`) only draws the segments; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.

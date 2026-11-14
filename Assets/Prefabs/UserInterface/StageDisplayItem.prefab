@@ -69,8 +69,8 @@ MonoBehaviour:
   - {fileID: 3968565227315672986}
   - {fileID: 3968565227717399628}
   lockFade: {fileID: 6803911648795752073}
-  earnedStarColour: {r: 0.24, g: 0.39, b: 0.87, a: 1}
-  unearnedStarColour: {r: 0.85, g: 0.87, b: 0.9, a: 1}
+  earnedStarColour: {r: 0.24313726, g: 0.3882353, b: 0.8666667, a: 1}
+  unearnedStarColour: {r: 0.5019608, g: 0.5254902, b: 0.56078434, a: 1}
 --- !u!114 &7943059614835234724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.90588236, b: 0.92156863, a: 1}
+  m_Color: {r: 0.5019608, g: 0.5254902, b: 0.56078434, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.90588236, b: 0.92156863, a: 1}
+  m_Color: {r: 0.5019608, g: 0.5254902, b: 0.56078434, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.90588236, b: 0.92156863, a: 1}
+  m_Color: {r: 0.5019608, g: 0.5254902, b: 0.56078434, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
