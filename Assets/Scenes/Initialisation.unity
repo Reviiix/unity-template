@@ -1442,6 +1442,7 @@ GameObject:
   - component: {fileID: 143902221}
   - component: {fileID: 143902220}
   - component: {fileID: 143902219}
+  - component: {fileID: 143902222}
   m_Layer: 0
   m_Name: StageSelectionMenu
   m_TagString: Untagged
@@ -1532,6 +1533,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &143902222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143902217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b9f8305915640028ff0009046e32d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.StageSelection.StageSelectionMenu
+  nextLevelGroupButton: {fileID: 1135859491}
+  previousLevelGroupButton: {fileID: 359227183}
+  levelItemParent: {fileID: 1683199100}
+  levelScroller: {fileID: 208749229}
+  stageItemPrefab:
+    m_AssetGUID: da8ded5846185407c8a3965060befb6c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
 --- !u!1 &161669596
 GameObject:
   m_ObjectHideFlags: 0
@@ -4072,6 +4095,7 @@ GameObject:
   - component: {fileID: 668472362}
   - component: {fileID: 668472361}
   - component: {fileID: 668472360}
+  - component: {fileID: 668472363}
   m_Layer: 0
   m_Name: StatisticsMenu
   m_TagString: Untagged
@@ -4162,6 +4186,33 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &668472363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668472358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10051725af3f14c12a5b1351a20e2913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.StatisticsMenu
+  startingStatisticsPanel: 1
+  performanceButton: {fileID: 1787767399}
+  timePlayed: {fileID: 1091802431}
+  timesOpened: {fileID: 1410641795}
+  longestSession: {fileID: 1540992464}
+  performanceContent: {fileID: 1859775828}
+  startingAchievementPanel: 1
+  achievementsButton: {fileID: 1465486005}
+  achievementsContent: {fileID: 412532024}
+  weeklyAchievementsButton: {fileID: 1899280974}
+  weeklyAchievementsContent: {fileID: 1851150818}
+  permanentAchievementsButton: {fileID: 1274586400}
+  permanentAchievementsContent: {fileID: 800478327}
+  leaderboardButton: {fileID: 111402917}
+  leaderboardContent: {fileID: 916067783}
 --- !u!1 &687604105
 GameObject:
   m_ObjectHideFlags: 0
@@ -4564,47 +4615,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 774141961}
   returnToMainMenuButton: {fileID: 1112096038}
-  mainMenu:
-    display: {fileID: 4390454674705640356}
-    startGame: {fileID: 1100775429}
-    openStageSelectionMenuButton: {fileID: 1530902011}
-    openStatisticsMenuButton: {fileID: 247261081}
-    openSettingsMenuButton: {fileID: 819067354}
-    openStoreMenuButton: {fileID: 1003413602}
-  stageSelectionMenu:
-    display: {fileID: 143902221}
-    nextLevelGroupButton: {fileID: 1135859491}
-    previousLevelGroupButton: {fileID: 359227183}
-    levelItemParent: {fileID: 1683199100}
-    levelScroller: {fileID: 208749229}
-    stageItemPrefab:
-      m_AssetGUID: da8ded5846185407c8a3965060befb6c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-  statisticsMenu:
-    display: {fileID: 668472362}
-    startingStatisticsPanel: 1
-    performanceButton: {fileID: 1787767399}
-    timePlayed: {fileID: 1091802431}
-    timesOpened: {fileID: 1410641795}
-    longestSession: {fileID: 1540992464}
-    performanceContent: {fileID: 1859775828}
-    startingAchievementPanel: 1
-    achievementsButton: {fileID: 1465486005}
-    achievementsContent: {fileID: 412532024}
-    weeklyAchievementsButton: {fileID: 1899280974}
-    weeklyAchievementsContent: {fileID: 1851150818}
-    permanentAchievementsButton: {fileID: 1274586400}
-    permanentAchievementsContent: {fileID: 800478327}
-    leaderboardButton: {fileID: 111402917}
-    leaderboardContent: {fileID: 916067783}
-  settingsMenu:
-    display: {fileID: 1057099790}
-    deleteAllDataButton: {fileID: 341617891}
-  storeMenu:
-    display: {fileID: 2080600576}
+  mainMenu: {fileID: 4390454674705640364}
+  stageSelectionMenu: {fileID: 143902222}
+  statisticsMenu: {fileID: 668472363}
+  settingsMenu: {fileID: 1057099792}
+  storeMenu: {fileID: 2080600577}
   confirmationScreen: {fileID: 8447601566899522678}
   firstOpenPopUp:
     m_AssetGUID: 44a931bb7562946378bb5b047e92020c
@@ -7237,6 +7252,7 @@ GameObject:
   - component: {fileID: 1057099790}
   - component: {fileID: 1057099789}
   - component: {fileID: 1057099791}
+  - component: {fileID: 1057099792}
   m_Layer: 0
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -7327,6 +7343,19 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &1057099792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057099787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61996ab125609408ca2f07bc9a05ae34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.SettingsMenu
+  deleteAllDataButton: {fileID: 341617891}
 --- !u!1 &1062101755
 GameObject:
   m_ObjectHideFlags: 0
@@ -14503,6 +14532,7 @@ GameObject:
   - component: {fileID: 2080600576}
   - component: {fileID: 2080600575}
   - component: {fileID: 2080600574}
+  - component: {fileID: 2080600577}
   m_Layer: 0
   m_Name: StoreMenu
   m_TagString: Untagged
@@ -14593,6 +14623,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2080600577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080600572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5913cde888a9647acaef0ef44f99a96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.StoreMenu
 --- !u!1 &2090804453
 GameObject:
   m_ObjectHideFlags: 0
@@ -16008,6 +16050,7 @@ GameObject:
   - component: {fileID: 4390454674705640356}
   - component: {fileID: 4390454674705640357}
   - component: {fileID: 4390454674705640359}
+  - component: {fileID: 4390454674705640364}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -16060,6 +16103,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &4390454674705640364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390454674705640358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa40c60d22574715ad512f0f27f133e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.MainMenu
+  startGame: {fileID: 1100775429}
+  openStageSelectionMenuButton: {fileID: 1530902011}
+  openStatisticsMenuButton: {fileID: 247261081}
+  openSettingsMenuButton: {fileID: 819067354}
+  openStoreMenuButton: {fileID: 1003413602}
 --- !u!1001 &8073465724510052832
 PrefabInstance:
   m_ObjectHideFlags: 0

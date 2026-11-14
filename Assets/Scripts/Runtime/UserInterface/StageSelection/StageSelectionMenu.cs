@@ -6,12 +6,10 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Progression;
-using Object = UnityEngine.Object;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
     /// <summary>The stage selection menu: one scrollable page of stage buttons per stage group, with next/previous group buttons.</summary>
-    [Serializable]
     public class StageSelectionMenu : MenuBase
     {
         [SerializeField] private Button nextLevelGroupButton;
@@ -23,6 +21,12 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         private AsyncOperationHandle<GameObject> stageItemHandle;
         private RectTransform[] groupPages = Array.Empty<RectTransform>();
         private int currentGroup;
+
+        /// <summary>Releases the stage item prefab when the menu is destroyed; the buttons use its sprites and font until then.</summary>
+        private void OnDestroy()
+        {
+            if (stageItemHandle.IsValid()) Addressables.Release(stageItemHandle);
+        }
 
         /// <summary>Builds one page of stage buttons per group from the stage catalogue, then shows the first group.</summary>
         public async void Initialise()
@@ -49,12 +53,6 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             ShowGroup(0);
         }
 
-        /// <summary>Releases the stage item prefab; the buttons use its sprites and font, so only call this when the menu is destroyed.</summary>
-        public void ReleaseAssets()
-        {
-            if (stageItemHandle.IsValid()) Addressables.Release(stageItemHandle);
-        }
-
         /// <summary>Creates one page per stage group with a labelled, wired button per stage.</summary>
         private void BuildPages(GameObject itemPrefab)
         {
@@ -65,12 +63,12 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 
             for (var group = 0; group < catalogue.GroupCount; group++)
             {
-                var page = (RectTransform)Object.Instantiate(levelItemParent, levelItemParent.parent);
+                var page = (RectTransform)Instantiate(levelItemParent, levelItemParent.parent);
                 groupPages[group] = page;
 
                 for (var stage = 0; stage < catalogue.GetStageCount(group); stage++)
                 {
-                    var item = Object.Instantiate(itemPrefab, page).GetComponentInChildren<StageListItem>();
+                    var item = Instantiate(itemPrefab, page).GetComponentInChildren<StageListItem>();
                     item.transform.localScale = Vector3.one;
                     labelBuilder.Clear().Append(group).Append('-').Append(stage);
                     item.StageNameDisplay.SetText(labelBuilder);
@@ -82,7 +80,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                 }
             }
 
-            Object.Destroy(levelItemParent.gameObject);
+            Destroy(levelItemParent.gameObject);
         }
 
         /// <summary>Returns whether a stage button is tappable: it needs a scene and, outside development builds, must be unlocked.</summary>

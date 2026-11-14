@@ -9,7 +9,6 @@ using UnityTemplate.Engagement;
 namespace UnityTemplate.UserInterface.MainMenus
 {
     /// <summary>The statistics menu with its performance, achievements (permanent and weekly) and leaderboard tabs.</summary>
-    [Serializable]
     public class StatisticsMenu : MenuBase
     {
         private const FontStyles HighlightedFontStyle = FontStyles.Underline | FontStyles.SmallCaps;

@@ -14,6 +14,7 @@ namespace UnityTemplate.Tests
     public class SceneWiringTests
     {
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
+        private static readonly string[] MenuFields = { "mainMenu", "stageSelectionMenu", "statisticsMenu", "settingsMenu", "storeMenu" };
         private Scene scene;
         private bool openedByTest;
 
@@ -53,16 +54,35 @@ namespace UnityTemplate.Tests
         }
 
         [Test]
+        public void EveryMenuAndItsReferencesAreAssigned()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            foreach (var field in MenuFields)
+            {
+                var menu = userInterface.FindProperty(field).objectReferenceValue as MenuBase;
+                Assert.IsNotNull(menu, $"UserInterfaceManager.{field} is not assigned.");
+                var property = new SerializedObject(menu).GetIterator();
+                while (property.NextVisible(true))
+                {
+                    if (property.propertyType != SerializedPropertyType.ObjectReference || property.name == "m_Script") continue;
+                    Assert.IsNotNull(property.objectReferenceValue, $"{menu.name}.{property.propertyPath} is not assigned.");
+                }
+            }
+        }
+
+        [Test]
         public void PopUpAndStageItemReferencesPointAtAddressableAssets()
         {
             var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            var stageSelectionMenu = userInterface.FindProperty("stageSelectionMenu").objectReferenceValue;
+            Assert.IsNotNull(stageSelectionMenu, "UserInterfaceManager.stageSelectionMenu is not assigned.");
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             foreach (var property in new[]
                      {
                          userInterface.FindProperty("firstOpenPopUp"),
                          userInterface.FindProperty("dailyLogInPopUp"),
                          userInterface.FindProperty("anniversaryPopUp"),
-                         userInterface.FindProperty("stageSelectionMenu").FindPropertyRelative("stageItemPrefab"),
+                         new SerializedObject(stageSelectionMenu).FindProperty("stageItemPrefab"),
                      })
             {
                 var guid = property.FindPropertyRelative("m_AssetGUID").stringValue;
