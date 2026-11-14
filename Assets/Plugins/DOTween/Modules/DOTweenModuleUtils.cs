@@ -3,14 +3,13 @@
 
 using System;
 using System.Reflection;
-using DG.Tweening;
+using UnityEngine;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Core.PathCore;
 using DG.Tweening.Plugins.Options;
-using UnityEngine;
 
 #pragma warning disable 1591
-namespace PlugIns.DOTween.Modules
+namespace DG.Tweening
 {
     /// <summary>
     /// Utility functions that deal with available Modules.
@@ -74,8 +73,8 @@ namespace PlugIns.DOTween.Modules
         static void PlaymodeStateChanged(UnityEditor.PlayModeStateChange state)
 #endif
         {
-            if (DG.Tweening.DOTween.instance == null) return;
-            DG.Tweening.DOTween.instance.OnApplicationPause(UnityEditor.EditorApplication.isPaused);
+            if (DOTween.instance == null) return;
+            DOTween.instance.OnApplicationPause(UnityEditor.EditorApplication.isPaused);
         }
 #endif
 

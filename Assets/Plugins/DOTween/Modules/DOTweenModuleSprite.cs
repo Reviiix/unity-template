@@ -2,13 +2,13 @@
 // Created: 2018/07/13
 
 #if true && (UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5 || UNITY_2017_1_OR_NEWER) // MODULE_MARKER
-using DG.Tweening;
+using System;
+using UnityEngine;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using UnityEngine;
 
 #pragma warning disable 1591
-namespace PlugIns.DOTween.Modules
+namespace DG.Tweening
 {
 	public static class DOTweenModuleSprite
     {
@@ -21,7 +21,7 @@ namespace PlugIns.DOTween.Modules
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOColor(this SpriteRenderer target, Color endValue, float duration)
         {
-            TweenerCore<Color, Color, ColorOptions> t = DG.Tweening.DOTween.To(() => target.color, x => target.color = x, endValue, duration);
+            TweenerCore<Color, Color, ColorOptions> t = DOTween.To(() => target.color, x => target.color = x, endValue, duration);
             t.SetTarget(target);
             return t;
         }
@@ -31,7 +31,7 @@ namespace PlugIns.DOTween.Modules
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOFade(this SpriteRenderer target, float endValue, float duration)
         {
-            TweenerCore<Color, Color, ColorOptions> t = DG.Tweening.DOTween.ToAlpha(() => target.color, x => target.color = x, endValue, duration);
+            TweenerCore<Color, Color, ColorOptions> t = DOTween.ToAlpha(() => target.color, x => target.color = x, endValue, duration);
             t.SetTarget(target);
             return t;
         }
@@ -42,7 +42,7 @@ namespace PlugIns.DOTween.Modules
         /// <param name="gradient">The gradient to use</param><param name="duration">The duration of the tween</param>
         public static Sequence DOGradientColor(this SpriteRenderer target, Gradient gradient, float duration)
         {
-            Sequence s = DG.Tweening.DOTween.Sequence();
+            Sequence s = DOTween.Sequence();
             GradientColorKey[] colors = gradient.colorKeys;
             int len = colors.Length;
             for (int i = 0; i < len; ++i) {
@@ -75,7 +75,7 @@ namespace PlugIns.DOTween.Modules
         {
             endValue = endValue - target.color;
             Color to = new Color(0, 0, 0, 0);
-            return DG.Tweening.DOTween.To(() => to, x => {
+            return DOTween.To(() => to, x => {
                     Color diff = x - to;
                     to = x;
                     target.color += diff;
