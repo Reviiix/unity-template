@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Statistics.Score
 {
@@ -8,7 +7,7 @@ namespace Statistics.Score
     /// </summary>
     public static class HighScores
     {
-        private static readonly string Key = PlayerSettings.productName + "HighScore";
+        private static readonly string Key = Application.productName + "HighScore";
     
         public static int ReturnHighScore()
         {

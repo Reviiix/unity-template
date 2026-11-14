@@ -1,5 +1,4 @@
 ﻿using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,7 @@ namespace UserInterface.ConditionalMenus
         {
             base.Awake();
             SetButtonEvents();
-            title.text = "WELCOME TO " + PlayerSettings.productName.ToUpper();
+            title.text = "WELCOME TO " + Application.productName.ToUpper();
         }
         
         private void SetButtonEvents()
