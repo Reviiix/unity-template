@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Progression;
@@ -19,25 +20,39 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         [SerializeField] private ScrollRect levelScroller;
         [SerializeField] private AssetReferenceGameObject stageItemPrefab;
         private readonly StringBuilder labelBuilder = new();
+        private AsyncOperationHandle<GameObject> stageItemHandle;
         private RectTransform[] groupPages = Array.Empty<RectTransform>();
         private int currentGroup;
 
         /// <summary>Builds one page of stage buttons per group from the stage catalogue, then shows the first group.</summary>
         public async void Initialise()
         {
-            var handle = stageItemPrefab.LoadAssetAsync();
-            var itemPrefab = await handle.Task;
-            if (itemPrefab == null)
+            try
             {
-                Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty.");
+                stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
+                var itemPrefab = await stageItemHandle.Task;
+                if (stageItemHandle.Status != AsyncOperationStatus.Succeeded || itemPrefab == null)
+                {
+                    Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty. " + stageItemHandle.OperationException);
+                    return;
+                }
+                BuildPages(itemPrefab);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
                 return;
             }
 
-            BuildPages(itemPrefab);
-            stageItemPrefab.ReleaseAsset();
             nextLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup + 1));
             previousLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup - 1));
             ShowGroup(0);
+        }
+
+        /// <summary>Releases the stage item prefab; the buttons use its sprites and font, so only call this when the menu is destroyed.</summary>
+        public void ReleaseAssets()
+        {
+            if (stageItemHandle.IsValid()) Addressables.Release(stageItemHandle);
         }
 
         /// <summary>Creates one page per stage group with a labelled, wired button per stage.</summary>

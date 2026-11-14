@@ -38,6 +38,12 @@ namespace UnityTemplate.UserInterface
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
 
+        /// <summary>Releases the Addressable assets the menus keep loaded for the app's lifetime.</summary>
+        private void OnDestroy()
+        {
+            stageSelectionMenu.ReleaseAssets();
+        }
+
         /// <summary>Polls the Android back button (the old Input Manager offers no event for it).</summary>
         private void Update()
         {
