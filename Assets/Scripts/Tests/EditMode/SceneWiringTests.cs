@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -81,9 +80,7 @@ namespace UnityTemplate.Tests
             {
                 var menu = userInterface.FindProperty(field).objectReferenceValue as MenuBase;
                 Assert.IsNotNull(menu, $"UserInterfaceManager.{field} is not assigned.");
-                Assert.IsTrue(PrefabUtility.IsOutermostPrefabInstanceRoot(menu.gameObject), $"{menu.name} is not an instance of a menu prefab.");
-                var menuBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(menu.gameObject);
-                Assert.AreEqual(MenuBasePath, AssetDatabase.GetAssetPath(menuBase), $"{menu.name} is not a variant of {MenuBasePath}.");
+                AssertIsSceneInstanceOfVariant(menu, MenuBasePath);
             }
         }
 
@@ -91,21 +88,30 @@ namespace UnityTemplate.Tests
         public void EveryPopUpIsAVariantOfThePopUpBase()
         {
             var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
-            var confirmation = userInterface.FindProperty("confirmationScreen").objectReferenceValue as Component;
+            var confirmation = userInterface.FindProperty("confirmationScreen").objectReferenceValue as PopUpWindow;
             Assert.IsNotNull(confirmation, "UserInterfaceManager.confirmationScreen is not assigned.");
-            var popUps = new List<GameObject> { confirmation.gameObject };
+            AssertIsSceneInstanceOfVariant(confirmation, PopUpBasePath);
             foreach (var field in new[] { "firstOpenPopUp", "dailyLogInPopUp", "anniversaryPopUp" })
             {
                 var guid = userInterface.FindProperty(field).FindPropertyRelative("m_AssetGUID").stringValue;
                 var popUp = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
                 Assert.IsNotNull(popUp, $"UserInterfaceManager.{field} does not point at a prefab.");
-                popUps.Add(popUp);
-            }
-            foreach (var popUp in popUps)
-            {
+                Assert.AreEqual(PrefabAssetType.Variant, PrefabUtility.GetPrefabAssetType(popUp), $"{popUp.name} is not a prefab variant.");
                 var popUpBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(popUp);
                 Assert.AreEqual(PopUpBasePath, AssetDatabase.GetAssetPath(popUpBase), $"{popUp.name} is not a variant of {PopUpBasePath}.");
             }
+        }
+
+        /// <summary>Asserts that a component sits on the root of a scene instance of a variant of the given base prefab, and comes from the variant rather than a scene override.</summary>
+        private void AssertIsSceneInstanceOfVariant(Component component, string basePrefabPath)
+        {
+            var root = component.gameObject;
+            Assert.AreEqual(scene, root.scene, $"{root.name} is not an object in {InitialisationScenePath}.");
+            Assert.IsTrue(PrefabUtility.IsAnyPrefabInstanceRoot(root), $"{root.name} is not the root of a prefab instance.");
+            Assert.AreEqual(PrefabAssetType.Variant, PrefabUtility.GetPrefabAssetType(root), $"{root.name} is not an instance of a prefab variant.");
+            Assert.IsFalse(PrefabUtility.IsAddedComponentOverride(component), $"{component.GetType().Name} is added to {root.name} in the scene instead of in its prefab.");
+            var basePrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(root);
+            Assert.AreEqual(basePrefabPath, AssetDatabase.GetAssetPath(basePrefab), $"{root.name} is not a variant of {basePrefabPath}.");
         }
 
         [Test]
