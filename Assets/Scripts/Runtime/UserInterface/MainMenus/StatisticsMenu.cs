@@ -81,11 +81,21 @@ namespace UnityTemplate.UserInterface.MainMenus
         {
             ShowOnlyPanel(performanceContent);
             var playTime = engagement.TotalPlayTime;
-            textBuilder.Clear().Append("TIME PLAYED: ").Append(playTime.ToString());
+            textBuilder.Clear().Append("TIME PLAYED: ").Append((int)playTime.TotalHours).Append(':');
+            AppendTwoDigits(playTime.Minutes);
+            textBuilder.Append(':');
+            AppendTwoDigits(playTime.Seconds);
             timePlayed.SetText(textBuilder);
             textBuilder.Clear().Append("TIMES OPENED: ").Append(engagement.TimesOpened);
             timesOpened.SetText(textBuilder);
-            longestSession.SetText("LONGEST SESSION: ");
+            longestSession.SetText("LONGEST SESSION: \u2013");
+        }
+
+        /// <summary>Appends a number from 0 to 99 as two digits, without allocating a string.</summary>
+        private void AppendTwoDigits(int value)
+        {
+            if (value < 10) textBuilder.Append('0');
+            textBuilder.Append(value);
         }
 
         /// <summary>Shows the achievements tab on its starting sub-tab.</summary>
