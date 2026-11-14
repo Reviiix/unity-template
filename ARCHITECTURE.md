@@ -53,15 +53,35 @@ Rules:
 
 ## User interface
 
-- Each menu (`MainMenu`, `StageSelectionMenu`, `StatisticsMenu`, `SettingsMenu`, `StoreMenu`) is a `MenuBase` component on the root canvas of its own prefab in `Prefabs/UserInterface/Menus`. Every menu prefab is a variant of `Menu.prefab`, which holds the canvas set-up they share: overlay canvas, Scale With Screen Size at 1600×900 with Expand, and a graphic raycaster. Each variant overrides only what differs from the base, such as its name, sort order and whether its canvas starts enabled.
+- Each menu (`MainMenu`, `StageSelectionMenu`, `StatisticsMenu`, `SettingsMenu`, `StoreMenu`) is a `MenuBase` component on the root canvas of its own prefab in `Prefabs/UserInterface/Menus`. Every menu prefab is a variant of `Menu.prefab`, which holds the canvas set-up they share: overlay canvas, Scale With Screen Size at 1600×900 with Expand, and a graphic raycaster. Each variant overrides only what differs from the base, such as its name and whether its canvas starts enabled.
 - `UserInterfaceManager` references the menu instances in `Initialisation.unity` and initialises them in a fixed order; showing a menu enables its canvas and hides the others.
 - Popups derive from `PopUpWindow` and move through Hidden, Opening, Open and Closing. They slide in from the left with DOTween (`Ease.OutExpo`, 0.87 s, from `Screen.width * 2 + 500` units off-screen), which matches the original frame-based movement at 30 fps.
 - Three ways to close a popup, matching the original game: `CloseImmediately` (vanish with the menu whoosh; daily CLAIM, anniversary CLAIM), `CloseWithSlide` (slide out silently; every X button and the welcome CONTINUE), `CloseWithSlide(playSound: true)` (confirmation YES/NO).
-- Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a backdrop, a grey overlay, and a panel with an outline, a title and a close button. `ConfirmationPopUp.prefab` removes the grey overlay, title and close button, which it never had. Like every popup, its backdrop blocks taps on the menus behind it.
+- Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a dimmed backdrop and a white rounded panel with a title and a round close button. `ConfirmationPopUp.prefab` removes the title and close button (it shows its own question with NO and YES); like every popup, its backdrop dims and blocks taps on the menus behind it.
 - Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
-- Canvas sort orders: menus and the unused pause and game-over screens 0-4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
+- Canvas sort orders: background and the unused in-stage HUD 0, menus 1 (set on `Menu.prefab`), the unused pause and game-over screens 2 and 4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
 - Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu to the main menu, and does nothing on the main menu or inside a stage.
 - Timings preserved from the original: currency and wheel roll-ups 3.37 s, linear (101 frames at 30 fps); experience bar 3 s, OutQuad; daily wheel 7 s, InOutQuart; stage fade 1 s out and 1 s in, linear.
+
+## Look
+
+The UI follows one small design system, so a game made from the template can be restyled or rebranded in a few places.
+
+| Token | Value | Used for |
+|---|---|---|
+| Background | `#F3F4F6` | Behind the content card |
+| Surface | `#FFFFFF` | Content card, popup panels, chips |
+| Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles |
+| Border | `#E4E7EB` | Progress tracks, outlines, unearned stars |
+| Text | `#15171C`, `#5C6370`, `#8B919B` | Primary, secondary and caption text |
+| Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
+| Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
+
+- Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (22-26, letter-spaced); Inter Regular for body text (30-34) and captions (24). Sizes are canvas units on the 1600x900 reference.
+- Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, rows 20).
+- Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
+- To rebrand, change the accent in `Kit/PrimaryButton.prefab`, `ExperienceDisplay.prefab` (badge and fill), `Menus/MainMenu.prefab` (title bar), `VolumeControls.prefab` (slider), `ConditionalMenus/DailyLogInPopUp.prefab` (pointer and hub dot), the star colours on `StageDisplayItem.prefab`, the reward text on `Achievements/AchievementBase.prefab`, and the unlocked row colour on the achievement lists in `Menus/StatisticsMenu.prefab`.
+- The daily wheel texture (`Assets/Graphics/Wheel.png`) only draws the segments; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.
 
 ## Addressables
 
@@ -89,6 +109,7 @@ When code needs a new package, add its assembly to the `references` list of the 
 
 - Kept the menu loop exactly as it was: no in-stage HUD, pause or game-over screens (the canvases remain in the scene, unused, for future gameplay), and no way back from a stage yet.
 - Menus and popups are prefab variants of two bases, `Menu.prefab` and `PopUp.prefab`, so set-up they share is edited once and the scene holds only their instances.
+- The UI uses one light palette with a single accent, Inter, and shapes drawn from a few tinted sprites, so a game can rebrand by changing a handful of prefabs (see Look).
 - Remote Config changes apply from the next launch, so nothing changes mid-session and boot never waits for the network.
 - Animations are time-based and pinned to what devices showed at the original 30 fps, now running at 60 fps.
 - Ratings are stored by stage position: append stages to the catalogue rather than inserting them.
