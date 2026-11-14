@@ -99,7 +99,7 @@
     },
     "com.unity.services.core": {
       "version": "1.16.0",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.androidjni": "1.0.0",
