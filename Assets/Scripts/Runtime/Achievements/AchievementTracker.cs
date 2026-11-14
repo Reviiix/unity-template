@@ -40,7 +40,7 @@ namespace UnityTemplate.Achievements
         private CreditsService credits;
         private EngagementService engagement;
 
-        /// <summary>When achievements are enabled, follows level and balance changes, checks app opens and starts the play-time checks.</summary>
+        /// <summary>When achievements are enabled, follows level and balance changes.</summary>
         private void OnEnable()
         {
             achievements = ServiceLocator.Get<AchievementService>();
@@ -51,6 +51,12 @@ namespace UnityTemplate.Achievements
             engagement = ServiceLocator.Get<EngagementService>();
             experience.LevelChanged += OnLevelChanged;
             credits.BalanceChanged += OnBalanceChanged;
+        }
+
+        /// <summary>Checks the app-open achievements and starts the play-time checks once every view is listening (Start runs after all OnEnable calls).</summary>
+        private void Start()
+        {
+            if (!achievements.IsEnabled) return;
 
             foreach (var (opens, achievement) in OpenAchievements)
             {
