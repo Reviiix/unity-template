@@ -732,6 +732,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DailyLogInPopUp
       objectReference: {fileID: 0}
+    - target: {fileID: 7691393621254672664, guid: 4cbd37fd26440426c94a9ed11e3446a0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7691393621254672671, guid: 4cbd37fd26440426c94a9ed11e3446a0,
         type: 3}
       propertyPath: m_Pivot.x
