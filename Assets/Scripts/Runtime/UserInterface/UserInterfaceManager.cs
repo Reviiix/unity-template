@@ -117,7 +117,7 @@ namespace UnityTemplate.UserInterface
                 .SetLink(gameObject)
                 .OnKill(() => finished.TrySetResult());
             await finished.Awaitable;
-            if (alpha <= 0) transitionalFadeImage.enabled = false;
+            if (transitionalFadeImage != null && alpha <= 0) transitionalFadeImage.enabled = false;
         }
 
         /// <summary>Sets the fade image's alpha.</summary>
