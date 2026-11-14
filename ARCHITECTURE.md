@@ -82,7 +82,7 @@ The UI follows one small design system, so a game made from the template can be 
 - Stage tiles show earned stars in the accent and unearned stars in `#80868F`, which keeps 3:1 contrast on the muted tile.
 - Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
 - To rebrand, change the accent in `Kit/PrimaryButton.prefab`, `ExperienceDisplay.prefab` (badge and fill), `Menus/MainMenu.prefab` (title bar), `VolumeControls.prefab` (slider), `ConditionalMenus/DailyLogInPopUp.prefab` (pointer and hub dot), the star colours on `StageDisplayItem.prefab`, the reward text on `Achievements/AchievementBase.prefab`, and the unlocked row colour on the achievement lists in `Menus/StatisticsMenu.prefab`.
-- The daily wheel texture (`Assets/Graphics/Wheel.png`) only draws the segments; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.
+- The daily wheel texture (`Assets/Graphics/Wheel.png`) draws the segments and the outer ring, but no numbers; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.
 
 ## Addressables
 
