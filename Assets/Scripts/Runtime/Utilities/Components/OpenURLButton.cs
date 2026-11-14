@@ -3,23 +3,20 @@ using UnityEngine.UI;
 
 namespace UnityTemplate.Utilities
 {
+    /// <summary>Opens a web page when the button on the same GameObject is tapped.</summary>
     [RequireComponent(typeof(Button))]
     public class OpenURLButton : MonoBehaviour
     {
         [SerializeField] private string url;
-        private Button _button;
 
+        /// <summary>Wires the button to open the configured URL.</summary>
         private void Awake()
         {
-            AssignButtonEvents();
-        }
-    
-        private void AssignButtonEvents()
-        {
-            GetComponent<Button>().onClick.AddListener(OpenURLButtonPressed);
+            GetComponent<Button>().onClick.AddListener(OpenUrl);
         }
 
-        private void OpenURLButtonPressed()
+        /// <summary>Opens the URL in the device's browser.</summary>
+        private void OpenUrl()
         {
             Application.OpenURL(url);
         }

@@ -3,16 +3,13 @@ using UnityEngine;
 
 namespace UnityTemplate.Utilities
 {
-    /// <summary>
-    /// This class gets the product name from Application (set in Player Settings) and displays it in the required component, TMP_Text.
-    /// Can choose to capitalise.
-    /// The class will then remove itself as its no longer needed.
-    /// </summary>
+    /// <summary>Shows the product name from Player Settings in this text, optionally in capitals, then removes itself.</summary>
     [RequireComponent(typeof(TMP_Text))]
     public class SetGameTitleText : MonoBehaviour
     {
         [SerializeField] private bool capitalise;
-        
+
+        /// <summary>Writes the product name into the text component once.</summary>
         private void Awake()
         {
             GetComponent<TMP_Text>().text = capitalise ? Application.productName.ToUpper() : Application.productName;

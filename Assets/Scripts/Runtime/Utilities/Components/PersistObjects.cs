@@ -1,27 +1,21 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityTemplate.Utilities
 {
-    /// <summary>
-    /// This class sets all the objects in its array to not destroy on load
-    /// The class will then remove itself as its no longer needed
-    /// </summary>
+    /// <summary>Keeps the listed root objects alive across stage scene loads, then removes itself.</summary>
     public class PersistObjects : MonoBehaviour
     {
-        [SerializeField] private Transform[] persistantObjects;
-    
+        [FormerlySerializedAs("persistantObjects")] [SerializeField] private Transform[] persistentObjects;
+
+        /// <summary>Marks every listed object DontDestroyOnLoad and destroys this component.</summary>
         private void Awake()
         {
-            SetObjectsToPersistAcrossScenes();
-            Destroy(this);
-        }
-
-        private void SetObjectsToPersistAcrossScenes()
-        {
-            foreach (var objectToPersist in persistantObjects)
+            foreach (var objectToPersist in persistentObjects)
             {
                 DontDestroyOnLoad(objectToPersist);
             }
+            Destroy(this);
         }
     }
 }
