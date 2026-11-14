@@ -18,7 +18,7 @@ using Object = UnityEngine.Object;
 
 namespace UnityTemplate.Tests.PlayMode
 {
-    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel and starting the first stage.</summary>
+    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel and starting the first stage; any logged error or exception fails the test.</summary>
     public class MetaLoopSmokeTests
     {
         private const string InitialisationScene = "Initialisation";
@@ -67,7 +67,6 @@ namespace UnityTemplate.Tests.PlayMode
 
             FindButtonByName(welcome.gameObject, "BTN_Continue").onClick.Invoke();
             yield return WaitUntil(() => welcome == null);
-            LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest]
@@ -86,7 +85,6 @@ namespace UnityTemplate.Tests.PlayMode
 
             Assert.Greater(ServiceLocator.Get<CreditsService>().GetBalance(Currency.PremiumCredits), 20);
             Assert.IsFalse(ServiceLocator.Get<EngagementService>().IsDailyBonusAvailable(DateTime.Now));
-            LogAssert.NoUnexpectedReceived();
         }
 
         [UnityTest]
@@ -95,12 +93,11 @@ namespace UnityTemplate.Tests.PlayMode
             WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
             yield return LoadInitialisation();
 
-            var start = FindButtonByName(Object.FindFirstObjectByType<UserInterfaceManager>().gameObject.transform.root.gameObject, "BTN_PlayButton");
+            var start = FindLoadedButton("BTN_PlayButton");
             start.onClick.Invoke();
             yield return WaitUntil(() => ServiceLocator.TryGet<GameManager>(out _), 15);
 
             Assert.AreEqual("0-0(Tutorial)", SceneManager.GetActiveScene().name);
-            LogAssert.NoUnexpectedReceived();
         }
 
         private static IEnumerator LoadInitialisation()
@@ -127,6 +124,16 @@ namespace UnityTemplate.Tests.PlayMode
                 if (button.name == name) return button;
             }
             Assert.Fail($"No button named {name} under {root.name}.");
+            return null;
+        }
+
+        private static Button FindLoadedButton(string name)
+        {
+            foreach (var button in Object.FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (button.name == name) return button;
+            }
+            Assert.Fail($"No loaded button is named {name}.");
             return null;
         }
 
