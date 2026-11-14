@@ -75,11 +75,13 @@ namespace UnityTemplate.Audio
             data.muted = IsMuted;
         }
 
+        /// <summary>Plays the button click.</summary>
         private void PlayButtonClickSound()
         {
             PlayClip(buttonClick);
         }
 
+        /// <summary>Plays a clip on the next pooled AudioSource, taking over the oldest sound when all are busy.</summary>
         private void PlayClip(AudioClip clip)
         {
             if (audioSources.Length == 0 || clip == null) return;
@@ -90,6 +92,7 @@ namespace UnityTemplate.Audio
             source.Play();
         }
 
+        /// <summary>Applies the volume or mute to the AudioListener and notifies listeners.</summary>
         private void ApplyVolume()
         {
             AudioListener.volume = IsMuted ? 0 : Volume;

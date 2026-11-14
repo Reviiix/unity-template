@@ -96,6 +96,7 @@ namespace UnityTemplate.Achievements
             data.unlockedAchievements = ids;
         }
 
+        /// <summary>Returns the permanent or weekly achievement with this id, or null.</summary>
         private AchievementInfo Find(Achievement achievement)
         {
             foreach (var info in permanentAchievements) if (info.Id == achievement) return info;
@@ -103,11 +104,13 @@ namespace UnityTemplate.Achievements
             return null;
         }
 
+        /// <summary>Copies the saved unlock state onto each achievement in the list.</summary>
         private void RefreshUnlockedFlags(List<AchievementInfo> achievements)
         {
             foreach (var info in achievements) info.IsUnlocked = unlocked.Contains(info.Id);
         }
 
+        /// <summary>Recreates the weekly achievements from the remote targets, skipping disabled ones.</summary>
         private void BuildDynamicAchievements(DynamicAchievementTargets targets)
         {
             dynamicAchievements.Clear();
@@ -119,6 +122,7 @@ namespace UnityTemplate.Achievements
             RefreshUnlockedFlags(dynamicAchievements);
         }
 
+        /// <summary>Adds one weekly achievement unless its target is disabled (-1).</summary>
         private void AddDynamic(Achievement achievement, int target, int reward, string descriptionFormat)
         {
             if (target == DynamicAchievementTargets.DisabledTarget) return;

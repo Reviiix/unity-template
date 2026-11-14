@@ -40,6 +40,7 @@ namespace UnityTemplate.Achievements
         private CreditsService credits;
         private EngagementService engagement;
 
+        /// <summary>When achievements are enabled, follows level and balance changes, checks app opens and starts the play-time checks.</summary>
         private void OnEnable()
         {
             achievements = ServiceLocator.Get<AchievementService>();
@@ -59,6 +60,7 @@ namespace UnityTemplate.Achievements
             UnlockAfterOneHourOfPlayAsync();
         }
 
+        /// <summary>Stops following level and balance changes.</summary>
         private void OnDisable()
         {
             if (!achievements.IsEnabled) return;
@@ -67,6 +69,7 @@ namespace UnityTemplate.Achievements
             credits.BalanceChanged -= OnBalanceChanged;
         }
 
+        /// <summary>Unlocks every level achievement the new level has reached.</summary>
         private void OnLevelChanged(int levelIndex)
         {
             foreach (var (requiredLevel, achievement) in LevelAchievements)
@@ -75,6 +78,7 @@ namespace UnityTemplate.Achievements
             }
         }
 
+        /// <summary>Unlocks the balance achievements the new balance has passed.</summary>
         private void OnBalanceChanged(Currency currency, ValueChange change)
         {
             foreach (var (balance, creditsAchievement, premiumAchievement) in BalanceAchievements)
@@ -83,6 +87,7 @@ namespace UnityTemplate.Achievements
             }
         }
 
+        /// <summary>Checks total play time against the play-time achievements every ten minutes until destroyed.</summary>
         private async void CheckPlayTimePeriodicallyAsync()
         {
             try
@@ -102,6 +107,7 @@ namespace UnityTemplate.Achievements
             }
         }
 
+        /// <summary>Unlocks the one-hour session achievement after an hour of continuous play.</summary>
         private async void UnlockAfterOneHourOfPlayAsync()
         {
             try

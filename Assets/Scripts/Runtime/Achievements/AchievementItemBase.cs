@@ -35,11 +35,13 @@ namespace UnityTemplate.Achievements
             graphic.color = Color.white;
         }
 
+        /// <summary>Releases the loaded icon when the row or toast is destroyed.</summary>
         protected virtual void OnDestroy()
         {
             ReleaseIcon();
         }
 
+        /// <summary>Releases the previously loaded icon handle, if any.</summary>
         private void ReleaseIcon()
         {
             if (iconHandle.IsValid()) Addressables.Release(iconHandle);

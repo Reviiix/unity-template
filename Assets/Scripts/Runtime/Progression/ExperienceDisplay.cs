@@ -23,6 +23,7 @@ namespace UnityTemplate.Progression
 
         private SaveService saveService;
 
+        /// <summary>Shows the current level and experience and follows gains and resets.</summary>
         private void OnEnable()
         {
             experience = ServiceLocator.Get<ExperienceService>();
@@ -32,6 +33,7 @@ namespace UnityTemplate.Progression
             ShowCurrentExperience();
         }
 
+        /// <summary>Stops the animation and following changes.</summary>
         private void OnDisable()
         {
             gainAnimation?.Kill();
@@ -40,6 +42,7 @@ namespace UnityTemplate.Progression
             saveService.DataLoaded -= ShowCurrentExperience;
         }
 
+        /// <summary>Shows the current level and experience without animating.</summary>
         private void ShowCurrentExperience()
         {
             gainAnimation?.Kill();
@@ -47,6 +50,7 @@ namespace UnityTemplate.Progression
             ShowState(experience.CurrentLevel, experience.TotalExperience);
         }
 
+        /// <summary>Animates the gain, or queues it while another gain is animating.</summary>
         private void OnExperienceChanged(ValueChange change)
         {
             if (gainAnimation != null && gainAnimation.IsActive())
@@ -57,6 +61,7 @@ namespace UnityTemplate.Progression
             AnimateGain(change);
         }
 
+        /// <summary>Animates the bar and text level by level (to the end of each level reached, then the remainder) over three seconds in total.</summary>
         private void AnimateGain(ValueChange change)
         {
             gainAnimation = DOTween.Sequence().SetLink(gameObject);
@@ -86,6 +91,7 @@ namespace UnityTemplate.Progression
             });
         }
 
+        /// <summary>Adds one bar-and-text tween for part of a level to the gain animation.</summary>
         private void AppendSegment(int level, long from, long to, float seconds)
         {
             double shownExperience = from;
@@ -97,6 +103,7 @@ namespace UnityTemplate.Progression
             }, to, seconds).SetEase(Ease.OutQuad));
         }
 
+        /// <summary>Shows a level and total experience immediately.</summary>
         private void ShowState(int level, long totalExperience)
         {
             shownLevel = level;
@@ -105,12 +112,14 @@ namespace UnityTemplate.Progression
             ShowExperienceText(totalExperience, level);
         }
 
+        /// <summary>Writes "current/needed" for the level without allocating a string.</summary>
         private void ShowExperienceText(long totalExperience, int level)
         {
             textBuilder.Clear().Append(totalExperience).Append('/').Append(experience.GetCumulativeExperience(level));
             experienceText.SetText(textBuilder);
         }
 
+        /// <summary>Returns how full the bar is (0-1) for an amount of experience within a level.</summary>
         private float GetBarFill(long totalExperience, int level)
         {
             var levelStart = level > 0 ? experience.GetCumulativeExperience(level - 1) : 0;

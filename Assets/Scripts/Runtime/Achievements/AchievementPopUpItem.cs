@@ -13,6 +13,7 @@ namespace UnityTemplate.Achievements
         private CanvasGroup canvasGroup;
         private Sequence showAndHide;
 
+        /// <summary>Caches the canvas group used for the fade.</summary>
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
@@ -33,6 +34,7 @@ namespace UnityTemplate.Achievements
                 .OnComplete(() => onHidden());
         }
 
+        /// <summary>Stops the show-and-fade sequence and releases the icon.</summary>
         protected override void OnDestroy()
         {
             showAndHide?.Kill();

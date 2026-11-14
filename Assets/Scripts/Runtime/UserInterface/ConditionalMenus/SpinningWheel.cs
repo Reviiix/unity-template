@@ -20,6 +20,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
 
         private int AmountOfSegments => wheelSegments.AmountOfSegments;
 
+        /// <summary>Caches the wheel and resets it to segment 0.</summary>
         private void Awake()
         {
             wheel = transform;
@@ -52,11 +53,13 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             });
         }
 
+        /// <summary>Returns the final angle for turning a number of segments plus the configured full rotations.</summary>
         private float GetRotationAngle(int segment)
         {
             return (-(float)(AmountOfSegments - segment % AmountOfSegments) / AmountOfSegments - rotations) * 360;
         }
 
+        /// <summary>The wheel's segments and the chance range of each.</summary>
         [Serializable]
         private class WheelWeightings
         {
@@ -64,11 +67,13 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
 
             public int AmountOfSegments => wheelSegments.Length;
 
+            /// <summary>Returns the credits of a segment.</summary>
             public int GetSegmentValue(int index)
             {
                 return wheelSegments[index].value;
             }
 
+            /// <summary>Returns a random segment whose chance range contains the roll.</summary>
             public int PickRandomSegment()
             {
                 var chance = UnityEngine.Random.Range(0, wheelSegments[^1].maximumChance);
@@ -81,6 +86,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             }
         }
 
+        /// <summary>One segment: its chance range and credit value.</summary>
         [Serializable]
         private struct WheelSegmentChance
         {

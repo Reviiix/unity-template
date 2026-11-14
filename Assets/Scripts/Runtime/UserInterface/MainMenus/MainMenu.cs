@@ -40,6 +40,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             base.Show();
         }
 
+        /// <summary>Loads the stage CONTINUE points at (the first stage for a new player).</summary>
         private void StartGamePressed()
         {
             var (group, stage) = progress.GetContinueStage();

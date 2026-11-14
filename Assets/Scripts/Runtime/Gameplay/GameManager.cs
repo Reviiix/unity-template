@@ -14,16 +14,19 @@ namespace UnityTemplate.Gameplay
         public ScoreTracker ScoreTracker { get; } = new();
         public bool IsPaused { get; private set; }
 
+        /// <summary>Registers the stage's GameManager so cheats and UI can find it.</summary>
         private void Awake()
         {
             ServiceLocator.Register(this);
         }
 
+        /// <summary>Starts the stage timer.</summary>
         private void Start()
         {
             GameTime.Start();
         }
 
+        /// <summary>Unregisters the GameManager when the stage unloads.</summary>
         private void OnDestroy()
         {
             ServiceLocator.Unregister<GameManager>();

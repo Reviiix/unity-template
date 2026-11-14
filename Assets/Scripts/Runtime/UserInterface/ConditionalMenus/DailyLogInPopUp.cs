@@ -26,6 +26,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
         private int wheelWinnings;
         private bool hasSpun;
 
+        /// <summary>Resolves services, wires the wheel and button and shows today's streak bonus.</summary>
         protected override void Awake()
         {
             base.Awake();
@@ -37,6 +38,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             wheelWinDisplay.SetText(WheelWinFormat, 0);
         }
 
+        /// <summary>Stops the roll-up before the popup is destroyed.</summary>
         protected override void OnDestroy()
         {
             rollUp?.Kill();
@@ -50,12 +52,14 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             CloseWithSlide();
         }
 
+        /// <summary>Spins the wheel on the first press and claims on the second.</summary>
         private void OnProceedPressed()
         {
             if (hasSpun) ClaimAndClose();
             else StartSpin();
         }
 
+        /// <summary>Hides X, decides the result (reusing one saved before a relaunch) and spins to it.</summary>
         private void StartSpin()
         {
             hasSpun = true;
@@ -72,12 +76,14 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             bonusWheel.SpinTo(segment);
         }
 
+        /// <summary>Rolls up the wheel win, then allows claiming.</summary>
         private void OnWheelSpinEnded(int segmentValue)
         {
             wheelWinnings = segmentValue;
             RollUpWheelWin(0, segmentValue, () => proceedButton.interactable = true);
         }
 
+        /// <summary>Claims, rolls the win back down and hides the popup.</summary>
         private void ClaimAndClose()
         {
             SetContentInteractable(false);
@@ -85,6 +91,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             RollUpWheelWin(payout, 0, CloseImmediately);
         }
 
+        /// <summary>Pays the streak bonus plus the wheel win once per day and returns the payout.</summary>
         private int Claim()
         {
             var today = DateTime.Now;
@@ -93,6 +100,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             return payout;
         }
 
+        /// <summary>Counts the WHEEL WIN text from one value to another over the roll-up time.</summary>
         private void RollUpWheelWin(int from, int to, Action onComplete)
         {
             rollUp?.Kill();

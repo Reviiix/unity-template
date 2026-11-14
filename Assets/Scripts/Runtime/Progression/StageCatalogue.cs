@@ -46,6 +46,7 @@ namespace UnityTemplate.Progression
             return GetScene(group, stage).RuntimeKeyIsValid();
         }
 
+        /// <summary>One group of stages: the scene of each stage, in order.</summary>
         [Serializable]
         private struct StageGroup
         {

@@ -10,6 +10,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
         [SerializeField] private TMP_Text title;
         [SerializeField] private Button continueButton;
 
+        /// <summary>Wires CONTINUE and writes the welcome title.</summary>
         protected override void Awake()
         {
             base.Awake();

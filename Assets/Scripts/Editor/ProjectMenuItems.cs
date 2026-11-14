@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -58,6 +57,7 @@ namespace UnityTemplate.EditorTools
             Debug.Log("Daily bonus reset; it appears on the next launch.");
         }
 
+        /// <summary>Greys out Reset Daily Bonus in Play mode, where the running game would overwrite the file.</summary>
         [MenuItem(SaveMenu + "Reset Daily Bonus", true)]
         private static bool CanResetDailyBonus()
         {
@@ -85,6 +85,7 @@ namespace UnityTemplate.EditorTools
             ServiceLocator.Get<ExperienceService>().Add(100);
         }
 
+        /// <summary>Greys out the cheat items outside Play mode.</summary>
         [MenuItem(CheatsMenu + "Add 100 Credits", true)]
         [MenuItem(CheatsMenu + "Add 100 Premium Credits", true)]
         [MenuItem(CheatsMenu + "Add 100 Experience", true)]

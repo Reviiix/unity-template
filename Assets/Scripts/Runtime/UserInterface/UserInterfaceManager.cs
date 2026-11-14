@@ -38,6 +38,7 @@ namespace UnityTemplate.UserInterface
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
 
+        /// <summary>Polls the Android back button (the old Input Manager offers no event for it).</summary>
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape)) HandleBackButton();
@@ -105,6 +106,7 @@ namespace UnityTemplate.UserInterface
             if (alpha <= 0) transitionalFadeImage.enabled = false;
         }
 
+        /// <summary>Sets the fade image's alpha.</summary>
         private void SetFadeAlpha(float alpha)
         {
             var colour = transitionalFadeImage.color;
@@ -119,6 +121,7 @@ namespace UnityTemplate.UserInterface
             HideAllMenus();
         }
 
+        /// <summary>Instantiates an Addressable popup under the user interface root and waits until it has closed.</summary>
         private async Awaitable OpenAddressablePopUpAsync(AssetReferenceGameObject popUpReference)
         {
             if (!popUpReference.RuntimeKeyIsValid()) return;
@@ -129,6 +132,7 @@ namespace UnityTemplate.UserInterface
             await OpenPopUpAsync(instance.GetComponent<PopUpWindow>());
         }
 
+        /// <summary>Shows one menu and hides the rest; BACK is only tappable away from the main menu.</summary>
         private void ShowMenu(MenuBase menu)
         {
             HideAllMenus();
@@ -136,11 +140,13 @@ namespace UnityTemplate.UserInterface
             menu.Show();
         }
 
+        /// <summary>Hides every menu.</summary>
         private void HideAllMenus()
         {
             foreach (var menu in allMenus) menu.Hide();
         }
 
+        /// <summary>Closes the top popup, or returns from a sub-menu to the main menu.</summary>
         private void HandleBackButton()
         {
             if (openPopUps.Count > 0)

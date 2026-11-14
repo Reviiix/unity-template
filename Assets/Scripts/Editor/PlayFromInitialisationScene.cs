@@ -22,6 +22,7 @@ namespace UnityTemplate.EditorTools
             set => EditorPrefs.SetBool(PreferenceKey, value);
         }
 
+        /// <summary>Switches the option on or off from the Tools menu.</summary>
         [MenuItem(MenuPath)]
         private static void Toggle()
         {
@@ -29,6 +30,7 @@ namespace UnityTemplate.EditorTools
             Apply();
         }
 
+        /// <summary>Shows a tick next to the menu item while the option is on.</summary>
         [MenuItem(MenuPath, true)]
         private static bool ToggleValidate()
         {
@@ -36,6 +38,7 @@ namespace UnityTemplate.EditorTools
             return true;
         }
 
+        /// <summary>Points Unity's play-mode start scene at Initialisation.unity, or clears it.</summary>
         private static void Apply()
         {
             EditorSceneManager.playModeStartScene = IsEnabled ? AssetDatabase.LoadAssetAtPath<SceneAsset>(InitialisationScenePath) : null;

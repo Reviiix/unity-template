@@ -158,12 +158,14 @@ namespace UnityTemplate.Engagement
             data.pendingWheelSegment = PendingWheelSegment;
         }
 
+        /// <summary>Returns a year's anniversary date, using 28 February for a 29 February first open in non-leap years.</summary>
         private DateTime GetAnniversaryDate(int year)
         {
             var day = Math.Min(firstOpenDate.Day, DateTime.DaysInMonth(year, firstOpenDate.Month));
             return new DateTime(year, firstOpenDate.Month, day);
         }
 
+        /// <summary>Converts a date to a whole day number for comparing calendar days.</summary>
         private static int ToDayNumber(DateTime date)
         {
             return (int)(date.Date.Ticks / TimeSpan.TicksPerDay);

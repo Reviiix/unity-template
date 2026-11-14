@@ -25,6 +25,7 @@ namespace UnityTemplate.UserInterface
 
         protected Canvas Canvas => canvas;
 
+        /// <summary>Caches the canvas and the panel's canvas group, wires X and starts hidden.</summary>
         protected virtual void Awake()
         {
             canvas = GetComponent<Canvas>();
@@ -34,6 +35,7 @@ namespace UnityTemplate.UserInterface
             canvas.enabled = false;
         }
 
+        /// <summary>Stops the slide before the popup is destroyed.</summary>
         protected virtual void OnDestroy()
         {
             slide?.Kill();
@@ -107,6 +109,7 @@ namespace UnityTemplate.UserInterface
             ServiceLocator.Get<UserInterfaceManager>().ReleasePopUp(gameObject);
         }
 
+        /// <summary>Blocks the panel's buttons and slides it off-screen, then finishes closing.</summary>
         private void BeginClosing()
         {
             State = PopUpState.Closing;
@@ -120,6 +123,7 @@ namespace UnityTemplate.UserInterface
             });
         }
 
+        /// <summary>Moves the panel with the original ease-out curve.</summary>
         private void Slide(Vector3 target, Action onComplete)
         {
             slide?.Kill();
@@ -128,6 +132,7 @@ namespace UnityTemplate.UserInterface
 
         private static float OffScreenDistance => Screen.width * 2 + OffScreenMargin;
 
+        /// <summary>Plays the menu whoosh if audio is available.</summary>
         private static void PlayMenuSound()
         {
             if (ServiceLocator.TryGet<AudioManager>(out var audioManager)) audioManager.PlayMenuMovementSound();

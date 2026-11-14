@@ -20,6 +20,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
         private int rewardCredits;
         private int rewardPremiumCredits;
 
+        /// <summary>Computes this anniversary's reward and writes the thank-you text.</summary>
         protected override void Awake()
         {
             base.Awake();
@@ -37,6 +38,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
                 .ToString();
         }
 
+        /// <summary>Pays the reward once and hides the popup.</summary>
         private void ClaimAndClose()
         {
             if (engagement.ClaimAnniversary(DateTime.Now))

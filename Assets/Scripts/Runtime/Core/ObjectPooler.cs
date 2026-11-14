@@ -57,6 +57,7 @@ namespace UnityTemplate.Core
             objectPools[key].Release(instance);
         }
 
+        /// <summary>Instantiates an inactive instance under the pooler.</summary>
         private GameObject CreateInstance(GameObject prefab)
         {
             var instance = Instantiate(prefab, transform);
@@ -64,12 +65,14 @@ namespace UnityTemplate.Core
             return instance;
         }
 
+        /// <summary>Deactivates a returned instance and parents it back under the pooler.</summary>
         private void ResetInstance(GameObject instance)
         {
             instance.SetActive(false);
             instance.transform.SetParent(transform, false);
         }
 
+        /// <summary>Creates the pool's instances up front by taking and returning them.</summary>
         private static void Prewarm(ObjectPool<GameObject> objectPool, int amount)
         {
             var instances = new GameObject[amount];
@@ -77,6 +80,7 @@ namespace UnityTemplate.Core
             foreach (var instance in instances) objectPool.Release(instance);
         }
 
+        /// <summary>One pool as configured in the Inspector: its key, prefab and starting size.</summary>
         [Serializable]
         private struct Pool
         {

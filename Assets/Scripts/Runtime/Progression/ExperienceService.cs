@@ -70,6 +70,7 @@ namespace UnityTemplate.Progression
             data.totalExperience = TotalExperience;
         }
 
+        /// <summary>Returns the first level whose cumulative requirement is not yet met, or the maximum level.</summary>
         private int GetLevelForExperience(long experience)
         {
             for (var level = 0; level < cumulativeExperience.Length; level++)
@@ -79,11 +80,13 @@ namespace UnityTemplate.Progression
             return MaximumLevel;
         }
 
+        /// <summary>Keeps a level index inside the table.</summary>
         private int ClampLevel(int level)
         {
             return Math.Clamp(level, 0, MaximumLevel);
         }
 
+        /// <summary>Precomputes each level's experience and the running totals with the original growth curve.</summary>
         private void BuildLevelTable(int amountOfLevels)
         {
             amountOfLevels = Math.Max(1, amountOfLevels);

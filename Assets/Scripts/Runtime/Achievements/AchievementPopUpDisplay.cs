@@ -11,6 +11,7 @@ namespace UnityTemplate.Achievements
         private readonly Queue<AchievementInfo> waitingAchievements = new();
         private AchievementService achievements;
 
+        /// <summary>Takes every pooled achievement toast and parents it under this display.</summary>
         private void Awake()
         {
             achievements = ServiceLocator.Get<AchievementService>();
@@ -24,16 +25,19 @@ namespace UnityTemplate.Achievements
             }
         }
 
+        /// <summary>Listens for unlocked achievements.</summary>
         private void OnEnable()
         {
             achievements.AchievementUnlocked += OnAchievementUnlocked;
         }
 
+        /// <summary>Stops listening for unlocked achievements.</summary>
         private void OnDisable()
         {
             achievements.AchievementUnlocked -= OnAchievementUnlocked;
         }
 
+        /// <summary>Shows the achievement on an idle toast, or queues it until one is free.</summary>
         private void OnAchievementUnlocked(AchievementInfo achievement)
         {
             if (idlePopUps.Count == 0)
@@ -44,6 +48,7 @@ namespace UnityTemplate.Achievements
             Show(achievement, idlePopUps.Dequeue());
         }
 
+        /// <summary>Shows an achievement on a toast, then shows the next queued one or returns the toast to the idle queue.</summary>
         private void Show(AchievementInfo achievement, AchievementPopUpItem popUp)
         {
             popUp.transform.SetAsLastSibling();

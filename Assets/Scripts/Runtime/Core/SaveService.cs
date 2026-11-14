@@ -81,6 +81,7 @@ namespace UnityTemplate.Core
             DataLoaded?.Invoke();
         }
 
+        /// <summary>Reads and parses one save file, returning null when it is missing, unreadable or invalid.</summary>
         private static SaveData ReadSaveFile(string path)
         {
             if (!File.Exists(path)) return null;
@@ -97,6 +98,7 @@ namespace UnityTemplate.Core
             }
         }
 
+        /// <summary>Writes to a temporary file and swaps it in, keeping the previous save as the backup.</summary>
         private void WriteAtomically(string json)
         {
             File.WriteAllText(temporaryFilePath, json, Encoding.UTF8);

@@ -44,8 +44,10 @@ namespace UnityTemplate.Core
             }
         }
 
+        /// <summary>Empty user attributes, which Remote Config requires.</summary>
         private struct UserAttributes { }
 
+        /// <summary>Empty app attributes, which Remote Config requires.</summary>
         private struct AppAttributes { }
     }
 }

@@ -21,23 +21,27 @@ namespace UnityTemplate.Achievements
 
         protected abstract IReadOnlyList<AchievementInfo> ListedAchievements { get; }
 
+        /// <summary>Resolves the achievement service and builds one row per listed achievement.</summary>
         private void Awake()
         {
             Achievements = ServiceLocator.Get<AchievementService>();
             BuildRows();
         }
 
+        /// <summary>Listens for unlocks and refreshes the totals.</summary>
         private void OnEnable()
         {
             Achievements.AchievementUnlocked += OnAchievementUnlocked;
             RefreshTotals();
         }
 
+        /// <summary>Stops listening for unlocks.</summary>
         private void OnDisable()
         {
             Achievements.AchievementUnlocked -= OnAchievementUnlocked;
         }
 
+        /// <summary>Instantiates a row for every listed achievement and shows the empty-list text when there are none.</summary>
         private void BuildRows()
         {
             foreach (var achievement in ListedAchievements)
@@ -50,6 +54,7 @@ namespace UnityTemplate.Achievements
             if (noAchievementsSetText != null) noAchievementsSetText.enabled = ListedAchievements.Count == 0;
         }
 
+        /// <summary>Highlights the unlocked achievement's row and updates the totals.</summary>
         private void OnAchievementUnlocked(AchievementInfo achievement)
         {
             if (!rows.TryGetValue(achievement.Id, out var row)) return;
@@ -58,6 +63,7 @@ namespace UnityTemplate.Achievements
             RefreshTotals();
         }
 
+        /// <summary>Writes the unlocked/total reward and achievement counts.</summary>
         private void RefreshTotals()
         {
             var achievements = ListedAchievements;

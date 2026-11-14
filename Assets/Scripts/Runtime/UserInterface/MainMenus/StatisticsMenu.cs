@@ -75,6 +75,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             base.Show();
         }
 
+        /// <summary>Shows the performance tab with time played and times opened.</summary>
         private void ShowPerformancePanel()
         {
             ShowOnlyPanel(performanceContent, performanceTitle);
@@ -86,6 +87,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             longestSession.SetText("LONGEST SESSION: ");
         }
 
+        /// <summary>Shows the achievements tab on its starting sub-tab.</summary>
         private void ShowAchievementsPanel()
         {
             if (startingAchievementPanel == AchievementPanels.Permanent) ShowPermanentAchievements();
@@ -93,16 +95,19 @@ namespace UnityTemplate.UserInterface.MainMenus
             ShowOnlyPanel(achievementsContent, achievementsTitle);
         }
 
+        /// <summary>Shows the weekly achievements sub-tab.</summary>
         private void ShowWeeklyAchievements()
         {
             SelectAchievementTab(weekly: true);
         }
 
+        /// <summary>Shows the permanent achievements sub-tab.</summary>
         private void ShowPermanentAchievements()
         {
             SelectAchievementTab(weekly: false);
         }
 
+        /// <summary>Shows one achievements sub-tab and underlines its title.</summary>
         private void SelectAchievementTab(bool weekly)
         {
             weeklyAchievementsContent.SetActive(weekly);
@@ -111,11 +116,13 @@ namespace UnityTemplate.UserInterface.MainMenus
             permanentAchievementsTitle.fontStyle = weekly ? NormalFontStyle : HighlightedFontStyle;
         }
 
+        /// <summary>Shows the leaderboard tab.</summary>
         private void ShowLeaderboardPanel()
         {
             ShowOnlyPanel(leaderboardContent, leaderboardTitle);
         }
 
+        /// <summary>Shows one tab's content and underlines its title, hiding the others.</summary>
         private void ShowOnlyPanel(GameObject panel, TMP_Text title)
         {
             performanceContent.SetActive(panel == performanceContent);
@@ -126,6 +133,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             leaderboardTitle.fontStyle = title == leaderboardTitle ? HighlightedFontStyle : NormalFontStyle;
         }
 
+        /// <summary>The achievements sub-tabs; the scene stores these as numbers, so keep their order.</summary>
         [Serializable]
         private enum AchievementPanels
         {
@@ -133,6 +141,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             Weekly,
         }
 
+        /// <summary>The statistics tabs; the scene stores these as numbers, so keep their order.</summary>
         [Serializable]
         private enum StatisticsPanels
         {

@@ -13,12 +13,14 @@ namespace UnityTemplate.Audio
         [SerializeField] private Button muteButton;
         private AudioManager audioManager;
 
+        /// <summary>Wires the speaker button and the slider.</summary>
         private void Awake()
         {
             muteButton.onClick.AddListener(OnMuteButtonPressed);
             volumeSlider.onValueChanged.AddListener(OnSliderValueChanged);
         }
 
+        /// <summary>Shows the saved volume and follows later changes.</summary>
         private void OnEnable()
         {
             audioManager = ServiceLocator.Get<AudioManager>();
@@ -26,11 +28,13 @@ namespace UnityTemplate.Audio
             ShowCurrentVolume();
         }
 
+        /// <summary>Stops following volume changes.</summary>
         private void OnDisable()
         {
             audioManager.VolumeChanged -= ShowCurrentVolume;
         }
 
+        /// <summary>Toggles mute; unmuting a slider-silenced volume restores full volume.</summary>
         private void OnMuteButtonPressed()
         {
             var silent = audioManager.IsMuted || audioManager.Volume <= 0;
@@ -38,12 +42,14 @@ namespace UnityTemplate.Audio
             audioManager.SetMuted(!silent);
         }
 
+        /// <summary>Unmutes and sets the volume from the slider.</summary>
         private void OnSliderValueChanged(float value)
         {
             audioManager.SetMuted(false);
             audioManager.SetVolume(value);
         }
 
+        /// <summary>Moves the slider and picks the speaker icon for the audible volume.</summary>
         private void ShowCurrentVolume()
         {
             var audibleVolume = audioManager.IsMuted ? 0 : audioManager.Volume;
@@ -51,6 +57,7 @@ namespace UnityTemplate.Audio
             volumeImage.sprite = volumeSprites[GetSpriteIndex(audibleVolume)];
         }
 
+        /// <summary>Picks the speaker icon for a volume: the first icon is silent, the last is loudest.</summary>
         private int GetSpriteIndex(float volume)
         {
             var step = 1f / volumeSprites.Length;

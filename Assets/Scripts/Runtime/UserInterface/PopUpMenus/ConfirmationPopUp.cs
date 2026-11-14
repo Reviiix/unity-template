@@ -11,6 +11,7 @@ namespace UnityTemplate.UserInterface.PopUpMenus
 
         public bool Confirmed { get; private set; }
 
+        /// <summary>Wires YES and NO.</summary>
         protected override void Awake()
         {
             base.Awake();
@@ -35,6 +36,7 @@ namespace UnityTemplate.UserInterface.PopUpMenus
         {
         }
 
+        /// <summary>Records the answer and slides the popup out with the whoosh.</summary>
         private void Choose(bool confirmed)
         {
             if (State is PopUpState.Hidden or PopUpState.Closing) return;

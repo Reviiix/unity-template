@@ -40,6 +40,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             ShowGroup(0);
         }
 
+        /// <summary>Creates one page per stage group with a labelled, wired button per stage.</summary>
         private void BuildPages(GameObject itemPrefab)
         {
             var progress = ServiceLocator.Get<ProgressService>();
@@ -69,6 +70,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             Object.Destroy(levelItemParent.gameObject);
         }
 
+        /// <summary>Returns whether a stage button is tappable: it needs a scene and, outside development builds, must be unlocked.</summary>
         private static bool CanSelect(ProgressService progress, StageCatalogue catalogue, int group, int stage)
         {
             if (!catalogue.HasScene(group, stage)) return false;
@@ -79,6 +81,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 #endif
         }
 
+        /// <summary>Shows one group's page (wrapping around) and scrolls it.</summary>
         private void ShowGroup(int group)
         {
             if (groupPages.Length == 0) return;

@@ -35,6 +35,7 @@ namespace UnityTemplate.Core
         private SaveService saveService;
         private EngagementService engagementService;
 
+        /// <summary>Creates, registers and initialises every service in order, then counts the app open.</summary>
         private void Awake()
         {
             Application.targetFrameRate = targetFrameRate;
@@ -72,12 +73,14 @@ namespace UnityTemplate.Core
             engagementService.ResumeSession();
         }
 
+        /// <summary>Starts the background Remote Config fetch and shows the start-up popups.</summary>
         private async void Start()
         {
             RemoteConfiguration.FetchForNextLaunchAsync();
             await userInterfaceManager.ShowStartUpPopUpsAsync(dailyBonusEnabled);
         }
 
+        /// <summary>Saves and pauses the play-time clock when the app goes to the background, and resumes it on return.</summary>
         private void OnApplicationPause(bool paused)
         {
             if (paused)
@@ -91,12 +94,14 @@ namespace UnityTemplate.Core
             }
         }
 
+        /// <summary>Saves on quit (desktop and Editor; mobile relies on the pause save).</summary>
         private void OnApplicationQuit()
         {
             engagementService.PauseSession();
             saveService.Save();
         }
 
+        /// <summary>Clears the service registry when the boot objects are destroyed.</summary>
         private void OnDestroy()
         {
             ServiceLocator.Reset();

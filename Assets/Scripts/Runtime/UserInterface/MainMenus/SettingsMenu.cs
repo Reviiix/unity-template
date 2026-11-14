@@ -20,6 +20,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             deleteAllDataButton.onClick.AddListener(DeleteAllDataPressed);
         }
 
+        /// <summary>Asks for confirmation and, on YES, deletes the save and resets the game.</summary>
         private async void DeleteAllDataPressed()
         {
             var confirmation = userInterface.ConfirmationScreen;
