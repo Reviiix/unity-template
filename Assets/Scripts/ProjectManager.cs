@@ -30,10 +30,22 @@ public class ProjectManager : Singleton<ProjectManager>
         ProjectInitializer.Initialise(()=>OnApplicationOpen?.Invoke());
     }
 
+    /// <summary>Saves when the app is backgrounded, because mobile OSes usually kill it later without calling OnApplicationQuit.</summary>
+    private void OnApplicationPause(bool paused)
+    {
+        if (paused) SaveIfLoaded();
+    }
+
     private void OnApplicationQuit()
     {
-        SaveSystem.Save();
+        SaveIfLoaded();
         DebuggingAid.DebugLogManager.Log("Current Session Time in seconds: " + Time.deltaTime + ".\nTotal Play Time: " + PlayerEngagement.TotalPlayTime);
+    }
+
+    /// <summary>Saves only after the save file has been loaded, so an early quit can't overwrite progress with defaults.</summary>
+    private static void SaveIfLoaded()
+    {
+        if (Initialised) SaveSystem.Save();
     }
 
     /// <summary>
