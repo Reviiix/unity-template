@@ -8,7 +8,6 @@ using UnityTemplate.Progression;
 namespace UnityTemplate.UserInterface.MainMenus
 {
     /// <summary>The main menu: START/CONTINUE plus the buttons that open the other menus.</summary>
-    [Serializable]
     public class MainMenu : MenuBase
     {
         private const string StartText = "START";

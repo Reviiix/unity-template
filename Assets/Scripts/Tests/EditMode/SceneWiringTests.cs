@@ -10,10 +10,13 @@ using UnityTemplate.UserInterface;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Opens Initialisation.unity additively and checks that every serialized reference the boot sequence needs is assigned.</summary>
+    /// <summary>Opens Initialisation.unity additively and checks that every serialized reference the boot sequence needs is assigned and that menus and popups are variants of Menu.prefab and PopUp.prefab.</summary>
     public class SceneWiringTests
     {
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
+        private const string MenuBasePath = "Assets/Prefabs/UserInterface/Menus/Menu.prefab";
+        private const string PopUpBasePath = "Assets/Prefabs/UserInterface/PopUps/PopUp.prefab";
+        private static readonly string[] MenuFields = { "mainMenu", "stageSelectionMenu", "statisticsMenu", "settingsMenu", "storeMenu" };
         private Scene scene;
         private bool openedByTest;
 
@@ -52,17 +55,82 @@ namespace UnityTemplate.Tests
             }
         }
 
+        /// <summary>Checks that UserInterfaceManager has all five menus and that every reference on each menu is assigned.</summary>
+        [Test]
+        public void EveryMenuAndItsReferencesAreAssigned()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            foreach (var field in MenuFields)
+            {
+                var menu = userInterface.FindProperty(field).objectReferenceValue as MenuBase;
+                Assert.IsNotNull(menu, $"UserInterfaceManager.{field} is not assigned.");
+                var property = new SerializedObject(menu).GetIterator();
+                while (property.NextVisible(true))
+                {
+                    if (property.propertyType != SerializedPropertyType.ObjectReference || property.name == "m_Script") continue;
+                    Assert.IsNotNull(property.objectReferenceValue, $"{menu.name}.{property.propertyPath} is not assigned.");
+                }
+            }
+        }
+
+        /// <summary>Checks that each menu is a scene instance of a variant of Menu.prefab with its script in the variant.</summary>
+        [Test]
+        public void EveryMenuIsAVariantOfTheMenuBase()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            foreach (var field in MenuFields)
+            {
+                var menu = userInterface.FindProperty(field).objectReferenceValue as MenuBase;
+                Assert.IsNotNull(menu, $"UserInterfaceManager.{field} is not assigned.");
+                AssertIsSceneInstanceOfVariant(menu, MenuBasePath);
+            }
+        }
+
+        /// <summary>Checks that the confirmation popup and the three Addressable popups are variants of PopUp.prefab.</summary>
+        [Test]
+        public void EveryPopUpIsAVariantOfThePopUpBase()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            var confirmation = userInterface.FindProperty("confirmationScreen").objectReferenceValue as PopUpWindow;
+            Assert.IsNotNull(confirmation, "UserInterfaceManager.confirmationScreen is not assigned.");
+            AssertIsSceneInstanceOfVariant(confirmation, PopUpBasePath);
+            foreach (var field in new[] { "firstOpenPopUp", "dailyLogInPopUp", "anniversaryPopUp" })
+            {
+                var guid = userInterface.FindProperty(field).FindPropertyRelative("m_AssetGUID").stringValue;
+                var popUp = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
+                Assert.IsNotNull(popUp, $"UserInterfaceManager.{field} does not point at a prefab.");
+                Assert.AreEqual(PrefabAssetType.Variant, PrefabUtility.GetPrefabAssetType(popUp), $"{popUp.name} is not a prefab variant.");
+                var popUpBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(popUp);
+                Assert.AreEqual(PopUpBasePath, AssetDatabase.GetAssetPath(popUpBase), $"{popUp.name} is not a variant of {PopUpBasePath}.");
+            }
+        }
+
+        /// <summary>Asserts that a component sits on the root of a scene instance of a variant of the given base prefab, and comes from the variant rather than a scene override.</summary>
+        private void AssertIsSceneInstanceOfVariant(Component component, string basePrefabPath)
+        {
+            var root = component.gameObject;
+            Assert.AreEqual(scene, root.scene, $"{root.name} is not an object in {InitialisationScenePath}.");
+            Assert.IsTrue(PrefabUtility.IsAnyPrefabInstanceRoot(root), $"{root.name} is not the root of a prefab instance.");
+            Assert.AreEqual(PrefabAssetType.Variant, PrefabUtility.GetPrefabAssetType(root), $"{root.name} is not an instance of a prefab variant.");
+            Assert.IsFalse(PrefabUtility.IsAddedComponentOverride(component), $"{component.GetType().Name} is added to {root.name} in the scene instead of in its prefab.");
+            var basePrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(root);
+            Assert.AreEqual(basePrefabPath, AssetDatabase.GetAssetPath(basePrefab), $"{root.name} is not a variant of {basePrefabPath}.");
+        }
+
+        /// <summary>Checks that the popup references and the stage selection menu's stage item point at Addressable assets.</summary>
         [Test]
         public void PopUpAndStageItemReferencesPointAtAddressableAssets()
         {
             var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            var stageSelectionMenu = userInterface.FindProperty("stageSelectionMenu").objectReferenceValue;
+            Assert.IsNotNull(stageSelectionMenu, "UserInterfaceManager.stageSelectionMenu is not assigned.");
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             foreach (var property in new[]
                      {
                          userInterface.FindProperty("firstOpenPopUp"),
                          userInterface.FindProperty("dailyLogInPopUp"),
                          userInterface.FindProperty("anniversaryPopUp"),
-                         userInterface.FindProperty("stageSelectionMenu").FindPropertyRelative("stageItemPrefab"),
+                         new SerializedObject(stageSelectionMenu).FindProperty("stageItemPrefab"),
                      })
             {
                 var guid = property.FindPropertyRelative("m_AssetGUID").stringValue;

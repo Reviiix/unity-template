@@ -9,7 +9,6 @@ using UnityTemplate.Engagement;
 namespace UnityTemplate.UserInterface.MainMenus
 {
     /// <summary>The statistics menu with its performance, achievements (permanent and weekly) and leaderboard tabs.</summary>
-    [Serializable]
     public class StatisticsMenu : MenuBase
     {
         private const FontStyles HighlightedFontStyle = FontStyles.Underline | FontStyles.SmallCaps;
@@ -133,7 +132,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             leaderboardTitle.fontStyle = title == leaderboardTitle ? HighlightedFontStyle : NormalFontStyle;
         }
 
-        /// <summary>The achievements sub-tabs; the scene stores these as numbers, so keep their order.</summary>
+        /// <summary>The achievements sub-tabs; StatisticsMenu.prefab stores these as numbers, so keep their order.</summary>
         [Serializable]
         private enum AchievementPanels
         {
@@ -141,7 +140,7 @@ namespace UnityTemplate.UserInterface.MainMenus
             Weekly,
         }
 
-        /// <summary>The statistics tabs; the scene stores these as numbers, so keep their order.</summary>
+        /// <summary>The statistics tabs; StatisticsMenu.prefab stores these as numbers, so keep their order.</summary>
         [Serializable]
         private enum StatisticsPanels
         {

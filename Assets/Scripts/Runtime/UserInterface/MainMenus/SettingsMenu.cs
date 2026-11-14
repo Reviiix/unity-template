@@ -1,13 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityTemplate.Core;
-using UnityTemplate.UserInterface.PopUpMenus;
 
 namespace UnityTemplate.UserInterface.MainMenus
 {
     /// <summary>The settings menu: currently the RESET ALL button, which deletes the save after a confirmation.</summary>
-    [Serializable]
     public class SettingsMenu : MenuBase
     {
         [SerializeField] private Button deleteAllDataButton;
