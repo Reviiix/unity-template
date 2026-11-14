@@ -51,7 +51,7 @@ public static class SaveSystem
     {
         try
         {
-            new DirectoryInfo(Location).Parent?.Delete(true);
+            if (File.Exists(FilePath)) File.Delete(FilePath);
         }
         catch (Exception e)
         {
