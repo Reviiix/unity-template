@@ -10,7 +10,7 @@ using UnityTemplate.UserInterface;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Opens Initialisation.unity additively and checks that every serialized reference the boot sequence needs is assigned.</summary>
+    /// <summary>Opens Initialisation.unity additively and checks that every serialized reference the boot sequence needs is assigned and that menus and popups are variants of Menu.prefab and PopUp.prefab.</summary>
     public class SceneWiringTests
     {
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
@@ -55,6 +55,7 @@ namespace UnityTemplate.Tests
             }
         }
 
+        /// <summary>Checks that UserInterfaceManager has all five menus and that every reference on each menu is assigned.</summary>
         [Test]
         public void EveryMenuAndItsReferencesAreAssigned()
         {
@@ -72,6 +73,7 @@ namespace UnityTemplate.Tests
             }
         }
 
+        /// <summary>Checks that each menu is a scene instance of a variant of Menu.prefab with its script in the variant.</summary>
         [Test]
         public void EveryMenuIsAVariantOfTheMenuBase()
         {
@@ -84,6 +86,7 @@ namespace UnityTemplate.Tests
             }
         }
 
+        /// <summary>Checks that the confirmation popup and the three Addressable popups are variants of PopUp.prefab.</summary>
         [Test]
         public void EveryPopUpIsAVariantOfThePopUpBase()
         {
@@ -114,6 +117,7 @@ namespace UnityTemplate.Tests
             Assert.AreEqual(basePrefabPath, AssetDatabase.GetAssetPath(basePrefab), $"{root.name} is not a variant of {basePrefabPath}.");
         }
 
+        /// <summary>Checks that the popup references and the stage selection menu's stage item point at Addressable assets.</summary>
         [Test]
         public void PopUpAndStageItemReferencesPointAtAddressableAssets()
         {
