@@ -1184,6 +1184,18 @@ MonoBehaviour:
     - minimumChance: 1000
       maximumChance: 1100
       value: 3000
+  segmentLabels:
+  - {fileID: 2209955867089033531}
+  - {fileID: 8056646621597763520}
+  - {fileID: 2382621945832778454}
+  - {fileID: 8660442055545932353}
+  - {fileID: 5733633438490108218}
+  - {fileID: 3822709014978292313}
+  - {fileID: 2722837251104578251}
+  - {fileID: 8848147851365711733}
+  - {fileID: 3987681266996982962}
+  - {fileID: 5377970414100403574}
+  - {fileID: 2391568788534559178}
   rotations: 7
   duration: 7
   wheelEasing: 13
