@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -18,19 +19,25 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         [SerializeField] private ScrollRect levelScroller;
         [SerializeField] private AssetReferenceGameObject stageItemPrefab;
         private readonly StringBuilder labelBuilder = new();
+        private readonly List<(StageListItem Item, int Group, int Stage)> stageButtons = new();
         private AsyncOperationHandle<GameObject> stageItemHandle;
         private RectTransform[] groupPages = Array.Empty<RectTransform>();
         private int currentGroup;
+        private ProgressService progress;
+        private SaveService saveService;
 
-        /// <summary>Releases the stage item prefab when the menu is destroyed; the buttons use its sprites and font until then.</summary>
+        /// <summary>Stops listening for RESET ALL and releases the stage item prefab when the menu is destroyed; the buttons use its sprites and font until then.</summary>
         private void OnDestroy()
         {
+            if (saveService != null) saveService.DataLoaded -= RefreshStageButtons;
             if (stageItemHandle.IsValid()) Addressables.Release(stageItemHandle);
         }
 
         /// <summary>Builds one page of stage buttons per group from the stage catalogue, then shows the first group.</summary>
         public async void Initialise()
         {
+            progress = ServiceLocator.Get<ProgressService>();
+            saveService = ServiceLocator.Get<SaveService>();
             try
             {
                 stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
@@ -48,6 +55,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                 return;
             }
 
+            saveService.DataLoaded += RefreshStageButtons;
             nextLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup + 1));
             previousLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup - 1));
             ShowGroup(0);
@@ -56,7 +64,6 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         /// <summary>Creates one page per stage group with a labelled, wired button per stage.</summary>
         private void BuildPages(GameObject itemPrefab)
         {
-            var progress = ServiceLocator.Get<ProgressService>();
             var catalogue = progress.Catalogue;
             var stageLoader = ServiceLocator.Get<StageLoader>();
             groupPages = new RectTransform[catalogue.GroupCount];
@@ -72,7 +79,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                     item.transform.localScale = Vector3.one;
                     labelBuilder.Clear().Append(group).Append('-').Append(stage);
                     item.StageNameDisplay.SetText(labelBuilder);
-                    item.Button.interactable = CanSelect(progress, catalogue, group, stage);
+                    stageButtons.Add((item, group, stage));
 
                     var selectedGroup = group;
                     var selectedStage = stage;
@@ -81,6 +88,17 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             }
 
             Destroy(levelItemParent.gameObject);
+            RefreshStageButtons();
+        }
+
+        /// <summary>Shows each stage button's locked state and rating, at start-up and again after RESET ALL.</summary>
+        private void RefreshStageButtons()
+        {
+            foreach (var (item, group, stage) in stageButtons)
+            {
+                item.SetSelectable(CanSelect(progress, progress.Catalogue, group, stage));
+                item.ShowRating(progress.GetRating(group, stage));
+            }
         }
 
         /// <summary>Returns whether a stage button is tappable: it needs a scene and, outside development builds, must be unlocked.</summary>
