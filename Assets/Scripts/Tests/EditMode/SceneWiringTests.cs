@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -15,6 +16,7 @@ namespace UnityTemplate.Tests
     {
         private const string InitialisationScenePath = "Assets/Scenes/Initialisation.unity";
         private const string MenuBasePath = "Assets/Prefabs/UserInterface/Menus/Menu.prefab";
+        private const string PopUpBasePath = "Assets/Prefabs/UserInterface/PopUps/PopUp.prefab";
         private static readonly string[] MenuFields = { "mainMenu", "stageSelectionMenu", "statisticsMenu", "settingsMenu", "storeMenu" };
         private Scene scene;
         private bool openedByTest;
@@ -82,6 +84,27 @@ namespace UnityTemplate.Tests
                 Assert.IsTrue(PrefabUtility.IsOutermostPrefabInstanceRoot(menu.gameObject), $"{menu.name} is not an instance of a menu prefab.");
                 var menuBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(menu.gameObject);
                 Assert.AreEqual(MenuBasePath, AssetDatabase.GetAssetPath(menuBase), $"{menu.name} is not a variant of {MenuBasePath}.");
+            }
+        }
+
+        [Test]
+        public void EveryPopUpIsAVariantOfThePopUpBase()
+        {
+            var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
+            var confirmation = userInterface.FindProperty("confirmationScreen").objectReferenceValue as Component;
+            Assert.IsNotNull(confirmation, "UserInterfaceManager.confirmationScreen is not assigned.");
+            var popUps = new List<GameObject> { confirmation.gameObject };
+            foreach (var field in new[] { "firstOpenPopUp", "dailyLogInPopUp", "anniversaryPopUp" })
+            {
+                var guid = userInterface.FindProperty(field).FindPropertyRelative("m_AssetGUID").stringValue;
+                var popUp = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
+                Assert.IsNotNull(popUp, $"UserInterfaceManager.{field} does not point at a prefab.");
+                popUps.Add(popUp);
+            }
+            foreach (var popUp in popUps)
+            {
+                var popUpBase = PrefabUtility.GetCorrespondingObjectFromOriginalSource(popUp);
+                Assert.AreEqual(PopUpBasePath, AssetDatabase.GetAssetPath(popUpBase), $"{popUp.name} is not a variant of {PopUpBasePath}.");
             }
         }
 
