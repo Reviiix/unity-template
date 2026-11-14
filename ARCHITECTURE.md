@@ -68,7 +68,7 @@ Rules:
 | Group | Contents | Owner of the handle |
 |---|---|---|
 | ConditionalMenus | First-open, daily and anniversary popups | `UserInterfaceManager` (instantiate/release per popup) |
-| Prefabs | Stage list item | `StageSelectionMenu` (loaded once, released after building the list) |
+| Prefabs | Stage list item | `StageSelectionMenu` (loaded once at start-up and released in its `OnDestroy`; the stage buttons use the prefab's sprites and font until then) |
 | Scenes | Stage scenes | Addressables (Single-mode scene load) |
 | Achievements | Achievement icons | `AchievementItemBase` (released when the row or toast is destroyed) |
 
