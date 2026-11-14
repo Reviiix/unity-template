@@ -53,11 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   credits:
     creditsDisplay: {fileID: 1414337699228051510}
-    prefix: '<size=72%><color=#8B919B>CREDITS</color></size>   '
+    prefix: '<size=72%><color=#666D7A>CREDITS</color></size>   '
     suffix: 
   premiumCredits:
     creditsDisplay: {fileID: 1414337699612777822}
-    prefix: '<size=72%><color=#8B919B>PREMIUM</color></size>   '
+    prefix: '<size=72%><color=#666D7A>PREMIUM</color></size>   '
     suffix: 
 --- !u!222 &1414337698140977106
 CanvasRenderer:

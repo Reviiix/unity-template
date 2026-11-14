@@ -73,7 +73,7 @@ The UI follows one small design system, so a game made from the template can be 
 | Surface | `#FFFFFF` | Content card, popup panels, chips |
 | Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles |
 | Border | `#E4E7EB` | Progress tracks, outlines |
-| Text | `#15171C`, `#5C6370`, `#8B919B` | Primary, secondary and caption text |
+| Text | `#15171C`, `#5C6370`, `#666D7A` | Primary, secondary and caption text |
 | Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
 | Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
 | Dim | `#0E1014` at 58% | The overlay behind popups and the pause screen |
