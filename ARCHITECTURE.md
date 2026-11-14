@@ -78,7 +78,7 @@ The UI follows one small design system, so a game made from the template can be 
 | Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
 | Dim | `#0E1014` at 58% | The overlay behind popups and the pause screen |
 
-- Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (22-26, letter-spaced); Inter Regular for body text (30-34) and captions (24). Sizes are canvas units on the 1600x900 reference.
+- Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (26, letter-spaced); Inter Regular for body text (30-34) and captions (26). Sizes are canvas units on the 1600x900 reference; nothing is smaller than 26, about 11 pt on a phone.
 - Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle, star), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, rows 20).
 - Stage tiles show earned stars in the accent and unearned stars in `#80868F`, which keeps 3:1 contrast on the muted tile.
 - Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
