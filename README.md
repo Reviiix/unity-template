@@ -18,7 +18,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 ### Device builds
 
 - Build Addressables content first (see above); player builds include the local bundles automatically.
-- A **Development Build** turns on the cheat menu (top-right **CHEATS** button) and verbose `GameLog` messages. Release builds remove both.
+- A **Development Build** turns on the cheat menu (bottom-right **CHEATS** button) and verbose `GameLog` messages. Release builds remove both.
 - iOS: set your signing team in **Player Settings > iOS**. Android: set a keystore in **Player Settings > Android > Publishing Settings**.
 
 ### Unity Gaming Services (Remote Config)

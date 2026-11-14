@@ -70,16 +70,16 @@ The UI follows one small design system, so a game made from the template can be 
 | Token | Value | Used for |
 |---|---|---|
 | Background | `#F3F4F6` | Behind the content card |
-| Surface | `#FFFFFF` | Content card, popup panels, chips |
-| Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles |
+| Surface | `#FFFFFF` | Content card, popup panels, the main menu's credit chips |
+| Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles, the store's credit chips |
 | Border | `#E4E7EB` | Progress tracks, outlines |
 | Text | `#15171C`, `#5C6370`, `#666D7A` | Primary, secondary and caption text |
 | Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
 | Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
-| Dim | `#0E1014` at 58% | The overlay behind popups and the pause screen |
+| Dim | `#0E1014` at 58% | The overlay behind popups, the pause screen and the cheat page |
 
 - Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (26, letter-spaced); Inter Regular for body text (30-34) and captions (26). Sizes are canvas units on the 1600x900 reference; nothing is smaller than 26, about 11 pt on a phone.
-- Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle, star), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, rows 20).
+- Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle, star), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, popups 36, rows 20).
 - Stage tiles show earned stars in the accent and unearned stars in `#80868F`, which keeps 3:1 contrast on the muted tile.
 - Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
 - To rebrand, change the accent in `Kit/PrimaryButton.prefab`, `ExperienceDisplay.prefab` (badge and fill), `Menus/MainMenu.prefab` (title bar), `VolumeControls.prefab` (slider), `ConditionalMenus/DailyLogInPopUp.prefab` (pointer and hub dot), the star colours on `StageDisplayItem.prefab`, the reward text on `Achievements/AchievementBase.prefab`, and the unlocked row colour on the achievement lists in `Menus/StatisticsMenu.prefab`.
@@ -102,7 +102,7 @@ Pooled prefabs (`AudioSourceForPool`, `AchievementPopUp`) and the achievement li
 |---|---|---|
 | `UnityTemplate` | `Scripts/Runtime` | Addressables, ResourceManager, TextMeshPro, UnityEngine.UI, Services Core/Authentication/Remote Config (DOTween is auto-referenced) |
 | `UnityTemplate.Editor` | `Scripts/Editor` | UnityTemplate (Editor only) |
-| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, Test Runner, Addressables Editor |
+| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, Test Runner, Addressables Editor, TextMeshPro |
 | `UnityTemplate.Tests.PlayMode` | `Scripts/Tests/PlayMode` | UnityTemplate, Test Runner, UnityEngine.UI |
 
 When code needs a new package, add its assembly to the `references` list of the asmdef.
