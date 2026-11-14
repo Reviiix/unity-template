@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using Abstract.Interfaces;
 using Achievements.Dynamic;
 using Achievements.Permanent;
-using pure_unity_methods;
-using PureFunctions;
-using PureFunctions.UnitySpecific;
+using Utilities;
 using UnityEngine;
 
 namespace Achievements.PopUp

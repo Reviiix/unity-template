@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using pure_unity_methods;
-using pure_unity_methods.Effects;
+using Utilities;
 using Statistics;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;

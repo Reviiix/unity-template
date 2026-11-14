@@ -1,5 +1,4 @@
-﻿using pure_unity_methods;
-using PureFunctions.UnitySpecific;
+﻿using Utilities;
 using Statistics;
 using Statistics.Score;
 using UnityEngine;

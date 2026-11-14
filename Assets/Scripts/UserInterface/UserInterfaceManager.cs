@@ -1,6 +1,5 @@
 ﻿using Player;
-using pure_unity_methods;
-using PureFunctions.UnitySpecific;
+using Utilities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
