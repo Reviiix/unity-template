@@ -1,21 +1,19 @@
-using UnityEngine;
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-using UnityEngine.Serialization;
+using System;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Gameplay;
 using UnityTemplate.Progression;
-#endif
 
 namespace UnityTemplate.Debugging
 {
-    /// <summary>Development-only cheat menu for adding experience, score and currency; it removes itself from release builds.</summary>
+    /// <summary>Development-only cheat menu for adding experience, score and currency; release builds destroy it on load.</summary>
     [RequireComponent(typeof(Canvas))]
     public class CheatManager : MonoBehaviour
     {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
         [FormerlySerializedAs("showCheatMenuButton")] [SerializeField] private Button openCheatMenuButton;
         [Header("Experience")]
         [SerializeField] private Button addExperienceButton;
@@ -31,8 +29,15 @@ namespace UnityTemplate.Debugging
         [SerializeField] private TMP_InputField premiumCreditInputField;
         private Canvas cheatMenu;
 
+        /// <summary>Removes the menu from release builds; otherwise wires each cheat button to its input field.</summary>
         private void Awake()
         {
+            if (!Debug.isDebugBuild)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             cheatMenu = GetComponent<Canvas>();
             openCheatMenuButton.onClick.AddListener(() => cheatMenu.enabled = !cheatMenu.enabled);
             addExperienceButton.onClick.AddListener(() => Apply(experienceInputField, amount => ServiceLocator.Get<ExperienceService>().Add(amount)));
@@ -42,7 +47,8 @@ namespace UnityTemplate.Debugging
             Debug.LogWarning("CHEATS ENABLED on " + name);
         }
 
-        private static void Apply(TMP_InputField inputField, System.Action<int> cheat)
+        /// <summary>Parses the field's number and runs the cheat with it, ignoring empty or invalid input.</summary>
+        private static void Apply(TMP_InputField inputField, Action<int> cheat)
         {
             if (!int.TryParse(inputField.text, out var amount)) return;
 
@@ -50,16 +56,11 @@ namespace UnityTemplate.Debugging
             cheat(amount);
         }
 
+        /// <summary>Adds score to the running stage, if a stage is loaded.</summary>
         private static void AddScore(int amount)
         {
             if (ServiceLocator.TryGet<GameManager>(out var gameManager)) gameManager.IncrementScore(amount);
             else Debug.LogWarning("No GameManager is loaded, so score cannot be added outside a stage.");
         }
-#else
-        private void Awake()
-        {
-            Destroy(gameObject);
-        }
-#endif
     }
 }
