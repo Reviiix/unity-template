@@ -1,0 +1,3 @@
+#!/bin/sh
+# Tags the commit as unity/<version> if it changed the Unity editor version.
+exec "$(git rev-parse --show-toplevel)/.githooks/tag-unity-versions"

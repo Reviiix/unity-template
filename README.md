@@ -125,3 +125,13 @@ Manual checklist before a release: cold start, first open, daily wheel (spin and
 ## Git workflow
 
 Git flow: branch from `develop` (`feature/...`, `bugfix/...`), one commit per change, and merge into `develop` when reviewed.
+
+### Unity version tags
+
+Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.9f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor. The hooks in `.githooks` add the tag after each commit or merge; turn them on once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+To tag history made without the hooks (another clone, a rebase), run `.githooks/tag-unity-versions`; it skips tags that already exist. Tags stay local until pushed with `git push --tags`.
