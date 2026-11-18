@@ -48,6 +48,7 @@ namespace UnityTemplate.UserInterface.MainMenus
         {
             engagement = ServiceLocator.Get<EngagementService>();
             theme = ServiceLocator.Get<ThemeService>();
+            theme.Changed += RecolourTabs;
             performanceTitle = performanceButton.GetComponentInChildren<TMP_Text>(true);
             achievementsTitle = achievementsButton.GetComponentInChildren<TMP_Text>(true);
             weeklyAchievementsTitle = weeklyAchievementsButton.GetComponentInChildren<TMP_Text>(true);
@@ -59,6 +60,12 @@ namespace UnityTemplate.UserInterface.MainMenus
             weeklyAchievementsButton.onClick.AddListener(ShowWeeklyAchievements);
             permanentAchievementsButton.onClick.AddListener(ShowPermanentAchievements);
             leaderboardButton.onClick.AddListener(ShowLeaderboardPanel);
+        }
+
+        /// <summary>Stops following theme changes when the menu is destroyed.</summary>
+        private void OnDestroy()
+        {
+            if (theme != null) theme.Changed -= RecolourTabs;
         }
 
         /// <summary>Shows the menu on its starting tab.</summary>
@@ -147,7 +154,17 @@ namespace UnityTemplate.UserInterface.MainMenus
             SetTabSelected(leaderboardButton, leaderboardTitle, panel == leaderboardContent);
         }
 
-        /// <summary>Shows a tab as selected (raised segment, primary label) or not (clear segment, secondary label) in the current theme; the menu is never open while the theme changes, so tabs are coloured as they are shown.</summary>
+        /// <summary>Recolours every tab for the current theme, keeping the ones whose content is showing selected.</summary>
+        private void RecolourTabs()
+        {
+            SetTabSelected(performanceButton, performanceTitle, performanceContent.activeSelf);
+            SetTabSelected(achievementsButton, achievementsTitle, achievementsContent.activeSelf);
+            SetTabSelected(leaderboardButton, leaderboardTitle, leaderboardContent.activeSelf);
+            SetTabSelected(weeklyAchievementsButton, weeklyAchievementsTitle, weeklyAchievementsContent.activeSelf);
+            SetTabSelected(permanentAchievementsButton, permanentAchievementsTitle, permanentAchievementsContent.activeSelf);
+        }
+
+        /// <summary>Shows a tab as selected (raised segment, primary label) or not (clear segment, secondary label) in the current theme.</summary>
         private void SetTabSelected(Button tab, TMP_Text title, bool selected)
         {
             tab.image.color = selected ? theme.Get(selectedTab) : Color.clear;
