@@ -67,3 +67,10 @@ crashlytics-build.properties
 .idea/
 /UIElementsSchema/
 mono_crash.*.json
+
+# Addressables writes these into Assets on every player build.
+/[Aa]ssets/AddressableAssetsData/link.xml*
+/[Aa]ssets/AddressableAssetsData/Android*
+/[Aa]ssets/AddressableAssetsData/iOS*
+/[Aa]ssets/AddressableAssetsData/WebGL*
+/[Aa]ssets/AddressableAssetsData/Standalone*
