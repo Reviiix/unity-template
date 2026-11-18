@@ -1,0 +1,33 @@
+# Tags every commit on develop or main that changed the Unity editor version as
+# unity/<version>, using .githooks/tag-unity-versions, and pushes the new tags.
+name: Unity version tags
+
+on:
+  push:
+    branches: [develop, main]
+    paths: [ProjectSettings/ProjectVersion.txt]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: unity-version-tags
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Tag editor upgrades
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sh .githooks/tag-unity-versions
+      - name: Push new tags
+        run: git push origin 'refs/tags/unity/*:refs/tags/unity/*'
