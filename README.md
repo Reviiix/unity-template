@@ -55,13 +55,13 @@ Assets/
   Fonts/Inter/              Inter Regular and Semi Bold with their TMP font assets (SIL OFL licence included)
   Graphics/                 Sprites and textures; Shapes/ holds the white shapes the UI is built from (mobile import settings: Tools > Apply Mobile Import Settings)
   Prefabs/                  Pooled objects, menu items, menus and popups
-    UserInterface/Kit/      Button.prefab and its PrimaryButton, SecondaryButton, DangerButton and DangerOutlineButton variants
+    UserInterface/Kit/      Button.prefab and its PrimaryButton, SecondaryButton, DangerButton and DangerOutlineButton variants; Switch.prefab
     UserInterface/Menus/    Menu.prefab (the canvas set-up every menu shares) and the five menus, all variants of it
     UserInterface/PopUps/   PopUp.prefab (the frame every popup shares) and the confirmation popup, a variant of it
     UserInterface/ConditionalMenus/
                             First-open, daily and anniversary popups (PopUp variants, Addressable)
   Scenes/                   Initialisation.unity (boot scene) and Scenes/StageGroupOne/... (stages)
-  Settings/                 StageCatalogue and AchievementCatalogue (designer-editable data)
+  Settings/                 StageCatalogue, AchievementCatalogue and Themes/ (light and dark palettes): designer-editable data
   Scripts/
     Runtime/                UnityTemplate assembly, one folder per feature (namespace UnityTemplate.<Folder>)
     Editor/                 UnityTemplate.Editor assembly: Tools menu, play-mode start scene, import settings
@@ -83,7 +83,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Add a menu | Right-click `Prefabs/UserInterface/Menus/Menu.prefab` > **Create > Prefab Variant**, build the menu inside it and add a script that derives from `MenuBase` to its root. Put an instance under `UserInterface` in `Initialisation.unity`, then give `UserInterfaceManager` a field for it, add it to `allMenus` and initialise it in `Initialise`. |
 | Add a popup | Right-click `Prefabs/UserInterface/PopUps/PopUp.prefab` > **Create > Prefab Variant**, move the variant to `Prefabs/UserInterface/ConditionalMenus` and build the popup inside `GRP_Content`. Add a script that derives from `PopUpWindow` to its root and set **Pop Up Menu** to `GRP_Content` and **Close Button** to `BTN_Close`. Mark it Addressable (ConditionalMenus group), give `UserInterfaceManager` an `AssetReferenceGameObject` field for it and open it with `OpenAddressablePopUpAsync`, as `ShowStartUpPopUpsAsync` does. |
 | Add a button | Drag a variant from `Prefabs/UserInterface/Kit` into the menu or popup (`PrimaryButton` for the screen's main action, `SecondaryButton` for the rest, `DangerButton` or `DangerOutlineButton` for destructive actions), set its label and wire its `Button` in code. |
-| Restyle or rebrand the UI | Colours, type and shapes follow one small design system described in [ARCHITECTURE.md](ARCHITECTURE.md#look), including every place the accent colour lives. Button styles live in the `Kit` prefabs. |
+| Restyle or rebrand the UI | Colours, type and shapes follow one small design system described in [ARCHITECTURE.md](ARCHITECTURE.md#look). Change colours in `Assets/Settings/Themes/LightTheme.asset` and `DarkTheme.asset`; button and switch styles live in the `Kit` prefabs. |
 | Change a menu or popup | Open its prefab from `Prefabs/UserInterface/Menus`, `PopUps` or `ConditionalMenus`. What every menu or popup shares (canvas scaling, the popup panel and backdrop) lives in `Menu.prefab` or `PopUp.prefab`. A variant stores only what it changes, shown in bold in the Inspector. |
 | Add a service | Write a plain C# class (implement `ISaveable` if it saves), create it and register it in `GameInitialiser.Awake`, then resolve it from MonoBehaviours with `ServiceLocator.Get<T>()` in `OnEnable`. |
 | Save a new value | Add a field to `SaveData`, read it in the owning service's `Load` and write it in `Save`. Never rename or retype an existing field; bump `SaveData.CurrentVersion` and migrate if a field's meaning changes. |
@@ -100,7 +100,8 @@ The full standards are in [unity-coding-standards/README.md](unity-coding-standa
 - One central initialiser: everything that needs set-up is called from `GameInitialiser.Awake`, in order.
 - Object pooling for anything created repeatedly; prefabs for anything reused. Menus are variants of `Menu.prefab` and popups of `PopUp.prefab`, so shared set-up is edited once.
 - Cache references and precompute at start-up rather than at runtime.
-- New text uses Inter (the TMP default) at a size from the type scale, new shapes use the tinted sprites in `Graphics/Shapes`, and new buttons are instances of the `Kit` prefabs.
+- New text uses Inter (the TMP default) at a size from the type scale, new shapes use the tinted sprites in `Graphics/Shapes`, and new buttons and switches are instances of the `Kit` prefabs.
+- Every UI colour comes from the theme: add a `ThemedGraphic` naming its `ThemeColour` (and set the graphic to that token's light colour), or, in a script that sets colours, use a `ThemeColour` field resolved through `ThemeService`. Never hard-code a colour.
 - Self-documenting names, a one-line `/// <summary>` on every class and method, few other comments.
 - Private by default; `[SerializeField]` only for values designers tweak.
 - Namespaces `UnityTemplate.<Folder>`; never name a type after its own namespace.
