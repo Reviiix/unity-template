@@ -25,3 +25,6 @@
 *.dll  binary
 *.so   binary
 *.a    binary
+
+# Git hooks and their scripts must keep LF endings to run.
+.githooks/* text eol=lf

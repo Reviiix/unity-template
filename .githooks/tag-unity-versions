@@ -1,0 +1,23 @@
+#!/bin/sh
+# Tags every commit that changed the Unity editor version (m_EditorVersion in
+# ProjectSettings/ProjectVersion.txt) as unity/<version>, dated like the commit.
+# Safe to run any time: it scans every local branch and skips existing tags.
+set -eu
+
+file=ProjectSettings/ProjectVersion.txt
+
+version_at() {
+    git show "$1:$file" 2>/dev/null | tr -d '\r' | sed -n 's/^m_EditorVersion: *//p'
+}
+
+git log --branches --reverse --format=%H -- "$file" | while read -r commit; do
+    version=$(version_at "$commit")
+    [ -n "$version" ] || continue
+    previous=$(version_at "$commit^")
+    [ "$version" != "$previous" ] || continue
+    tag="unity/$version"
+    git rev-parse -q --verify "refs/tags/$tag" >/dev/null && continue
+    if [ -n "$previous" ]; then message="Unity editor $previous -> $version"; else message="Unity editor $version"; fi
+    GIT_COMMITTER_DATE=$(git log -1 --format=%cI "$commit") git tag -a "$tag" -m "$message" "$commit"
+    echo "Tagged $(git rev-parse --short "$commit") as $tag ($message)"
+done

@@ -11,6 +11,8 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 ## Getting started
 
+Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
+
 1. Open the project with Unity 6000.3.9f1.
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
 3. In the Editor, Addressables use the **Use Asset Database** play mode, so no content build is needed. To test real bundles, run **Window > Asset Management > Addressables > Groups > Build > New Build > Default Build Script**, then set **Play Mode Script** to **Use Existing Build**.
@@ -68,6 +70,7 @@ Assets/
   Plugins/DOTween/          Tweening library (vendor code, do not edit)
   AddressableAssetsData/    Addressables groups and settings
   Editor/RemoteConfig/      Remote Config editor data (this path is fixed by the package)
+unity-coding-standards/     Git submodule: the coding standards every change follows (outside Assets, so Unity ignores it)
 ```
 
 How the code fits together (boot order, services, saves, popups) is described in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -90,6 +93,8 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Import new sprites or sounds | Put them in `Assets/Graphics` or `Assets/Audio` and run **Tools > Apply Mobile Import Settings**. |
 
 ## Coding conventions
+
+The full standards are in [unity-coding-standards/README.md](unity-coding-standards/README.md); the points below are how this project applies them.
 
 - Services are plain C# classes registered in the `ServiceLocator` by `GameInitialiser`; no `static` managers and no `Singleton<T>`.
 - One central initialiser: everything that needs set-up is called from `GameInitialiser.Awake`, in order.
@@ -125,3 +130,13 @@ Manual checklist before a release: cold start, first open, daily wheel (spin and
 ## Git workflow
 
 Git flow: branch from `develop` (`feature/...`, `bugfix/...`), one commit per change, and merge into `develop` when reviewed.
+
+### Unity version tags
+
+Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.9f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor. The hooks in `.githooks` add the tag after each commit or merge; turn them on once per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+To tag history made without the hooks (another clone, a rebase), run `.githooks/tag-unity-versions`; it skips tags that already exist. Tags stay local until pushed with `git push --tags`.

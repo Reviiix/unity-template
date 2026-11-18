@@ -1,0 +1,3 @@
+[submodule "unity-coding-standards"]
+	path = unity-coding-standards
+	url = https://github.com/Reviiix/unity-coding-standards.git
