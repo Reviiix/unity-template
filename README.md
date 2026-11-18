@@ -5,7 +5,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 | | |
 |---|---|
 | Unity | 6000.3.9f1 |
-| Platforms | iOS 15+ and Android 7.0+ (API 24), landscape only |
+| Platforms | iOS 15+ and Android 7.0+ (API 24), landscape only; WebGL for browser previews |
 | Scripting | IL2CPP, ARM64 (Android), .NET Standard 2.1 |
 | Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`), Unity Pipeline (Editor tooling for the `unity` command-line tool; not in players) |
 
@@ -39,6 +39,23 @@ Add `-websiteUrl <url>` to set the link. To use Remote Config, also link the gam
 - Player builds build the Addressables content first (**Build Addressables on Player Build** is on in the Addressables settings), so a plain build or `unity build` ships fresh bundles with no manual step.
 - A **Development Build** turns on the cheat menu (bottom-right **CHEATS** button) and verbose `GameLog` messages. Release builds remove both.
 - iOS: set your signing team in **Player Settings > iOS**. Android: set a keystore in **Player Settings > Android > Publishing Settings**.
+
+### Browser preview (WebGL)
+
+iOS and Android are the release targets; WebGL is for quick previews in a browser. Build with **File > Build Profiles > WebGL > Build**, or headlessly:
+
+```bash
+unity build . --profile WebGL -o Builds/WebGL
+```
+
+- The profile is `Assets/Settings/Build Profiles/WebGL.asset`: a release build of the boot scene.
+- The build is uncompressed (**Compression Format: Disabled**), so any static web server can host it over plain HTTP without `Content-Encoding` headers.
+- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", an exception Remote Config catches inside itself while unlinked or offline crashes the page at start-up.
+- Remote Config and sign-in fail quietly in the browser when the project is unlinked or offline.
+
+### Other desktop builds
+
+Linux IL2CPP builds need `com.unity.toolchain.linux-x86_64-linux`, which the template leaves out: it adds about 300 MB to every clone's package cache. Add it in Package Manager before building for Linux.
 
 ### Unity Gaming Services (Remote Config)
 
