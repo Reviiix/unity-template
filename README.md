@@ -7,7 +7,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 | Unity | 6000.3.9f1 |
 | Platforms | iOS 15+ and Android 7.0+ (API 24), landscape only |
 | Scripting | IL2CPP, ARM64 (Android), .NET Standard 2.1 |
-| Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`) |
+| Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`), Unity Pipeline (Editor tooling for the `unity` command-line tool; not in players) |
 
 ## Getting started
 

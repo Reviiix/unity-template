@@ -17,6 +17,7 @@
     "com.unity.modules.uielements": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.pipeline": "1.0.0",
     "com.unity.remote-config": "4.2.4",
     "com.unity.services.authentication": "3.6.0",
     "com.unity.services.core": "1.16.0",
