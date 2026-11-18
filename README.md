@@ -19,7 +19,7 @@ Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before clo
 
 ### Device builds
 
-- Build Addressables content first (see above); player builds include the local bundles automatically.
+- Player builds build the Addressables content first (**Build Addressables on Player Build** is on in the Addressables settings), so a plain build or `unity build` ships fresh bundles with no manual step.
 - A **Development Build** turns on the cheat menu (bottom-right **CHEATS** button) and verbose `GameLog` messages. Release builds remove both.
 - iOS: set your signing team in **Player Settings > iOS**. Android: set a keystore in **Player Settings > Android > Publishing Settings**.
 
