@@ -105,6 +105,8 @@ Assets/
   AddressableAssetsData/    Addressables groups and settings
   Editor/RemoteConfig/      Remote Config editor data (this path is fixed by the package)
 unity-coding-standards/     Git submodule: the coding standards every change follows (outside Assets, so Unity ignores it)
+CLAUDE.md                   One-page map for coding agents (points into these docs)
+.github/workflows/          Unity version tagging
 ```
 
 How the code fits together (boot order, services, saves, popups) is described in [ARCHITECTURE.md](ARCHITECTURE.md).
