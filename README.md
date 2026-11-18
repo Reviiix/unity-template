@@ -123,7 +123,7 @@ The full standards are in [unity-coding-standards/README.md](unity-coding-standa
 - Private by default; `[SerializeField]` only for values designers tweak.
 - Namespaces `UnityTemplate.<Folder>`; never name a type after its own namespace.
 - `StringBuilder` or TMP `SetText` for text that changes at runtime.
-- Prefer `async`/`await` (Unity `Awaitable`) or DOTween to `Update` and coroutines. The one `Update` (Android back button in `UserInterfaceManager`) exists because the old Input Manager can only be polled.
+- Prefer `async`/`await` (Unity `Awaitable`) or DOTween to `Update` and coroutines. The one `Update` (in `UserInterfaceManager`: the Android back button and the menu render throttle) exists because the old Input Manager can only be polled.
 - Every `async void` entry point catches and logs its exceptions; tweens use `SetLink(gameObject)`.
 - Vocabulary: a **stage** is a playable scene; a **level** is an experience level.
 - Keep **Reload Domain** on in Enter Play Mode Options: DOTween 1.2 and the Unity Services SDKs keep static state between play sessions.
