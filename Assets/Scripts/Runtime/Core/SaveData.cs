@@ -28,6 +28,7 @@ namespace UnityTemplate.Core
 
         public float volume = 1f;
         public bool muted;
+        public bool darkMode;
 
         public string[] unlockedAchievements = Array.Empty<string>();
     }

@@ -6012,6 +6012,8 @@ MonoBehaviour:
   stageCatalogue: {fileID: 11400000, guid: 7c4c2535af4624d3b8f90140018cf95f, type: 2}
   achievementCatalogue: {fileID: 11400000, guid: f008b049f7e5c4c3f867c2d427809890,
     type: 2}
+  lightTheme: {fileID: 11400000, guid: 1892e09b95463495799b587c3397980d, type: 2}
+  darkTheme: {fileID: 11400000, guid: 7208e8557f31841e0868afd6061dad62, type: 2}
   achievementsEnabled: 0
   dailyBonusEnabled: 1
   targetFrameRate: 60
