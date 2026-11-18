@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityTemplate.Achievements;
 using UnityTemplate.Core;
+using UnityTemplate.Theming;
 using UnityTemplate.UserInterface;
 
 namespace UnityTemplate.Tests
@@ -42,7 +43,7 @@ namespace UnityTemplate.Tests
         public void GameInitialiserReferencesAreAssigned()
         {
             var initialiser = new SerializedObject(FindInScene<GameInitialiser>());
-            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "stageCatalogue", "achievementCatalogue" })
+            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "stageCatalogue", "achievementCatalogue", "lightTheme", "darkTheme" })
             {
                 Assert.IsNotNull(initialiser.FindProperty(field).objectReferenceValue, $"GameInitialiser.{field} is not assigned.");
             }
@@ -172,6 +173,25 @@ namespace UnityTemplate.Tests
                     Assert.IsNotNull(new SerializedObject(display).FindProperty("listItemPrefab").objectReferenceValue, $"{display.name} has no list item prefab.");
                 }
             }
+        }
+
+        /// <summary>Checks that every themed graphic in the user interface prefabs and the boot scene already shows its light-theme colour, so the Editor shows what the game shows.</summary>
+        [Test]
+        public void ThemedGraphicsShowTheirLightThemeColour()
+        {
+            var light = (ThemePalette)new SerializedObject(FindInScene<GameInitialiser>()).FindProperty("lightTheme").objectReferenceValue;
+            var roots = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/UserInterface" }).Select(guid => AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid))).Concat(scene.GetRootGameObjects());
+            var offenders = new List<string>();
+            foreach (var root in roots)
+            {
+                foreach (var themed in root.GetComponentsInChildren<ThemedGraphic>(true))
+                {
+                    var graphic = themed.GetComponent<UnityEngine.UI.Graphic>();
+                    if (graphic == null) offenders.Add($"{root.name}/{themed.name} has no Graphic");
+                    else if (graphic.color != light.Get(themed.Colour)) offenders.Add($"{root.name}/{themed.name} is {graphic.color}, not {themed.Colour}");
+                }
+            }
+            Assert.IsEmpty(offenders, string.Join("\n", offenders));
         }
 
         private T FindInScene<T>() where T : Component

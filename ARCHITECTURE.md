@@ -31,6 +31,7 @@ Because all of this happens in `Awake`, every other component can resolve servic
 | `ProgressService` | C# | Stage ratings, unlocks, CONTINUE target, high score | ratings, high score | - |
 | `EngagementService` | C# | App opens, play time, daily bonus and streak, anniversaries | yes | - |
 | `AchievementService` | C# | Permanent and remotely configured achievements | unlocked ids | `AchievementUnlocked` |
+| `ThemeService` | C# | Light or dark theme and its colours (see Look) | dark mode | `Changed` |
 | `StageLoader` | C# | Fade, load a stage scene, fade back | - | - |
 | `ObjectPooler` | MonoBehaviour | Pools of pre-instantiated prefabs (`PoolKey`) | - | - |
 | `AudioManager` | MonoBehaviour | UI sounds, master volume and mute | volume, mute | `VolumeChanged` |
@@ -65,25 +66,31 @@ Rules:
 
 ## Look
 
-The UI follows one small design system, so a game made from the template can be restyled or rebranded in a few places.
+The UI follows one small design system with a light and a dark theme, so a game made from the template can be restyled or rebranded in a few places.
 
-| Token | Value | Used for |
-|---|---|---|
-| Background | `#F3F4F6` | Behind the content card |
-| Surface | `#FFFFFF` | Content card, popup panels, the main menu's credit chips |
-| Muted | `#EEF0F3` | Secondary buttons, rows, tab bars, stage tiles, the store's credit chips |
-| Border | `#E4E7EB` | Progress tracks, outlines |
-| Text | `#15171C`, `#5C6370`, `#666D7A` | Primary, secondary and caption text |
-| Accent | `#3E63DD` | Primary buttons, progress, earned stars, the wheel pointer |
-| Danger | `#D63B3F` | RESET ALL, YES on the confirmation, the cheats label |
-| Dim | `#0E1014` at 58% | The overlay behind popups, the pause screen and the cheat page |
+Every colour is a `ThemeColour`. `Assets/Settings/Themes/LightTheme.asset` and `DarkTheme.asset` (`ThemePalette`, assigned on `GameInitialiser`) hold each theme's value; edit them to rebrand.
 
+| Token | Light | Dark | Used for |
+|---|---|---|---|
+| Background | `#F3F4F6` | `#0E1013` | Behind the content card |
+| Surface | `#FFFFFF` | `#181B20` | Content card, popup panels, the main menu's credit chips |
+| Raised | `#FFFFFF` | `#2C313A` | The selected tab on a tab bar |
+| Muted | `#EEF0F3` | `#22262D` | Secondary buttons, rows, tab bars, stage tiles, the store's credit chips |
+| Border | `#E4E7EB` | `#30353E` | Progress tracks, outlines, dividers, the wheel's lines |
+| Track | `#C9CED6` | `#3A404A` | The volume slider track, switches when off |
+| TextPrimary, TextSecondary, TextTertiary | `#15171C`, `#5C6370`, `#666D7A` | `#F1F2F4`, `#A3A9B4`, `#8C929D` | Primary, secondary and caption text |
+| Accent | `#3E63DD` | `#5B7FF0` | Primary buttons, progress, earned stars, switches when on, the wheel pointer |
+| OnAccent | `#FFFFFF` | `#FFFFFF` | Text on the accent or danger colour, the switch knob |
+| AccentSoft | `#DBE5FC` | `#24305A` | Unlocked achievement rows |
+| Danger | `#D63B3F` | `#EF5B5E` | RESET ALL, YES on the confirmation, the cheats label |
+| Dim | `#0E1014` at 58% | `#000000` at 62% | The overlay behind popups, the pause screen and the cheat page |
+| StarUnearned | `#80868F` | `#6B717C` | Unearned stars (3:1 on the stage tile) |
+
+- Theming: `ThemeService` holds the current theme (saved as `SaveData.darkMode`; the **DARK MODE** switch in Settings flips it) and raises `Changed`. A `ThemedGraphic` on an Image, RawImage or text names its token and recolours it on every change; scripts that set colours themselves (statistics tabs, stage stars, achievement rows, the switch) hold `ThemeColour` fields and resolve them through `ThemeService`. A graphic has one or the other, never both. In the Editor, graphics show their light colour (a test checks this).
 - Type: Inter Semi Bold for the game title (96), screen titles (52), popup titles (42), buttons (34) and small uppercase labels (26, letter-spaced); Inter Regular for body text (30-34) and captions (26). Sizes are canvas units on the 1600x900 reference; nothing is smaller than 26, about 11 pt on a phone.
 - Shapes: white sprites in `Assets/Graphics/Shapes` (rounded rectangle and outline, circle, soft shadow, triangle, star), tinted per use. The rounded rectangle is 9-sliced, so one sprite gives any corner radius: set the Image's Pixels Per Unit Multiplier to 64 divided by the radius (buttons 24, cards 32, popups 36, rows 20).
-- Stage tiles show earned stars in the accent and unearned stars in `#80868F`, which keeps 3:1 contrast on the muted tile.
-- Buttons are instances of the `Prefabs/UserInterface/Kit` prefabs: `Button.prefab` (shape, label, press and disabled tints) and its variants. Changing a kit prefab changes every button made from it.
-- To rebrand, change the accent in `Kit/PrimaryButton.prefab`, `ExperienceDisplay.prefab` (badge and fill), `Menus/MainMenu.prefab` (title bar), `VolumeControls.prefab` (slider), `ConditionalMenus/DailyLogInPopUp.prefab` (pointer and hub dot), the star colours on `StageDisplayItem.prefab`, the reward text on `Achievements/AchievementBase.prefab`, and the unlocked row colour on the achievement lists in `Menus/StatisticsMenu.prefab`.
-- The daily wheel texture (`Assets/Graphics/Wheel.png`) draws the segments and the outer ring, but no numbers; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.
+- Kit: `Prefabs/UserInterface/Kit` holds `Button.prefab` (shape, label, press and disabled tints) with its variants, and `Switch.prefab` (an on/off `Toggle` with `ToggleSwitch`). Changing a kit prefab changes every instance.
+- The daily wheel texture (`Assets/Graphics/Wheel.png`) is white lines and ring on transparent, tinted by the wheel's RawImage, with no numbers; `SpinningWheel` writes each segment's value on its label at start-up, so changing a prize is a change to its segment value.
 
 ## Addressables
 

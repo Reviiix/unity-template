@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Engagement;
+using UnityTemplate.Theming;
 
 namespace UnityTemplate.UserInterface.MainMenus
 {
@@ -13,9 +14,9 @@ namespace UnityTemplate.UserInterface.MainMenus
     {
         [SerializeField] private StatisticsPanels startingStatisticsPanel;
         [Header("Tabs")]
-        [SerializeField] private Color selectedTabColour = Color.white;
-        [SerializeField] private Color selectedTabTextColour = new(0.08f, 0.09f, 0.11f);
-        [SerializeField] private Color unselectedTabTextColour = new(0.36f, 0.39f, 0.44f);
+        [SerializeField] private ThemeColour selectedTab = ThemeColour.Raised;
+        [SerializeField] private ThemeColour selectedTabText = ThemeColour.TextPrimary;
+        [SerializeField] private ThemeColour unselectedTabText = ThemeColour.TextSecondary;
         [Header("Performance Panel")]
         [SerializeField] private Button performanceButton;
         [SerializeField] private TMP_Text timePlayed;
@@ -40,11 +41,14 @@ namespace UnityTemplate.UserInterface.MainMenus
         private TMP_Text permanentAchievementsTitle;
         private TMP_Text leaderboardTitle;
         private EngagementService engagement;
+        private ThemeService theme;
 
         /// <summary>Caches the tab titles and wires the tab buttons.</summary>
         public void Initialise()
         {
             engagement = ServiceLocator.Get<EngagementService>();
+            theme = ServiceLocator.Get<ThemeService>();
+            theme.Changed += RecolourTabs;
             performanceTitle = performanceButton.GetComponentInChildren<TMP_Text>(true);
             achievementsTitle = achievementsButton.GetComponentInChildren<TMP_Text>(true);
             weeklyAchievementsTitle = weeklyAchievementsButton.GetComponentInChildren<TMP_Text>(true);
@@ -56,6 +60,12 @@ namespace UnityTemplate.UserInterface.MainMenus
             weeklyAchievementsButton.onClick.AddListener(ShowWeeklyAchievements);
             permanentAchievementsButton.onClick.AddListener(ShowPermanentAchievements);
             leaderboardButton.onClick.AddListener(ShowLeaderboardPanel);
+        }
+
+        /// <summary>Stops following theme changes when the menu is destroyed.</summary>
+        private void OnDestroy()
+        {
+            if (theme != null) theme.Changed -= RecolourTabs;
         }
 
         /// <summary>Shows the menu on its starting tab.</summary>
@@ -144,11 +154,21 @@ namespace UnityTemplate.UserInterface.MainMenus
             SetTabSelected(leaderboardButton, leaderboardTitle, panel == leaderboardContent);
         }
 
-        /// <summary>Shows a tab as selected (filled segment, dark label) or not (clear segment, grey label).</summary>
+        /// <summary>Recolours every tab for the current theme, keeping the ones whose content is showing selected.</summary>
+        private void RecolourTabs()
+        {
+            SetTabSelected(performanceButton, performanceTitle, performanceContent.activeSelf);
+            SetTabSelected(achievementsButton, achievementsTitle, achievementsContent.activeSelf);
+            SetTabSelected(leaderboardButton, leaderboardTitle, leaderboardContent.activeSelf);
+            SetTabSelected(weeklyAchievementsButton, weeklyAchievementsTitle, weeklyAchievementsContent.activeSelf);
+            SetTabSelected(permanentAchievementsButton, permanentAchievementsTitle, permanentAchievementsContent.activeSelf);
+        }
+
+        /// <summary>Shows a tab as selected (raised segment, primary label) or not (clear segment, secondary label) in the current theme.</summary>
         private void SetTabSelected(Button tab, TMP_Text title, bool selected)
         {
-            tab.image.color = selected ? selectedTabColour : Color.clear;
-            title.color = selected ? selectedTabTextColour : unselectedTabTextColour;
+            tab.image.color = selected ? theme.Get(selectedTab) : Color.clear;
+            title.color = theme.Get(selected ? selectedTabText : unselectedTabText);
         }
 
         /// <summary>The achievements sub-tabs; StatisticsMenu.prefab stores these as numbers, so keep their order.</summary>

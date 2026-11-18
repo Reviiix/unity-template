@@ -53,11 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   credits:
     creditsDisplay: {fileID: 1414337699228051510}
-    prefix: '<size=87%><color=#666D7A>CREDITS</color></size>   '
+    prefix: '<size=87%><alpha=#A6>CREDITS<alpha=#FF></size>   '
     suffix: 
   premiumCredits:
     creditsDisplay: {fileID: 1414337699612777822}
-    prefix: '<size=87%><color=#666D7A>PREMIUM</color></size>   '
+    prefix: '<size=87%><alpha=#A6>PREMIUM<alpha=#FF></size>   '
     suffix: 
 --- !u!222 &1414337698140977106
 CanvasRenderer:
@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 6007504486528699985}
   - component: {fileID: 7462662918971484349}
   - component: {fileID: 8048023471107436629}
+  - component: {fileID: 2516298779209472462}
   m_Layer: 0
   m_Name: GRP_PremiumCredits
   m_TagString: Untagged
@@ -185,6 +186,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &2516298779209472462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414337698345471122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1
 --- !u!1 &1414337699228051496
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +210,7 @@ GameObject:
   - component: {fileID: 1414337699228051511}
   - component: {fileID: 1414337699228051509}
   - component: {fileID: 1414337699228051510}
+  - component: {fileID: 2196150973943694521}
   m_Layer: 0
   m_Name: TXT_CreditsDisplay
   m_TagString: Untagged
@@ -323,6 +338,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2196150973943694521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414337699228051496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1414337699612777808
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +362,7 @@ GameObject:
   - component: {fileID: 1414337699612777823}
   - component: {fileID: 1414337699612777821}
   - component: {fileID: 1414337699612777822}
+  - component: {fileID: 3417274688077213537}
   m_Layer: 0
   m_Name: TXT_PremiumCreditsDisplay
   m_TagString: Untagged
@@ -461,6 +490,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3417274688077213537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414337699612777808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1414337699710991337
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +516,7 @@ GameObject:
   - component: {fileID: 7716469862866797091}
   - component: {fileID: 2757662423753318851}
   - component: {fileID: 4814347139921347223}
+  - component: {fileID: 4712470338417121531}
   m_Layer: 0
   m_Name: GRP_Credits
   m_TagString: Untagged
@@ -579,3 +622,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &4712470338417121531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414337699710991337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1
