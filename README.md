@@ -17,6 +17,23 @@ Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before clo
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
 3. In the Editor, Addressables use the **Use Asset Database** play mode, so no content build is needed. To test real bundles, run **Window > Asset Management > Addressables > Groups > Build > New Build > Default Build Script**, then set **Play Mode Script** to **Use Existing Build**.
 
+### Making a game from the template
+
+Run **Tools > New Game Setup...**, type the game's name and press **Apply**. It does the following:
+
+- sets the product name,
+- sets the Android, iOS and Standalone identifiers to `com.LeonHiggin.<GameName>`,
+- gives the game a new product GUID,
+- optionally points the version text at the game's website.
+
+Without the Editor window:
+
+```bash
+unity run . --no-tail -- -executeMethod UnityTemplate.EditorTools.NewGameSetup.ApplyFromCommandLine -gameName "My Game"
+```
+
+Add `-websiteUrl <url>` to set the link. To use Remote Config, also link the game to its own Unity Cloud project (see below).
+
 ### Device builds
 
 - Player builds build the Addressables content first (**Build Addressables on Player Build** is on in the Addressables settings), so a plain build or `unity build` ships fresh bundles with no manual step.
@@ -25,7 +42,7 @@ Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before clo
 
 ### Unity Gaming Services (Remote Config)
 
-- The project is linked to a Unity Cloud project in **Edit > Project Settings > Services**. A game made from this template should link to **its own** cloud project.
+- The template ships **unlinked** from Unity Cloud. Link each game to its own cloud project in **Edit > Project Settings > Services**; until then Remote Config logs a warning and the built-in defaults are used.
 - At start-up the game reads the Remote Config values cached on the previous launch and fetches fresh ones in the background, so **dashboard changes apply from the next launch**. Offline or unlinked, the built-in defaults in `GameConfiguration` are used and a warning is logged.
 - Signing in is anonymous, which creates one Unity player per install: mention this in the App Store and Play privacy declarations.
 - The fetch uses the default `production` environment. If your dashboard only has other environments, the sign-in fails with "invalid environment name" (a warning, the game carries on): create a `production` environment or set one with `InitializationOptions.SetEnvironmentName` in `RemoteConfiguration.FetchForNextLaunchAsync`.

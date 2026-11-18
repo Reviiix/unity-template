@@ -3,6 +3,7 @@
     "rootNamespace": "UnityTemplate.Tests",
     "references": [
         "UnityTemplate",
+        "UnityTemplate.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.Addressables",

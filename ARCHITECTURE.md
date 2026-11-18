@@ -109,7 +109,7 @@ Pooled prefabs (`AudioSourceForPool`, `AchievementPopUp`) and the achievement li
 |---|---|---|
 | `UnityTemplate` | `Scripts/Runtime` | Addressables, ResourceManager, TextMeshPro, UnityEngine.UI, Services Core/Authentication/Remote Config (DOTween is auto-referenced) |
 | `UnityTemplate.Editor` | `Scripts/Editor` | UnityTemplate (Editor only) |
-| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, Test Runner, Addressables Editor, TextMeshPro |
+| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, UnityTemplate.Editor, Test Runner, Addressables Editor, TextMeshPro |
 | `UnityTemplate.Tests.PlayMode` | `Scripts/Tests/PlayMode` | UnityTemplate, Test Runner, UnityEngine.UI |
 
 When code needs a new package, add its assembly to the `references` list of the asmdef.
