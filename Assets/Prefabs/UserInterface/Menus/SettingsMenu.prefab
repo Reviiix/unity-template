@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 3638607920442834423}
   - component: {fileID: 2122668290233062596}
   - component: {fileID: 188369847318571393}
+  - component: {fileID: 4129158030522226}
   m_Layer: 0
   m_Name: TXT_SoundLabel
   m_TagString: Untagged
@@ -187,6 +188,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4129158030522226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842889118497882218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &2228372171707668720
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +680,7 @@ GameObject:
   - component: {fileID: 3631389353783695928}
   - component: {fileID: 2713163187520177144}
   - component: {fileID: 5906732494208959925}
+  - component: {fileID: 4616554901086357220}
   m_Layer: 0
   m_Name: IMG_SoundRow
   m_TagString: Untagged
@@ -732,6 +747,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2.6666667
+--- !u!114 &4616554901086357220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4004118373115823442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 3
 --- !u!1 &4956315314365714562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +1778,7 @@ GameObject:
   - component: {fileID: 3675240741512941209}
   - component: {fileID: 3469319986587257785}
   - component: {fileID: 4582146673018558386}
+  - component: {fileID: 1697957799844990711}
   m_Layer: 0
   m_Name: TXT_SettingsTitle
   m_TagString: Untagged
@@ -1897,6 +1926,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1697957799844990711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8623935100535629882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &9208843986358266905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,6 +1950,7 @@ GameObject:
   - component: {fileID: 5610666671921492679}
   - component: {fileID: 1280952303039540688}
   - component: {fileID: 1272123028825383710}
+  - component: {fileID: 5700311913629785114}
   m_Layer: 0
   m_Name: TXT_FollowUs
   m_TagString: Untagged
@@ -2035,6 +2078,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5700311913629785114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208843986358266905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 8
 --- !u!1001 &1957581017235629859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2179,6 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61996ab125609408ca2f07bc9a05ae34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.SettingsMenu
+  darkModeSwitch: {fileID: 0}
   deleteAllDataButton: {fileID: 8625349184129832015}
 --- !u!224 &8767933144367544018 stripped
 RectTransform:

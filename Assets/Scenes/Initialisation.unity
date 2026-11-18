@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 19300517}
   - component: {fileID: 19300519}
   - component: {fileID: 19300518}
+  - component: {fileID: 19300520}
   m_Layer: 0
   m_Name: TXT_Input
   m_TagString: Untagged
@@ -258,6 +259,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19300516}
   m_CullTransparentMesh: 1
+--- !u!114 &19300520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19300516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &23244096
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +284,7 @@ GameObject:
   - component: {fileID: 23244099}
   - component: {fileID: 23244098}
   - component: {fileID: 23244100}
+  - component: {fileID: 23244101}
   m_Layer: 0
   m_Name: TXT_CheatPageTitle
   m_TagString: Untagged
@@ -417,6 +432,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &23244101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23244096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &23790236
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +509,7 @@ GameObject:
   - component: {fileID: 59412412}
   - component: {fileID: 59412411}
   - component: {fileID: 59412410}
+  - component: {fileID: 59412413}
   m_Layer: 0
   m_Name: TXT_Placeholder
   m_TagString: Untagged
@@ -628,6 +657,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59412408}
   m_CullTransparentMesh: 1
+--- !u!114 &59412413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59412408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 8
 --- !u!1 &83472191
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +682,7 @@ GameObject:
   - component: {fileID: 83472195}
   - component: {fileID: 83472194}
   - component: {fileID: 83472193}
+  - component: {fileID: 83472196}
   m_Layer: 0
   m_Name: Placeholder
   m_TagString: Untagged
@@ -787,6 +830,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83472191}
   m_CullTransparentMesh: 1
+--- !u!114 &83472196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83472191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 8
 --- !u!224 &138911910 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9042676239817348430, guid: 559801b84eb49488382e2561d0b26cce,
@@ -1120,6 +1176,7 @@ GameObject:
   - component: {fileID: 277566071}
   - component: {fileID: 277566070}
   - component: {fileID: 277566069}
+  - component: {fileID: 277566072}
   m_Layer: 0
   m_Name: IMG_Dim
   m_TagString: Untagged
@@ -1228,6 +1285,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277566067}
   m_CullTransparentMesh: 1
+--- !u!114 &277566072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277566067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 13
 --- !u!1 &308312118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1310,7 @@ GameObject:
   - component: {fileID: 308312122}
   - component: {fileID: 308312121}
   - component: {fileID: 308312120}
+  - component: {fileID: 308312123}
   m_Layer: 0
   m_Name: INP_AmountOfCredits
   m_TagString: Untagged
@@ -1406,6 +1477,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308312118}
   m_CullTransparentMesh: 1
+--- !u!114 &308312123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308312118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!1 &349199999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1683,7 @@ GameObject:
   - component: {fileID: 427711654}
   - component: {fileID: 427711651}
   - component: {fileID: 427711650}
+  - component: {fileID: 427711655}
   m_Layer: 0
   m_Name: TXT_GameVersion
   m_TagString: Untagged
@@ -1796,6 +1881,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: https://github.com/Reviiix/unity-template
+--- !u!114 &427711655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427711648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &431571788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,6 +1905,7 @@ GameObject:
   - component: {fileID: 431571789}
   - component: {fileID: 431571791}
   - component: {fileID: 431571790}
+  - component: {fileID: 431571792}
   m_Layer: 0
   m_Name: IMG_Backdrop
   m_TagString: Untagged
@@ -1871,6 +1970,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431571788}
   m_CullTransparentMesh: 1
+--- !u!114 &431571792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431571788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 0
 --- !u!1 &434122950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,6 +2523,7 @@ GameObject:
   - component: {fileID: 655190846}
   - component: {fileID: 655190850}
   - component: {fileID: 655190851}
+  - component: {fileID: 655190852}
   m_Layer: 0
   m_Name: IMG_ContentCard
   m_TagString: Untagged
@@ -2475,6 +2588,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
+--- !u!114 &655190852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655190845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1
 --- !u!1 &661806466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2613,7 @@ GameObject:
   - component: {fileID: 661806470}
   - component: {fileID: 661806469}
   - component: {fileID: 661806468}
+  - component: {fileID: 661806471}
   m_Layer: 0
   m_Name: INP_AmountOfScore
   m_TagString: Untagged
@@ -2653,6 +2780,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661806466}
   m_CullTransparentMesh: 1
+--- !u!114 &661806471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661806466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!224 &668472359 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7786896117810337134, guid: 5e1e38291268f4af08b48cd03f8bb1ca,
@@ -3552,6 +3692,7 @@ GameObject:
   - component: {fileID: 986187135}
   - component: {fileID: 986187134}
   - component: {fileID: 986187133}
+  - component: {fileID: 986187136}
   m_Layer: 0
   m_Name: TXT_Placeholder
   m_TagString: Untagged
@@ -3699,6 +3840,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986187131}
   m_CullTransparentMesh: 1
+--- !u!114 &986187136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986187131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 8
 --- !u!1 &1036042453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,6 +3864,7 @@ GameObject:
   - component: {fileID: 1036042454}
   - component: {fileID: 1036042456}
   - component: {fileID: 1036042455}
+  - component: {fileID: 1036042457}
   m_Layer: 0
   m_Name: TXT_Input
   m_TagString: Untagged
@@ -3837,6 +3992,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036042453}
   m_CullTransparentMesh: 1
+--- !u!114 &1036042457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036042453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!224 &1057099788 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8767933144367544018, guid: d9f0fb5d9e3634cb3b74479703f03532,
@@ -3866,6 +4034,7 @@ GameObject:
   - component: {fileID: 1062101756}
   - component: {fileID: 1062101758}
   - component: {fileID: 1062101757}
+  - component: {fileID: 1062101759}
   m_Layer: 0
   m_Name: TXT_Input
   m_TagString: Untagged
@@ -3993,6 +4162,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062101755}
   m_CullTransparentMesh: 1
+--- !u!114 &1062101759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062101755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1112096035
 GameObject:
   m_ObjectHideFlags: 0
@@ -4005,6 +4187,7 @@ GameObject:
   - component: {fileID: 1112096039}
   - component: {fileID: 1112096038}
   - component: {fileID: 1112096037}
+  - component: {fileID: 1112096040}
   m_Layer: 0
   m_Name: BTN_BackToMainMenu
   m_TagString: Untagged
@@ -4176,6 +4359,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1112096035}
   m_CullTransparentMesh: 1
+--- !u!114 &1112096040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112096035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!224 &1123474561 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9042676239817348430, guid: 559801b84eb49488382e2561d0b26cce,
@@ -4342,6 +4538,7 @@ GameObject:
   - component: {fileID: 1236726744}
   - component: {fileID: 1236726746}
   - component: {fileID: 1236726745}
+  - component: {fileID: 1236726747}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -4469,6 +4666,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236726743}
   m_CullTransparentMesh: 1
+--- !u!114 &1236726747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236726743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1001 &1254540280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4924,6 +5134,7 @@ GameObject:
   - component: {fileID: 1490401269}
   - component: {fileID: 1490401268}
   - component: {fileID: 1490401267}
+  - component: {fileID: 1490401270}
   m_Layer: 0
   m_Name: BTN_Cheats
   m_TagString: Untagged
@@ -5095,6 +5306,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490401264}
   m_CullTransparentMesh: 1
+--- !u!114 &1490401270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490401264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 12
 --- !u!1 &1500083678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5107,6 +5331,7 @@ GameObject:
   - component: {fileID: 1500083682}
   - component: {fileID: 1500083681}
   - component: {fileID: 1500083680}
+  - component: {fileID: 1500083683}
   m_Layer: 0
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -5278,6 +5503,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500083678}
   m_CullTransparentMesh: 1
+--- !u!114 &1500083683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500083678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 10
 --- !u!1 &1536557697
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,6 +5528,7 @@ GameObject:
   - component: {fileID: 1536557701}
   - component: {fileID: 1536557700}
   - component: {fileID: 1536557699}
+  - component: {fileID: 1536557702}
   m_Layer: 0
   m_Name: INP_AmountOfPremiumCredits
   m_TagString: Untagged
@@ -5456,6 +5695,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536557697}
   m_CullTransparentMesh: 1
+--- !u!114 &1536557702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536557697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!1 &1543847641 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1798921478748247644, guid: fecce1de4a5f643a0b023d86c6590bc5,
@@ -5685,6 +5937,7 @@ GameObject:
   - component: {fileID: 1794665426}
   - component: {fileID: 1794665425}
   - component: {fileID: 1794665424}
+  - component: {fileID: 1794665427}
   m_Layer: 0
   m_Name: GRP_Card
   m_TagString: Untagged
@@ -5781,6 +6034,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794665422}
   m_CullTransparentMesh: 1
+--- !u!114 &1794665427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794665422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1
 --- !u!1 &1796298386
 GameObject:
   m_ObjectHideFlags: 0
@@ -5793,6 +6059,7 @@ GameObject:
   - component: {fileID: 1796298390}
   - component: {fileID: 1796298389}
   - component: {fileID: 1796298388}
+  - component: {fileID: 1796298391}
   m_Layer: 0
   m_Name: TXT_Placeholder
   m_TagString: Untagged
@@ -5940,6 +6207,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796298386}
   m_CullTransparentMesh: 1
+--- !u!114 &1796298391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796298386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 8
 --- !u!1 &1902680938
 GameObject:
   m_ObjectHideFlags: 0
@@ -6029,6 +6309,7 @@ GameObject:
   - component: {fileID: 1937695686}
   - component: {fileID: 1937695685}
   - component: {fileID: 1937695684}
+  - component: {fileID: 1937695687}
   m_Layer: 0
   m_Name: INP_AmountOfExperience
   m_TagString: Untagged
@@ -6195,6 +6476,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937695682}
   m_CullTransparentMesh: 1
+--- !u!114 &1937695687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937695682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!1 &2063289109
 GameObject:
   m_ObjectHideFlags: 0
@@ -6206,6 +6500,7 @@ GameObject:
   - component: {fileID: 2063289110}
   - component: {fileID: 2063289112}
   - component: {fileID: 2063289111}
+  - component: {fileID: 2063289113}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -6333,6 +6628,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063289109}
   m_CullTransparentMesh: 1
+--- !u!114 &2063289113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063289109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 10
 --- !u!224 &2080600573 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8440325362404164240, guid: 714137c6bb9cc4411a28a867436e8331,
@@ -6365,6 +6673,7 @@ GameObject:
   - component: {fileID: 2100581203}
   - component: {fileID: 2100581202}
   - component: {fileID: 2100581204}
+  - component: {fileID: 2100581205}
   m_Layer: 0
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -6491,6 +6800,19 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &2100581205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100581198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 13
 --- !u!224 &1641482860879592458
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6678,6 +7000,7 @@ GameObject:
   - component: {fileID: 1641482861473269161}
   - component: {fileID: 1641482861473269163}
   - component: {fileID: 1641482861473269166}
+  - component: {fileID: 1641482861473269167}
   m_Layer: 0
   m_Name: BTN_Pause
   m_TagString: Untagged
@@ -6716,6 +7039,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1641482861473269167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641482861473269165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!222 &1641482862213424583
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6847,6 +7183,7 @@ GameObject:
   - component: {fileID: 1641482862213424585}
   - component: {fileID: 1641482862213424583}
   - component: {fileID: 1641482862213424584}
+  - component: {fileID: 1641482862213424587}
   m_Layer: 0
   m_Name: TXT_ScoreText
   m_TagString: Untagged
@@ -6854,6 +7191,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1641482862213424587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641482862213424586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1641482862248182800
 GameObject:
   m_ObjectHideFlags: 0
@@ -6865,6 +7215,7 @@ GameObject:
   - component: {fileID: 1641482862248182831}
   - component: {fileID: 1641482862248182829}
   - component: {fileID: 1641482862248182830}
+  - component: {fileID: 1641482862248182832}
   m_Layer: 0
   m_Name: TXT_TimeText
   m_TagString: Untagged
@@ -6992,6 +7343,19 @@ RectTransform:
   m_AnchoredPosition: {x: -48, y: 40}
   m_SizeDelta: {x: 480, y: 56}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &1641482862248182832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641482862248182800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!224 &4390454674705640363 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7481533257635960535, guid: cc9b5fd734af4427f9288320fe02c850,

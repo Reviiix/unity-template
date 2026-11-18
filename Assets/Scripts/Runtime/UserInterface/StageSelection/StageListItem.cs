@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.Theming;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
@@ -12,8 +14,9 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         [SerializeField] private TMP_Text stageNameDisplay;
         [SerializeField] private Image[] stars;
         [SerializeField] private CanvasGroup lockFade;
-        [SerializeField] private Color earnedStarColour = new Color32(62, 99, 221, 255);
-        [SerializeField] private Color unearnedStarColour = new Color32(128, 134, 143, 255);
+        [SerializeField] private ThemeColour earnedStar = ThemeColour.Accent;
+        [SerializeField] private ThemeColour unearnedStar = ThemeColour.StarUnearned;
+        private ThemeService theme;
 
         public Button Button => stageLevelButton;
         public TMP_Text StageNameDisplay => stageNameDisplay;
@@ -25,12 +28,15 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             lockFade.alpha = selectable ? 1f : LockedAlpha;
         }
 
-        /// <summary>Fills one star per rating point; 0 means the stage has not been completed.</summary>
+        /// <summary>Fills one star per rating point in the current theme; 0 means the stage has not been completed.</summary>
         public void ShowRating(int rating)
         {
+            theme ??= ServiceLocator.Get<ThemeService>();
+            var earned = theme.Get(earnedStar);
+            var unearned = theme.Get(unearnedStar);
             for (var i = 0; i < stars.Length; i++)
             {
-                stars[i].color = i < rating ? earnedStarColour : unearnedStarColour;
+                stars[i].color = i < rating ? earned : unearned;
             }
         }
     }

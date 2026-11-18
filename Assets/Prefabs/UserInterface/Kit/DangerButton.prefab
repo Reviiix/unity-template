@@ -123,6 +123,11 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6364295193767935045, guid: 19eb09855d29b4662a2e8c91268640c5,
+        type: 3}
+      propertyPath: colour
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6488427131291634745, guid: 19eb09855d29b4662a2e8c91268640c5,
         type: 3}
       propertyPath: m_Name
@@ -142,6 +147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.8392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8607128365257346115, guid: 19eb09855d29b4662a2e8c91268640c5,
+        type: 3}
+      propertyPath: colour
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

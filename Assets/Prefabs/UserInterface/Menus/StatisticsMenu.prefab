@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 924270501303301841}
   - component: {fileID: 5987770958041748644}
   - component: {fileID: 2873378097587275956}
+  - component: {fileID: 3703163549675123888}
   m_Layer: 0
   m_Name: TXT_Title
   m_TagString: Untagged
@@ -297,6 +298,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3703163549675123888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241483928573476787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &267185137471861732
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +480,7 @@ GameObject:
   - component: {fileID: 2312684768623697905}
   - component: {fileID: 2565454287155708135}
   - component: {fileID: 1433592012473142221}
+  - component: {fileID: 4473245296846735104}
   m_Layer: 0
   m_Name: TXT_NoDynamicAchievementsSet
   m_TagString: Untagged
@@ -593,6 +608,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4473245296846735104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415210800362722484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &811816046562816433
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +633,7 @@ GameObject:
   - component: {fileID: 2211378255338444176}
   - component: {fileID: 1270244595640839604}
   - component: {fileID: 5801681747726724442}
+  - component: {fileID: 3446340699451738380}
   m_Layer: 0
   m_Name: TXT_LongestSession
   m_TagString: Untagged
@@ -752,6 +781,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3446340699451738380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811816046562816433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &916321863483466162
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +805,7 @@ GameObject:
   - component: {fileID: 5047769864305584699}
   - component: {fileID: 3653693651906717265}
   - component: {fileID: 279529441874902590}
+  - component: {fileID: 5115496185862304038}
   m_Layer: 0
   m_Name: TXT_Reward
   m_TagString: Untagged
@@ -890,6 +933,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5115496185862304038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916321863483466162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &1057320907787579951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,7 +1193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8a40d3abbd472a8949e010c5e0dadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedColour: {r: 0.85882354, g: 0.8980392, b: 0.9882353, a: 1}
+  unlockedColour: 11
+  lockedColour: 3
   rewardDisplay: {fileID: 30755102340375089}
   amountOfUnlocksDisplay: {fileID: 8380535374627814377}
   noAchievementsSetText: {fileID: 0}
@@ -1329,7 +1386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4d2580b958c4c19b65c46591de1cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedColour: {r: 0.85882354, g: 0.8980392, b: 0.9882353, a: 1}
+  unlockedColour: 11
+  lockedColour: 3
   rewardDisplay: {fileID: 279529441874902590}
   amountOfUnlocksDisplay: {fileID: 3374316425500937858}
   noAchievementsSetText: {fileID: 1433592012473142221}
@@ -1622,6 +1680,7 @@ GameObject:
   - component: {fileID: 9192371151563998523}
   - component: {fileID: 5717709716183531128}
   - component: {fileID: 30755102340375089}
+  - component: {fileID: 3978485869117920914}
   m_Layer: 0
   m_Name: TXT_Reward
   m_TagString: Untagged
@@ -1749,6 +1808,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3978485869117920914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3031272054441054571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &3880864506709826188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,6 +2165,7 @@ GameObject:
   - component: {fileID: 64401849151594980}
   - component: {fileID: 4726959244067665471}
   - component: {fileID: 8380535374627814377}
+  - component: {fileID: 5107384967022864333}
   m_Layer: 0
   m_Name: TXT_AmountOfAchievements
   m_TagString: Untagged
@@ -2220,6 +2293,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5107384967022864333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778262761966608997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &5272957029339685985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2317,7 @@ GameObject:
   - component: {fileID: 1328276648256906863}
   - component: {fileID: 6174840101516612960}
   - component: {fileID: 3374316425500937858}
+  - component: {fileID: 6774475049067183656}
   m_Layer: 0
   m_Name: TXT_AmountOfAchievements
   m_TagString: Untagged
@@ -2358,6 +2445,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6774475049067183656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272957029339685985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &5313592538706656144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,6 +2470,7 @@ GameObject:
   - component: {fileID: 6791320262831155104}
   - component: {fileID: 4462576772396023028}
   - component: {fileID: 4648396359837017622}
+  - component: {fileID: 6163145726889052296}
   m_Layer: 0
   m_Name: GRP_AchievementPanelButtons
   m_TagString: Untagged
@@ -2462,6 +2563,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.292181
+--- !u!114 &6163145726889052296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313592538706656144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 3
 --- !u!1 &5430640075835335086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,6 +2858,7 @@ GameObject:
   - component: {fileID: 7729814245437169983}
   - component: {fileID: 4409436067105802080}
   - component: {fileID: 7073993448184306284}
+  - component: {fileID: 8022649574877203124}
   m_Layer: 0
   m_Name: TXT_ComingSoon
   m_TagString: Untagged
@@ -2871,6 +2986,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8022649574877203124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145285595738691077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &7192233047437935611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3598,6 +3726,7 @@ GameObject:
   - component: {fileID: 4413985812365528181}
   - component: {fileID: 2154866141857948006}
   - component: {fileID: 9121391365700849630}
+  - component: {fileID: 8555164636506069260}
   m_Layer: 0
   m_Name: GRP_PanelButtons
   m_TagString: Untagged
@@ -3691,6 +3820,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2.6936026
+--- !u!114 &8555164636506069260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732769560300381075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 3
 --- !u!1 &8847484536937530695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3703,6 +3845,7 @@ GameObject:
   - component: {fileID: 5990823649206345472}
   - component: {fileID: 5007564379298175236}
   - component: {fileID: 6910919013866835160}
+  - component: {fileID: 9141393716692652552}
   m_Layer: 0
   m_Name: TXT_TimesOpened
   m_TagString: Untagged
@@ -3850,6 +3993,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &9141393716692652552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847484536937530695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &9051812021047962001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3969,6 +4125,7 @@ GameObject:
   - component: {fileID: 5567832111947334539}
   - component: {fileID: 3912359736073315234}
   - component: {fileID: 7264413071007664185}
+  - component: {fileID: 8081036453446372246}
   m_Layer: 0
   m_Name: TXT_Time Played
   m_TagString: Untagged
@@ -4116,6 +4273,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8081036453446372246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9155823899680856340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1001 &1051539860695942303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4261,9 +4431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.MainMenus.StatisticsMenu
   startingStatisticsPanel: 1
-  selectedTabColour: {r: 1, g: 1, b: 1, a: 1}
-  selectedTabTextColour: {r: 0.08, g: 0.09, b: 0.11, a: 1}
-  unselectedTabTextColour: {r: 0.36, g: 0.39, b: 0.44, a: 1}
+  selectedTab: 2
+  selectedTabText: 6
+  unselectedTabText: 7
   performanceButton: {fileID: 3304851752604667133}
   timePlayed: {fileID: 3912359736073315234}
   timesOpened: {fileID: 5007564379298175236}

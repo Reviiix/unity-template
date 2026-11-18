@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 1070076548582728481}
   - component: {fileID: 5093661765646871411}
   - component: {fileID: 3504767940193559553}
+  - component: {fileID: 4509277283153416652}
   m_Layer: 0
   m_Name: IMG_TitleAccent
   m_TagString: Untagged
@@ -170,6 +171,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &4509277283153416652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092716820619943471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &2748544189984446908
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,6 +378,7 @@ GameObject:
   - component: {fileID: 1323701476489216815}
   - component: {fileID: 6596824300131751148}
   - component: {fileID: 4064042493481781381}
+  - component: {fileID: 684731058932886689}
   m_Layer: 0
   m_Name: TXT_GameTitle
   m_TagString: Untagged
@@ -524,6 +539,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &684731058932886689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8822283996669145203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1001 &384200107726178086
 PrefabInstance:
   m_ObjectHideFlags: 0

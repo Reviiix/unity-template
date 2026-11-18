@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2292360706963825627}
   - component: {fileID: 3856197406304284266}
   - component: {fileID: 3822709014978292313}
+  - component: {fileID: 828850349805217882}
   m_Layer: 0
   m_Name: TXT_Segment5
   m_TagString: Untagged
@@ -138,6 +139,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &828850349805217882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809426697079756569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1154669626424701348
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +163,7 @@ GameObject:
   - component: {fileID: 405605568963322554}
   - component: {fileID: 1257181836044868771}
   - component: {fileID: 2209955867089033531}
+  - component: {fileID: 558216915100798610}
   m_Layer: 0
   m_Name: TXT_Segment0
   m_TagString: Untagged
@@ -276,6 +291,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &558216915100798610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154669626424701348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1282726636015394284
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +315,7 @@ GameObject:
   - component: {fileID: 7793120850108973655}
   - component: {fileID: 7066883968999596628}
   - component: {fileID: 8660442055545932353}
+  - component: {fileID: 8241625944782024778}
   m_Layer: 0
   m_Name: TXT_Segment3
   m_TagString: Untagged
@@ -414,6 +443,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8241625944782024778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282726636015394284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &1395707525807351490
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +467,7 @@ GameObject:
   - component: {fileID: 2926209973483607977}
   - component: {fileID: 8137858853580075883}
   - component: {fileID: 2370957898809282895}
+  - component: {fileID: 2832180157284545458}
   m_Layer: 0
   m_Name: IMG_HubDot
   m_TagString: Untagged
@@ -489,6 +532,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2832180157284545458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395707525807351490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &2206412227375760964
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +556,7 @@ GameObject:
   - component: {fileID: 6268227097744293685}
   - component: {fileID: 6120725622091185914}
   - component: {fileID: 547364634037770733}
+  - component: {fileID: 4377977869349111737}
   m_Layer: 0
   m_Name: TXT_WheelWinDisplay
   m_TagString: Untagged
@@ -627,6 +684,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4377977869349111737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206412227375760964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &3195125109164605585
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +708,7 @@ GameObject:
   - component: {fileID: 2477015391706687541}
   - component: {fileID: 7778014869118074423}
   - component: {fileID: 8087496120832072557}
+  - component: {fileID: 9206681316789270435}
   m_Layer: 0
   m_Name: IMG_Pointer
   m_TagString: Untagged
@@ -702,6 +773,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9206681316789270435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195125109164605585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &4163577392742960368
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +797,7 @@ GameObject:
   - component: {fileID: 7841159585414778273}
   - component: {fileID: 5003887398712072257}
   - component: {fileID: 3987681266996982962}
+  - component: {fileID: 6871365262459270058}
   m_Layer: 0
   m_Name: TXT_Segment8
   m_TagString: Untagged
@@ -840,6 +925,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6871365262459270058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4163577392742960368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &4188986647996923489
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +949,7 @@ GameObject:
   - component: {fileID: 1893815290286619638}
   - component: {fileID: 6277914687429679185}
   - component: {fileID: 2382621945832778454}
+  - component: {fileID: 6493895729049280525}
   m_Layer: 0
   m_Name: TXT_Segment2
   m_TagString: Untagged
@@ -978,6 +1077,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6493895729049280525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188986647996923489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &4438077473245736853
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +1101,7 @@ GameObject:
   - component: {fileID: 834675360668058040}
   - component: {fileID: 8307030254739688698}
   - component: {fileID: 3601799959579629500}
+  - component: {fileID: 756010748591521102}
   m_Layer: 0
   m_Name: IMG_HubRing
   m_TagString: Untagged
@@ -1053,6 +1166,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &756010748591521102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438077473245736853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!1 &5076021765384050810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,6 +1191,7 @@ GameObject:
   - component: {fileID: 8972642606512988363}
   - component: {fileID: 4646368187244406900}
   - component: {fileID: 7307053988370366780}
+  - component: {fileID: 2055865354320789231}
   m_Layer: 0
   m_Name: SpinningWheel
   m_TagString: Untagged
@@ -1200,6 +1327,19 @@ MonoBehaviour:
   duration: 7
   wheelEasing: 13
   easingOvershoot: 0
+--- !u!114 &2055865354320789231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076021765384050810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4
 --- !u!1 &5234126568855067365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1351,7 @@ GameObject:
   - component: {fileID: 1161121900654292669}
   - component: {fileID: 3444905320139159885}
   - component: {fileID: 8848147851365711733}
+  - component: {fileID: 7803345033635668701}
   m_Layer: 0
   m_Name: TXT_Segment7
   m_TagString: Untagged
@@ -1338,6 +1479,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7803345033635668701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5234126568855067365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &5573953867880221400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1539,7 @@ GameObject:
   - component: {fileID: 7310213889302334632}
   - component: {fileID: 3181739918261214661}
   - component: {fileID: 7380022154896064549}
+  - component: {fileID: 4852991163571588239}
   m_Layer: 0
   m_Name: IMG_Hub
   m_TagString: Untagged
@@ -1449,6 +1604,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4852991163571588239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5889947371995939964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1
 --- !u!1 &5901792794088952071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,6 +1628,7 @@ GameObject:
   - component: {fileID: 9169597932344060238}
   - component: {fileID: 5224598921389754615}
   - component: {fileID: 5426467246821159755}
+  - component: {fileID: 7442303015754192126}
   m_Layer: 0
   m_Name: TXT_ConsecutiveOpensDisplay
   m_TagString: Untagged
@@ -1587,6 +1756,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7442303015754192126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901792794088952071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &6548857018238887567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1780,7 @@ GameObject:
   - component: {fileID: 5736715781913556478}
   - component: {fileID: 4416581875772069736}
   - component: {fileID: 5377970414100403574}
+  - component: {fileID: 7120042827973169396}
   m_Layer: 0
   m_Name: TXT_Segment9
   m_TagString: Untagged
@@ -1725,6 +1908,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7120042827973169396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6548857018238887567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &6910713140302303892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1932,7 @@ GameObject:
   - component: {fileID: 4784262320547369740}
   - component: {fileID: 7044346459599091222}
   - component: {fileID: 2722837251104578251}
+  - component: {fileID: 5550948337825182478}
   m_Layer: 0
   m_Name: TXT_Segment6
   m_TagString: Untagged
@@ -1863,6 +2060,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5550948337825182478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6910713140302303892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &7145656589900250365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +2133,7 @@ GameObject:
   - component: {fileID: 5524761233507899268}
   - component: {fileID: 8705672013571754204}
   - component: {fileID: 5733633438490108218}
+  - component: {fileID: 6290785581241394699}
   m_Layer: 0
   m_Name: TXT_Segment4
   m_TagString: Untagged
@@ -2050,6 +2261,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6290785581241394699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7539890774921576692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &8723575625385321546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2285,7 @@ GameObject:
   - component: {fileID: 1625600732572065963}
   - component: {fileID: 1735969652321254159}
   - component: {fileID: 8056646621597763520}
+  - component: {fileID: 550537015358494114}
   m_Layer: 0
   m_Name: TXT_Segment1
   m_TagString: Untagged
@@ -2188,6 +2413,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &550537015358494114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723575625385321546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1 &8821437725362334509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,6 +2437,7 @@ GameObject:
   - component: {fileID: 6166746830742976560}
   - component: {fileID: 4653251248704211623}
   - component: {fileID: 2391568788534559178}
+  - component: {fileID: 8845536391847894570}
   m_Layer: 0
   m_Name: TXT_Segment10
   m_TagString: Untagged
@@ -2326,6 +2565,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8845536391847894570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821437725362334509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6
 --- !u!1001 &3862564604744413104
 PrefabInstance:
   m_ObjectHideFlags: 0

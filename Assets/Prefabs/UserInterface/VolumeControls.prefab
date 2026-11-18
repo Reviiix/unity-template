@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 8073465724064067615}
   - component: {fileID: 8073465724064067614}
   - component: {fileID: 8073465724064067613}
+  - component: {fileID: 2163413333991301109}
   m_Layer: 0
   m_Name: IMG_Volume
   m_TagString: Untagged
@@ -157,6 +158,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2163413333991301109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073465724064067611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &8073465724241433548
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +182,7 @@ GameObject:
   - component: {fileID: 8073465724241433549}
   - component: {fileID: 8073465724241433551}
   - component: {fileID: 8073465724241433550}
+  - component: {fileID: 1315174013969416390}
   m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
@@ -232,6 +247,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 10.666667
+--- !u!114 &1315174013969416390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073465724241433548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &8073465724447234719
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +374,7 @@ GameObject:
   - component: {fileID: 8073465725560323299}
   - component: {fileID: 8073465725560323301}
   - component: {fileID: 8073465725560323300}
+  - component: {fileID: 8656982105128164637}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -410,6 +439,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 10.666667
+--- !u!114 &8656982105128164637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073465725560323298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 5
 --- !u!1 &8073465725632807778
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +593,7 @@ GameObject:
   - component: {fileID: 8073465725655142149}
   - component: {fileID: 8073465725655142151}
   - component: {fileID: 8073465725655142150}
+  - component: {fileID: 6199135125729510501}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -615,3 +658,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6199135125729510501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073465725655142148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
