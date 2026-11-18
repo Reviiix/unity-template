@@ -130,8 +130,10 @@ The full standards are in [unity-coding-standards/README.md](unity-coding-standa
 
 ## Tests
 
-- **Window > General > Test Runner**: EditMode (services, saves, scene wiring) and PlayMode (boots the game and walks first launch, the daily wheel, the RESET ALL confirmation and starting a stage).
-- Command line: `unity test <project> --mode EditMode` and `unity test <project> --mode PlayMode`. The PlayMode tests back up and restore your local save.
+- **Window > General > Test Runner**: EditMode (services, saves, scene wiring, the template's set-up) and PlayMode (boots the game and walks first launch, the daily wheel, the RESET ALL confirmation, the dark mode switch and starting a stage). The PlayMode tests are in the `Smoke` category.
+- Command line:
+  - `unity test <project> --mode EditMode` takes seconds and loads no game; run it after every change.
+  - `unity test <project> --mode PlayMode` boots the full game (about a minute, longer on software rendering); run it before a pull request. It backs up and restores your local save.
 
 Manual checklist before a release: cold start, first open, daily wheel (spin and X), anniversary (Tools > Save Data tools), stage fade, RESET ALL, Android back button, airplane mode.
 
