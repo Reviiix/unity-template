@@ -7,6 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Progression;
+using UnityTemplate.Theming;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
@@ -25,11 +26,13 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         private int currentGroup;
         private ProgressService progress;
         private SaveService saveService;
+        private ThemeService theme;
 
-        /// <summary>Stops listening for RESET ALL and releases the stage item prefab when the menu is destroyed; the buttons use its sprites and font until then.</summary>
+        /// <summary>Stops listening for RESET ALL and theme changes, and releases the stage item prefab when the menu is destroyed; the buttons use its sprites and font until then.</summary>
         private void OnDestroy()
         {
             if (saveService != null) saveService.DataLoaded -= RefreshStageButtons;
+            if (theme != null) theme.Changed -= RefreshStageButtons;
             if (stageItemHandle.IsValid()) Addressables.Release(stageItemHandle);
         }
 
@@ -38,6 +41,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
         {
             progress = ServiceLocator.Get<ProgressService>();
             saveService = ServiceLocator.Get<SaveService>();
+            theme = ServiceLocator.Get<ThemeService>();
             try
             {
                 stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
@@ -56,6 +60,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             }
 
             saveService.DataLoaded += RefreshStageButtons;
+            theme.Changed += RefreshStageButtons;
             nextLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup + 1));
             previousLevelGroupButton.onClick.AddListener(() => ShowGroup(currentGroup - 1));
             ShowGroup(0);

@@ -144,6 +144,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7681796321443609288}
+    - targetCorrespondingSourceObject: {fileID: 3968565226402564692, guid: 3ec02c7357e58431bab317babd5d54aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5874968989926556832}
   m_SourcePrefab: {fileID: 100100000, guid: 3ec02c7357e58431bab317babd5d54aa, type: 3}
 --- !u!114 &1973307425316412369 stripped
 MonoBehaviour:
@@ -242,3 +246,16 @@ MonoBehaviour:
   m_EffectColor: {r: 0.05, g: 0.06, b: 0.08, a: 0.14}
   m_EffectDistance: {x: 0, y: -4}
   m_UseGraphicAlpha: 1
+--- !u!114 &5874968989926556832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8770521175962974300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 1

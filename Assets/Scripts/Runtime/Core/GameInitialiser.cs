@@ -7,6 +7,7 @@ using UnityTemplate.Audio;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
 using UnityTemplate.Progression;
+using UnityTemplate.Theming;
 using UnityTemplate.UserInterface;
 
 namespace UnityTemplate.Core
@@ -26,6 +27,8 @@ namespace UnityTemplate.Core
         [Header("Data")]
         [SerializeField] private StageCatalogue stageCatalogue;
         [SerializeField] private AchievementCatalogue achievementCatalogue;
+        [SerializeField] private ThemePalette lightTheme;
+        [SerializeField] private ThemePalette darkTheme;
 
         [Header("Features")]
         [SerializeField] private bool achievementsEnabled;
@@ -47,14 +50,16 @@ namespace UnityTemplate.Core
             var experience = new ExperienceService(saveService, configuration.AmountOfExperienceLevels);
             var progress = new ProgressService(saveService, stageCatalogue);
             engagementService = new EngagementService(saveService, () => Time.realtimeSinceStartupAsDouble);
+            var theme = new ThemeService(lightTheme, darkTheme, saveService);
             var achievements = new AchievementService(saveService, credits, achievementCatalogue, configuration.DynamicAchievements, achievementsEnabled);
 
-            foreach (var saveable in new ISaveable[] { credits, experience, progress, engagementService, achievements, audioManager })
+            foreach (var saveable in new ISaveable[] { credits, experience, progress, engagementService, achievements, audioManager, theme })
             {
                 saveService.Register(saveable);
             }
 
             ServiceLocator.Register(saveService);
+            ServiceLocator.Register(theme);
             ServiceLocator.Register(credits);
             ServiceLocator.Register(experience);
             ServiceLocator.Register(progress);

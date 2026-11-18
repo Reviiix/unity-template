@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3601964369280445871}
   - component: {fileID: 3601964369280445873}
   - component: {fileID: 3601964369280445872}
+  - component: {fileID: 6943473775025163544}
   m_Layer: 0
   m_Name: TXT_Experience
   m_TagString: Untagged
@@ -138,6 +139,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6943473775025163544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601964369280445870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 7
 --- !u!1 &3601964370359578426
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +163,7 @@ GameObject:
   - component: {fileID: 3601964370359578427}
   - component: {fileID: 3601964370359578430}
   - component: {fileID: 8987095518475974001}
+  - component: {fileID: 1087524175480088360}
   m_Layer: 0
   m_Name: IMG_LevelBadge
   m_TagString: Untagged
@@ -214,6 +229,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1087524175480088360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601964370359578426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &3601964370644286865
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +253,7 @@ GameObject:
   - component: {fileID: 3601964370644286866}
   - component: {fileID: 3601964370644286868}
   - component: {fileID: 3601964370644286867}
+  - component: {fileID: 6224297274956188610}
   m_Layer: 0
   m_Name: TXT_Level
   m_TagString: Untagged
@@ -352,6 +381,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6224297274956188610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601964370644286865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 10
 --- !u!1 &3601964370821753260
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +468,7 @@ GameObject:
   - component: {fileID: 3601964371160016422}
   - component: {fileID: 3601964371160016424}
   - component: {fileID: 3601964371160016423}
+  - component: {fileID: 2451676471384292249}
   m_Layer: 0
   m_Name: IMG_LevelFillAmount
   m_TagString: Untagged
@@ -490,6 +533,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2451676471384292249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601964371160016421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 9
 --- !u!1 &7532752722395269098
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +558,7 @@ GameObject:
   - component: {fileID: 1457931354086431981}
   - component: {fileID: 1542329572446020479}
   - component: {fileID: 3835642709252876023}
+  - component: {fileID: 5040363090407569555}
   m_Layer: 0
   m_Name: GRP_LevelFillAmount
   m_TagString: Untagged
@@ -580,3 +637,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
+--- !u!114 &5040363090407569555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7532752722395269098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 4

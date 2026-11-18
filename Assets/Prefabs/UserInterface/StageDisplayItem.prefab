@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7943059614835234724}
   - component: {fileID: 5068064901860649568}
   - component: {fileID: 6803911648795752073}
+  - component: {fileID: 619624831393670680}
   m_Layer: 0
   m_Name: StageDisplayItem
   m_TagString: Untagged
@@ -69,8 +70,8 @@ MonoBehaviour:
   - {fileID: 3968565227315672986}
   - {fileID: 3968565227717399628}
   lockFade: {fileID: 6803911648795752073}
-  earnedStarColour: {r: 0.24313726, g: 0.3882353, b: 0.8666667, a: 1}
-  unearnedStarColour: {r: 0.5019608, g: 0.5254902, b: 0.56078434, a: 1}
+  earnedStar: 9
+  unearnedStar: 14
 --- !u!114 &7943059614835234724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &619624831393670680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3968565226402564692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 3
 --- !u!1 &3968565226730754473
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +589,7 @@ GameObject:
   - component: {fileID: 3968565228246954456}
   - component: {fileID: 3968565228246954458}
   - component: {fileID: 3968565228246954457}
+  - component: {fileID: 117228783801266815}
   m_Layer: 0
   m_Name: TXT_LevelNumber
   m_TagString: Untagged
@@ -702,3 +717,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &117228783801266815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3968565228246954455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf4f829833475193e87c69a40b59e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
+  colour: 6

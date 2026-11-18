@@ -14,8 +14,11 @@ using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
 using UnityTemplate.Gameplay;
+using UnityTemplate.Theming;
 using UnityTemplate.UserInterface;
 using UnityTemplate.UserInterface.ConditionalMenus;
+using UnityTemplate.UserInterface.Kit;
+using UnityTemplate.UserInterface.MainMenus;
 using UnityTemplate.UserInterface.PopUpMenus;
 using Object = UnityEngine.Object;
 
@@ -125,6 +128,33 @@ namespace UnityTemplate.Tests.PlayMode
             yield return WaitUntil(() => ServiceLocator.TryGet<GameManager>(out _), 15);
 
             Assert.AreEqual("0-0(Tutorial)", SceneManager.GetActiveScene().name);
+        }
+
+        /// <summary>Flips the dark mode switch in Settings and checks that the UI recolours, the choice is saved, and flipping it back returns to light.</summary>
+        [UnityTest]
+        public IEnumerator DarkModeSwitchRecoloursTheUiAndIsSaved()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var theme = ServiceLocator.Get<ThemeService>();
+            var backdrop = Object.FindObjectsByType<Image>(FindObjectsInactive.Include, FindObjectsSortMode.None).Single(image => image.name == "IMG_Backdrop");
+            var lightBackground = theme.Get(ThemeColour.Background);
+            Assert.AreEqual(ThemeMode.Light, theme.Mode);
+            Assert.AreEqual(lightBackground, backdrop.color);
+
+            var darkModeSwitch = Object.FindFirstObjectByType<SettingsMenu>().GetComponentInChildren<ToggleSwitch>(true);
+            darkModeSwitch.Toggle.isOn = true;
+            yield return null;
+
+            Assert.AreEqual(ThemeMode.Dark, theme.Mode);
+            Assert.AreEqual(theme.Get(ThemeColour.Background), backdrop.color);
+            Assert.AreNotEqual(lightBackground, backdrop.color);
+            StringAssert.Contains("\"darkMode\":true", File.ReadAllText(Path.Combine(Application.persistentDataPath, SaveFileName)));
+
+            darkModeSwitch.Toggle.isOn = false;
+            yield return null;
+            Assert.AreEqual(ThemeMode.Light, theme.Mode);
+            Assert.AreEqual(lightBackground, backdrop.color);
         }
 
         private static IEnumerator LoadInitialisation()
