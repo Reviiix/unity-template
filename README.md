@@ -4,8 +4,8 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 | | |
 |---|---|
-| Unity | 6000.3.9f1 |
-| Platforms | iOS 15+ and Android 7.0+ (API 24), landscape only; WebGL for browser previews |
+| Unity | 6000.3.28f1 (the build agent's editor; upgrade the template when that changes) |
+| Platforms | iOS 15+ and Android 7.1+ (API 25), landscape only; WebGL for browser previews |
 | Scripting | IL2CPP, ARM64 (Android), .NET Standard 2.1 |
 | Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`), Unity Pipeline (Editor tooling for the `unity` command-line tool; not in players) |
 
@@ -13,7 +13,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts are stored in LFS (see `.gitattributes`). Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
 
-1. Open the project with Unity 6000.3.9f1.
+1. Open the project with Unity 6000.3.28f1.
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
 3. In the Editor, Addressables use the **Use Asset Database** play mode, so no content build is needed. To test real bundles, run **Window > Asset Management > Addressables > Groups > Build > New Build > Default Build Script**, then set **Play Mode Script** to **Use Existing Build**.
 
@@ -172,7 +172,7 @@ Git flow: branch from `develop` (`feature/...`, `bugfix/...`), one commit per ch
 
 ### Unity version tags
 
-Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.9f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor.
+Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.28f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor.
 
 - The **Unity version tags** GitHub Actions workflow (`.github/workflows/unity-version-tags.yml`) adds and pushes the tags whenever `develop` or `main` is pushed with an editor change; fetch them with `git fetch --tags`. It needs **Settings > Actions > General > Workflow permissions** to allow read and write (or no organisation policy blocking `contents: write`).
 - To tag by hand (no Actions, another clone, a rebase), run `.githooks/tag-unity-versions`; it scans every local branch and skips tags that already exist. Tags stay local until pushed with `git push --tags`.
