@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using UnityTemplate.Utilities;
 
 namespace UnityTemplate.Achievements
 {
@@ -29,7 +30,7 @@ namespace UnityTemplate.Achievements
 
             ReleaseIcon();
             iconHandle = Addressables.LoadAssetAsync<Sprite>(achievement.Icon);
-            var icon = await iconHandle.Task;
+            var icon = await iconHandle.ToAwaitable();
             if (this == null) return;
             graphic.sprite = icon;
             graphic.color = Color.white;

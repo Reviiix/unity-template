@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Progression;
 using UnityTemplate.Theming;
+using UnityTemplate.Utilities;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
@@ -45,7 +46,8 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             try
             {
                 stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
-                var itemPrefab = await stageItemHandle.Task;
+                var itemPrefab = await stageItemHandle.ToAwaitable();
+                if (this == null) return;
                 if (stageItemHandle.Status != AsyncOperationStatus.Succeeded || itemPrefab == null)
                 {
                     Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty. " + stageItemHandle.OperationException);
@@ -82,8 +84,9 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                 {
                     var item = Instantiate(itemPrefab, page).GetComponentInChildren<StageListItem>();
                     item.transform.localScale = Vector3.one;
-                    labelBuilder.Clear().Append(group).Append('-').Append(stage);
-                    item.StageNameDisplay.SetText(labelBuilder);
+                    var stageName = catalogue.GetStageName(group, stage);
+                    if (stageName != null) item.StageNameDisplay.SetText(stageName);
+                    else item.StageNameDisplay.SetText(labelBuilder.Clear().Append(group).Append('-').Append(stage));
                     stageButtons.Add((item, group, stage));
 
                     var selectedGroup = group;
@@ -96,7 +99,14 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             RefreshStageButtons();
         }
 
-        /// <summary>Shows each stage button's locked state and rating, at start-up and again after RESET ALL.</summary>
+        /// <summary>Shows the menu with up-to-date unlocks and ratings, which change when a stage is played.</summary>
+        public override void Show()
+        {
+            base.Show();
+            if (progress != null) RefreshStageButtons();
+        }
+
+        /// <summary>Shows each stage button's locked state and rating: at start-up, after RESET ALL and whenever the menu opens.</summary>
         private void RefreshStageButtons()
         {
             foreach (var (item, group, stage) in stageButtons)

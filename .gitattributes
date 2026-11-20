@@ -14,8 +14,7 @@
 *.anim      text eol=lf
 *.controller text eol=lf
 
-# Art, audio, video and fonts go to Git LFS. Files committed before these
-# rules stay ordinary blobs until they are next changed.
+# Art, audio, video and fonts that a game adds go to Git LFS.
 *.png  filter=lfs diff=lfs merge=lfs -text
 *.jpg  filter=lfs diff=lfs merge=lfs -text
 *.psd  filter=lfs diff=lfs merge=lfs -text
@@ -29,6 +28,29 @@
 *.mp4  filter=lfs diff=lfs merge=lfs -text
 *.ttf  filter=lfs diff=lfs merge=lfs -text
 *.otf  filter=lfs diff=lfs merge=lfs -text
+
+# The template's own binaries stay ordinary git files: GitHub's "Use this
+# template" and repository copies don't carry LFS objects, so LFS files here
+# would be missing in every new game. Small vendor folders, then each file.
+Assets/Plugins/DOTween/** -filter binary
+Assets/TextMesh[[:space:]]Pro/** -filter binary
+Assets/Fonts/Inter/** -filter binary
+Assets/Audio/ButtonClick.wav -filter binary
+Assets/Audio/Whoosh.mp3 -filter binary
+Assets/Graphics/Achievements/placeholder.png -filter binary
+Assets/Graphics/Icons.png -filter binary
+Assets/Graphics/Logo/LogoSmall.jpg -filter binary
+Assets/Graphics/Shapes/Circle.png -filter binary
+Assets/Graphics/Shapes/RoundedRect.png -filter binary
+Assets/Graphics/Shapes/RoundedRectOutline.png -filter binary
+Assets/Graphics/Shapes/SoftShadow.png -filter binary
+Assets/Graphics/Shapes/Star.png -filter binary
+Assets/Graphics/Shapes/Triangle.png -filter binary
+Assets/Graphics/SinglePixel/TransparentPixel.png -filter binary
+Assets/Graphics/SinglePixel/WhitePixel.png -filter binary
+Assets/Graphics/SocialNetworkIcons.png -filter binary
+Assets/Graphics/VolumeIcons.psd -filter binary
+Assets/Graphics/Wheel.png -filter binary
 
 # Other binaries stay in git.
 *.dll  binary
