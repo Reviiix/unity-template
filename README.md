@@ -174,7 +174,7 @@ Git flow: branch from `develop` (`feature/...`, `bugfix/...`), one commit per ch
 
 Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.28f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor.
 
-- The **Unity version tags** GitHub Actions workflow (`.github/workflows/unity-version-tags.yml`) adds and pushes the tags whenever `develop` or `main` is pushed with an editor change; fetch them with `git fetch --tags`. It needs **Settings > Actions > General > Workflow permissions** to allow read and write (or no organisation policy blocking `contents: write`).
+- The **Unity version tags** GitHub Actions workflow (`.github/workflows/unity-version-tags.yml`) adds and pushes the tags whenever `develop` or `main` is pushed with an editor change; fetch them with `git fetch --tags`. The workflow asks for permission to push tags itself, so it needs no repository setting beyond GitHub Actions being enabled (the default).
 - To tag by hand (no Actions, another clone, a rebase), run `.githooks/tag-unity-versions`; it scans every local branch and skips tags that already exist. Tags stay local until pushed with `git push --tags`.
 
 No git hooks or `core.hooksPath` setting are needed: overriding `core.hooksPath` would switch off any hooks your machine already installs. If you set it for an earlier version of this template, undo it with `git config --unset core.hooksPath`.
