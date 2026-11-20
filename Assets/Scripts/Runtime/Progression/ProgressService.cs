@@ -22,9 +22,10 @@ namespace UnityTemplate.Progression
             stageRatings = new int[catalogue.GetTotalStageCount()];
         }
 
-        /// <summary>Returns true for the first stage and for every stage whose previous stage has been rated.</summary>
+        /// <summary>Returns true for the first stage and for every stage whose previous stage has been rated, or for every stage when the catalogue unlocks them all.</summary>
         public bool IsUnlocked(int group, int stage)
         {
+            if (catalogue.AllStagesUnlocked) return true;
             var index = catalogue.GetStageIndex(group, stage);
             return index == 0 || stageRatings[index - 1] > 0;
         }

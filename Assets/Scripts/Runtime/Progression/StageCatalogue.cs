@@ -9,8 +9,11 @@ namespace UnityTemplate.Progression
     public class StageCatalogue : ScriptableObject
     {
         [SerializeField] private StageGroup[] groups = Array.Empty<StageGroup>();
+        [Tooltip("Unlock every stage from the start, for collections where nothing is rated.")]
+        [SerializeField] private bool allStagesUnlocked;
 
         public int GroupCount => groups.Length;
+        public bool AllStagesUnlocked => allStagesUnlocked;
 
         /// <summary>Returns how many stages a group contains.</summary>
         public int GetStageCount(int group)

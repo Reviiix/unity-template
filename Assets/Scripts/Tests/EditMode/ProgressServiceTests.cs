@@ -4,7 +4,7 @@ using UnityTemplate.Progression;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Tests stage unlocking, the CONTINUE target and the high score.</summary>
+    /// <summary>Tests stage unlocking (including the catalogue's unlock-all switch), the CONTINUE target and the high score.</summary>
     public class ProgressServiceTests
     {
         private TestSaveFolder folder;
@@ -66,6 +66,14 @@ namespace UnityTemplate.Tests
             Assert.IsTrue(progress.SubmitScore(10));
             Assert.IsFalse(progress.SubmitScore(5));
             Assert.AreEqual(10, progress.HighScore);
+        }
+
+        [Test]
+        public void AllStagesUnlockedUnlocksEveryStageWithoutRatings()
+        {
+            JsonUtility.FromJsonOverwrite("{\"allStagesUnlocked\":true}", catalogue);
+            Assert.IsTrue(progress.IsUnlocked(0, 2));
+            Assert.IsTrue(progress.IsUnlocked(1, 1));
         }
     }
 }
