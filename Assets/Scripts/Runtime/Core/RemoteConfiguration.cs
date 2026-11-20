@@ -18,8 +18,9 @@ namespace UnityTemplate.Core
             var configuration = new GameConfiguration();
             try
             {
-                var cachedJson = RemoteConfigService.Instance.GetConfig(ConfigType).GetJson(ConfigurationKey, "{}");
-                JsonUtility.FromJsonOverwrite(cachedJson, configuration);
+                var cachedConfig = RemoteConfigService.Instance.GetConfig(ConfigType);
+                // GetJson dereferences null when the key isn't cached yet, which WebGL can't catch without full exception support.
+                if (cachedConfig.HasKey(ConfigurationKey)) JsonUtility.FromJsonOverwrite(cachedConfig.GetJson(ConfigurationKey, "{}"), configuration);
             }
             catch (Exception exception)
             {
