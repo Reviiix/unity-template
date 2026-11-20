@@ -11,7 +11,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 ## Getting started
 
-Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts are stored in LFS (see `.gitattributes`). Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
+Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts that a game adds are stored in LFS. The template's own binaries stay ordinary git files, so copies of the template (GitHub's **Use this template** doesn't copy LFS objects) work; `.gitattributes` lists them. Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
 
 1. Open the project with Unity 6000.3.28f1.
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
