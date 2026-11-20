@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace UnityTemplate.Progression
 {
-    /// <summary>Designer-editable list of stage groups and the Addressable scene of each stage; an empty scene slot shows as a locked stage.</summary>
+    /// <summary>Designer-editable list of stage groups with each stage's Addressable scene and optional name; an empty scene slot shows as a locked stage.</summary>
     [CreateAssetMenu(fileName = "StageCatalogue", menuName = "Unity Template/Stage Catalogue")]
     public class StageCatalogue : ScriptableObject
     {
@@ -43,17 +43,26 @@ namespace UnityTemplate.Progression
             return groups[group].scenes[stage];
         }
 
+        /// <summary>Returns the stage's display name, or null when none is set (buttons then show group-stage).</summary>
+        public string GetStageName(int group, int stage)
+        {
+            var names = groups[group].names;
+            return names != null && stage < names.Length && !string.IsNullOrWhiteSpace(names[stage]) ? names[stage] : null;
+        }
+
         /// <summary>Returns true when a scene is assigned to the stage, so it can be loaded.</summary>
         public bool HasScene(int group, int stage)
         {
             return GetScene(group, stage).RuntimeKeyIsValid();
         }
 
-        /// <summary>One group of stages: the scene of each stage, in order.</summary>
+        /// <summary>One group of stages: the scene of each stage, in order, and optional names by the same position.</summary>
         [Serializable]
         private struct StageGroup
         {
             public AssetReference[] scenes;
+            [Tooltip("Optional button labels, one per scene slot; empty entries show group-stage.")]
+            public string[] names;
         }
     }
 }

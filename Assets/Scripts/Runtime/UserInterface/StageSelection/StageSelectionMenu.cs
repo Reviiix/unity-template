@@ -84,8 +84,9 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
                 {
                     var item = Instantiate(itemPrefab, page).GetComponentInChildren<StageListItem>();
                     item.transform.localScale = Vector3.one;
-                    labelBuilder.Clear().Append(group).Append('-').Append(stage);
-                    item.StageNameDisplay.SetText(labelBuilder);
+                    var stageName = catalogue.GetStageName(group, stage);
+                    if (stageName != null) item.StageNameDisplay.SetText(stageName);
+                    else item.StageNameDisplay.SetText(labelBuilder.Clear().Append(group).Append('-').Append(stage));
                     stageButtons.Add((item, group, stage));
 
                     var selectedGroup = group;
