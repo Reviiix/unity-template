@@ -1880,7 +1880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1775aab0eaf2744d681ab03e330a558c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://github.com/Reviiix/unity-template
+  url: 
 --- !u!114 &427711655
 MonoBehaviour:
   m_ObjectHideFlags: 0

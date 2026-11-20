@@ -33,16 +33,24 @@ namespace UnityTemplate.UserInterface
         [SerializeField] private AssetReferenceGameObject anniversaryPopUp;
 
         private readonly List<PopUpWindow> openPopUps = new();
+        private readonly MenuRenderThrottle renderThrottle = new();
         private MenuBase[] allMenus;
         private RawImage transitionalFadeImage;
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
         public bool IsShowingStartUpPopUps { get; private set; }
 
-        /// <summary>Polls the Android back button (the old Input Manager offers no event for it).</summary>
+        /// <summary>Polls the Android back button (the old Input Manager offers no event for it) and throttles rendering while the menus are still.</summary>
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape)) HandleBackButton();
+            renderThrottle.Tick(background.enabled);
+        }
+
+        /// <summary>Returns rendering to every frame when the user interface goes away.</summary>
+        private void OnDestroy()
+        {
+            renderThrottle.Stop();
         }
 
         /// <summary>Wires buttons and lets each menu resolve its services; called once by GameInitialiser.</summary>

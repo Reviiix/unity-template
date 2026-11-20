@@ -57,7 +57,7 @@ MonoBehaviour:
   m_ContentStateBuildPathProfileVariableName: 
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
-  m_BuildAddressablesWithPlayerBuild: 2
+  m_BuildAddressablesWithPlayerBuild: 1
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: deff5cea6757740959911541db6f8fc5, type: 2}

@@ -25,6 +25,7 @@ using Object = UnityEngine.Object;
 namespace UnityTemplate.Tests.PlayMode
 {
     /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation and starting the first stage; any logged error or exception fails the test.</summary>
+    [Category("Smoke")]
     public class MetaLoopSmokeTests
     {
         private const string InitialisationScene = "Initialisation";
