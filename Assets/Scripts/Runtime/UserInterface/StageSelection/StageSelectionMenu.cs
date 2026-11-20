@@ -47,6 +47,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             {
                 stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
                 var itemPrefab = await stageItemHandle.ToAwaitable();
+                if (this == null) return;
                 if (stageItemHandle.Status != AsyncOperationStatus.Succeeded || itemPrefab == null)
                 {
                     Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty. " + stageItemHandle.OperationException);
