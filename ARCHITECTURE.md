@@ -62,7 +62,8 @@ Rules:
 - Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
 - Canvas sort orders: background and the unused in-stage HUD 0, menus 1 (set on `Menu.prefab`), the unused pause and game-over screens 2 and 4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
 - `MenuRenderThrottle` saves battery in the menus: once nothing has been touched, moved or tweened for 2 s it renders only every 4th frame (`OnDemandRendering.renderFrameInterval`). Any input or playing tween, and every frame inside a stage, renders at the full rate. Scripts still update every frame, so timers and logic are unaffected; an animation that isn't a DOTween tween must keep the frame rate up itself.
-- Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu to the main menu, and does nothing on the main menu or inside a stage.
+- Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu or a stage to the main menu, and does nothing on the main menu.
+- Stages load additively on top of `Initialisation.unity` and become the active scene; `StageLoader` keeps the scene handle, switches the boot camera off while the stage's own camera draws, and `ReturnToMainMenu` unloads the stage and restores the menus. During a stage `UserInterfaceManager` hides every menu and the backdrop but keeps the BACK button, so there is always a way out.
 - Timings preserved from the original: currency and wheel roll-ups 3.37 s, linear (101 frames at 30 fps); experience bar 3 s, OutQuad; daily wheel 7 s, InOutQuart; stage fade 1 s out and 1 s in, linear.
 
 ## Look
@@ -117,7 +118,7 @@ When code needs a new package, add its assembly to the `references` list of the 
 
 ## Decisions
 
-- Kept the menu loop exactly as it was: no in-stage HUD, pause or game-over screens (the canvases remain in the scene, unused, for future gameplay), and no way back from a stage yet.
+- Kept the menu loop exactly as it was: no in-stage HUD, pause or game-over screens (the canvases remain in the scene, unused, for future gameplay), but a stage can now be left with BACK.
 - Menus and popups are prefab variants of two bases, `Menu.prefab` and `PopUp.prefab`, so set-up they share is edited once and the scene holds only their instances.
 - The UI uses one light palette with a single accent, Inter, and shapes drawn from a few tinted sprites, so a game can rebrand by changing a handful of prefabs (see Look).
 - Remote Config changes apply from the next launch, so nothing changes mid-session and boot never waits for the network.

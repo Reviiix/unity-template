@@ -36,7 +36,8 @@ Edit scenes, prefabs and ScriptableObjects through Editor scripts, never by hand
 - Adding a stage:
   1. Create the scene under `Assets/Scenes/`.
   2. Add it to the Addressables `Scenes` group with `AddressableAssetSettings.CreateOrMoveEntry`.
-  3. Append it to `Assets/Settings/StageCatalogue.asset` through `SerializedObject`.
+  3. Append it to `Assets/Settings/StageCatalogue.asset` through `SerializedObject` (optionally with a name in the group's `names`).
+  4. Give its camera no `AudioListener`: stages load on top of the boot scene, whose listener stays.
 - Adding a menu or popup: follow the README's Common tasks table.
 - After an edit, run the EditMode tests. `SceneWiringTests` catches unassigned references and wrong prefab parents.
 
