@@ -4,7 +4,7 @@ using UnityTemplate.Progression;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Tests stage unlocking, the CONTINUE target and the high score.</summary>
+    /// <summary>Tests stage unlocking (including the catalogue's unlock-all switch), stage names, the CONTINUE target and the high score.</summary>
     public class ProgressServiceTests
     {
         private TestSaveFolder folder;
@@ -66,6 +66,24 @@ namespace UnityTemplate.Tests
             Assert.IsTrue(progress.SubmitScore(10));
             Assert.IsFalse(progress.SubmitScore(5));
             Assert.AreEqual(10, progress.HighScore);
+        }
+
+        [Test]
+        public void AllStagesUnlockedUnlocksEveryStageWithoutRatings()
+        {
+            JsonUtility.FromJsonOverwrite("{\"allStagesUnlocked\":true}", catalogue);
+            Assert.IsTrue(progress.IsUnlocked(0, 2));
+            Assert.IsTrue(progress.IsUnlocked(1, 1));
+        }
+
+        [Test]
+        public void StageNamesAreOptionalPerSlot()
+        {
+            JsonUtility.FromJsonOverwrite("{\"groups\":[{\"scenes\":[{},{},{}],\"names\":[\"Waves\",\" \"]},{\"scenes\":[{},{}]}]}", catalogue);
+            Assert.AreEqual("Waves", catalogue.GetStageName(0, 0));
+            Assert.IsNull(catalogue.GetStageName(0, 1), "A blank name should fall back to group-stage.");
+            Assert.IsNull(catalogue.GetStageName(0, 2), "A slot past the end of the names should fall back to group-stage.");
+            Assert.IsNull(catalogue.GetStageName(1, 0), "A group without names should fall back to group-stage.");
         }
     }
 }

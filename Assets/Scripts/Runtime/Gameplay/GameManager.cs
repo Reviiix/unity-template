@@ -26,9 +26,10 @@ namespace UnityTemplate.Gameplay
             GameTime.Start();
         }
 
-        /// <summary>Unregisters the GameManager when the stage unloads.</summary>
+        /// <summary>Restores the volume if the stage was paused and unregisters the GameManager when the stage unloads.</summary>
         private void OnDestroy()
         {
+            if (IsPaused) TogglePause();
             ServiceLocator.Unregister<GameManager>();
         }
 

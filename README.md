@@ -11,7 +11,7 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 ## Getting started
 
-Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts are stored in LFS (see `.gitattributes`). Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
+Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts that a game adds are stored in LFS. The template's own binaries stay ordinary git files, so copies of the template (GitHub's **Use this template** doesn't copy LFS objects) work; `.gitattributes` lists them. Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
 
 1. Open the project with Unity 6000.3.28f1.
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
@@ -50,7 +50,8 @@ unity build . --profile WebGL -o Builds/WebGL
 
 - The profile is `Assets/Settings/Build Profiles/WebGL.asset`: a release build of the boot scene.
 - The build is uncompressed (**Compression Format: Disabled**), so any static web server can host it over plain HTTP without `Content-Encoding` headers.
-- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", an exception Remote Config catches inside itself while unlinked or offline crashes the page at start-up.
+- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", any null reference, even one that code catches, kills the page instead of being handled.
+- Addressables load from the page's own server. **Allow downloads over HTTP** is *Not allowed*, which is right for release; to test from a plain-HTTP server other than `localhost` (a LAN address, for example), set it to *Always allowed* in **Player Settings > Other Settings**, or the game loads without its Addressables (no popups or stages).
 - Remote Config and sign-in fail quietly in the browser when the project is unlinked or offline.
 
 ### Other desktop builds
@@ -115,7 +116,9 @@ How the code fits together (boot order, services, saves, popups) is described in
 
 | Task | How |
 |---|---|
-| Add a stage | Create the scene under `Assets/Scenes/...`, mark it Addressable (Scenes group), then drag it into a slot of `Assets/Settings/StageCatalogue.asset`. Empty slots show as locked stages. Append new stages: ratings are stored by position. |
+| Add a stage | Create the scene under `Assets/Scenes/...`, mark it Addressable (Scenes group), then drag it into a slot of `Assets/Settings/StageCatalogue.asset`. Empty slots show as locked stages. Append new stages: ratings are stored by position. The stage loads on top of the boot scene, so give its camera no **AudioListener** (the boot scene's stays; a test checks this) and keep its own canvases' sort order below the BACK button's background canvas if BACK must stay tappable. |
+| Name stages or unlock them all | In `StageCatalogue.asset`, fill a group's **Names** list (same order as its scenes; blank keeps the `group-stage` label), or tick **All Stages Unlocked** for a collection where nothing is rated. |
+| Return from a stage | BACK (the on-screen button, which stays visible in stages, or Android back) calls `StageLoader.ReturnToMainMenu`: it fades out, unloads the stage and shows the main menu. Call it from your own stage UI, such as a pause or game-over screen, the same way. |
 | Add a menu | Right-click `Prefabs/UserInterface/Menus/Menu.prefab` > **Create > Prefab Variant**, build the menu inside it and add a script that derives from `MenuBase` to its root. Put an instance under `UserInterface` in `Initialisation.unity`, then give `UserInterfaceManager` a field for it, add it to `allMenus` and initialise it in `Initialise`. |
 | Add a popup | Right-click `Prefabs/UserInterface/PopUps/PopUp.prefab` > **Create > Prefab Variant**, move the variant to `Prefabs/UserInterface/ConditionalMenus` and build the popup inside `GRP_Content`. Add a script that derives from `PopUpWindow` to its root and set **Pop Up Menu** to `GRP_Content` and **Close Button** to `BTN_Close`. Mark it Addressable (ConditionalMenus group), give `UserInterfaceManager` an `AssetReferenceGameObject` field for it and open it with `OpenAddressablePopUpAsync`, as `ShowStartUpPopUpsAsync` does. |
 | Add a button | Drag a variant from `Prefabs/UserInterface/Kit` into the menu or popup (`PrimaryButton` for the screen's main action, `SecondaryButton` for the rest, `DangerButton` or `DangerOutlineButton` for destructive actions), set its label and wire its `Button` in code. |

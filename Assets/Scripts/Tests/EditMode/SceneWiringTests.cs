@@ -43,7 +43,7 @@ namespace UnityTemplate.Tests
         public void GameInitialiserReferencesAreAssigned()
         {
             var initialiser = new SerializedObject(FindInScene<GameInitialiser>());
-            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "stageCatalogue", "achievementCatalogue", "lightTheme", "darkTheme" })
+            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "menuCamera", "stageCatalogue", "achievementCatalogue", "lightTheme", "darkTheme" })
             {
                 Assert.IsNotNull(initialiser.FindProperty(field).objectReferenceValue, $"GameInitialiser.{field} is not assigned.");
             }
