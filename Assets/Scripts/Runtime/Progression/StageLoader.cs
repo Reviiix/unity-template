@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityTemplate.UserInterface;
+using UnityTemplate.Utilities;
 
 namespace UnityTemplate.Progression
 {
@@ -37,7 +38,7 @@ namespace UnityTemplate.Progression
             {
                 await userInterface.FadeScreenAsync(1, FadeSeconds);
                 userInterface.HideMenusForStage();
-                await Addressables.LoadSceneAsync(catalogue.GetScene(group, stage)).Task;
+                await Addressables.LoadSceneAsync(catalogue.GetScene(group, stage)).ToAwaitable();
                 await userInterface.FadeScreenAsync(0, FadeSeconds);
             }
             catch (Exception exception)

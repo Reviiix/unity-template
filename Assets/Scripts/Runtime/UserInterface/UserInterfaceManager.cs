@@ -9,6 +9,7 @@ using UnityTemplate.UserInterface.ConditionalMenus;
 using UnityTemplate.UserInterface.MainMenus;
 using UnityTemplate.UserInterface.MainMenus.StageSelection;
 using UnityTemplate.UserInterface.PopUpMenus;
+using UnityTemplate.Utilities;
 
 namespace UnityTemplate.UserInterface
 {
@@ -142,7 +143,7 @@ namespace UnityTemplate.UserInterface
         {
             if (!popUpReference.RuntimeKeyIsValid()) return;
 
-            var instance = await Addressables.InstantiateAsync(popUpReference).Task;
+            var instance = await Addressables.InstantiateAsync(popUpReference).ToAwaitable();
             if (instance == null) return;
 
             await OpenPopUpAsync(instance.GetComponent<PopUpWindow>());

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Progression;
 using UnityTemplate.Theming;
+using UnityTemplate.Utilities;
 
 namespace UnityTemplate.UserInterface.MainMenus.StageSelection
 {
@@ -45,7 +46,7 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             try
             {
                 stageItemHandle = Addressables.LoadAssetAsync<GameObject>(stageItemPrefab);
-                var itemPrefab = await stageItemHandle.Task;
+                var itemPrefab = await stageItemHandle.ToAwaitable();
                 if (stageItemHandle.Status != AsyncOperationStatus.Succeeded || itemPrefab == null)
                 {
                     Debug.LogError("The stage item prefab could not be loaded; the stage selection menu stays empty. " + stageItemHandle.OperationException);
