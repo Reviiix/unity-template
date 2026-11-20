@@ -50,7 +50,8 @@ unity build . --profile WebGL -o Builds/WebGL
 
 - The profile is `Assets/Settings/Build Profiles/WebGL.asset`: a release build of the boot scene.
 - The build is uncompressed (**Compression Format: Disabled**), so any static web server can host it over plain HTTP without `Content-Encoding` headers.
-- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", an exception Remote Config catches inside itself while unlinked or offline crashes the page at start-up.
+- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", any null reference, even one that code catches, kills the page instead of being handled.
+- Addressables load from the page's own server. **Allow downloads over HTTP** is *Not allowed*, which is right for release; to test from a plain-HTTP server other than `localhost` (a LAN address, for example), set it to *Always allowed* in **Player Settings > Other Settings**, or the game loads without its Addressables (no popups or stages).
 - Remote Config and sign-in fail quietly in the browser when the project is unlinked or offline.
 
 ### Other desktop builds
