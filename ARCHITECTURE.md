@@ -61,6 +61,7 @@ Rules:
 - Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a dimmed backdrop and a white rounded panel with a title and a round close button. `ConfirmationPopUp.prefab` removes the title and close button (it shows its own question with NO and YES); like every popup, its backdrop dims and blocks taps on the menus behind it.
 - Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
 - Canvas sort orders: background and the unused in-stage HUD 0, menus 1 (set on `Menu.prefab`), the unused pause and game-over screens 2 and 4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.
+- `MenuRenderThrottle` saves battery in the menus: once nothing has been touched, moved or tweened for 2 s it renders only every 4th frame (`OnDemandRendering.renderFrameInterval`). Any input or playing tween, and every frame inside a stage, renders at the full rate. Scripts still update every frame, so timers and logic are unaffected; an animation that isn't a DOTween tween must keep the frame rate up itself.
 - Android back closes the top popup like its X button (the confirmation answers NO), returns from a sub-menu to the main menu, and does nothing on the main menu or inside a stage.
 - Timings preserved from the original: currency and wheel roll-ups 3.37 s, linear (101 frames at 30 fps); experience bar 3 s, OutQuad; daily wheel 7 s, InOutQuart; stage fade 1 s out and 1 s in, linear.
 
@@ -109,7 +110,7 @@ Pooled prefabs (`AudioSourceForPool`, `AchievementPopUp`) and the achievement li
 |---|---|---|
 | `UnityTemplate` | `Scripts/Runtime` | Addressables, ResourceManager, TextMeshPro, UnityEngine.UI, Services Core/Authentication/Remote Config (DOTween is auto-referenced) |
 | `UnityTemplate.Editor` | `Scripts/Editor` | UnityTemplate (Editor only) |
-| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, Test Runner, Addressables Editor, TextMeshPro |
+| `UnityTemplate.Tests.EditMode` | `Scripts/Tests/EditMode` | UnityTemplate, UnityTemplate.Editor, Test Runner, Addressables Editor, TextMeshPro |
 | `UnityTemplate.Tests.PlayMode` | `Scripts/Tests/PlayMode` | UnityTemplate, Test Runner, UnityEngine.UI |
 
 When code needs a new package, add its assembly to the `references` list of the asmdef.

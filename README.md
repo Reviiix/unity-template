@@ -4,28 +4,62 @@ A mobile game template: boot scene, main menu, stage selection, statistics, sett
 
 | | |
 |---|---|
-| Unity | 6000.3.9f1 |
-| Platforms | iOS 15+ and Android 7.0+ (API 24), landscape only |
+| Unity | 6000.3.28f1 (the build agent's editor; upgrade the template when that changes) |
+| Platforms | iOS 15+ and Android 7.1+ (API 25), landscape only; WebGL for browser previews |
 | Scripting | IL2CPP, ARM64 (Android), .NET Standard 2.1 |
-| Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`) |
+| Packages | Addressables, Remote Config (Unity Gaming Services), TextMesh Pro (uGUI), Test Framework, DOTween (in `Assets/Plugins`), Unity Pipeline (Editor tooling for the `unity` command-line tool; not in players) |
 
 ## Getting started
 
-Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
+Install [Git LFS](https://git-lfs.com) and run `git lfs install` once before cloning: images, audio, video, models and fonts are stored in LFS (see `.gitattributes`). Clone with `git clone --recurse-submodules`, or run `git submodule update --init` in an existing clone, to get the coding standards in `unity-coding-standards/`.
 
-1. Open the project with Unity 6000.3.9f1.
+1. Open the project with Unity 6000.3.28f1.
 2. Press **Play**. The game always starts from `Assets/Scenes/Initialisation.unity`, because that scene's `GameInitialiser` creates every service. You can switch this off under **Tools > Scenes > Always Play From Initialisation Scene**.
 3. In the Editor, Addressables use the **Use Asset Database** play mode, so no content build is needed. To test real bundles, run **Window > Asset Management > Addressables > Groups > Build > New Build > Default Build Script**, then set **Play Mode Script** to **Use Existing Build**.
 
+### Making a game from the template
+
+Run **Tools > New Game Setup...**, type the game's name and press **Apply**. It does the following:
+
+- sets the product name,
+- sets the Android, iOS and Standalone identifiers to `com.LeonHiggin.<GameName>`,
+- gives the game a new product GUID,
+- optionally points the version text at the game's website.
+
+Without the Editor window:
+
+```bash
+unity run . --no-tail -- -executeMethod UnityTemplate.EditorTools.NewGameSetup.ApplyFromCommandLine -gameName "My Game"
+```
+
+Add `-websiteUrl <url>` to set the link. To use Remote Config, also link the game to its own Unity Cloud project (see below).
+
 ### Device builds
 
-- Build Addressables content first (see above); player builds include the local bundles automatically.
+- Player builds build the Addressables content first (**Build Addressables on Player Build** is on in the Addressables settings), so a plain build or `unity build` ships fresh bundles with no manual step.
 - A **Development Build** turns on the cheat menu (bottom-right **CHEATS** button) and verbose `GameLog` messages. Release builds remove both.
 - iOS: set your signing team in **Player Settings > iOS**. Android: set a keystore in **Player Settings > Android > Publishing Settings**.
 
+### Browser preview (WebGL)
+
+iOS and Android are the release targets; WebGL is for quick previews in a browser. Build with **File > Build Profiles > WebGL > Build**, or headlessly:
+
+```bash
+unity build . --profile WebGL -o Builds/WebGL
+```
+
+- The profile is `Assets/Settings/Build Profiles/WebGL.asset`: a release build of the boot scene.
+- The build is uncompressed (**Compression Format: Disabled**), so any static web server can host it over plain HTTP without `Content-Encoding` headers.
+- WebGL uses full exception support (**Enable Exceptions: Full Without Stacktrace**). With "explicitly thrown only", an exception Remote Config catches inside itself while unlinked or offline crashes the page at start-up.
+- Remote Config and sign-in fail quietly in the browser when the project is unlinked or offline.
+
+### Other desktop builds
+
+Linux IL2CPP builds need `com.unity.toolchain.linux-x86_64-linux`, which the template leaves out: it adds about 300 MB to every clone's package cache. Add it in Package Manager before building for Linux.
+
 ### Unity Gaming Services (Remote Config)
 
-- The project is linked to a Unity Cloud project in **Edit > Project Settings > Services**. A game made from this template should link to **its own** cloud project.
+- The template ships **unlinked** from Unity Cloud. Link each game to its own cloud project in **Edit > Project Settings > Services**; until then Remote Config logs a warning and the built-in defaults are used.
 - At start-up the game reads the Remote Config values cached on the previous launch and fetches fresh ones in the background, so **dashboard changes apply from the next launch**. Offline or unlinked, the built-in defaults in `GameConfiguration` are used and a warning is logged.
 - Signing in is anonymous, which creates one Unity player per install: mention this in the App Store and Play privacy declarations.
 - The fetch uses the default `production` environment. If your dashboard only has other environments, the sign-in fails with "invalid environment name" (a warning, the game carries on): create a `production` environment or set one with `InitializationOptions.SetEnvironmentName` in `RemoteConfiguration.FetchForNextLaunchAsync`.
@@ -71,6 +105,8 @@ Assets/
   AddressableAssetsData/    Addressables groups and settings
   Editor/RemoteConfig/      Remote Config editor data (this path is fixed by the package)
 unity-coding-standards/     Git submodule: the coding standards every change follows (outside Assets, so Unity ignores it)
+CLAUDE.md                   One-page map for coding agents (points into these docs)
+.github/workflows/          Unity version tagging
 ```
 
 How the code fits together (boot order, services, saves, popups) is described in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -106,15 +142,17 @@ The full standards are in [unity-coding-standards/README.md](unity-coding-standa
 - Private by default; `[SerializeField]` only for values designers tweak.
 - Namespaces `UnityTemplate.<Folder>`; never name a type after its own namespace.
 - `StringBuilder` or TMP `SetText` for text that changes at runtime.
-- Prefer `async`/`await` (Unity `Awaitable`) or DOTween to `Update` and coroutines. The one `Update` (Android back button in `UserInterfaceManager`) exists because the old Input Manager can only be polled.
+- Prefer `async`/`await` (Unity `Awaitable`) or DOTween to `Update` and coroutines. The one `Update` (in `UserInterfaceManager`: the Android back button and the menu render throttle) exists because the old Input Manager can only be polled.
 - Every `async void` entry point catches and logs its exceptions; tweens use `SetLink(gameObject)`.
 - Vocabulary: a **stage** is a playable scene; a **level** is an experience level.
 - Keep **Reload Domain** on in Enter Play Mode Options: DOTween 1.2 and the Unity Services SDKs keep static state between play sessions.
 
 ## Tests
 
-- **Window > General > Test Runner**: EditMode (services, saves, scene wiring) and PlayMode (boots the game and walks first launch, the daily wheel, the RESET ALL confirmation and starting a stage).
-- Command line: `unity test <project> --mode EditMode` and `unity test <project> --mode PlayMode`. The PlayMode tests back up and restore your local save.
+- **Window > General > Test Runner**: EditMode (services, saves, scene wiring, the template's set-up) and PlayMode (boots the game and walks first launch, the daily wheel, the RESET ALL confirmation, the dark mode switch and starting a stage). The PlayMode tests are in the `Smoke` category.
+- Command line:
+  - `unity test <project> --mode EditMode` takes seconds and loads no game; run it after every change.
+  - `unity test <project> --mode PlayMode` boots the full game (about a minute, longer on software rendering); run it before a pull request. It backs up and restores your local save.
 
 Manual checklist before a release: cold start, first open, daily wheel (spin and X), anniversary (Tools > Save Data tools), stage fade, RESET ALL, Android back button, airplane mode.
 
@@ -134,10 +172,9 @@ Git flow: branch from `develop` (`feature/...`, `bugfix/...`), one commit per ch
 
 ### Unity version tags
 
-Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.9f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor. The hooks in `.githooks` add the tag after each commit or merge; turn them on once per clone:
+Every commit that changes the editor version in `ProjectSettings/ProjectVersion.txt` is tagged `unity/<version>` (for example `unity/6000.3.28f1`), so `git checkout unity/2022.3.16f1` returns to the project as it was on that editor.
 
-```bash
-git config core.hooksPath .githooks
-```
+- The **Unity version tags** GitHub Actions workflow (`.github/workflows/unity-version-tags.yml`) adds and pushes the tags whenever `develop` or `main` is pushed with an editor change; fetch them with `git fetch --tags`. The workflow asks for permission to push tags itself, so it needs no repository setting beyond GitHub Actions being enabled (the default).
+- To tag by hand (no Actions, another clone, a rebase), run `.githooks/tag-unity-versions`; it scans every local branch and skips tags that already exist. Tags stay local until pushed with `git push --tags`.
 
-To tag history made without the hooks (another clone, a rebase), run `.githooks/tag-unity-versions`; it skips tags that already exist. Tags stay local until pushed with `git push --tags`.
+No git hooks or `core.hooksPath` setting are needed: overriding `core.hooksPath` would switch off any hooks your machine already installs. If you set it for an earlier version of this template, undo it with `git config --unset core.hooksPath`.

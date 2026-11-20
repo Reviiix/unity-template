@@ -15,9 +15,10 @@ namespace UnityTemplate.Utilities
             GetComponent<Button>().onClick.AddListener(OpenUrl);
         }
 
-        /// <summary>Opens the URL in the device's browser.</summary>
+        /// <summary>Opens the URL in the device's browser; does nothing while no URL is set.</summary>
         private void OpenUrl()
         {
+            if (string.IsNullOrEmpty(url)) return;
             Application.OpenURL(url);
         }
     }
