@@ -99,7 +99,14 @@ namespace UnityTemplate.UserInterface.MainMenus.StageSelection
             RefreshStageButtons();
         }
 
-        /// <summary>Shows each stage button's locked state and rating, at start-up and again after RESET ALL.</summary>
+        /// <summary>Shows the menu with up-to-date unlocks and ratings, which change when a stage is played.</summary>
+        public override void Show()
+        {
+            base.Show();
+            if (progress != null) RefreshStageButtons();
+        }
+
+        /// <summary>Shows each stage button's locked state and rating: at start-up, after RESET ALL and whenever the menu opens.</summary>
         private void RefreshStageButtons()
         {
             foreach (var (item, group, stage) in stageButtons)

@@ -6289,6 +6289,7 @@ MonoBehaviour:
   objectPooler: {fileID: 727713011}
   audioManager: {fileID: 182879711}
   userInterfaceManager: {fileID: 773249000}
+  menuCamera: {fileID: 434122952}
   stageCatalogue: {fileID: 11400000, guid: 7c4c2535af4624d3b8f90140018cf95f, type: 2}
   achievementCatalogue: {fileID: 11400000, guid: f008b049f7e5c4c3f867c2d427809890,
     type: 2}

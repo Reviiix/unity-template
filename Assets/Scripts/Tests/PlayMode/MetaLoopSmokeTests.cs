@@ -14,6 +14,7 @@ using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
 using UnityTemplate.Gameplay;
+using UnityTemplate.Progression;
 using UnityTemplate.Theming;
 using UnityTemplate.UserInterface;
 using UnityTemplate.UserInterface.ConditionalMenus;
@@ -24,11 +25,12 @@ using Object = UnityEngine.Object;
 
 namespace UnityTemplate.Tests.PlayMode
 {
-    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation and starting the first stage; any logged error or exception fails the test.</summary>
+    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
     [Category("Smoke")]
     public class MetaLoopSmokeTests
     {
         private const string InitialisationScene = "Initialisation";
+        private const string TutorialStageScene = "0-0(Tutorial)";
         private const string SaveFileName = "save.json";
         private const float TimeoutSeconds = 20;
         private static readonly string[] GameRoots = { "GlobalGameManagers", "UserInterface", "DontDestroyOnLoadMarker" };
@@ -126,9 +128,33 @@ namespace UnityTemplate.Tests.PlayMode
 
             var start = FindLoadedButton("BTN_PlayButton");
             start.onClick.Invoke();
-            yield return WaitUntil(() => ServiceLocator.TryGet<GameManager>(out _), 15);
+            var stageLoader = ServiceLocator.Get<StageLoader>();
+            yield return WaitUntil(() => stageLoader.IsInStage && !stageLoader.IsLoading, 15);
 
-            Assert.AreEqual("0-0(Tutorial)", SceneManager.GetActiveScene().name);
+            Assert.IsTrue(ServiceLocator.TryGet<GameManager>(out _));
+            Assert.AreEqual(TutorialStageScene, SceneManager.GetActiveScene().name);
+        }
+
+        /// <summary>Starts the tutorial stage, presses BACK and checks that the stage unloads and the main menu shows again.</summary>
+        [UnityTest]
+        public IEnumerator BackLeavesTheStageForTheMainMenu()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var stageLoader = ServiceLocator.Get<StageLoader>();
+            FindLoadedButton("BTN_PlayButton").onClick.Invoke();
+            yield return WaitUntil(() => stageLoader.IsInStage && !stageLoader.IsLoading, 15);
+
+            var back = FindLoadedButton("BTN_BackToMainMenu");
+            Assert.IsTrue(back.interactable && back.gameObject.activeInHierarchy, "BACK isn't available in the stage.");
+            back.onClick.Invoke();
+            yield return WaitUntil(() => !stageLoader.IsInStage && !stageLoader.IsLoading, 15);
+
+            Assert.IsFalse(ServiceLocator.TryGet<GameManager>(out _), "The stage's GameManager is still registered.");
+            Assert.IsFalse(SceneManager.GetSceneByName(TutorialStageScene).isLoaded);
+            Assert.AreEqual(InitialisationScene, SceneManager.GetActiveScene().name);
+            Assert.IsTrue(Object.FindFirstObjectByType<MainMenu>().IsVisible);
+            Assert.IsFalse(back.interactable, "BACK should be inactive on the main menu.");
         }
 
         /// <summary>Flips the dark mode switch in Settings and checks that the UI recolours, the choice is saved, and flipping it back returns to light.</summary>

@@ -23,6 +23,7 @@ namespace UnityTemplate.Core
         [FormerlySerializedAs("objectPool")] [SerializeField] private ObjectPooler objectPooler;
         [SerializeField] private AudioManager audioManager;
         [FormerlySerializedAs("userInterface")] [SerializeField] private UserInterfaceManager userInterfaceManager;
+        [SerializeField] private Camera menuCamera;
 
         [Header("Data")]
         [SerializeField] private StageCatalogue stageCatalogue;
@@ -68,7 +69,7 @@ namespace UnityTemplate.Core
             ServiceLocator.Register(objectPooler);
             ServiceLocator.Register(audioManager);
             ServiceLocator.Register(userInterfaceManager);
-            ServiceLocator.Register(new StageLoader(stageCatalogue, userInterfaceManager));
+            ServiceLocator.Register(new StageLoader(stageCatalogue, userInterfaceManager, menuCamera));
 
             saveService.Load();
             objectPooler.Initialise();

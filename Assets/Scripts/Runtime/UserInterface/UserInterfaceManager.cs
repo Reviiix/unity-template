@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using UnityTemplate.Core;
 using UnityTemplate.Engagement;
+using UnityTemplate.Progression;
 using UnityTemplate.UserInterface.ConditionalMenus;
 using UnityTemplate.UserInterface.MainMenus;
 using UnityTemplate.UserInterface.MainMenus.StageSelection;
@@ -13,7 +14,7 @@ using UnityTemplate.Utilities;
 
 namespace UnityTemplate.UserInterface
 {
-    /// <summary>Owns every menu and popup: switches menus, queues the start-up popups, runs the stage fade and handles the Android back button.</summary>
+    /// <summary>Owns every menu and popup: switches menus, queues the start-up popups, runs the stage fade, hides and restores the menus around stages and handles BACK.</summary>
     [RequireComponent(typeof(RawImage))]
     public class UserInterfaceManager : MonoBehaviour
     {
@@ -36,16 +37,19 @@ namespace UnityTemplate.UserInterface
         private readonly List<PopUpWindow> openPopUps = new();
         private readonly MenuRenderThrottle renderThrottle = new();
         private MenuBase[] allMenus;
+        private GameObject[] menuBackdrop;
+        private StageLoader stageLoader;
         private RawImage transitionalFadeImage;
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
         public bool IsShowingStartUpPopUps { get; private set; }
+        public bool IsInStage { get; private set; }
 
         /// <summary>Polls the Android back button (the old Input Manager offers no event for it) and throttles rendering while the menus are still.</summary>
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape)) HandleBackButton();
-            renderThrottle.Tick(background.enabled);
+            renderThrottle.Tick(!IsInStage);
         }
 
         /// <summary>Returns rendering to every frame when the user interface goes away.</summary>
@@ -60,7 +64,8 @@ namespace UnityTemplate.UserInterface
             transitionalFadeImage = GetComponent<RawImage>();
             transitionalFadeImage.enabled = false;
             allMenus = new MenuBase[] { mainMenu, stageSelectionMenu, statisticsMenu, settingsMenu, storeMenu };
-            returnToMainMenuButton.onClick.AddListener(() => ShowMenu(mainMenu));
+            menuBackdrop = MenuBackdrop();
+            returnToMainMenuButton.onClick.AddListener(PressBack);
             mainMenu.Initialise(() => ShowMenu(stageSelectionMenu), () => ShowMenu(statisticsMenu), () => ShowMenu(settingsMenu), () => ShowMenu(storeMenu));
             stageSelectionMenu.Initialise();
             statisticsMenu.Initialise();
@@ -131,11 +136,21 @@ namespace UnityTemplate.UserInterface
             transitionalFadeImage.color = colour;
         }
 
-        /// <summary>Hides the menu background and every menu so a stage scene can take over the screen.</summary>
+        /// <summary>Hides every menu and the menu backdrop so a stage scene can take over the screen; the BACK button stays as the way out.</summary>
         public void HideMenusForStage()
         {
-            background.enabled = false;
+            IsInStage = true;
+            SetMenuBackdropVisible(false);
             HideAllMenus();
+            returnToMainMenuButton.interactable = true;
+        }
+
+        /// <summary>Shows the menu backdrop and the main menu again after a stage has been unloaded.</summary>
+        public void ShowMenusAfterStage()
+        {
+            IsInStage = false;
+            SetMenuBackdropVisible(true);
+            ShowMenu(mainMenu);
         }
 
         /// <summary>Instantiates an Addressable popup under the user interface root and waits until it has closed.</summary>
@@ -157,13 +172,42 @@ namespace UnityTemplate.UserInterface
             menu.Show();
         }
 
+        /// <summary>Returns everything on the background canvas except the BACK button, which stays visible in stages.</summary>
+        private GameObject[] MenuBackdrop()
+        {
+            var children = new List<GameObject>();
+            foreach (Transform child in background.transform)
+            {
+                if (child != returnToMainMenuButton.transform) children.Add(child.gameObject);
+            }
+            return children.ToArray();
+        }
+
+        /// <summary>Shows or hides the menu backdrop (background, card and version text).</summary>
+        private void SetMenuBackdropVisible(bool visible)
+        {
+            foreach (var child in menuBackdrop) child.SetActive(visible);
+        }
+
+        /// <summary>BACK leaves a stage for the main menu, or returns from a sub-menu to the main menu.</summary>
+        private void PressBack()
+        {
+            if (IsInStage)
+            {
+                stageLoader ??= ServiceLocator.Get<StageLoader>();
+                stageLoader.ReturnToMainMenu();
+                return;
+            }
+            ShowMenu(mainMenu);
+        }
+
         /// <summary>Hides every menu.</summary>
         private void HideAllMenus()
         {
             foreach (var menu in allMenus) menu.Hide();
         }
 
-        /// <summary>Closes the top popup, or returns from a sub-menu to the main menu.</summary>
+        /// <summary>Closes the top popup, leaves a stage, or returns from a sub-menu to the main menu.</summary>
         private void HandleBackButton()
         {
             if (openPopUps.Count > 0)
@@ -171,7 +215,7 @@ namespace UnityTemplate.UserInterface
                 openPopUps[^1].PressBack();
                 return;
             }
-            if (!mainMenu.IsVisible && background.enabled) ShowMenu(mainMenu);
+            if (IsInStage || !mainMenu.IsVisible) PressBack();
         }
     }
 }
