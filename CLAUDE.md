@@ -39,6 +39,7 @@ Edit scenes, prefabs and ScriptableObjects through Editor scripts, never by hand
   3. Append it to `Assets/Settings/StageCatalogue.asset` through `SerializedObject` (optionally with a name in the group's `names`).
   4. Give its camera no `AudioListener`: stages load on top of the boot scene, whose listener stays.
 - Adding a menu or popup: follow the README's Common tasks table.
+- Saving a scene or prefab drops prefab overrides on RectTransform properties a component drives (a Slider's fill and handle, layout groups, root canvases); `DrivenPropertyOverrideCleaner` does this so an unchanged save leaves the file unchanged. Don't hand-add such overrides back.
 - After an edit, run the EditMode tests. `SceneWiringTests` catches unassigned references and wrong prefab parents.
 
 ## Test and build

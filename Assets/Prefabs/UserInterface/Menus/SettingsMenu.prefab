@@ -2844,11 +2844,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4363483842918134409}
     m_Modifications:
-    - target: {fileID: 8073465724241433549, guid: 59e84808807294b09bb15c41d606d532,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8073465724447234656, guid: 59e84808807294b09bb15c41d606d532,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2958,11 +2953,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VolumeControls
-      objectReference: {fileID: 0}
-    - target: {fileID: 8073465725655142149, guid: 59e84808807294b09bb15c41d606d532,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
