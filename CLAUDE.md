@@ -14,7 +14,7 @@ A one-page map for coding agents. It doesn't repeat the docs; read them for deta
 - **UI** is built from the `Prefabs/UserInterface/Kit` prefabs, and menus and popups are variants of `Menu.prefab` and `PopUp.prefab`. Never re-parent or rebuild `PopUp.prefab` itself: its variants' overrides point at its objects.
 - **Saves:** add `SaveData` fields; never rename or retype one.
 - Keep **Reload Domain** on, and don't add static state that only a domain reload clears.
-- Don't set `core.hooksPath`. Unity version tags come from a GitHub Actions workflow, or by hand with `.githooks/tag-unity-versions`.
+- Don't set `core.hooksPath`. Unity version tags come from a GitHub Actions workflow, or by hand with `.githooks/tag-unity-versions`. A game's `template/<date>-<sha>` tag (added by a workflow on its first push) names the template commit it started from.
 
 ## New game from the template
 

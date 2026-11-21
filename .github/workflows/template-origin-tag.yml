@@ -1,0 +1,25 @@
+# In a game made from this template, tags the game's first commit with the
+# template commit it started from (template/<date>-<sha>). Runs when a branch is
+# first pushed and does nothing once the tag exists, or in the template itself.
+name: Template origin tag
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    if: ${{ !github.event.repository.is_template && (github.event_name == 'workflow_dispatch' || github.event.created) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Tag the template commit this game started from
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: sh .github/scripts/tag-template-origin

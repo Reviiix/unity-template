@@ -107,7 +107,7 @@ Assets/
   Editor/RemoteConfig/      Remote Config editor data (this path is fixed by the package)
 unity-coding-standards/     Git submodule: the coding standards every change follows (outside Assets, so Unity ignores it)
 CLAUDE.md                   One-page map for coding agents (points into these docs)
-.github/workflows/          Unity version tagging
+.github/                    Workflows (Unity version tags; template origin tags in games) and their scripts
 ```
 
 How the code fits together (boot order, services, saves, popups) is described in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -181,3 +181,11 @@ Every commit that changes the editor version in `ProjectSettings/ProjectVersion.
 - To tag by hand (no Actions, another clone, a rebase), run `.githooks/tag-unity-versions`; it scans every local branch and skips tags that already exist. Tags stay local until pushed with `git push --tags`.
 
 No git hooks or `core.hooksPath` setting are needed: overriding `core.hooksPath` would switch off any hooks your machine already installs. If you set it for an earlier version of this template, undo it with `git config --unset core.hooksPath`.
+
+### Template origin tags (games)
+
+Every game made from this template (GitHub's **Use this template**, which `falcon-new-repo` also uses) gets a tag on its first commit naming the template commit it started from, for example `template/2026-11-21-d5efd2e`. Its annotation gives the full commit and how it was matched.
+
+- The **Template origin tag** workflow (`.github/workflows/template-origin-tag.yml`, run by `.github/scripts/tag-template-origin`) adds it the first time a branch is pushed to the game. It finds the template commit with exactly the same files as the game's first commit, or, if that commit was changed, the template's last commit before the game was created. It does nothing in the template itself and nothing once the tag exists; it can also be started from the game's **Actions** tab.
+- It needs the template to stay public (the game's workflow reads it without a token), and the game's organisation must let workflows push (`contents: write`).
+- To see what changed in the template since a game started: `git log <the template commit>..main` in a clone of the template.
