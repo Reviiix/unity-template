@@ -27,28 +27,23 @@ namespace UnityTemplate.Tests.PlayMode
 {
     /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
     [Category("Smoke")]
+    [PrebuildSetup(typeof(RealSaveBackup))]
+    [PostBuildCleanup(typeof(RealSaveBackup))]
     public class MetaLoopSmokeTests
     {
         private const string InitialisationScene = "Initialisation";
         private const string TutorialStageScene = "0-0(Tutorial)";
-        private const string SaveFileName = "save.json";
         private const float TimeoutSeconds = 20;
         private static readonly string[] GameRoots = { "GlobalGameManagers", "UserInterface", "DontDestroyOnLoadMarker" };
-        private string backupFolder;
 
         [SetUp]
-        public void BackUpRealSave()
+        public void StartWithoutASave()
         {
-            backupFolder = Path.Combine(Application.temporaryCachePath, "SaveBackup" + Guid.NewGuid().ToString("N"));
-            Directory.CreateDirectory(backupFolder);
-            foreach (var path in Directory.GetFiles(Application.persistentDataPath, SaveFileName + "*"))
-            {
-                File.Move(path, Path.Combine(backupFolder, Path.GetFileName(path)));
-            }
+            RealSaveBackup.DeleteSaves();
         }
 
         [UnityTearDown]
-        public IEnumerator TearDownGameAndRestoreSave()
+        public IEnumerator TearDownGameAndDeleteItsSave()
         {
             DOTween.KillAll();
             var marker = new GameObject("DontDestroyOnLoadMarker");
@@ -59,10 +54,7 @@ namespace UnityTemplate.Tests.PlayMode
             }
             yield return null;
             ServiceLocator.Reset();
-
-            foreach (var path in Directory.GetFiles(Application.persistentDataPath, SaveFileName + "*")) File.Delete(path);
-            foreach (var path in Directory.GetFiles(backupFolder)) File.Move(path, Path.Combine(Application.persistentDataPath, Path.GetFileName(path)));
-            Directory.Delete(backupFolder, true);
+            RealSaveBackup.DeleteSaves();
         }
 
         [UnityTest]
@@ -176,7 +168,7 @@ namespace UnityTemplate.Tests.PlayMode
             Assert.AreEqual(ThemeMode.Dark, theme.Mode);
             Assert.AreEqual(theme.Get(ThemeColour.Background), backdrop.color);
             Assert.AreNotEqual(lightBackground, backdrop.color);
-            StringAssert.Contains("\"darkMode\":true", File.ReadAllText(Path.Combine(Application.persistentDataPath, SaveFileName)));
+            StringAssert.Contains("\"darkMode\":true", File.ReadAllText(Path.Combine(Application.persistentDataPath, RealSaveBackup.SaveFileName)));
 
             darkModeSwitch.Toggle.isOn = false;
             yield return null;
@@ -232,7 +224,7 @@ namespace UnityTemplate.Tests.PlayMode
 
         private static void WriteSave(SaveData data)
         {
-            File.WriteAllText(Path.Combine(Application.persistentDataPath, SaveFileName), JsonUtility.ToJson(data));
+            File.WriteAllText(Path.Combine(Application.persistentDataPath, RealSaveBackup.SaveFileName), JsonUtility.ToJson(data));
         }
 
         private static int DayNumber(DateTime date)
