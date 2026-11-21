@@ -14,7 +14,7 @@ A one-page map for coding agents. It doesn't repeat the docs; read them for deta
 - **UI** is built from the `Prefabs/UserInterface/Kit` prefabs, and menus and popups are variants of `Menu.prefab` and `PopUp.prefab`. Never re-parent or rebuild `PopUp.prefab` itself: its variants' overrides point at its objects.
 - **Saves:** add `SaveData` fields; never rename or retype one.
 - Keep **Reload Domain** on, and don't add static state that only a domain reload clears.
-- Don't set `core.hooksPath`. Unity version tags come from a GitHub Actions workflow, or by hand with `.githooks/tag-unity-versions`.
+- Don't set `core.hooksPath`. Unity version tags come from a GitHub Actions workflow, or by hand with `.githooks/tag-unity-versions`. A game's `template/<date>-<sha>` tag (added by a workflow on its first push) names the template commit it started from.
 
 ## New game from the template
 
@@ -39,6 +39,7 @@ Edit scenes, prefabs and ScriptableObjects through Editor scripts, never by hand
   3. Append it to `Assets/Settings/StageCatalogue.asset` through `SerializedObject` (optionally with a name in the group's `names`).
   4. Give its camera no `AudioListener`: stages load on top of the boot scene, whose listener stays.
 - Adding a menu or popup: follow the README's Common tasks table.
+- Saving a scene or prefab drops prefab overrides on RectTransform properties a component drives (a Slider's fill and handle, layout groups, root canvases); `DrivenPropertyOverrideCleaner` does this so an unchanged save leaves the file unchanged. Don't hand-add such overrides back.
 - After an edit, run the EditMode tests. `SceneWiringTests` catches unassigned references and wrong prefab parents.
 
 ## Test and build
