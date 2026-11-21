@@ -1,0 +1,48 @@
+#!/bin/sh
+# Tags this repository's first commit as template/<date>-<sha>, naming the commit
+# of the template it was created from (GitHub's "Use this template", which
+# falcon-new-repo also uses). Run by the Template origin tag workflow; safe to run
+# again: it does nothing once a template/ tag exists or if there's no template.
+set -eu
+
+# Only for the workflow: it pushes a tag, so never run it in a developer's clone.
+if [ "${GITHUB_ACTIONS:-}" != true ]; then
+    echo "tag-template-origin runs in GitHub Actions only." >&2
+    exit 1
+fi
+repo=${GITHUB_REPOSITORY:?Set GITHUB_REPOSITORY to owner/name}
+
+if [ -n "$(git ls-remote --tags origin 'refs/tags/template/*')" ]; then
+    echo "$repo already has a template/ tag."
+    exit 0
+fi
+
+template=$(gh api "repos/$repo" --jq '.template_repository.full_name // empty')
+if [ -z "$template" ]; then
+    echo "$repo wasn't created from a template; nothing to tag."
+    exit 0
+fi
+created=$(gh api "repos/$repo" --jq .created_at)
+branch=$(gh api "repos/$template" --jq .default_branch)
+
+root=$(git rev-list --max-parents=0 HEAD | tail -n 1)
+root_tree=$(git rev-parse "$root^{tree}")
+
+# The generated first commit holds exactly the template commit's files, so match
+# their trees; if the game's first commit was changed, use the template's last
+# commit before the repository was created.
+commits="repos/$template/commits?sha=$branch&until=$created&per_page=100"
+match=$(gh api "$commits" --jq ".[] | select(.commit.tree.sha == \"$root_tree\") | .sha" | head -n 1)
+how="same files"
+if [ -z "$match" ]; then
+    match=$(gh api "$commits" --jq '.[0].sha')
+    how="last template commit before $created"
+fi
+
+date=$(gh api "repos/$template/commits/$match" --jq '.commit.committer.date' | cut -c1-10)
+tag="template/$date-$(printf %s "$match" | cut -c1-7)"
+
+git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+    tag -a "$tag" -m "Created from $template at $match ($how)" "$root"
+git push origin "refs/tags/$tag"
+echo "Tagged $(printf %s "$root" | cut -c1-7) as $tag: created from $template at $match ($how)."
