@@ -42,6 +42,17 @@ Edit scenes, prefabs and ScriptableObjects through Editor scripts, never by hand
 - Saving a scene or prefab drops prefab overrides on RectTransform properties a component drives (a Slider's fill and handle, layout groups, root canvases); `DrivenPropertyOverrideCleaner` does this so an unchanged save leaves the file unchanged. Don't hand-add such overrides back.
 - After an edit, run the EditMode tests. `SceneWiringTests` catches unassigned references and wrong prefab parents.
 
+## Checking a stage in Play Mode
+
+On a first boot the welcome popup (on later boots, the daily or anniversary popup) covers the menu, and START waits until it closes. `StagePlayCheck` does the steps in one call, also in a batch-mode Editor:
+
+1. With an Editor open on the project, run `UnityTemplate.EditorTools.StagePlayCheck.Play(group, stage)`, e.g. `Play(0, 0)` for the first stage. Humans use **Tools > Scenes > Play First Stage (Skip Start-Up Popups)**.
+2. It enters Play Mode from `Initialisation.unity`, closes the start-up popups and calls `StageLoader.LoadStage`. When the stage shows, it logs `StagePlayCheck: stage loaded: <group>-<stage>`. A missing scene or a 60-second timeout logs an error instead.
+3. Capture the screen or check the scene.
+4. Exit Play Mode. The local `save.json` is put back as it was before step 1, or deleted if there was none.
+
+To do the steps by hand instead: close each open `PopUpWindow` with `PressBack()` until `UserInterfaceManager.IsShowingStartUpPopUps` is false, then call `ServiceLocator.Get<StageLoader>().LoadStage(group, stage)`. Any Play Mode session writes `save.json` (in `Application.persistentDataPath`), so delete it afterwards if there was none before.
+
 ## Test and build
 
 | What | Command | When |

@@ -11,6 +11,9 @@
 /[Mm]emoryCaptures/
 /[Uu]ser[Ss]ettings/
 
+# Written by `unity test` to the project root.
+/test-results.xml
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
