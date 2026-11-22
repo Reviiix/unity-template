@@ -128,6 +128,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Save a new value | Add a field to `SaveData`, read it in the owning service's `Load` and write it in `Save`. Never rename or retype an existing field; bump `SaveData.CurrentVersion` and migrate if a field's meaning changes. |
 | Pool a new object | Add an entry to `PoolKey` (append only) and a pool on the `ObjectPooler` in `Initialisation.unity`, then use `ObjectPooler.Get`/`Release`. |
 | Change achievements | Edit `Assets/Settings/AchievementCatalogue.asset`. Switch the feature on with **Achievements Enabled** on `GameInitialiser`. |
+| Play a stage quickly | **Tools > Scenes > Play First Stage (Skip Start-Up Popups)**, or `StagePlayCheck.Play(group, stage)` from a script: boots the game, closes the start-up popups, loads the stage, and restores your save when you leave Play Mode. |
 | Tune features | Select `GlobalGameManagers` in `Initialisation.unity`: `GameInitialiser` exposes achievements, the daily bonus and the target frame rate. |
 | Import new sprites or sounds | Put them in `Assets/Graphics` or `Assets/Audio` and run **Tools > Apply Mobile Import Settings**. |
 
