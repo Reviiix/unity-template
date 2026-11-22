@@ -49,6 +49,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    names: []
   - scenes:
     - m_AssetGUID: 
       m_SubObjectName: 
@@ -85,3 +86,5 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
+    names: []
+  allStagesUnlocked: 0
