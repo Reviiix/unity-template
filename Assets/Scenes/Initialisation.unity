@@ -1881,6 +1881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   url: 
+  hideWithoutUrl: 0
 --- !u!114 &427711655
 MonoBehaviour:
   m_ObjectHideFlags: 0
