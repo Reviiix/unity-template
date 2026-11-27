@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2978716790727917831}
   - component: {fileID: 4937208328621661276}
   - component: {fileID: 8901000096912298439}
+  - component: {fileID: 976556322179428378}
   m_Layer: 0
   m_Name: TXT_Confirmation
   m_TagString: Untagged
@@ -152,6 +153,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &976556322179428378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954209102488192339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &4539547454557550010
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +177,7 @@ GameObject:
   - component: {fileID: 687777657890708748}
   - component: {fileID: 3379258086295495456}
   - component: {fileID: 912983380187697559}
+  - component: {fileID: 7507486846072130492}
   m_Layer: 0
   m_Name: TXT_Warning
   m_TagString: Untagged
@@ -304,6 +318,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &7507486846072130492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539547454557550010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1001 &870215490729486973
 PrefabInstance:
   m_ObjectHideFlags: 0

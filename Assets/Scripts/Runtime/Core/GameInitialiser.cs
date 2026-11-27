@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Achievements;
 using UnityTemplate.Audio;
 using UnityTemplate.Economy;
@@ -30,6 +31,8 @@ namespace UnityTemplate.Core
         [SerializeField] private AchievementCatalogue achievementCatalogue;
         [SerializeField] private ThemePalette lightTheme;
         [SerializeField] private ThemePalette darkTheme;
+        [SerializeField] private ThemePalette highContrastLightTheme;
+        [SerializeField] private ThemePalette highContrastDarkTheme;
 
         [Header("Features")]
         [SerializeField] private bool achievementsEnabled;
@@ -51,15 +54,17 @@ namespace UnityTemplate.Core
             var experience = new ExperienceService(saveService, configuration.AmountOfExperienceLevels);
             var progress = new ProgressService(saveService, stageCatalogue);
             engagementService = new EngagementService(saveService, () => Time.realtimeSinceStartupAsDouble);
-            var theme = new ThemeService(lightTheme, darkTheme, saveService);
+            var accessibility = new AccessibilityService(saveService, SystemAccessibility.Read());
+            var theme = new ThemeService(lightTheme, darkTheme, highContrastLightTheme, highContrastDarkTheme, saveService, accessibility);
             var achievements = new AchievementService(saveService, credits, achievementCatalogue, configuration.DynamicAchievements, achievementsEnabled);
 
-            foreach (var saveable in new ISaveable[] { credits, experience, progress, engagementService, achievements, audioManager, theme })
+            foreach (var saveable in new ISaveable[] { credits, experience, progress, engagementService, achievements, audioManager, accessibility, theme })
             {
                 saveService.Register(saveable);
             }
 
             ServiceLocator.Register(saveService);
+            ServiceLocator.Register(accessibility);
             ServiceLocator.Register(theme);
             ServiceLocator.Register(credits);
             ServiceLocator.Register(experience);
