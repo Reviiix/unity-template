@@ -39,7 +39,6 @@ Assets/Audio/ButtonClick.wav -filter binary
 Assets/Audio/Whoosh.mp3 -filter binary
 Assets/Graphics/Achievements/placeholder.png -filter binary
 Assets/Graphics/Icons.png -filter binary
-Assets/Graphics/Logo/LogoSmall.jpg -filter binary
 Assets/Graphics/Shapes/Circle.png -filter binary
 Assets/Graphics/Shapes/RoundedRect.png -filter binary
 Assets/Graphics/Shapes/RoundedRectOutline.png -filter binary
