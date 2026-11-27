@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
@@ -100,7 +101,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             return payout;
         }
 
-        /// <summary>Counts the WHEEL WIN text from one value to another over the roll-up time.</summary>
+        /// <summary>Counts the WHEEL WIN text from one value to another over the roll-up time (at once with reduced motion).</summary>
         private void RollUpWheelWin(int from, int to, Action onComplete)
         {
             rollUp?.Kill();
@@ -109,7 +110,7 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
                 {
                     shown = value;
                     wheelWinDisplay.SetText(WheelWinFormat, shown);
-                }, to, RollUpSeconds)
+                }, to, ServiceLocator.Get<AccessibilityService>().MotionSeconds(RollUpSeconds))
                 .SetEase(Ease.Linear)
                 .SetLink(gameObject)
                 .OnComplete(() => onComplete());

@@ -2,6 +2,8 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityTemplate.Accessibility;
+using UnityTemplate.Core;
 
 namespace UnityTemplate.UserInterface.ConditionalMenus
 {
@@ -46,14 +48,15 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             return wheelSegments.GetSegmentValue(segment);
         }
 
-        /// <summary>Spins to the given segment and raises SpinEnded with its value when the wheel stops.</summary>
+        /// <summary>Spins to the given segment (or turns straight to it with reduced motion) and raises SpinEnded with its value when the wheel stops.</summary>
         public void SpinTo(int targetSegment)
         {
             var segmentsToTurn = (AmountOfSegments + (targetSegment - currentSegment)) % AmountOfSegments;
             var rotation = new Vector3(0, 0, GetRotationAngle(segmentsToTurn));
             currentSegment = targetSegment;
 
-            wheel.DOLocalRotate(rotation, duration).SetEase(wheelEasing, easingOvershoot).SetLink(gameObject).OnComplete(() =>
+            var seconds = ServiceLocator.TryGet(out AccessibilityService accessibility) ? accessibility.MotionSeconds(duration) : duration;
+            wheel.DOLocalRotate(rotation, seconds).SetEase(wheelEasing, easingOvershoot).SetLink(gameObject).OnComplete(() =>
             {
                 SpinEnded?.Invoke(wheelSegments.GetSegmentValue(targetSegment));
             });
