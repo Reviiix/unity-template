@@ -1270,6 +1270,7 @@ GameObject:
   - component: {fileID: 4646368187244406900}
   - component: {fileID: 7307053988370366780}
   - component: {fileID: 2055865354320789231}
+  - component: {fileID: 6968760387982419108}
   m_Layer: 0
   m_Name: SpinningWheel
   m_TagString: Untagged
@@ -1418,6 +1419,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 4
+--- !u!114 &6968760387982419108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076021765384050810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Prize wheel
 --- !u!1 &5234126568855067365
 GameObject:
   m_ObjectHideFlags: 0

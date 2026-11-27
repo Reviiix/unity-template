@@ -2,13 +2,14 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Theming;
 
 namespace UnityTemplate.UserInterface.Kit
 {
     /// <summary>The kit's segmented control: a row of buttons on a muted track where exactly one segment is selected (raised, primary label).</summary>
-    public class SegmentedControl : MonoBehaviour
+    public class SegmentedControl : MonoBehaviour, IScreenReaderSelection
     {
         [SerializeField] private Button[] segments;
         [SerializeField] private ThemeColour selectedSegment = ThemeColour.Raised;
@@ -50,6 +51,12 @@ namespace UnityTemplate.UserInterface.Kit
         {
             SelectedIndex = Mathf.Clamp(index, 0, segments.Length - 1);
             Recolour();
+        }
+
+        /// <summary>True for the selected segment, so the screen reader says "selected".</summary>
+        public bool IsSelected(Selectable control)
+        {
+            return Array.IndexOf(segments, control) == SelectedIndex;
         }
 
         /// <summary>Selects a tapped segment and raises SelectionChanged if it changed.</summary>

@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 3788321980637727541}
   - component: {fileID: 5680417169180741774}
   - component: {fileID: 7077559187130303078}
+  - component: {fileID: 5959452573210065769}
   m_Layer: 0
   m_Name: BTN_PlayStore
   m_TagString: Untagged
@@ -541,6 +542,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5959452573210065769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2228372171707668720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Google Play
 --- !u!1 &2372425951419425848
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +569,7 @@ GameObject:
   - component: {fileID: 5855467895560169926}
   - component: {fileID: 2211896808041713938}
   - component: {fileID: 3669728410104953438}
+  - component: {fileID: 744812047312711536}
   m_Layer: 0
   m_Name: BTN_Instagram
   m_TagString: Untagged
@@ -698,6 +713,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &744812047312711536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372425951419425848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Instagram
 --- !u!1 &2588432809304234651
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +740,7 @@ GameObject:
   - component: {fileID: 6213276146552609919}
   - component: {fileID: 6039395510446583378}
   - component: {fileID: 6752470406231829274}
+  - component: {fileID: 1443029327389711683}
   m_Layer: 0
   m_Name: BTN_TikTok
   m_TagString: Untagged
@@ -855,6 +884,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1443029327389711683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588432809304234651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: TikTok
 --- !u!1 &2645001075997873784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1113,7 @@ GameObject:
   - component: {fileID: 6833738004242328277}
   - component: {fileID: 2554599022584009627}
   - component: {fileID: 6345598043483044825}
+  - component: {fileID: 6447828558806316352}
   m_Layer: 0
   m_Name: BTN_GitHub
   m_TagString: Untagged
@@ -1213,6 +1256,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6447828558806316352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943874209432072235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: GitHub
 --- !u!1 &4956315314365714562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1283,7 @@ GameObject:
   - component: {fileID: 5057496963766683214}
   - component: {fileID: 2674133192318398576}
   - component: {fileID: 7884965740094740180}
+  - component: {fileID: 551086091632672177}
   m_Layer: 0
   m_Name: BTN_Pinterest
   m_TagString: Untagged
@@ -1370,6 +1427,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &551086091632672177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956315314365714562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Pinterest
 --- !u!1 &5052796821926826751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,6 +1675,7 @@ GameObject:
   - component: {fileID: 6123251762517929642}
   - component: {fileID: 2435762535605842412}
   - component: {fileID: 6205584465459474929}
+  - component: {fileID: 1002787944201888255}
   m_Layer: 0
   m_Name: BTN_Facebook
   m_TagString: Untagged
@@ -1748,6 +1819,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1002787944201888255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471585271290321429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Facebook
 --- !u!1 &6486983667605826786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,6 +1846,7 @@ GameObject:
   - component: {fileID: 3667659904128602085}
   - component: {fileID: 5381739621768179310}
   - component: {fileID: 7402532429598843440}
+  - component: {fileID: 3278788104684770642}
   m_Layer: 0
   m_Name: BTN_AppStore
   m_TagString: Untagged
@@ -1905,6 +1990,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3278788104684770642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486983667605826786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: App Store
 --- !u!1 &6528804218360256947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,6 +2017,7 @@ GameObject:
   - component: {fileID: 8478467235492487976}
   - component: {fileID: 3327590477115649549}
   - component: {fileID: 3294638174800272405}
+  - component: {fileID: 6256634965992478495}
   m_Layer: 0
   m_Name: BTN_YouTube
   m_TagString: Untagged
@@ -2061,6 +2160,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6256634965992478495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6528804218360256947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: YouTube
 --- !u!1 &6802776705683136760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2205,6 +2317,7 @@ GameObject:
   - component: {fileID: 6398028920588561022}
   - component: {fileID: 4702891475672574801}
   - component: {fileID: 370674240883493639}
+  - component: {fileID: 7919739034480451581}
   m_Layer: 0
   m_Name: BTN_LinkedIn
   m_TagString: Untagged
@@ -2348,6 +2461,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &7919739034480451581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7173170686294003281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: LinkedIn
 --- !u!1 &7398682883009513114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2525,7 @@ GameObject:
   - component: {fileID: 2441631363812378575}
   - component: {fileID: 358933894011687016}
   - component: {fileID: 2140986979830006184}
+  - component: {fileID: 2776532361374275234}
   m_Layer: 0
   m_Name: BTN_Twitter
   m_TagString: Untagged
@@ -2542,6 +2669,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &2776532361374275234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559791460236989366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Twitter
 --- !u!1 &8623935100535629882
 GameObject:
   m_ObjectHideFlags: 0
