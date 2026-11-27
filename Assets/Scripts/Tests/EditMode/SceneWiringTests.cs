@@ -80,6 +80,14 @@ namespace UnityTemplate.Tests
 
         /// <summary>Checks that each menu is a scene instance of a variant of Menu.prefab with its script in the variant.</summary>
         [Test]
+        public void NoticeToastIsAssignedAndHasItsMessageText()
+        {
+            var toast = new SerializedObject(FindInScene<UserInterfaceManager>()).FindProperty("noticeToast").objectReferenceValue as NoticeToast;
+            Assert.IsNotNull(toast, "UserInterfaceManager.noticeToast is not assigned.");
+            Assert.IsNotNull(new SerializedObject(toast).FindProperty("message").objectReferenceValue, "NoticeToast.message is not assigned.");
+        }
+
+        [Test]
         public void EveryMenuIsAVariantOfTheMenuBase()
         {
             var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());

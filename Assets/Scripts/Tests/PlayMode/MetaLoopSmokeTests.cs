@@ -176,6 +176,24 @@ namespace UnityTemplate.Tests.PlayMode
             Assert.AreEqual(lightBackground, backdrop.color);
         }
 
+        /// <summary>Shows a notice and checks it appears without blocking taps, then hides itself after its time.</summary>
+        [UnityTest]
+        public IEnumerator NoticeToastShowsThenHidesItself()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var toast = Object.FindFirstObjectByType<NoticeToast>();
+            Assert.IsFalse(toast.IsShowing);
+
+            ServiceLocator.Get<UserInterfaceManager>().ShowNotice("Test notice", 0.5f);
+            yield return new WaitForSecondsRealtime(0.4f);
+            Assert.IsTrue(toast.IsShowing);
+            Assert.AreEqual(1, toast.GetComponent<CanvasGroup>().alpha, 0.01f);
+            Assert.IsFalse(toast.GetComponent<CanvasGroup>().blocksRaycasts);
+
+            yield return WaitUntil(() => !toast.IsShowing, 3);
+        }
+
         private static IEnumerator LoadInitialisation()
         {
             yield return SceneManager.LoadSceneAsync(InitialisationScene);
