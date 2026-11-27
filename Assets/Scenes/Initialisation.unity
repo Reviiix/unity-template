@@ -1529,6 +1529,7 @@ RectTransform:
   - {fileID: 2100581201}
   - {fileID: 1413685601}
   - {fileID: 8447601566899522674}
+  - {fileID: 2044023541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2979,6 +2980,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 1057099792}
   storeMenu: {fileID: 2080600577}
   confirmationScreen: {fileID: 8447601566899522678}
+  noticeToast: {fileID: 2044023542}
   firstOpenPopUp:
     m_AssetGUID: 44a931bb7562946378bb5b047e92020c
     m_SubObjectName: 
@@ -6491,6 +6493,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 4
+--- !u!1001 &2044023540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 349200000}
+    m_Modifications:
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298381479993432729, guid: 11af42165474346c2b4d66d9681ad039,
+        type: 3}
+      propertyPath: m_Name
+      value: NoticeToast
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 11af42165474346c2b4d66d9681ad039, type: 3}
+--- !u!224 &2044023541 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1511879060101354071, guid: 11af42165474346c2b4d66d9681ad039,
+    type: 3}
+  m_PrefabInstance: {fileID: 2044023540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2044023542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9026758976347855113, guid: 11af42165474346c2b4d66d9681ad039,
+    type: 3}
+  m_PrefabInstance: {fileID: 2044023540}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d32ac8e22f94b118a3a2db25e9bfb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.UserInterface.NoticeToast
 --- !u!1 &2063289109
 GameObject:
   m_ObjectHideFlags: 0

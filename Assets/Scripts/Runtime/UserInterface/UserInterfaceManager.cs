@@ -30,6 +30,7 @@ namespace UnityTemplate.UserInterface
 
         [Header("Pop Up Menus")]
         [SerializeField] private ConfirmationPopUp confirmationScreen;
+        [SerializeField] private NoticeToast noticeToast;
         [SerializeField] private AssetReferenceGameObject firstOpenPopUp;
         [SerializeField] private AssetReferenceGameObject dailyLogInPopUp;
         [SerializeField] private AssetReferenceGameObject anniversaryPopUp;
@@ -94,6 +95,12 @@ namespace UnityTemplate.UserInterface
             {
                 IsShowingStartUpPopUps = false;
             }
+        }
+
+        /// <summary>Shows a short message at the bottom of the screen for the given number of seconds; taps pass through it.</summary>
+        public void ShowNotice(string text, float seconds)
+        {
+            noticeToast.Show(text, seconds);
         }
 
         /// <summary>Opens a popup that already lives in the scene and waits until it has closed.</summary>

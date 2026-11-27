@@ -2,14 +2,19 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityTemplate.Core;
+using UnityTemplate.UserInterface;
 
 namespace UnityTemplate.Utilities
 {
-    /// <summary>Opens a web page when the button on the same GameObject is tapped; in WebGL it opens from the browser's own click so pop-up blockers allow it, and a button with no URL hides itself.</summary>
+    /// <summary>Opens a web page when the button on the same GameObject is tapped; in WebGL it opens from the browser's own click so pop-up blockers allow it and shows a notice that browsers may block it; a button with no URL hides itself.</summary>
     [RequireComponent(typeof(Button))]
     public class OpenURLButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerExitHandler
     {
         [SerializeField] private string url;
+        private const string PopUpNotice = "Opening the link in a new tab. Most browsers block pop-ups, so if nothing opens, allow pop-ups for this site.";
+        private const float PopUpNoticeSeconds = 5;
+
         [Tooltip("Hide the button while no URL is set. Turn off for buttons that also show content, like the version text.")]
         [SerializeField] private bool hideWithoutUrl = true;
         private Button button;
@@ -44,11 +49,13 @@ namespace UnityTemplate.Utilities
 #endif
         }
 
-        /// <summary>In WebGL, opens the link now if the browser's click passed before the press was armed (slow frames).</summary>
+        /// <summary>In WebGL, opens the link now if the browser's click passed before the press was armed (slow frames), and explains that browsers may block the new tab.</summary>
         public void OnPointerClick(PointerEventData eventData)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-            if (HasUrl && button.IsInteractable()) OpenUrlIfStillPending();
+            if (!HasUrl || !button.IsInteractable()) return;
+            OpenUrlIfStillPending();
+            if (ServiceLocator.TryGet<UserInterfaceManager>(out var userInterface)) userInterface.ShowNotice(PopUpNotice, PopUpNoticeSeconds);
 #endif
         }
 
