@@ -1,12 +1,13 @@
 using System;
 using NUnit.Framework;
 using UnityEditor;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Theming;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Checks ThemeService against the real light and dark palettes: switching, change events and saving.</summary>
+    /// <summary>Checks ThemeService against the real light, dark and high-contrast palettes: switching, change events and saving.</summary>
     public class ThemeServiceTests
     {
         private ThemePalette light;
@@ -60,6 +61,26 @@ namespace UnityTemplate.Tests
 
             reloaded.Load(new SaveData());
             Assert.AreEqual(ThemeMode.Light, reloaded.Mode, "A new game (or RESET ALL) starts light.");
+        }
+
+        [Test]
+        public void HighContrastSwitchesToTheHighContrastPalettes()
+        {
+            var highContrastLight = AssetDatabase.LoadAssetAtPath<ThemePalette>("Assets/Settings/Themes/HighContrastLightTheme.asset");
+            var highContrastDark = AssetDatabase.LoadAssetAtPath<ThemePalette>("Assets/Settings/Themes/HighContrastDarkTheme.asset");
+            var accessibility = new AccessibilityService(null, new SystemAccessibility(1f, false, false, false));
+            var contrastTheme = new ThemeService(light, dark, highContrastLight, highContrastDark, null, accessibility);
+            var raised = 0;
+            contrastTheme.Changed += () => raised++;
+
+            accessibility.SetHighContrast(true);
+            accessibility.SetBoldText(true);
+
+            Assert.AreEqual(1, raised, "Only the contrast change recolours.");
+            Assert.AreEqual(highContrastLight.Get(ThemeColour.TextSecondary), contrastTheme.Get(ThemeColour.TextSecondary));
+            contrastTheme.SetMode(ThemeMode.Dark);
+            Assert.AreEqual(highContrastDark.Get(ThemeColour.TextSecondary), contrastTheme.Get(ThemeColour.TextSecondary));
+            Assert.AreNotEqual(dark.Get(ThemeColour.TextSecondary), contrastTheme.Get(ThemeColour.TextSecondary));
         }
 
         [Test]

@@ -4,11 +4,12 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 
 namespace UnityTemplate.Progression
 {
-    /// <summary>Shows the player's level, an experience bar and "current/needed" text, animating every experience gain.</summary>
+    /// <summary>Shows the player's level, an experience bar and "current/needed" text, animating every experience gain unless reduced motion is on.</summary>
     public class ExperienceDisplay : MonoBehaviour
     {
         private const float AnimationSeconds = 3;
@@ -18,6 +19,7 @@ namespace UnityTemplate.Progression
         private readonly Queue<ValueChange> queuedGains = new();
         private readonly StringBuilder textBuilder = new();
         private ExperienceService experience;
+        private AccessibilityService accessibility;
         private Sequence gainAnimation;
         private int shownLevel;
 
@@ -28,6 +30,7 @@ namespace UnityTemplate.Progression
         {
             experience = ServiceLocator.Get<ExperienceService>();
             saveService = ServiceLocator.Get<SaveService>();
+            accessibility = ServiceLocator.Get<AccessibilityService>();
             experience.ExperienceChanged += OnExperienceChanged;
             saveService.DataLoaded += ShowCurrentExperience;
             ShowCurrentExperience();
@@ -50,9 +53,14 @@ namespace UnityTemplate.Progression
             ShowState(experience.CurrentLevel, experience.TotalExperience);
         }
 
-        /// <summary>Animates the gain, or queues it while another gain is animating.</summary>
+        /// <summary>Animates the gain, queues it while another gain is animating, or shows it at once with reduced motion.</summary>
         private void OnExperienceChanged(ValueChange change)
         {
+            if (accessibility.IsReducedMotion)
+            {
+                ShowCurrentExperience();
+                return;
+            }
             if (gainAnimation != null && gainAnimation.IsActive())
             {
                 queuedGains.Enqueue(change);

@@ -5,11 +5,13 @@ using System.Linq;
 using System.IO;
 using DG.Tweening;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
@@ -180,6 +182,42 @@ namespace UnityTemplate.Tests.PlayMode
             yield return null;
             Assert.AreEqual(ThemeMode.Light, theme.Mode);
             Assert.AreEqual(lightBackground, backdrop.color);
+        }
+
+        /// <summary>Opens the accessibility options from Settings and checks that text size, high contrast and reduced motion apply at once and are saved.</summary>
+        [UnityTest]
+        public IEnumerator AccessibilityOptionsApplyAtOnceAndAreSaved()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today), accessibilitySaved = true });
+            yield return LoadInitialisation();
+            var accessibility = ServiceLocator.Get<AccessibilityService>();
+            var theme = ServiceLocator.Get<ThemeService>();
+            var title = Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include, FindObjectsSortMode.None).Single(text => text.name == "TXT_SettingsTitle");
+            var designedSize = title.fontSize;
+            var normalSecondary = theme.Get(ThemeColour.TextSecondary);
+
+            FindLoadedButton("BTN_Settings").onClick.Invoke();
+            FindLoadedButton("BTN_Accessibility").onClick.Invoke();
+            var popUp = default(AccessibilityPopUp);
+            yield return WaitUntil(() => (popUp = Object.FindFirstObjectByType<AccessibilityPopUp>()) != null && popUp.State == PopUpState.Open);
+
+            FindButtonByName(popUp.gameObject, "BTN_Largest").onClick.Invoke();
+            Assert.AreEqual(TextSize.Largest, accessibility.TextSize);
+            Assert.IsTrue(title.enableAutoSizing);
+            Assert.AreEqual(designedSize, title.fontSizeMin);
+            Assert.AreEqual(designedSize * AccessibilityService.LargestTextScale, title.fontSizeMax, 0.01f);
+
+            popUp.GetComponentsInChildren<ToggleSwitch>(true).Single(toggle => toggle.transform.parent.name == "GRP_HighContrast").Toggle.isOn = true;
+            Assert.AreNotEqual(normalSecondary, theme.Get(ThemeColour.TextSecondary));
+
+            popUp.GetComponentsInChildren<ToggleSwitch>(true).Single(toggle => toggle.transform.parent.name == "GRP_ReduceMotion").Toggle.isOn = true;
+            popUp.PressBack();
+            yield return WaitUntil(() => popUp.State == PopUpState.Hidden, 1);
+
+            var save = File.ReadAllText(Path.Combine(Application.persistentDataPath, RealSaveBackup.SaveFileName));
+            StringAssert.Contains("\"textSize\":2", save);
+            StringAssert.Contains("\"highContrast\":true", save);
+            StringAssert.Contains("\"reduceMotion\":true", save);
         }
 
         /// <summary>Shows a notice and checks it appears without blocking taps, then hides itself after its time.</summary>

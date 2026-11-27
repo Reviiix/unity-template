@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Theming;
 
@@ -18,6 +19,7 @@ namespace UnityTemplate.UserInterface.Kit
         [SerializeField] private ThemeColour offColour = ThemeColour.Track;
         private Toggle toggle;
         private ThemeService theme;
+        private AccessibilityService accessibility;
 
         public Toggle Toggle => toggle != null ? toggle : toggle = GetComponent<Toggle>();
 
@@ -31,6 +33,7 @@ namespace UnityTemplate.UserInterface.Kit
         private void OnEnable()
         {
             if (ServiceLocator.TryGet(out theme)) theme.Changed += ColourTrackNow;
+            ServiceLocator.TryGet(out accessibility);
             ShowState(false);
         }
 
@@ -49,9 +52,10 @@ namespace UnityTemplate.UserInterface.Kit
             ShowState(false);
         }
 
-        /// <summary>Moves the knob to the on or off end and colours the track, sliding when animate is true.</summary>
+        /// <summary>Moves the knob to the on or off end and colours the track, sliding when animate is true and motion isn't reduced.</summary>
         private void ShowState(bool animate)
         {
+            animate &= accessibility == null || !accessibility.IsReducedMotion;
             var x = Toggle.isOn ? knobTravel : -knobTravel;
             knob.DOKill();
             if (animate && isActiveAndEnabled) DOTween.To(() => knob.anchoredPosition.x, value => knob.anchoredPosition = new Vector2(value, knob.anchoredPosition.y), x, SlideSeconds).SetEase(Ease.OutQuad).SetTarget(knob).SetLink(gameObject);

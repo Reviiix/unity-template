@@ -30,6 +30,7 @@ namespace UnityTemplate.UserInterface
 
         [Header("Pop Up Menus")]
         [SerializeField] private ConfirmationPopUp confirmationScreen;
+        [SerializeField] private AccessibilityPopUp accessibilityPopUp;
         [SerializeField] private NoticeToast noticeToast;
         [SerializeField] private AssetReferenceGameObject firstOpenPopUp;
         [SerializeField] private AssetReferenceGameObject dailyLogInPopUp;
@@ -43,6 +44,7 @@ namespace UnityTemplate.UserInterface
         private RawImage transitionalFadeImage;
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
+        public AccessibilityPopUp AccessibilityPopUp => accessibilityPopUp;
         public bool IsShowingStartUpPopUps { get; private set; }
         public bool IsInStage { get; private set; }
 

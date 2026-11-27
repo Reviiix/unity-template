@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6771623512473085263}
   - component: {fileID: 2639457757538076457}
   - component: {fileID: 378357517573616018}
+  - component: {fileID: 4225192490716048072}
   m_Layer: 0
   m_Name: TXT_Message
   m_TagString: Untagged
@@ -173,6 +174,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 0
+--- !u!114 &4225192490716048072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721138037427970604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &7189684246937793199
 GameObject:
   m_ObjectHideFlags: 0
