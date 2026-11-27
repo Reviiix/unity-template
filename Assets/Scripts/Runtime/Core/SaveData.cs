@@ -31,6 +31,12 @@ namespace UnityTemplate.Core
         public bool muted;
         public bool darkMode;
 
+        public bool accessibilitySaved;
+        public int textSize;
+        public bool boldText;
+        public bool highContrast;
+        public bool reduceMotion;
+
         public string[] unlockedAchievements = Array.Empty<string>();
     }
 }
