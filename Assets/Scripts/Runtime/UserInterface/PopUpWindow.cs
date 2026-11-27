@@ -3,12 +3,13 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Audio;
 using UnityTemplate.Core;
 
 namespace UnityTemplate.UserInterface
 {
-    /// <summary>Base class for popups: slides the panel in from the left and out again, and ignores taps while a slide is running.</summary>
+    /// <summary>Base class for popups: slides the panel in from the left and out again (appearing in place with reduced motion), and ignores taps while a slide is running.</summary>
     [RequireComponent(typeof(Canvas))]
     public abstract class PopUpWindow : MonoBehaviour
     {
@@ -127,11 +128,12 @@ namespace UnityTemplate.UserInterface
             });
         }
 
-        /// <summary>Moves the panel with the original ease-out curve.</summary>
+        /// <summary>Moves the panel with the original ease-out curve, or at once with reduced motion.</summary>
         private void Slide(Vector3 target, Action onComplete)
         {
             slide?.Kill();
-            slide = popUpMenu.DOLocalMove(target, SlideDuration).SetEase(Ease.OutExpo).SetLink(gameObject).OnComplete(() => onComplete());
+            var seconds = ServiceLocator.TryGet(out AccessibilityService accessibility) ? accessibility.MotionSeconds(SlideDuration) : SlideDuration;
+            slide = popUpMenu.DOLocalMove(target, seconds).SetEase(Ease.OutExpo).SetLink(gameObject).OnComplete(() => onComplete());
         }
 
         private static float OffScreenDistance => Screen.width * 2 + OffScreenMargin;

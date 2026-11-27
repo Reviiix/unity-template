@@ -5,11 +5,14 @@ using System.Linq;
 using System.IO;
 using DG.Tweening;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Economy;
 using UnityTemplate.Engagement;
@@ -25,7 +28,7 @@ using Object = UnityEngine.Object;
 
 namespace UnityTemplate.Tests.PlayMode
 {
-    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
+    /// <summary>Boots the real game and walks the menu loop: first launch and its welcome reward, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
     [Category("Smoke")]
     [PrebuildSetup(typeof(RealSaveBackup))]
     [PostBuildCleanup(typeof(RealSaveBackup))]
@@ -45,6 +48,7 @@ namespace UnityTemplate.Tests.PlayMode
         [UnityTearDown]
         public IEnumerator TearDownGameAndDeleteItsSave()
         {
+            AssistiveSupport.screenReaderStatusOverride = AssistiveSupport.ScreenReaderStatusOverride.OSDriven;
             DOTween.KillAll();
             var marker = new GameObject("DontDestroyOnLoadMarker");
             Object.DontDestroyOnLoad(marker);
@@ -58,16 +62,22 @@ namespace UnityTemplate.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator FirstLaunchShowsTheMainMenuAndTheWelcomePopUp()
+        public IEnumerator FirstLaunchWelcomePopUpPaysItsRewardOnce()
         {
             yield return LoadInitialisation();
 
-            Assert.AreEqual(1, ServiceLocator.Get<EngagementService>().TimesOpened);
+            var engagement = ServiceLocator.Get<EngagementService>();
+            Assert.AreEqual(1, engagement.TimesOpened);
             var welcome = default(FirstOpenPopUpMenu);
             yield return WaitUntil(() => (welcome = Object.FindFirstObjectByType<FirstOpenPopUpMenu>()) != null && welcome.State == PopUpState.Open);
 
-            FindButtonByName(welcome.gameObject, "BTN_Continue").onClick.Invoke();
+            FindButtonByName(welcome.gameObject, "BTN_Claim").onClick.Invoke();
             yield return WaitUntil(() => welcome == null);
+
+            var credits = ServiceLocator.Get<CreditsService>();
+            Assert.AreEqual(EngagementService.WelcomeCredits, credits.GetBalance(Currency.Credits));
+            Assert.AreEqual(EngagementService.WelcomePremiumCredits, credits.GetBalance(Currency.PremiumCredits));
+            Assert.IsFalse(engagement.IsWelcomeRewardPending);
         }
 
         [UnityTest]
@@ -174,6 +184,105 @@ namespace UnityTemplate.Tests.PlayMode
             yield return null;
             Assert.AreEqual(ThemeMode.Light, theme.Mode);
             Assert.AreEqual(lightBackground, backdrop.color);
+        }
+
+        /// <summary>Opens the accessibility options from Settings and checks that text size, high contrast and reduced motion apply at once and are saved.</summary>
+        [UnityTest]
+        public IEnumerator AccessibilityOptionsApplyAtOnceAndAreSaved()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today), accessibilitySaved = true });
+            yield return LoadInitialisation();
+            var accessibility = ServiceLocator.Get<AccessibilityService>();
+            var theme = ServiceLocator.Get<ThemeService>();
+            var title = Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include, FindObjectsSortMode.None).Single(text => text.name == "TXT_SettingsTitle");
+            var designedSize = title.fontSize;
+            var normalSecondary = theme.Get(ThemeColour.TextSecondary);
+
+            FindLoadedButton("BTN_Settings").onClick.Invoke();
+            FindLoadedButton("BTN_Accessibility").onClick.Invoke();
+            var popUp = default(AccessibilityPopUp);
+            yield return WaitUntil(() => (popUp = Object.FindFirstObjectByType<AccessibilityPopUp>()) != null && popUp.State == PopUpState.Open);
+
+            FindButtonByName(popUp.gameObject, "BTN_Largest").onClick.Invoke();
+            Assert.AreEqual(TextSize.Largest, accessibility.TextSize);
+            Assert.IsTrue(title.enableAutoSizing);
+            Assert.AreEqual(designedSize, title.fontSizeMin);
+            Assert.AreEqual(designedSize * AccessibilityService.LargestTextScale, title.fontSizeMax, 0.01f);
+
+            popUp.GetComponentsInChildren<ToggleSwitch>(true).Single(toggle => toggle.transform.parent.name == "GRP_HighContrast").Toggle.isOn = true;
+            Assert.AreNotEqual(normalSecondary, theme.Get(ThemeColour.TextSecondary));
+
+            popUp.GetComponentsInChildren<ToggleSwitch>(true).Single(toggle => toggle.transform.parent.name == "GRP_ReduceMotion").Toggle.isOn = true;
+            popUp.PressBack();
+            yield return WaitUntil(() => popUp.State == PopUpState.Hidden, 1);
+
+            var save = File.ReadAllText(Path.Combine(Application.persistentDataPath, RealSaveBackup.SaveFileName));
+            StringAssert.Contains("\"textSize\":2", save);
+            StringAssert.Contains("\"highContrast\":true", save);
+            StringAssert.Contains("\"reduceMotion\":true", save);
+        }
+
+        /// <summary>Turns a screen reader on, checks the main menu's nodes, double-taps through to the accessibility popup and checks that only the popup is then readable.</summary>
+        [UnityTest]
+        public IEnumerator ScreenReaderReadsTheScreenAndKeepsFocusInsidePopUps()
+        {
+            AssistiveSupport.screenReaderStatusOverride = AssistiveSupport.ScreenReaderStatusOverride.ForceEnabled;
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var screenReader = ServiceLocator.Get<ScreenReaderService>();
+            Assert.IsTrue(screenReader.IsScreenReaderOn);
+            yield return null;
+            yield return null;
+
+            Assert.AreSame(screenReader.Hierarchy, AssistiveSupport.activeHierarchy);
+            var settings = NodeLabelled(screenReader, "Settings");
+            Assert.AreEqual(AccessibilityRole.Button, settings.role);
+            Assert.Greater(settings.frame.width, 0);
+            Assert.IsTrue(new Rect(0, 0, Screen.width, Screen.height).Overlaps(settings.frame), $"The Settings frame {settings.frame} is off screen.");
+            Assert.IsNotNull(NodeLabelled(screenReader, "Credits 0"));
+
+            Assert.IsTrue(screenReader.Activate(settings));
+            yield return null;
+            yield return null;
+            Assert.IsTrue(Object.FindFirstObjectByType<SettingsMenu>().IsVisible);
+            Assert.AreEqual(AccessibilityRole.Toggle, NodeLabelled(screenReader, "Dark Mode").role);
+            Assert.AreEqual(AccessibilityRole.Slider, NodeLabelled(screenReader, "Volume").role);
+
+            Assert.IsTrue(screenReader.Activate(NodeLabelled(screenReader, "Accessibility")));
+            yield return null;
+            yield return null;
+            var labels = screenReader.Hierarchy.rootNodes.Select(node => node.label).ToList();
+            CollectionAssert.Contains(labels, "Close");
+            CollectionAssert.Contains(labels, "Bold Text");
+            CollectionAssert.DoesNotContain(labels, "Reset All", "The menu behind the popup is still readable.");
+            Assert.IsTrue((NodeLabelled(screenReader, "100%").state & AccessibilityState.Selected) != 0, "The selected text size isn't read as selected.");
+        }
+
+        /// <summary>Returns the screen reader node with a label, failing with the labels there are if none matches.</summary>
+        private static AccessibilityNode NodeLabelled(ScreenReaderService screenReader, string label)
+        {
+            var nodes = screenReader.Hierarchy.rootNodes;
+            var node = nodes.FirstOrDefault(candidate => candidate.label == label);
+            Assert.IsNotNull(node, $"No node labelled '{label}'. Labels: {string.Join(" | ", nodes.Select(candidate => candidate.label))}");
+            return node;
+        }
+
+        /// <summary>Shows a notice and checks it appears without blocking taps, then hides itself after its time.</summary>
+        [UnityTest]
+        public IEnumerator NoticeToastShowsThenHidesItself()
+        {
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var toast = Object.FindFirstObjectByType<NoticeToast>();
+            Assert.IsFalse(toast.IsShowing);
+
+            ServiceLocator.Get<UserInterfaceManager>().ShowNotice("Test notice", 0.5f);
+            yield return new WaitForSecondsRealtime(0.4f);
+            Assert.IsTrue(toast.IsShowing);
+            Assert.AreEqual(1, toast.GetComponent<CanvasGroup>().alpha, 0.01f);
+            Assert.IsFalse(toast.GetComponent<CanvasGroup>().blocksRaycasts);
+
+            yield return WaitUntil(() => !toast.IsShowing, 3);
         }
 
         private static IEnumerator LoadInitialisation()

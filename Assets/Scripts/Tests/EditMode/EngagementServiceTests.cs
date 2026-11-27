@@ -4,7 +4,7 @@ using UnityTemplate.Engagement;
 
 namespace UnityTemplate.Tests
 {
-    /// <summary>Tests the daily bonus (once per day, streaks, clock tampering) and first-open anniversaries.</summary>
+    /// <summary>Tests the welcome reward (owed once, kept until claimed), the daily bonus (once per day, streaks, clock tampering) and first-open anniversaries.</summary>
     public class EngagementServiceTests
     {
         private static readonly DateTime Monday = new(2026, 11, 9, 10, 0, 0);
@@ -16,10 +16,7 @@ namespace UnityTemplate.Tests
         public void CreateService()
         {
             folder = new TestSaveFolder();
-            var saveService = folder.CreateSaveService();
-            engagement = new EngagementService(saveService, () => clockSeconds);
-            saveService.Register(engagement);
-            saveService.Load();
+            engagement = LoadEngagementFromSave();
         }
 
         [TearDown]
@@ -46,6 +43,34 @@ namespace UnityTemplate.Tests
             Assert.IsTrue(engagement.IsFirstOpen);
             Assert.IsFalse(engagement.IsDailyBonusAvailable(Monday.AddHours(5)));
             Assert.IsTrue(engagement.IsDailyBonusAvailable(Monday.AddDays(1).Date));
+        }
+
+        [Test]
+        public void OnlyTheFirstOpenOwesTheWelcomeRewardAndItIsPaidOnce()
+        {
+            Assert.IsFalse(engagement.IsWelcomeRewardPending);
+            engagement.RecordAppOpen(Monday);
+
+            Assert.IsTrue(engagement.IsWelcomeRewardPending);
+            Assert.IsTrue(engagement.ClaimWelcomeReward());
+            Assert.IsFalse(engagement.IsWelcomeRewardPending);
+            Assert.IsFalse(engagement.ClaimWelcomeReward());
+
+            engagement.RecordAppOpen(Monday.AddDays(1));
+            Assert.IsFalse(engagement.IsWelcomeRewardPending);
+        }
+
+        [Test]
+        public void AnUnclaimedWelcomeRewardIsStillOwedAfterARelaunch()
+        {
+            engagement.RecordAppOpen(Monday);
+
+            var relaunched = LoadEngagementFromSave();
+            relaunched.RecordAppOpen(Monday.AddHours(1));
+            Assert.IsTrue(relaunched.IsWelcomeRewardPending);
+            relaunched.ClaimWelcomeReward();
+
+            Assert.IsFalse(LoadEngagementFromSave().IsWelcomeRewardPending);
         }
 
         [Test]
@@ -110,6 +135,16 @@ namespace UnityTemplate.Tests
             clockSeconds = 630;
 
             Assert.AreEqual(90, engagement.TotalPlayTime.TotalSeconds, 0.001);
+        }
+    
+        /// <summary>Creates an engagement service from the test folder's save file, as a fresh launch would.</summary>
+        private EngagementService LoadEngagementFromSave()
+        {
+            var saveService = folder.CreateSaveService();
+            var loaded = new EngagementService(saveService, () => clockSeconds);
+            saveService.Register(loaded);
+            saveService.Load();
+            return loaded;
         }
     }
 }

@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 
 namespace UnityTemplate.Audio
 {
     /// <summary>The speaker button and volume slider: mirrors AudioManager's saved state and forwards the player's changes to it.</summary>
-    public class VolumeController : MonoBehaviour
+    public class VolumeController : MonoBehaviour, IScreenReaderSelection
     {
         [SerializeField] private Image volumeImage;
         [SerializeField] private Sprite[] volumeSprites;
@@ -32,6 +33,12 @@ namespace UnityTemplate.Audio
         private void OnDisable()
         {
             audioManager.VolumeChanged -= ShowCurrentVolume;
+        }
+
+        /// <summary>The mute button reads as selected while the sound is silent.</summary>
+        public bool IsSelected(Selectable control)
+        {
+            return control == muteButton && (audioManager.IsMuted || audioManager.Volume <= 0);
         }
 
         /// <summary>Toggles mute; unmuting a slider-silenced volume restores full volume.</summary>

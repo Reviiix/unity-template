@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6153030001218827325}
   - component: {fileID: 7539139612612251603}
   - component: {fileID: 6006696114330176960}
+  - component: {fileID: 3157095702245696199}
   m_Layer: 0
   m_Name: TXT_Label
   m_TagString: Untagged
@@ -138,6 +139,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3157095702245696199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107640540287649919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &241483928573476787
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +164,7 @@ GameObject:
   - component: {fileID: 5987770958041748644}
   - component: {fileID: 2873378097587275956}
   - component: {fileID: 3703163549675123888}
+  - component: {fileID: 8555356441211835115}
   m_Layer: 0
   m_Name: TXT_Title
   m_TagString: Untagged
@@ -311,6 +325,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &8555356441211835115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241483928573476787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &267185137471861732
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +507,7 @@ GameObject:
   - component: {fileID: 2565454287155708135}
   - component: {fileID: 1433592012473142221}
   - component: {fileID: 4473245296846735104}
+  - component: {fileID: 2500322892212265536}
   m_Layer: 0
   m_Name: TXT_NoDynamicAchievementsSet
   m_TagString: Untagged
@@ -621,6 +648,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &2500322892212265536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415210800362722484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &811816046562816433
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +673,7 @@ GameObject:
   - component: {fileID: 1270244595640839604}
   - component: {fileID: 5801681747726724442}
   - component: {fileID: 3446340699451738380}
+  - component: {fileID: 3107782145082206106}
   m_Layer: 0
   m_Name: TXT_LongestSession
   m_TagString: Untagged
@@ -794,6 +834,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &3107782145082206106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811816046562816433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &916321863483466162
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +858,7 @@ GameObject:
   - component: {fileID: 3653693651906717265}
   - component: {fileID: 279529441874902590}
   - component: {fileID: 5115496185862304038}
+  - component: {fileID: 4024887548186843186}
   m_Layer: 0
   m_Name: TXT_Reward
   m_TagString: Untagged
@@ -946,6 +999,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &4024887548186843186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916321863483466162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &1057320907787579951
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,8 +1046,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: -128, y: -264}
+  m_AnchoredPosition: {x: 0, y: -108}
+  m_SizeDelta: {x: -80, y: -296}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1220256233470833274
 GameObject:
@@ -1515,8 +1580,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: -128, y: -264}
+  m_AnchoredPosition: {x: 0, y: -108}
+  m_SizeDelta: {x: -80, y: -296}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2813408846911238511
 GameObject:
@@ -1681,6 +1746,7 @@ GameObject:
   - component: {fileID: 5717709716183531128}
   - component: {fileID: 30755102340375089}
   - component: {fileID: 3978485869117920914}
+  - component: {fileID: 4333099621923820579}
   m_Layer: 0
   m_Name: TXT_Reward
   m_TagString: Untagged
@@ -1821,6 +1887,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &4333099621923820579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3031272054441054571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &3880864506709826188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,6 +1910,7 @@ GameObject:
   - component: {fileID: 1220590543528208040}
   - component: {fileID: 742000244146912949}
   - component: {fileID: 8937365423079000526}
+  - component: {fileID: 6553028493543292295}
   m_Layer: 0
   m_Name: TXT_Label
   m_TagString: Untagged
@@ -1959,6 +2038,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6553028493543292295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880864506709826188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &4460274372768120546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,6 +2257,7 @@ GameObject:
   - component: {fileID: 4726959244067665471}
   - component: {fileID: 8380535374627814377}
   - component: {fileID: 5107384967022864333}
+  - component: {fileID: 6075660007201707649}
   m_Layer: 0
   m_Name: TXT_AmountOfAchievements
   m_TagString: Untagged
@@ -2306,6 +2398,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &6075660007201707649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778262761966608997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &5272957029339685985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,6 +2422,7 @@ GameObject:
   - component: {fileID: 6174840101516612960}
   - component: {fileID: 3374316425500937858}
   - component: {fileID: 6774475049067183656}
+  - component: {fileID: 2790127659377194522}
   m_Layer: 0
   m_Name: TXT_AmountOfAchievements
   m_TagString: Untagged
@@ -2458,6 +2563,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &2790127659377194522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272957029339685985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &5313592538706656144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,7 +2732,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -200, y: -200}
+  m_SizeDelta: {x: -80, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8751300472822428920
 CanvasRenderer:
@@ -2859,6 +2976,7 @@ GameObject:
   - component: {fileID: 4409436067105802080}
   - component: {fileID: 7073993448184306284}
   - component: {fileID: 8022649574877203124}
+  - component: {fileID: 3818617930509275109}
   m_Layer: 0
   m_Name: TXT_ComingSoon
   m_TagString: Untagged
@@ -2999,6 +3117,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &3818617930509275109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7145285595738691077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &7192233047437935611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,6 +3405,7 @@ GameObject:
   - component: {fileID: 4946406993933170667}
   - component: {fileID: 4233334115394944621}
   - component: {fileID: 1024316467826458596}
+  - component: {fileID: 6702499284683176327}
   m_Layer: 0
   m_Name: TXT_Label
   m_TagString: Untagged
@@ -3357,8 +3488,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 1
@@ -3402,6 +3533,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6702499284683176327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304436790157843773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &7547485871076809183
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,6 +3556,7 @@ GameObject:
   - component: {fileID: 7198502898029494546}
   - component: {fileID: 1116480153895335449}
   - component: {fileID: 702995371251312939}
+  - component: {fileID: 8171189757736873952}
   m_Layer: 0
   m_Name: TXT_Label
   m_TagString: Untagged
@@ -3495,8 +3639,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 1
@@ -3540,6 +3684,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8171189757736873952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547485871076809183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &8196404139097878667
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,8 +3729,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: -128, y: -264}
+  m_AnchoredPosition: {x: 0, y: -108}
+  m_SizeDelta: {x: -80, y: -296}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8626966099316154208
 GameObject:
@@ -3587,6 +3743,7 @@ GameObject:
   - component: {fileID: 6331968858706897396}
   - component: {fileID: 5050606161654195382}
   - component: {fileID: 6870303370546756181}
+  - component: {fileID: 2961859945607213935}
   m_Layer: 0
   m_Name: TXT_Label
   m_TagString: Untagged
@@ -3669,8 +3826,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 1
@@ -3714,6 +3871,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2961859945607213935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8626966099316154208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &8732769560300381075
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,10 +3920,10 @@ RectTransform:
   - {fileID: 6126989896705301077}
   m_Father: {fileID: 8007746455149943384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -128}
-  m_SizeDelta: {x: 840, y: 88}
+  m_SizeDelta: {x: -80, y: 88}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4413985812365528181
 MonoBehaviour:
@@ -3846,6 +4015,7 @@ GameObject:
   - component: {fileID: 5007564379298175236}
   - component: {fileID: 6910919013866835160}
   - component: {fileID: 9141393716692652552}
+  - component: {fileID: 1814362364207221855}
   m_Layer: 0
   m_Name: TXT_TimesOpened
   m_TagString: Untagged
@@ -4006,6 +4176,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &1814362364207221855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847484536937530695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &9051812021047962001
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,6 +4308,7 @@ GameObject:
   - component: {fileID: 3912359736073315234}
   - component: {fileID: 7264413071007664185}
   - component: {fileID: 8081036453446372246}
+  - component: {fileID: 5390447017987673725}
   m_Layer: 0
   m_Name: TXT_Time Played
   m_TagString: Untagged
@@ -4286,6 +4469,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &5390447017987673725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9155823899680856340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1001 &1051539860695942303
 PrefabInstance:
   m_ObjectHideFlags: 0

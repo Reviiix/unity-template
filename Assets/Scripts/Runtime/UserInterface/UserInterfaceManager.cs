@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Engagement;
 using UnityTemplate.Progression;
@@ -30,18 +31,23 @@ namespace UnityTemplate.UserInterface
 
         [Header("Pop Up Menus")]
         [SerializeField] private ConfirmationPopUp confirmationScreen;
+        [SerializeField] private AccessibilityPopUp accessibilityPopUp;
+        [SerializeField] private NoticeToast noticeToast;
         [SerializeField] private AssetReferenceGameObject firstOpenPopUp;
         [SerializeField] private AssetReferenceGameObject dailyLogInPopUp;
         [SerializeField] private AssetReferenceGameObject anniversaryPopUp;
 
         private readonly List<PopUpWindow> openPopUps = new();
+        private readonly List<Transform> screenReaderRoots = new();
         private readonly MenuRenderThrottle renderThrottle = new();
         private MenuBase[] allMenus;
         private GameObject[] menuBackdrop;
         private StageLoader stageLoader;
+        private ScreenReaderService screenReader;
         private RawImage transitionalFadeImage;
 
         public ConfirmationPopUp ConfirmationScreen => confirmationScreen;
+        public AccessibilityPopUp AccessibilityPopUp => accessibilityPopUp;
         public bool IsShowingStartUpPopUps { get; private set; }
         public bool IsInStage { get; private set; }
 
@@ -62,6 +68,7 @@ namespace UnityTemplate.UserInterface
         public void Initialise()
         {
             transitionalFadeImage = GetComponent<RawImage>();
+            screenReader = ServiceLocator.Get<ScreenReaderService>();
             transitionalFadeImage.enabled = false;
             allMenus = new MenuBase[] { mainMenu, stageSelectionMenu, statisticsMenu, settingsMenu, storeMenu };
             menuBackdrop = MenuBackdrop();
@@ -73,7 +80,7 @@ namespace UnityTemplate.UserInterface
             storeMenu.Initialise();
         }
 
-        /// <summary>Opens the main menu, then the first-open popup, or the anniversary and daily bonus popups one after another; stages cannot start until it finishes.</summary>
+        /// <summary>Opens the main menu, then the welcome popup while its reward is unclaimed, or the anniversary and daily bonus popups one after another; stages cannot start until it finishes.</summary>
         public async Awaitable ShowStartUpPopUpsAsync(bool dailyBonusEnabled)
         {
             ShowMenu(mainMenu);
@@ -82,7 +89,7 @@ namespace UnityTemplate.UserInterface
             {
                 var engagement = ServiceLocator.Get<EngagementService>();
                 var today = System.DateTime.Now;
-                if (engagement.IsFirstOpen)
+                if (engagement.IsWelcomeRewardPending)
                 {
                     await OpenAddressablePopUpAsync(firstOpenPopUp);
                     return;
@@ -96,6 +103,13 @@ namespace UnityTemplate.UserInterface
             }
         }
 
+        /// <summary>Shows a short message at the bottom of the screen for the given number of seconds; taps pass through it.</summary>
+        public void ShowNotice(string text, float seconds)
+        {
+            noticeToast.Show(text, seconds);
+            screenReader.Announce(text);
+        }
+
         /// <summary>Opens a popup that already lives in the scene and waits until it has closed.</summary>
         public async Awaitable OpenPopUpAsync(PopUpWindow popUp)
         {
@@ -104,9 +118,11 @@ namespace UnityTemplate.UserInterface
             popUp.Closed += OnClosed;
             openPopUps.Add(popUp);
             popUp.Open();
+            ReportScreenToScreenReader();
             await closed.Awaitable;
             popUp.Closed -= OnClosed;
             openPopUps.Remove(popUp);
+            ReportScreenToScreenReader();
         }
 
         /// <summary>Destroys a popup instance created from an Addressable prefab and releases its asset.</summary>
@@ -143,6 +159,7 @@ namespace UnityTemplate.UserInterface
             SetMenuBackdropVisible(false);
             HideAllMenus();
             returnToMainMenuButton.interactable = true;
+            ReportScreenToScreenReader();
         }
 
         /// <summary>Shows the menu backdrop and the main menu again after a stage has been unloaded.</summary>
@@ -170,6 +187,30 @@ namespace UnityTemplate.UserInterface
             HideAllMenus();
             returnToMainMenuButton.interactable = menu != mainMenu;
             menu.Show();
+            ReportScreenToScreenReader();
+        }
+
+        /// <summary>Tells the screen reader what is on screen: the top popup on its own, so focus stays inside it, or else BACK (when it works), the visible menu and the rest of the backdrop, in reading order.</summary>
+        private void ReportScreenToScreenReader()
+        {
+            screenReaderRoots.Clear();
+            if (openPopUps.Count > 0)
+            {
+                screenReaderRoots.Add(openPopUps[^1].transform);
+            }
+            else
+            {
+                if (returnToMainMenuButton.interactable) screenReaderRoots.Add(returnToMainMenuButton.transform);
+                foreach (var menu in allMenus)
+                {
+                    if (menu.IsVisible) screenReaderRoots.Add(menu.transform);
+                }
+                if (!IsInStage)
+                {
+                    foreach (var backdropPart in menuBackdrop) screenReaderRoots.Add(backdropPart.transform);
+                }
+            }
+            screenReader.ShowScreen(screenReaderRoots);
         }
 
         /// <summary>Returns everything on the background canvas except the BACK button, which stays visible in stages.</summary>

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84cf2f789a8b479fb2a0111dbf44fc6, type: 3}
+  m_Name: HighContrastLightTheme
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemePalette
+  background: {r: 0.9137255, g: 0.92156863, b: 0.9372549, a: 1}
+  surface: {r: 1, g: 1, b: 1, a: 1}
+  raised: {r: 1, g: 1, b: 1, a: 1}
+  muted: {r: 0.89411765, g: 0.90588236, b: 0.92156863, a: 1}
+  border: {r: 0.36078432, g: 0.3882353, b: 0.4392157, a: 1}
+  track: {r: 0.36078432, g: 0.3882353, b: 0.4392157, a: 1}
+  textPrimary: {r: 0, g: 0, b: 0, a: 1}
+  textSecondary: {r: 0.13725491, g: 0.14901961, b: 0.1764706, a: 1}
+  textTertiary: {r: 0.2, g: 0.21568628, b: 0.24705882, a: 1}
+  accent: {r: 0.11372549, g: 0.24705882, b: 0.6901961, a: 1}
+  onAccent: {r: 1, g: 1, b: 1, a: 1}
+  accentSoft: {r: 0.7882353, g: 0.8392157, b: 0.98039216, a: 1}
+  danger: {r: 0.65882355, g: 0.09803922, b: 0.11372549, a: 1}
+  dim: {r: 0, g: 0, b: 0, a: 0.7}
+  starUnearned: {r: 0.41960785, g: 0.44313726, b: 0.4862745, a: 1}

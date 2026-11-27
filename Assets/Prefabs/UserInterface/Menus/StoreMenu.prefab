@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1970983802251641419}
   - component: {fileID: 8045364752179420947}
   - component: {fileID: 8355353737426551021}
+  - component: {fileID: 7917018110348119145}
   m_Layer: 0
   m_Name: TXT_StoreTitle
   m_TagString: Untagged
@@ -152,6 +153,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &7917018110348119145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196880812834509417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1 &2374823297396010894
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +202,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -200, y: -200}
+  m_SizeDelta: {x: -80, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3175904073722755582
 CanvasRenderer:
@@ -211,6 +224,7 @@ GameObject:
   - component: {fileID: 6934971850758254112}
   - component: {fileID: 7865194763339365881}
   - component: {fileID: 4159260064486221506}
+  - component: {fileID: 6984452073835621105}
   m_Layer: 0
   m_Name: TXT_StoreEmpty
   m_TagString: Untagged
@@ -351,6 +365,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 7
+--- !u!114 &6984452073835621105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7436398787754222523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904b909f591354dd9aa31c3c00e7ec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.AccessibleText
 --- !u!1001 &1703840737052070753
 PrefabInstance:
   m_ObjectHideFlags: 0

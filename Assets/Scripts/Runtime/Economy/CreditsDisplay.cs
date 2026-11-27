@@ -4,17 +4,19 @@ using System.Text;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 
 namespace UnityTemplate.Economy
 {
-    /// <summary>Shows both currency balances and rolls the number up whenever a balance changes.</summary>
+    /// <summary>Shows both currency balances and rolls the number up whenever a balance changes, or jumps to it with reduced motion.</summary>
     public class CreditsDisplay : MonoBehaviour
     {
         public const float RollUpSeconds = 101 / 30f;
         [SerializeField] private CreditDisplay credits;
         [SerializeField] private CreditDisplay premiumCredits;
         private CreditsService creditsService;
+        private AccessibilityService accessibility;
 
         private SaveService saveService;
 
@@ -23,6 +25,7 @@ namespace UnityTemplate.Economy
         {
             creditsService = ServiceLocator.Get<CreditsService>();
             saveService = ServiceLocator.Get<SaveService>();
+            accessibility = ServiceLocator.Get<AccessibilityService>();
             creditsService.BalanceChanged += OnBalanceChanged;
             saveService.DataLoaded += ShowCurrentBalances;
             ShowCurrentBalances();
@@ -44,10 +47,12 @@ namespace UnityTemplate.Economy
             premiumCredits.Show(creditsService.GetBalance(Currency.PremiumCredits));
         }
 
-        /// <summary>Rolls the changed balance's read-out up to its new value.</summary>
+        /// <summary>Rolls the changed balance's read-out up to its new value, or shows it at once with reduced motion.</summary>
         private void OnBalanceChanged(Currency currency, ValueChange change)
         {
-            (currency == Currency.Credits ? credits : premiumCredits).Animate(change, gameObject);
+            var display = currency == Currency.Credits ? credits : premiumCredits;
+            if (accessibility.IsReducedMotion) display.Show(change.NewValue);
+            else display.Animate(change, gameObject);
         }
 
         /// <summary>One balance read-out; changes that arrive mid-animation are queued and played afterwards.</summary>

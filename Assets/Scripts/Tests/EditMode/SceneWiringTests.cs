@@ -7,6 +7,7 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Achievements;
 using UnityTemplate.Core;
 using UnityTemplate.Theming;
@@ -43,7 +44,7 @@ namespace UnityTemplate.Tests
         public void GameInitialiserReferencesAreAssigned()
         {
             var initialiser = new SerializedObject(FindInScene<GameInitialiser>());
-            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "menuCamera", "stageCatalogue", "achievementCatalogue", "lightTheme", "darkTheme" })
+            foreach (var field in new[] { "objectPooler", "audioManager", "userInterfaceManager", "menuCamera", "stageCatalogue", "achievementCatalogue", "lightTheme", "darkTheme", "highContrastLightTheme", "highContrastDarkTheme" })
             {
                 Assert.IsNotNull(initialiser.FindProperty(field).objectReferenceValue, $"GameInitialiser.{field} is not assigned.");
             }
@@ -80,6 +81,14 @@ namespace UnityTemplate.Tests
 
         /// <summary>Checks that each menu is a scene instance of a variant of Menu.prefab with its script in the variant.</summary>
         [Test]
+        public void NoticeToastIsAssignedAndHasItsMessageText()
+        {
+            var toast = new SerializedObject(FindInScene<UserInterfaceManager>()).FindProperty("noticeToast").objectReferenceValue as NoticeToast;
+            Assert.IsNotNull(toast, "UserInterfaceManager.noticeToast is not assigned.");
+            Assert.IsNotNull(new SerializedObject(toast).FindProperty("message").objectReferenceValue, "NoticeToast.message is not assigned.");
+        }
+
+        [Test]
         public void EveryMenuIsAVariantOfTheMenuBase()
         {
             var userInterface = new SerializedObject(FindInScene<UserInterfaceManager>());
@@ -91,7 +100,7 @@ namespace UnityTemplate.Tests
             }
         }
 
-        /// <summary>Checks that the confirmation popup and the three Addressable popups are variants of PopUp.prefab.</summary>
+        /// <summary>Checks that the confirmation and accessibility popups and the three Addressable popups are variants of PopUp.prefab.</summary>
         [Test]
         public void EveryPopUpIsAVariantOfThePopUpBase()
         {
@@ -99,6 +108,15 @@ namespace UnityTemplate.Tests
             var confirmation = userInterface.FindProperty("confirmationScreen").objectReferenceValue as PopUpWindow;
             Assert.IsNotNull(confirmation, "UserInterfaceManager.confirmationScreen is not assigned.");
             AssertIsSceneInstanceOfVariant(confirmation, PopUpBasePath);
+            var accessibility = userInterface.FindProperty("accessibilityPopUp").objectReferenceValue as PopUpWindow;
+            Assert.IsNotNull(accessibility, "UserInterfaceManager.accessibilityPopUp is not assigned.");
+            AssertIsSceneInstanceOfVariant(accessibility, PopUpBasePath);
+            var property = new SerializedObject(accessibility).GetIterator();
+            while (property.NextVisible(true))
+            {
+                if (property.propertyType != SerializedPropertyType.ObjectReference || property.name == "m_Script") continue;
+                Assert.IsNotNull(property.objectReferenceValue, $"{accessibility.name}.{property.propertyPath} is not assigned.");
+            }
             foreach (var field in new[] { "firstOpenPopUp", "dailyLogInPopUp", "anniversaryPopUp" })
             {
                 var guid = userInterface.FindProperty(field).FindPropertyRelative("m_AssetGUID").stringValue;
@@ -139,6 +157,33 @@ namespace UnityTemplate.Tests
                 offenders.AddRange(root.GetComponentsInChildren<TMP_Text>(true).Where(text => !inter.Contains(text.font)).Select(text => root.name + "/" + text.name));
             }
             Assert.IsEmpty(offenders, "These texts do not use Inter: " + string.Join(", ", offenders));
+        }
+
+        /// <summary>Checks that every text in the user interface prefabs and the boot scene carries AccessibleText, so text size and bold text reach it.</summary>
+        [Test]
+        public void EveryUserInterfaceTextFollowsTheTextSettings()
+        {
+            var roots = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/UserInterface" }).Select(guid => AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid))).Concat(scene.GetRootGameObjects());
+            var offenders = new List<string>();
+            foreach (var root in roots)
+            {
+                offenders.AddRange(root.GetComponentsInChildren<TMP_Text>(true).Where(text => text.GetComponent<AccessibleText>() == null).Select(text => root.name + "/" + text.name));
+            }
+            Assert.IsEmpty(offenders, "These texts have no AccessibleText: " + string.Join(", ", offenders));
+        }
+
+        /// <summary>Checks that every control in the user interface prefabs (apart from the bare kit pieces) and under the scene's UserInterface root has something for the screen reader to say.</summary>
+        [Test]
+        public void EveryControlHasASpokenLabel()
+        {
+            var prefabs = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/UserInterface" }).Select(AssetDatabase.GUIDToAssetPath).Where(path => !path.Contains("/Kit/")).Select(AssetDatabase.LoadAssetAtPath<GameObject>);
+            var roots = prefabs.Concat(scene.GetRootGameObjects().Where(root => root.name == "UserInterface"));
+            var offenders = new List<string>();
+            foreach (var root in roots)
+            {
+                offenders.AddRange(root.GetComponentsInChildren<UnityEngine.UI.Selectable>(true).Where(control => ScreenReaderLabels.Describe(control).Length == 0).Select(control => root.name + "/" + control.name));
+            }
+            Assert.IsEmpty(offenders, "These controls have no text or ScreenReaderLabel: " + string.Join(", ", offenders));
         }
 
         /// <summary>Checks that the popup references and the stage selection menu's stage item point at Addressable assets.</summary>

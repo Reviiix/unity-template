@@ -3,6 +3,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityTemplate.Accessibility;
 using UnityTemplate.Core;
 using UnityTemplate.Engagement;
 using UnityTemplate.Theming;
@@ -10,7 +11,7 @@ using UnityTemplate.Theming;
 namespace UnityTemplate.UserInterface.MainMenus
 {
     /// <summary>The statistics menu with its performance, achievements (permanent and weekly) and leaderboard tabs.</summary>
-    public class StatisticsMenu : MenuBase
+    public class StatisticsMenu : MenuBase, IScreenReaderSelection
     {
         [SerializeField] private StatisticsPanels startingStatisticsPanel;
         [Header("Tabs")]
@@ -135,6 +136,16 @@ namespace UnityTemplate.UserInterface.MainMenus
             permanentAchievementsContent.SetActive(!weekly);
             SetTabSelected(weeklyAchievementsButton, weeklyAchievementsTitle, weekly);
             SetTabSelected(permanentAchievementsButton, permanentAchievementsTitle, !weekly);
+        }
+
+        /// <summary>True for the tab whose content is showing, so the screen reader says "selected".</summary>
+        public bool IsSelected(Selectable control)
+        {
+            if (control == performanceButton) return performanceContent.activeSelf;
+            if (control == achievementsButton) return achievementsContent.activeSelf;
+            if (control == leaderboardButton) return leaderboardContent.activeSelf;
+            if (control == weeklyAchievementsButton) return weeklyAchievementsContent.activeSelf;
+            return control == permanentAchievementsButton && permanentAchievementsContent.activeSelf;
         }
 
         /// <summary>Shows the leaderboard tab.</summary>
