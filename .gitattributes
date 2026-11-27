@@ -50,6 +50,7 @@ Assets/Graphics/SinglePixel/WhitePixel.png -filter binary
 Assets/Graphics/SocialNetworkIcons.png -filter binary
 Assets/Graphics/VolumeIcons.psd -filter binary
 Assets/Graphics/Wheel.png -filter binary
+Assets/Graphics/CodeLinkIcon.png -filter binary
 
 # Other binaries stay in git.
 *.dll  binary
