@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 7755473394580977167}
   - component: {fileID: 6884315322740006441}
   - component: {fileID: 840867145235695798}
+  - component: {fileID: 5772423447305143618}
   m_Layer: 0
   m_Name: BTN_Close
   m_TagString: Untagged
@@ -452,6 +453,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 3
+--- !u!114 &5772423447305143618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755473394580977165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Close
 --- !u!1 &7755473394874024166
 GameObject:
   m_ObjectHideFlags: 0

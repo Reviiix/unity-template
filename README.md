@@ -132,6 +132,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Set the menu links | Fill in **Url** on the `OpenURLButton` of each link (the social and store buttons in `SettingsMenu.prefab`; the version text in `Initialisation.unity`, which New Game Setup can set). A link button with no URL hides itself, except the version text. In WebGL the link opens from the browser's own click, so pop-up blockers allow it, and a notice explains for 5 seconds that browsers may block the new tab (`UserInterfaceManager.ShowNotice` shows any short message the same way). |
 | Change the welcome reward | Edit `WelcomeCredits` and `WelcomePremiumCredits` in `EngagementService`. The welcome popup shows on the first launch and again on later launches until CLAIM, X or Android back pays the reward once. |
 | Change the accessibility options | The options live in `Prefabs/UserInterface/PopUps/AccessibilityPopUp.prefab` and `AccessibilityService`; high-contrast colours in `Assets/Settings/Themes/HighContrastLightTheme.asset` and `HighContrastDarkTheme.asset`. New text needs an `AccessibleText` component (a test checks), and new animations should use `AccessibilityService.MotionSeconds` so REDUCE MOTION skips them. |
+| Make new UI readable by VoiceOver and TalkBack | Nothing to do for controls with a text label or a text just before them in their row. Give icon-only controls a `ScreenReaderLabel` (a test checks every control has a label). Use an empty `ScreenReaderLabel` to read a group of texts as one item, or implement `IScreenReaderLabelSource` for a label built at runtime. To check in the Editor, set `AssistiveSupport.screenReaderStatusOverride` to `ForceEnabled` in Play Mode and inspect `ScreenReaderService.Hierarchy`. |
 | Tune features | Select `GlobalGameManagers` in `Initialisation.unity`: `GameInitialiser` exposes achievements, the daily bonus and the target frame rate. |
 | Import new sprites or sounds | Put them in `Assets/Graphics` or `Assets/Audio` and run **Tools > Apply Mobile Import Settings**. |
 
@@ -161,7 +162,7 @@ The full standards are in [unity-coding-standards/README.md](unity-coding-standa
   - `unity test <project> --mode EditMode` takes seconds and loads no game; run it after every change.
   - `unity test <project> --mode PlayMode` boots the full game (about a minute, longer on software rendering); run it before a pull request. It backs up and restores your local save.
 
-Manual checklist before a release: cold start, first open, daily wheel (spin and X), anniversary (Tools > Save Data tools), stage fade, RESET ALL, Android back button, airplane mode, the accessibility options with the device's own large text, bold text, Reduce Motion and Increase Contrast turned on before a first launch.
+Manual checklist before a release: cold start, first open, daily wheel (spin and X), anniversary (Tools > Save Data tools), stage fade, RESET ALL, Android back button, airplane mode, the accessibility options with the device's own large text, bold text, Reduce Motion and Increase Contrast turned on before a first launch, and every screen with VoiceOver (iOS) and TalkBack (Android).
 
 ## Troubleshooting
 

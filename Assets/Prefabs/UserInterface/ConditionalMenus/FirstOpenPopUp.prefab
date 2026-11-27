@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 5807752985204623529}
   - component: {fileID: 4149366482823258072}
   - component: {fileID: 6170168883515977871}
+  - component: {fileID: 238652954016177769}
   m_Layer: 0
   m_Name: IMG_CreditsReward
   m_TagString: Untagged
@@ -634,6 +635,19 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &238652954016177769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308643045894837864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: 
 --- !u!1 &7235216100906972368
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +662,7 @@ GameObject:
   - component: {fileID: 3835357990327987986}
   - component: {fileID: 6356774426416033832}
   - component: {fileID: 8287823218397724219}
+  - component: {fileID: 3419452318799803804}
   m_Layer: 0
   m_Name: IMG_PremiumCreditsReward
   m_TagString: Untagged
@@ -773,6 +788,19 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3419452318799803804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235216100906972368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: 
 --- !u!1 &7588737977783276088
 GameObject:
   m_ObjectHideFlags: 0

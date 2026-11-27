@@ -7365,6 +7365,7 @@ GameObject:
   - component: {fileID: 1641482861473269163}
   - component: {fileID: 1641482861473269166}
   - component: {fileID: 1641482861473269167}
+  - component: {fileID: 1641482861473269168}
   m_Layer: 0
   m_Name: BTN_Pause
   m_TagString: Untagged
@@ -7416,6 +7417,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Theming.ThemedGraphic
   colour: 6
+--- !u!114 &1641482861473269168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641482861473269165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b6d41871a97417ba47587cb238b8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityTemplate::UnityTemplate.Accessibility.ScreenReaderLabel
+  label: Pause
 --- !u!222 &1641482862213424583
 CanvasRenderer:
   m_ObjectHideFlags: 0

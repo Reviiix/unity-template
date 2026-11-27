@@ -172,6 +172,20 @@ namespace UnityTemplate.Tests
             Assert.IsEmpty(offenders, "These texts have no AccessibleText: " + string.Join(", ", offenders));
         }
 
+        /// <summary>Checks that every control in the user interface prefabs (apart from the bare kit pieces) and under the scene's UserInterface root has something for the screen reader to say.</summary>
+        [Test]
+        public void EveryControlHasASpokenLabel()
+        {
+            var prefabs = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Prefabs/UserInterface" }).Select(AssetDatabase.GUIDToAssetPath).Where(path => !path.Contains("/Kit/")).Select(AssetDatabase.LoadAssetAtPath<GameObject>);
+            var roots = prefabs.Concat(scene.GetRootGameObjects().Where(root => root.name == "UserInterface"));
+            var offenders = new List<string>();
+            foreach (var root in roots)
+            {
+                offenders.AddRange(root.GetComponentsInChildren<UnityEngine.UI.Selectable>(true).Where(control => ScreenReaderLabels.Describe(control).Length == 0).Select(control => root.name + "/" + control.name));
+            }
+            Assert.IsEmpty(offenders, "These controls have no text or ScreenReaderLabel: " + string.Join(", ", offenders));
+        }
+
         /// <summary>Checks that the popup references and the stage selection menu's stage item point at Addressable assets.</summary>
         [Test]
         public void PopUpAndStageItemReferencesPointAtAddressableAssets()

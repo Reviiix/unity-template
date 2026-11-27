@@ -10,7 +10,7 @@ using UnityTemplate.Core;
 namespace UnityTemplate.Progression
 {
     /// <summary>Shows the player's level, an experience bar and "current/needed" text, animating every experience gain unless reduced motion is on.</summary>
-    public class ExperienceDisplay : MonoBehaviour
+    public class ExperienceDisplay : MonoBehaviour, IScreenReaderLabelSource
     {
         private const float AnimationSeconds = 3;
         [SerializeField] private Image levelBar;
@@ -18,12 +18,17 @@ namespace UnityTemplate.Progression
         [SerializeField] private TMP_Text experienceText;
         private readonly Queue<ValueChange> queuedGains = new();
         private readonly StringBuilder textBuilder = new();
+        private readonly StringBuilder spokenBuilder = new();
         private ExperienceService experience;
         private AccessibilityService accessibility;
         private Sequence gainAnimation;
         private int shownLevel;
 
         private SaveService saveService;
+
+        /// <summary>What the screen reader says for the whole display, e.g. "Level 2, 150 of 300 experience".</summary>
+        public string SpokenLabel => spokenBuilder.Clear().Append("Level ").Append(shownLevel + 1).Append(", ").Append(experience.TotalExperience)
+            .Append(" of ").Append(experience.GetCumulativeExperience(shownLevel)).Append(" experience").ToString();
 
         /// <summary>Shows the current level and experience and follows gains and resets.</summary>
         private void OnEnable()

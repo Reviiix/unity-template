@@ -7,6 +7,7 @@ using DG.Tweening;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Accessibility;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -47,6 +48,7 @@ namespace UnityTemplate.Tests.PlayMode
         [UnityTearDown]
         public IEnumerator TearDownGameAndDeleteItsSave()
         {
+            AssistiveSupport.screenReaderStatusOverride = AssistiveSupport.ScreenReaderStatusOverride.OSDriven;
             DOTween.KillAll();
             var marker = new GameObject("DontDestroyOnLoadMarker");
             Object.DontDestroyOnLoad(marker);
@@ -218,6 +220,51 @@ namespace UnityTemplate.Tests.PlayMode
             StringAssert.Contains("\"textSize\":2", save);
             StringAssert.Contains("\"highContrast\":true", save);
             StringAssert.Contains("\"reduceMotion\":true", save);
+        }
+
+        /// <summary>Turns a screen reader on, checks the main menu's nodes, double-taps through to the accessibility popup and checks that only the popup is then readable.</summary>
+        [UnityTest]
+        public IEnumerator ScreenReaderReadsTheScreenAndKeepsFocusInsidePopUps()
+        {
+            AssistiveSupport.screenReaderStatusOverride = AssistiveSupport.ScreenReaderStatusOverride.ForceEnabled;
+            WriteSave(new SaveData { timesOpened = 3, firstOpenDateTicks = DateTime.Today.AddDays(-2).Ticks, lastDailyBonusDay = DayNumber(DateTime.Today) });
+            yield return LoadInitialisation();
+            var screenReader = ServiceLocator.Get<ScreenReaderService>();
+            Assert.IsTrue(screenReader.IsScreenReaderOn);
+            yield return null;
+            yield return null;
+
+            Assert.AreSame(screenReader.Hierarchy, AssistiveSupport.activeHierarchy);
+            var settings = NodeLabelled(screenReader, "Settings");
+            Assert.AreEqual(AccessibilityRole.Button, settings.role);
+            Assert.Greater(settings.frame.width, 0);
+            Assert.IsTrue(new Rect(0, 0, Screen.width, Screen.height).Overlaps(settings.frame), $"The Settings frame {settings.frame} is off screen.");
+            Assert.IsNotNull(NodeLabelled(screenReader, "Credits 0"));
+
+            Assert.IsTrue(screenReader.Activate(settings));
+            yield return null;
+            yield return null;
+            Assert.IsTrue(Object.FindFirstObjectByType<SettingsMenu>().IsVisible);
+            Assert.AreEqual(AccessibilityRole.Toggle, NodeLabelled(screenReader, "Dark Mode").role);
+            Assert.AreEqual(AccessibilityRole.Slider, NodeLabelled(screenReader, "Volume").role);
+
+            Assert.IsTrue(screenReader.Activate(NodeLabelled(screenReader, "Accessibility")));
+            yield return null;
+            yield return null;
+            var labels = screenReader.Hierarchy.rootNodes.Select(node => node.label).ToList();
+            CollectionAssert.Contains(labels, "Close");
+            CollectionAssert.Contains(labels, "Bold Text");
+            CollectionAssert.DoesNotContain(labels, "Reset All", "The menu behind the popup is still readable.");
+            Assert.IsTrue((NodeLabelled(screenReader, "100%").state & AccessibilityState.Selected) != 0, "The selected text size isn't read as selected.");
+        }
+
+        /// <summary>Returns the screen reader node with a label, failing with the labels there are if none matches.</summary>
+        private static AccessibilityNode NodeLabelled(ScreenReaderService screenReader, string label)
+        {
+            var nodes = screenReader.Hierarchy.rootNodes;
+            var node = nodes.FirstOrDefault(candidate => candidate.label == label);
+            Assert.IsNotNull(node, $"No node labelled '{label}'. Labels: {string.Join(" | ", nodes.Select(candidate => candidate.label))}");
+            return node;
         }
 
         /// <summary>Shows a notice and checks it appears without blocking taps, then hides itself after its time.</summary>
