@@ -25,7 +25,7 @@ using Object = UnityEngine.Object;
 
 namespace UnityTemplate.Tests.PlayMode
 {
-    /// <summary>Boots the real game and walks the menu loop: first launch, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
+    /// <summary>Boots the real game and walks the menu loop: first launch and its welcome reward, the daily bonus wheel, the RESET ALL confirmation, starting the first stage and leaving it again; any logged error or exception fails the test.</summary>
     [Category("Smoke")]
     [PrebuildSetup(typeof(RealSaveBackup))]
     [PostBuildCleanup(typeof(RealSaveBackup))]
@@ -58,16 +58,22 @@ namespace UnityTemplate.Tests.PlayMode
         }
 
         [UnityTest]
-        public IEnumerator FirstLaunchShowsTheMainMenuAndTheWelcomePopUp()
+        public IEnumerator FirstLaunchWelcomePopUpPaysItsRewardOnce()
         {
             yield return LoadInitialisation();
 
-            Assert.AreEqual(1, ServiceLocator.Get<EngagementService>().TimesOpened);
+            var engagement = ServiceLocator.Get<EngagementService>();
+            Assert.AreEqual(1, engagement.TimesOpened);
             var welcome = default(FirstOpenPopUpMenu);
             yield return WaitUntil(() => (welcome = Object.FindFirstObjectByType<FirstOpenPopUpMenu>()) != null && welcome.State == PopUpState.Open);
 
-            FindButtonByName(welcome.gameObject, "BTN_Continue").onClick.Invoke();
+            FindButtonByName(welcome.gameObject, "BTN_Claim").onClick.Invoke();
             yield return WaitUntil(() => welcome == null);
+
+            var credits = ServiceLocator.Get<CreditsService>();
+            Assert.AreEqual(EngagementService.WelcomeCredits, credits.GetBalance(Currency.Credits));
+            Assert.AreEqual(EngagementService.WelcomePremiumCredits, credits.GetBalance(Currency.PremiumCredits));
+            Assert.IsFalse(engagement.IsWelcomeRewardPending);
         }
 
         [UnityTest]

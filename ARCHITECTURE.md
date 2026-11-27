@@ -15,7 +15,7 @@
 
 Because all of this happens in `Awake`, every other component can resolve services in its own `Awake`/`OnEnable`.
 
-`GameInitialiser.Start` (asynchronous) starts the background Remote Config fetch and runs the start-up popups: the first-open popup on the first launch, otherwise the anniversary popup and then the daily bonus popup, one after another.
+`GameInitialiser.Start` (asynchronous) starts the background Remote Config fetch and runs the start-up popups: the welcome popup until its one-off reward (1000 credits and 100 premium credits) is claimed, otherwise the anniversary popup and then the daily bonus popup, one after another.
 
 `OnApplicationPause(true)` and `OnApplicationQuit` save, because mobile operating systems kill backgrounded apps without warning.
 
@@ -29,7 +29,7 @@ Because all of this happens in `Awake`, every other component can resolve servic
 | `CreditsService` | C# | Credits and premium credits | balances | `BalanceChanged` |
 | `ExperienceService` | C# | Experience and level (table precomputed once) | total experience | `ExperienceChanged`, `LevelChanged` |
 | `ProgressService` | C# | Stage ratings, unlocks, CONTINUE target, high score | ratings, high score | - |
-| `EngagementService` | C# | App opens, play time, daily bonus and streak, anniversaries | yes | - |
+| `EngagementService` | C# | App opens, play time, the welcome reward, daily bonus and streak, anniversaries | yes | - |
 | `AchievementService` | C# | Permanent and remotely configured achievements | unlocked ids | `AchievementUnlocked` |
 | `ThemeService` | C# | Light or dark theme and its colours (see Look) | dark mode | `Changed` |
 | `StageLoader` | C# | Fade, load a stage scene, fade back | - | - |
@@ -57,7 +57,7 @@ Rules:
 - Each menu (`MainMenu`, `StageSelectionMenu`, `StatisticsMenu`, `SettingsMenu`, `StoreMenu`) is a `MenuBase` component on the root canvas of its own prefab in `Prefabs/UserInterface/Menus`. Every menu prefab is a variant of `Menu.prefab`, which holds the canvas set-up they share: overlay canvas, Scale With Screen Size at 1600×900 with Expand, and a graphic raycaster. Each variant overrides only what differs from the base, such as its name and whether its canvas starts enabled.
 - `UserInterfaceManager` references the menu instances in `Initialisation.unity` and initialises them in a fixed order; showing a menu enables its canvas and hides the others.
 - Popups derive from `PopUpWindow` and move through Hidden, Opening, Open and Closing. They slide in from the left with DOTween (`Ease.OutExpo`, 0.87 s, from `Screen.width * 2 + 500` units off-screen), which matches the original frame-based movement at 30 fps.
-- Three ways to close a popup, matching the original game: `CloseImmediately` (vanish with the menu whoosh; daily CLAIM, anniversary CLAIM), `CloseWithSlide` (slide out silently; every X button and the welcome CONTINUE), `CloseWithSlide(playSound: true)` (confirmation YES/NO).
+- Three ways to close a popup, matching the original game: `CloseImmediately` (vanish with the menu whoosh; daily CLAIM, anniversary CLAIM), `CloseWithSlide` (slide out silently; every X button and the welcome CLAIM), `CloseWithSlide(playSound: true)` (confirmation YES/NO).
 - Every popup prefab is a variant of `Prefabs/UserInterface/PopUps/PopUp.prefab`, the shared frame: a dimmed backdrop and a white rounded panel with a title and a round close button. `ConfirmationPopUp.prefab` removes the title and close button (it shows its own question with NO and YES); like every popup, its backdrop dims and blocks taps on the menus behind it.
 - Conditional popups are Addressable prefabs instantiated with `Addressables.InstantiateAsync` and released with `ReleaseInstance` after closing. The confirmation popup is an instance of `ConfirmationPopUp.prefab` in the scene and is reused.
 - Canvas sort orders: background and the unused in-stage HUD 0, menus 1 (set on `Menu.prefab`), the unused pause and game-over screens 2 and 4, popups 5, confirmation, achievement toast and cheats 10, stage fade 100.

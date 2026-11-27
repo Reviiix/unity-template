@@ -1,6 +1,6 @@
 # Unity Template
 
-A mobile game template: boot scene, main menu, stage selection, statistics, settings, store, a daily bonus wheel, first-open and anniversary popups, currencies, experience levels, achievements and a save system.
+A mobile game template: boot scene, main menu, stage selection, statistics, settings, store, a daily bonus wheel, a welcome reward and anniversary popups, currencies, experience levels, achievements and a save system.
 
 | | |
 |---|---|
@@ -130,6 +130,7 @@ How the code fits together (boot order, services, saves, popups) is described in
 | Change achievements | Edit `Assets/Settings/AchievementCatalogue.asset`. Switch the feature on with **Achievements Enabled** on `GameInitialiser`. |
 | Play a stage quickly | **Tools > Scenes > Play First Stage (Skip Start-Up Popups)**, or `StagePlayCheck.Play(group, stage)` from a script: boots the game, closes the start-up popups, loads the stage, and restores your save when you leave Play Mode. |
 | Set the menu links | Fill in **Url** on the `OpenURLButton` of each link (the social and store buttons in `SettingsMenu.prefab`; the version text in `Initialisation.unity`, which New Game Setup can set). A link button with no URL hides itself, except the version text. In WebGL the link opens from the browser's own click, so pop-up blockers allow it, and a notice explains for 5 seconds that browsers may block the new tab (`UserInterfaceManager.ShowNotice` shows any short message the same way). |
+| Change the welcome reward | Edit `WelcomeCredits` and `WelcomePremiumCredits` in `EngagementService`. The welcome popup shows on the first launch and again on later launches until CLAIM, X or Android back pays the reward once. |
 | Tune features | Select `GlobalGameManagers` in `Initialisation.unity`: `GameInitialiser` exposes achievements, the daily bonus and the target frame rate. |
 | Import new sprites or sounds | Put them in `Assets/Graphics` or `Assets/Audio` and run **Tools > Apply Mobile Import Settings**. |
 
