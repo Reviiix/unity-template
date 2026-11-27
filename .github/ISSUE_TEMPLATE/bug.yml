@@ -1,0 +1,43 @@
+name: Bug
+description: Something doesn't work or looks wrong.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead.
+      placeholder: Tapping a link in the browser does nothing; it should open my YouTube page in a new tab.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The shortest way to see it. Say if it only happens sometimes.
+      placeholder: |
+        1. Open the WebGL preview
+        2. Settings > tap the YouTube icon
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - Unity Editor
+        - Browser (WebGL)
+        - iOS
+        - Android
+        - Not sure
+  - type: input
+    id: device
+    attributes:
+      label: Device, browser or screen size
+      placeholder: iPhone 15, Safari 18 / 2560×1080 monitor
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots, video or log
+      description: Paste or drag them in. The browser console or the Editor log helps with errors.

@@ -1,0 +1,40 @@
+name: Feature
+description: Something new, or a change to how something works.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What should it do?
+      description: Describe it from the player's side. Numbers help (amounts, timings, limits).
+      placeholder: A button on the main menu that gives 100 coins and can be pressed again every 4 hours.
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where in the game?
+      multiple: true
+      options:
+        - Main menu
+        - Stage selection
+        - Statistics
+        - Settings
+        - Store
+        - Popups
+        - Inside a stage
+        - Builds or tooling
+        - Everywhere / not sure
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when…
+      description: How you'll know it's finished, plus anything it must not change.
+      placeholder: |
+        - The button shows a countdown until it can be pressed again
+        - It works offline
+  - type: textarea
+    id: references
+    attributes:
+      label: Sketches or references
+      description: Mock-ups, screenshots or links to something similar.

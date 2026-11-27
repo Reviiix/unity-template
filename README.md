@@ -107,7 +107,7 @@ Assets/
   Editor/RemoteConfig/      Remote Config editor data (this path is fixed by the package)
 unity-coding-standards/     Git submodule: the coding standards every change follows (outside Assets, so Unity ignores it)
 CLAUDE.md                   One-page map for coding agents (points into these docs)
-.github/                    Workflows (Unity version tags; template origin tags in games) and their scripts
+.github/                    Workflows (Unity version tags; template origin tags in games), their scripts, and the Bug and Feature issue forms
 ```
 
 How the code fits together (boot order, services, saves, popups) is described in [ARCHITECTURE.md](ARCHITECTURE.md).
