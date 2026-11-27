@@ -77,10 +77,11 @@ namespace UnityTemplate.UserInterface.ConditionalMenus
             bonusWheel.SpinTo(segment);
         }
 
-        /// <summary>Rolls up the wheel win, then allows claiming.</summary>
+        /// <summary>Rolls up the wheel win (and has a screen reader say it), then allows claiming.</summary>
         private void OnWheelSpinEnded(int segmentValue)
         {
             wheelWinnings = segmentValue;
+            ServiceLocator.Get<ScreenReaderService>().Announce("Wheel win: " + segmentValue);
             RollUpWheelWin(0, segmentValue, () => proceedButton.interactable = true);
         }
 
