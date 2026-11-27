@@ -11,6 +11,7 @@ A one-page map for coding agents. It doesn't repeat the docs; read them for deta
 - **Vocabulary:** a *stage* is a playable scene; a *level* is an experience level.
 - **Boot:** the game only runs from `Assets/Scenes/Initialisation.unity`. Its `GameInitialiser` creates and registers every service, so any other scene played alone fails with `No X is registered`.
 - **Colours** come from the theme: a `ThemedGraphic` naming a `ThemeColour`, or a `ThemeColour` field resolved through `ThemeService`. Never hard-code a colour.
+- **Accessibility:** every UI text carries `AccessibleText` (`SceneWiringTests` checks), and animations take their length from `AccessibilityService.MotionSeconds` so REDUCE MOTION skips them.
 - **UI** is built from the `Prefabs/UserInterface/Kit` prefabs, and menus and popups are variants of `Menu.prefab` and `PopUp.prefab`. Never re-parent or rebuild `PopUp.prefab` itself: its variants' overrides point at its objects.
 - **Saves:** add `SaveData` fields; never rename or retype one.
 - Keep **Reload Domain** on, and don't add static state that only a domain reload clears.
