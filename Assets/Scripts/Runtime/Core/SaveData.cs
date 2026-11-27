@@ -25,6 +25,7 @@ namespace UnityTemplate.Core
         public int lastDailyBonusDay = -1;
         public int dailyBonusStreak;
         public int pendingWheelSegment = -1;
+        public bool welcomeRewardPending;
 
         public float volume = 1f;
         public bool muted;

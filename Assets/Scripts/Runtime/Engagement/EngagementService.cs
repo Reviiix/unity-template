@@ -3,11 +3,13 @@ using UnityTemplate.Core;
 
 namespace UnityTemplate.Engagement
 {
-    /// <summary>Tracks app opens, play time, the daily bonus (eligibility, streak, pending wheel result) and first-open anniversaries.</summary>
+    /// <summary>Tracks app opens, play time, the one-off welcome reward, the daily bonus (eligibility, streak, pending wheel result) and first-open anniversaries.</summary>
     public class EngagementService : ISaveable
     {
         public const int DailyBonusCreditsPerStreakDay = 10;
         public const int AnniversaryCreditsPerYear = 100;
+        public const int WelcomeCredits = 1000;
+        public const int WelcomePremiumCredits = 100;
         public const int NoPendingWheelSegment = -1;
         private readonly SaveService saveService;
         private readonly Func<double> realtimeClock;
@@ -25,6 +27,7 @@ namespace UnityTemplate.Engagement
         public TimeSpan TotalPlayTime => savedPlayTime + SessionPlayTime;
         public TimeSpan SessionPlayTime => TimeSpan.FromSeconds(sessionSecondsBeforePause + (sessionRunning ? realtimeClock() - sessionSegmentStart : 0));
         public int PendingWheelSegment { get; private set; } = NoPendingWheelSegment;
+        public bool IsWelcomeRewardPending { get; private set; }
 
         /// <summary>Creates the service with a clock in seconds (Time.realtimeSinceStartupAsDouble in the game); state comes from the save file.</summary>
         public EngagementService(SaveService saveService, Func<double> realtimeClock)
@@ -33,7 +36,7 @@ namespace UnityTemplate.Engagement
             this.realtimeClock = realtimeClock;
         }
 
-        /// <summary>Counts this launch; the very first launch records the first-open date and starts the daily bonus from tomorrow.</summary>
+        /// <summary>Counts this launch; the very first launch records the first-open date, owes the welcome reward and starts the daily bonus from tomorrow.</summary>
         public void RecordAppOpen(DateTime today)
         {
             TimesOpened++;
@@ -41,6 +44,7 @@ namespace UnityTemplate.Engagement
             {
                 firstOpenDate = today.Date;
                 lastDailyBonusDay = ToDayNumber(today);
+                IsWelcomeRewardPending = true;
             }
             saveService.Save();
             GameLog.Info($"App has been opened {TimesOpened} times.");
@@ -101,6 +105,16 @@ namespace UnityTemplate.Engagement
             return true;
         }
 
+        /// <summary>Marks the welcome reward as paid so it is never offered again; returns false if it was not owed.</summary>
+        public bool ClaimWelcomeReward()
+        {
+            if (!IsWelcomeRewardPending) return false;
+
+            IsWelcomeRewardPending = false;
+            saveService.Save();
+            return true;
+        }
+
         /// <summary>Returns how many full years have passed since the first open (a 29 February first open counts on 28 February in other years).</summary>
         public int GetYearsSinceFirstOpen(DateTime today)
         {
@@ -144,6 +158,7 @@ namespace UnityTemplate.Engagement
             lastDailyBonusDay = data.lastDailyBonusDay;
             dailyBonusStreak = data.dailyBonusStreak;
             PendingWheelSegment = data.pendingWheelSegment;
+            IsWelcomeRewardPending = data.welcomeRewardPending;
         }
 
         /// <summary>Writes engagement state, including this session's play time, to the save file.</summary>
@@ -156,6 +171,7 @@ namespace UnityTemplate.Engagement
             data.lastDailyBonusDay = lastDailyBonusDay;
             data.dailyBonusStreak = dailyBonusStreak;
             data.pendingWheelSegment = PendingWheelSegment;
+            data.welcomeRewardPending = IsWelcomeRewardPending;
         }
 
         /// <summary>Returns a year's anniversary date, using 28 February for a 29 February first open in non-leap years.</summary>

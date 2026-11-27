@@ -74,7 +74,7 @@ namespace UnityTemplate.UserInterface
             storeMenu.Initialise();
         }
 
-        /// <summary>Opens the main menu, then the first-open popup, or the anniversary and daily bonus popups one after another; stages cannot start until it finishes.</summary>
+        /// <summary>Opens the main menu, then the welcome popup while its reward is unclaimed, or the anniversary and daily bonus popups one after another; stages cannot start until it finishes.</summary>
         public async Awaitable ShowStartUpPopUpsAsync(bool dailyBonusEnabled)
         {
             ShowMenu(mainMenu);
@@ -83,7 +83,7 @@ namespace UnityTemplate.UserInterface
             {
                 var engagement = ServiceLocator.Get<EngagementService>();
                 var today = System.DateTime.Now;
-                if (engagement.IsFirstOpen)
+                if (engagement.IsWelcomeRewardPending)
                 {
                     await OpenAddressablePopUpAsync(firstOpenPopUp);
                     return;
